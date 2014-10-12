@@ -1,22 +1,22 @@
 h2.margin-bottom Your balance is: #{@user.total_balance}
 .margin-bottom
   = link_to 'New Transfer', new_transfer_path, class: 'button'
-table
+table.responsive.centered
   thead
     tr
-      th width="200" Who to
-      th width="200" How Much
-      th width="200" Last updated
+      th Who to
+      th How Much
+      th Last updated
   tbody
     - @user.balances.each do |balance|
       = render partial: 'user_balances/balance', locals: {user_balance: balance}
 h2.margin-bottom People owe you
-table
+table.responsive.centered
   thead
     tr
-      th width="200" Who
-      th width="200" How Much
-      th width="200" Last updated
+      th Who
+      th How Much
+      th Last updated
   tbody
     - @user.debts.each do |balance|
       = render partial:  'user_balances/debt', locals: {user_balance: balance}

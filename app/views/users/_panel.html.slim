@@ -1,15 +1,17 @@
-.clearfix
-  - if user
-    ul.login-list
-      li.button = link_to 'Sign Out', destroy_user_session_path, method: 'delete'
-    .right.panel-element
-      ' #{user.total_balance} PLN
-    .right.panel-element
-      = link_to 'Settings', edit_user_path(user)
-    .right.panel-element
-      = link_to 'Finances', my_balances_user_path(user)
-    .right.panel-element
-      = link_to 'Dashboard', dashboard_users_path
-  - else
-    ul.login-list
-      li.button = link_to 'Sign in with Google', user_omniauth_authorize_path(:google_oauth2)
+- if user
+  nav.top-bar (role="navigation" data-topbar)
+    ul.title-area
+      li.name
+        h1
+          a (href) code quest Manager
+      li.toggle-topbar.menu-icon
+        a href="#"
+          span
+    section.top-bar-section
+      ul.right
+        li.balance-label
+          a.unhanded(href)= "#{user.total_balance} PLN"
+        li= link_to 'Dashboard', dashboard_users_path
+        li= link_to 'Finances', my_balances_user_path(user)
+        li= link_to 'Settings', edit_user_path(user)
+        li= link_to 'Sign Out', destroy_user_session_path, method: 'delete'

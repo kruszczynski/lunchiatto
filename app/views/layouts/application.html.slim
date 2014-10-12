@@ -1,16 +1,15 @@
 doctype html
 html
   title code quest manager
-  = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-  = javascript_include_tag 'vendor/modernizr', 'data-turbolinks-track' => true
-  = javascript_include_tag 'application', 'data-turbolinks-track' => true
+  = stylesheet_link_tag    'application', media: 'all'
+  = javascript_include_tag 'vendor/modernizr'
+  = javascript_include_tag 'application'
   = csrf_meta_tags
   meta name='viewport' content='width=device-width, initial-scale=1.0'
 body
-  section.main-wrapper class="#{controller_name} #{action_name}"
-    .errors
+  = render partial: 'users/panel', locals: {user: current_user}
+  section.background-div.main-wrapper class="#{controller_name} #{action_name}"
+    .errors.row
       p.notice= notice
       p.alert= alert
-    .wrapper
-      = render partial: 'users/panel', locals: {user: current_user}
-      = yield
+    .wrapper.row= yield

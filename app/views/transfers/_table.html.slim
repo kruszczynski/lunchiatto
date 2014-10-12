@@ -1,13 +1,13 @@
 - action ||= false
-table
+table.responsive.centered
   thead
     tr
-      th width="200" = column.to_s.capitalize
-      th width="200" Amount
-      th width="200" Submitted
-      th width="200" Status
+      th= column.to_s.capitalize
+      th Amount
+      th Submitted
+      th Status
       - if action
-        th width="200" Action
+        th Action
   tbody
   - transfers.decorate.each do |transfer|
     tr

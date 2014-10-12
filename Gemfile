@@ -9,7 +9,6 @@ gem 'slim-rails', '2.1.5'
 gem 'skim', '0.9.3'
 
 gem 'jquery-rails', '3.1.1'
-gem 'turbolinks', '2.2.2'
 gem 'devise', '3.2.4'
 
 gem 'jbuilder', '~> 2.0'
