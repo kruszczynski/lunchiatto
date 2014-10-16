@@ -21,5 +21,7 @@ module CodequestManager
     # config.i18n.default_locale = :de
     config.time_zone = 'Warsaw'
     config.middleware.use Rack::Deflater
+
+    config.autoload_paths += %W( #{config.root}/app/presenters )
   end
 end
