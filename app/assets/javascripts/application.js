@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation.min
-//= require_tree .
+//= require_tree ./lib
 
 $(function(){
   $(document).foundation();

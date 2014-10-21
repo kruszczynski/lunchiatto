@@ -3,7 +3,7 @@
     ' Total price of the order:
     span#order-total=@order.amount
   = f.label :shipping, 'Shipping Cost'
-  = f.text_field :shipping
+  = f.text_field :shipping, 'data-toggle' => 'dot-inserter'
   .margin-bottom-medium
     ' Final Quota:
     span#total= @order.amount + @order.shipping
