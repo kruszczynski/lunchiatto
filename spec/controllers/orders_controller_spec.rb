@@ -75,6 +75,26 @@ describe OrdersController, :type => :controller do
     end
   end
 
+  describe 'GET show' do
+    before do
+      @order = build(:order) do |order|
+        order.user = @user
+      end
+      @order.save
+    end
+
+    it 'renders show template' do
+      sign_in @user
+      get :show, id: @order.id
+      expect(response).to render_template :show
+    end
+
+    it 'redirects to index when not logged in' do
+      put :update, id: @order.id
+      expect(response).to redirect_to root_path
+    end
+  end
+
   describe 'PUT change_status' do
     before do
       @order = build(:order) do |order|

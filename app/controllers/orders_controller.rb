@@ -39,6 +39,10 @@ class OrdersController < ApplicationController
     @orders = Order.past.decorate
   end
 
+  def show
+    @order = @order.decorate
+  end
+
   private
 
   def assign_users

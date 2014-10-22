@@ -1,5 +1,5 @@
 section.dishes
-  - unless order.current_user_ordered?
+  - unless order.current_user_ordered? || !order.in_progress?
     .margin-bottom-medium You haven't ordered anything yet
     .margin-bottom-medium
       = link_to 'Click here to order', new_order_dish_path(order), class: 'button'

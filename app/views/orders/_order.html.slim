@@ -1,7 +1,4 @@
 tr
-  th= order.date
-  th= order.user
-  th= order.from
-  th= order.shipping
-  th= order.amount
-  th= order.current_user_ordered?
+  th= link_to order.date, order_path(order)
+  th= link_to order.from, order_path(order)
+  th= link_to order.status, order_path(order)
