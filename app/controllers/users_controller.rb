@@ -22,10 +22,15 @@ class UsersController < ApplicationController
   def my_balances
     @user = current_user
   end
+
+  def account_numbers
+    @users = User.all.order('name')
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:substract_from_self)
+    params.require(:user).permit(:substract_from_self, :account_number)
   end
 
   def find_user

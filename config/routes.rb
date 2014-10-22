@@ -8,8 +8,11 @@ Rails.application.routes.draw do
 
   resources :transfers, only: [:new, :create]
   resources :users, only: [:edit, :update] do
-    get :dashboard, on: :collection
     get :my_balances, on: :member
+    collection do
+      get :dashboard
+      get :account_numbers
+    end
   end
 
   resources :transfers, only: [] do

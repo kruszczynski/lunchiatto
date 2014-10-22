@@ -62,4 +62,19 @@ describe UsersController, type: :controller do
       expect(response).to redirect_to dashboard_users_path
     end
   end
+
+  describe 'GET :account_numbers' do
+    before do
+      @user = create(:user)
+    end
+    it 'renders template' do
+      sign_in @user
+      get :account_numbers
+      expect(response).to render_template :account_numbers
+    end
+    it 'redirects to index when not logged in' do
+      get :account_numbers
+      expect(response).to redirect_to root_path
+    end
+  end
 end
