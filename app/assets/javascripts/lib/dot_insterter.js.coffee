@@ -8,7 +8,9 @@ do ($ = jQuery, window, document) ->
         @onElementKeyup()
 
     onElementKeyup: ->
-      @$el.val(@$el.val().replace(',','.'))
+      val = @$el.val()
+      if val.indexOf(',') isnt -1
+        @$el.val(val.replace(',','.'))
 
     $.fn[pluginName] = (options) ->
       options ||= {}
