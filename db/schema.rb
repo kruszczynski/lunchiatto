@@ -58,12 +58,10 @@ ActiveRecord::Schema.define(version: 20141022211123) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "recipient_id"
     t.integer  "payer_id"
   end
 
   add_index "user_balances", ["payer_id"], name: "index_user_balances_on_payer_id", using: :btree
-  add_index "user_balances", ["recipient_id"], name: "index_user_balances_on_recipient_id", using: :btree
   add_index "user_balances", ["user_id"], name: "index_user_balances_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
