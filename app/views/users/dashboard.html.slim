@@ -5,6 +5,10 @@ h1 This is the user dashboard
     = render partial: 'orders/summary', locals: {order: @order}
   - else
     h2 No order for today
-    = link_to 'Add order', new_order_path, class: 'button'
+    = link_to 'Add order', new_order_path, class: 'button', data: { js: 'newOrder'}
   - if @order
     = render partial: 'orders/show', locals: {order: @order}
+
+#myModal.reveal-modal
+
+  a.close-reveal-modal ×

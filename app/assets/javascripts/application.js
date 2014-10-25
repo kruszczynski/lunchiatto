@@ -15,8 +15,14 @@
 //= require underscore
 //= require backbone
 //= require foundation.min
+//= require hamlcoffee
+//= require_tree ./templates
 //= require_tree ./lib
+//= require app
+//= require_tree ./views
+//= require router
 
 $(function(){
   $(document).foundation();
 });
+

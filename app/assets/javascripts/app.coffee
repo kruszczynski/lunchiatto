@@ -1,0 +1,5 @@
+window.CodequestManager =
+  Routers: {}
+  Views: {}
+
+
