@@ -56,5 +56,4 @@ end
 
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'haml_coffee_assets'
-gem 'execjs'
+
