@@ -2,11 +2,11 @@ CodequestManager.Views.Dashboard = Backbone.View.extend
 
   el: '.wrapper'
 
-  template: JST['new-order']
-
   events:
-    'click [data-js=newOrder]': 'createOrder'
+    'click [data-js=newOrder]': 'newOrder'
 
-  createOrder: (event) ->
-    event.preventDefault()
+  newOrder: (e) ->
+    e.preventDefault()
+    orderForm = new CodequestManager.Views.OrderForm
+    $('#myModal').html(orderForm.render().el)
     $('#myModal').foundation('reveal', 'open')

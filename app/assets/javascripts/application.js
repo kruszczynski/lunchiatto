@@ -10,9 +10,12 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require tilt-jade/runtime
 //= require jquery
 //= require jquery_ujs
 //= require foundation.min
+//= require underscore/underscore-min
+//= require backbone/backbone
 //= require_tree ./templates
 //= require_tree ./lib
 //= require app

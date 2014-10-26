@@ -98,6 +98,7 @@ GEM
     hike (1.2.3)
     hirb (0.7.2)
     i18n (0.6.11)
+    jade-js-source (0.28.0)
     jbuilder (2.1.3)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -249,6 +250,11 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
+    tilt-jade (1.2.0)
+      execjs
+      jade-js-source (> 0.27.0)
+      sprockets
+      tilt
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.5.3)
@@ -299,5 +305,6 @@ DEPENDENCIES
   simplecov
   skim (= 0.9.3)
   slim-rails (= 2.1.5)
+  tilt-jade (~> 1.2.0)
   uglifier (>= 1.3.0)
   upmin-admin
