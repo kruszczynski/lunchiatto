@@ -59,4 +59,8 @@ class User < ActiveRecord::Base
   def total_debt
     debts.inject(Money.new(0,'PLN')) {|sum, debt| sum = sum+debt.balance}
   end
+
+  def pending_transfers_count
+    received_transfers.pending.size
+  end
 end

@@ -154,4 +154,24 @@ describe User do
       expect(@user.total_debt).to eq(money)
     end
   end
+
+  describe '#pending_transfers_count' do
+    before do
+      @user = create :user
+      other_user = create :other_user
+      @transfer_one = build(:transfer) do |transfer|
+        transfer.from = @user
+        transfer.to = other_user
+      end
+      @transfer_one.save!
+      @transfer_two = build(:transfer) do |transfer|
+        transfer.from = other_user
+        transfer.to = @user
+      end
+      @transfer_two.save!
+    end
+    it 'returns adequate count' do
+      expect(@user.pending_transfers_count).to eq(1)
+    end
+  end
 end

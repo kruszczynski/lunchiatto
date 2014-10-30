@@ -12,7 +12,7 @@
           li.balance-label
             a.unhanded(href)= "#{user.total_balance} PLN"
           li= link_to 'Dashboard', dashboard_users_path
-          li= link_to 'Finances', my_balances_user_path(user)
+          li= link_to "Finances (#{user.pending_transfers_count})", my_balances_user_path(user)
           li= link_to 'Account Numbers', account_numbers_users_path
           li= link_to 'Settings', edit_user_path(user)
           li= link_to 'Sign Out', destroy_user_session_path, method: 'delete'
