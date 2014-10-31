@@ -4,6 +4,10 @@ class UsersController < ApplicationController
 
   def dashboard
     @order = Order.todays_order.try(:decorate)
+    respond_to do |format|
+      format.html
+      format.json {render json: @order}
+    end
   end
 
   def edit

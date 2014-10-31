@@ -2,15 +2,30 @@ require 'spec_helper'
 
 describe UsersController, type: :controller do
   describe 'GET :dashboard' do
-    it 'shows dasboard to signed in user' do
-      @user = create(:user)
-      @order = build(:order) do |order|
-        order.user = @user
+    describe 'html' do
+      it 'shows dasboard to signed in user' do
+        @user = create(:user)
+        @order = build(:order) do |order|
+          order.user = @user
+        end
+        @order.save!
+        sign_in @user
+        get :dashboard, format: :html
+        expect(response).to render_template :dashboard
       end
-      @order.save!
-      sign_in @user
-      get :dashboard
-      expect(response).to render_template :dashboard
+    end
+
+    describe 'json' do
+      it 'returns dashboard data' do
+        @user = create(:user)
+        @order = build(:order) do |order|
+          order.user = @user
+        end
+        @order.save!
+        sign_in @user
+        get :dashboard, format: :json
+        expect(response).to have_http_status(:success)
+      end
     end
 
     it 'redirects not signed in user to root' do
