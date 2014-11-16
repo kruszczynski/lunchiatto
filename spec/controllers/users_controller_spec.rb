@@ -13,6 +13,10 @@ describe UsersController, type: :controller do
         get :dashboard, format: :html
         expect(response).to render_template :dashboard
       end
+      it 'redirects not signed in user to root' do
+        get :dashboard
+        expect(response).to redirect_to root_path
+      end
     end
 
     describe 'json' do
@@ -26,11 +30,10 @@ describe UsersController, type: :controller do
         get :dashboard, format: :json
         expect(response).to have_http_status(:success)
       end
-    end
-
-    it 'redirects not signed in user to root' do
-      get :dashboard
-      expect(response).to redirect_to root_path
+      it 'returns 401 for unsigned in' do
+        get :dashboard, format: :josn
+        expect(response).to have_http_status(401)
+      end
     end
   end
 
@@ -54,9 +57,27 @@ describe UsersController, type: :controller do
     before do
       @user = create(:user)
     end
-    it 'succeeds' do
-      # put :update, id: @user.id, user: {name: 'Pane'}
-      # expect(response).to have_http_status(:success)
+    describe 'html' do
+      it 'succeeds' do
+        sign_in @user
+        put :update, id: @user.id, user: {substract_from_self: true}
+        expect(response).to redirect_to dashboard_users_path
+      end
+      it 'redirects not signed in user to root' do
+        put :update, id: @user.id, user: {substract_from_self: true}
+        expect(response).to redirect_to root_path
+      end
+    end
+    describe 'json' do
+      it 'returns user object on json' do
+        sign_in @user
+        put :update, id: @user.id, user: {substract_from_self: true}, format: :json
+        expect(response).to have_http_status(:success)
+      end
+      it 'returns 401 for unlogged in json' do
+        put :update, id: @user.id, user: {substract_from_self: true}, format: :json
+        expect(response).to have_http_status(401)
+      end
     end
   end
 
@@ -90,6 +111,22 @@ describe UsersController, type: :controller do
     it 'redirects to index when not logged in' do
       get :account_numbers
       expect(response).to redirect_to root_path
+    end
+  end
+
+  describe 'GET :index' do
+    before do
+      @user = create(:user)
+      @other_user = create(:other_user)
+    end
+    it 'redirects to index when not logged in' do
+      get :index, format: :json
+      expect(response).to have_http_status(401)
+    end
+    it 'renders json' do
+      sign_in @user
+      get :index, format: :json
+      expect(response).to have_http_status(:success)
     end
   end
 end

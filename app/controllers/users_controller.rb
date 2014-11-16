@@ -2,6 +2,11 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   before_filter :only_current_user, only: [:my_balances]
 
+  def index
+    @users = User.all.order('name')
+    render json: @users
+  end
+
   def dashboard
     @order = Order.todays_order.try(:decorate)
     respond_to do |format|
@@ -17,9 +22,15 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update_attributes(user_params)
-      redirect_to dashboard_users_path
+      respond_to do |format|
+        format.html {redirect_to dashboard_users_path}
+        format.json {render json: @user}
+      end
     else
-      redirect_to edit_user_path(@user)
+      respond_to do |format|
+        format.html {redirect_to edit_user_path(@user)}
+        format.json
+      end
     end
   end
 
