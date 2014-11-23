@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :submitted_transfers, only: [:index]
+
   resources :orders, except: [:destroy] do
     resources :dishes, except: [:show] do
       get :copy, on: :member
