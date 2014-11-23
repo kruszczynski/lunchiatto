@@ -9,33 +9,54 @@ class TransfersController < ApplicationController
       [user.name, user.id]
     end
     @users.unshift ['Select destination', '']
+    respond_to do |format|
+      format.html
+    end
   end
 
   def create
     @transfer = @user.received_transfers.build transfer_params
     @transfer.from = current_user
     if @transfer.save
-      redirect_to my_balances_user_path(current_user), notice: 'Transfer successfully submitted'
+      respond_to do |format|
+        format.html { redirect_to my_balances_user_path(current_user), notice: 'Transfer successfully submitted' }
+        format.json { render json: @transfer }
+      end
     else
-      redirect_to new_transfer_path, alert: @transfer.errors.full_messages.join(' ')
+      respond_to do |format|
+        format.html { redirect_to new_transfer_path, alert: @transfer.errors.full_messages.join(' ') }
+        format.json { render json: {errors: @transfer.errors}, status: :unprocessable_entity }
+      end
     end
   end
 
   def accept
     if current_user == @transfer.to && @transfer.pending?
       @transfer.mark_as_accepted!
-      redirect_to my_balances_user_path(current_user)
+      respond_to do |format|
+        format.html { redirect_to my_balances_user_path(current_user) }
+        format.json { render json: @transfer}
+      end
     else
-      wrong_user!
+      respond_to do |format|
+        format.html { wrong_user! }
+        format.json { render json: {errors: @transfer.errors}, status: :unprocessable_entity}
+      end
     end
   end
 
   def reject
     if current_user == @transfer.to && @transfer.pending?
       @transfer.rejected!
-      redirect_to my_balances_user_path(current_user)
+      respond_to do |format|
+        format.html { redirect_to my_balances_user_path(current_user) }
+        format.json { render json: @transfer }
+      end
     else
-      wrong_user!
+      respond_to do |format|
+        format.html { wrong_user! }
+        format.json { render json: {errors: @transfer.errors}, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -49,7 +70,10 @@ class TransfersController < ApplicationController
     if params[:user_id].present?
       @user = User.find(params[:user_id])
     else
-      redirect_to(new_transfer_path, alert: 'Please select transfer destination')
+      respond_to do |format|
+        format.html { redirect_to(new_transfer_path, alert: 'Please select transfer destination') }
+        format.json { render json: {error: 'You must specify destination'}, status: :unprocessable_entity }
+      end
     end
   end
 
