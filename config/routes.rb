@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   end
 
   resources :submitted_transfers, only: [:index]
+  resources :received_transfers, only: [:index]
 
   resources :orders, except: [:destroy] do
     resources :dishes, except: [:show] do

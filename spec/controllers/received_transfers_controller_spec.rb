@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SubmittedTransfersController, type: :controller do
+describe ReceivedTransfersController, type: :controller do
   before do
     @user = create :user
     @other_user = create :other_user
@@ -17,7 +17,7 @@ describe SubmittedTransfersController, type: :controller do
   end
   describe 'GET :index' do
     it 'is success' do
-      sign_in @user
+      sign_in @other_user
       get :index, format: :json
       expect(response).to have_http_status(:success)
       expect(JSON.parse(response.body).length).to be(2)
