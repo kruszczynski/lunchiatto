@@ -7,6 +7,8 @@ describe Dish, :type => :model do
   it {should validate_numericality_of(:price_cents)}
   it {should validate_presence_of(:price_cents)}
   it {should validate_presence_of(:name)}
+  it {should validate_presence_of(:user)}
+  it {should validate_presence_of(:order)}
 
   it 'should monetize price' do
     expect(monetize(:price_cents)).to be_truthy
@@ -25,7 +27,7 @@ describe Dish, :type => :model do
       expect(dish.ensure_uniqueness).to be_truthy
     end
     it 'should return false when order and user are already connected' do
-      previous_dish = create(:dish) do |dish|
+      previous_dish = build(:dish) do |dish|
         dish.user = @user
         dish.order = @order
       end

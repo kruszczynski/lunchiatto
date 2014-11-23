@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe DishSerializer do
   before do
-    @dish = create :dish
+    @dish = double(:dish)
     @serializer = DishSerializer.new @dish
   end
 

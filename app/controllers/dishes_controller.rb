@@ -1,7 +1,7 @@
 class DishesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :find_order
-  before_filter :find_dish, only: [:copy, :destroy, :edit]
+  before_filter :find_dish, only: [:copy, :destroy, :edit, :update]
 
   def new
     @dish = @order.dishes.build
@@ -10,37 +10,62 @@ class DishesController < ApplicationController
   def create
     @dish = @order.dishes.build(dish_params)
     if @dish.save
-      redirect_to dashboard_users_path
+      respond_to do |format|
+        format.html { redirect_to dashboard_users_path }
+        format.json { render json: @dish.decorate }
+      end
     else
-      flash.now[:alert] = @dish.errors.full_messages.join(' ')
-      render :new
+      respond_to do |format|
+        format.html do
+          flash.now[:alert] = @dish.errors.full_messages.join(' ')
+          render :new
+        end
+        format.json { render json: {errors: @dish.errors}, status: :unprocessable_entity }
+      end
     end
   end
 
   def edit
+    respond_to do |format|
+      format.html
+    end
   end
 
   def update
-    @dish = Dish.find params[:id]
     if @dish.update(dish_params)
-      redirect_to dashboard_users_path
+      respond_to do |format|
+        format.html { redirect_to dashboard_users_path }
+        format.json { render json: @dish.decorate }
+      end
     else
-      flash.now[:alert] = @dish.errors.full_messages.join(' ')
-      render :edit
+      respond_to do |format|
+        format.html do
+          flash.now[:alert] = @dish.errors.full_messages.join(' ')
+          render :edit
+        end
+        format.json { render json: {errors: @dish.errors}, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
     @dish.delete
-    redirect_to dashboard_users_path
+    respond_to do |format|
+      format.html { redirect_to dashboard_users_path }
+      format.json { render json: {status: 'success'} }
+    end
   end
 
   def copy
     @new_dish = @dish.copy(current_user)
     if @new_dish.save
-      redirect_to dashboard_users_path
+      respond_to do |format|
+        format.html { redirect_to dashboard_users_path }
+      end
     else
-      redirect_to dashboard_users_path, alert: @new_dish.errors.full_messages.join(' ')
+      respond_to do |format|
+        format.html { redirect_to dashboard_users_path, alert: @new_dish.errors.full_messages.join(' ') }
+      end
     end
   end
 
