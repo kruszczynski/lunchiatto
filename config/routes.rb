@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :transfers, only: [:new, :create]
-  resources :users, only: [:index, :edit, :update] do
+  resources :users, except: [:delete] do
     get :my_balances, on: :member
     collection do
       get :dashboard
@@ -30,6 +30,9 @@ Rails.application.routes.draw do
       put :change_status
       get :shipping
       put :finalize
+    end
+    collection do
+      get :latest
     end
   end
 end
