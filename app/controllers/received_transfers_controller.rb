@@ -11,6 +11,6 @@ class ReceivedTransfersController < ApplicationController
   private
 
   def find_received_transfers
-    @transfers = current_user.received_transfers.newest_first
+    @transfers = current_user.received_transfers.newest_first.decorate
   end
 end

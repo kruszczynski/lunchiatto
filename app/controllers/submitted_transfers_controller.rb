@@ -11,6 +11,6 @@ class SubmittedTransfersController < ApplicationController
   private
 
   def find_submitted_transfers
-    @transfers = current_user.submitted_transfers.newest_first
+    @transfers = current_user.submitted_transfers.newest_first.decorate
   end
 end

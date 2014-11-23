@@ -24,6 +24,8 @@ Rails.application.routes.draw do
 
   resources :submitted_transfers, only: [:index]
   resources :received_transfers, only: [:index]
+  resources :user_balances, only: [:index]
+  resources :user_debts, only: [:index]
 
   resources :orders, except: [:destroy] do
     resources :dishes, except: [:show] do
