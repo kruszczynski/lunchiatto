@@ -6,7 +6,6 @@ Rails.application.routes.draw do
     mount Upmin::Engine => '/admin'
   end
 
-  resources :transfers, only: [:new, :create]
   resources :users, except: [:delete] do
     get :my_balances, on: :member
     collection do
@@ -15,7 +14,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :transfers, only: [] do
+  resources :transfers, only: [:new, :create] do
     member do
       put :accept
       put :reject
