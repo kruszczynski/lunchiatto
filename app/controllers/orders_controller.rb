@@ -3,6 +3,14 @@ class OrdersController < ApplicationController
   before_filter :assign_users, only: [:edit, :new]
   before_filter :find_order, except: [:new, :create, :index, :latest]
 
+  def index
+    @orders = Order.past.includes(:dishes).decorate
+    respond_to do |format|
+      format.html
+      format.json {render json: @orders}
+    end
+  end
+
   def new
     @order = Order.new
     respond_to do |format|
@@ -22,6 +30,14 @@ class OrdersController < ApplicationController
         format.html {redirect_to new_order_path, alert: @order.errors.full_messages.join(' ')}
         format.json {render json: {errors: @order.errors}, status: :unprocessable_entity}
       end
+    end
+  end
+
+  def show
+    @order = @order.decorate
+    respond_to do |format|
+      format.html
+      format.json { render json: @order }
     end
   end
 
@@ -56,22 +72,6 @@ class OrdersController < ApplicationController
   def shipping
     respond_to do |format|
       format.html
-    end
-  end
-
-  def index
-    @orders = Order.past.includes(:dishes).decorate
-    respond_to do |format|
-      format.html
-      format.json {render json: @orders}
-    end
-  end
-
-  def show
-    @order = @order.decorate
-    respond_to do |format|
-      format.html
-      format.json { render json: @order }
     end
   end
 

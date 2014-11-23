@@ -10,10 +10,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def dashboard
-    @order = Order.todays_order.try(:decorate)
+  def show
     respond_to do |format|
-      format.html
+      format.json {render json: @user}
     end
   end
 
@@ -21,12 +20,6 @@ class UsersController < ApplicationController
     @user = current_user
     respond_to do |format|
       format.html
-    end
-  end
-
-  def show
-    respond_to do |format|
-      format.json {render json: @user}
     end
   end
 
@@ -42,6 +35,13 @@ class UsersController < ApplicationController
         format.html {redirect_to edit_user_path(@user)}
         format.json {render json: {errors: @user.errors}, status: :unprocessable_entity}
       end
+    end
+  end
+
+  def dashboard
+    @order = Order.todays_order.try(:decorate)
+    respond_to do |format|
+      format.html
     end
   end
 
