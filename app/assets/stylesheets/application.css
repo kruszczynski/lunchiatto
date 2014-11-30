@@ -1,6 +1,6 @@
 
 /*
-*= require foundation
+*= require foundation/scss/foundation.scss
 *= require lib/responsive-tables
 *= require 'common'
 *= require '_index'

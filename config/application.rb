@@ -25,5 +25,6 @@ module CodequestManager
     config.autoload_paths += %W( #{config.root}/app/presenters #{config.root}/app/serializers )
 
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'javascripts')
   end
 end

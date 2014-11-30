@@ -13,11 +13,12 @@
 //= require tilt-jade/runtime
 //= require jquery
 //= require jquery_ujs
-//= require foundation.min
+//= require foundation/js/foundation.js
+//= require responsive-tables
 //= require underscore/underscore-min
 //= require backbone/backbone
+//= require dot_insterter
 //= require_tree ./templates
-//= require_tree ./lib
 //= require app
 //= require_tree ./views
 //= require router
