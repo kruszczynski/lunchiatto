@@ -8,6 +8,7 @@ gem 'newrelic_rpm', '3.9.1.236'
 gem 'slim-rails', '2.1.5'
 gem 'skim', '0.9.3'
 gem 'active_model_serializers', '0.8.2'
+gem 'gon', '5.2.3'
 
 gem 'jquery-rails', '3.1.1'
 gem 'devise', '3.2.4'

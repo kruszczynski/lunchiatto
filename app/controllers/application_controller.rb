@@ -6,4 +6,12 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     dashboard_index_path
   end
+
+  def gon_user
+    return unless current_user
+    gon.push({
+                 current_user: CurrentUserSerializer.new(current_user),
+                 destroy_user_session: destroy_user_session_path
+             })
+  end
 end
