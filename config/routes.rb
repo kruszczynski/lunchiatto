@@ -39,4 +39,6 @@ Rails.application.routes.draw do
       get :latest
     end
   end
+
+  resources :dashboard, only: [:index]
 end

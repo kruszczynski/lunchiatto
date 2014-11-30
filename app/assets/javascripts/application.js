@@ -15,13 +15,13 @@
 //= require jquery_ujs
 //= require foundation/js/foundation.js
 //= require responsive-tables
-//= require underscore/underscore-min
+//= require underscore/underscore
 //= require backbone/backbone
 //= require dot_insterter
 //= require_tree ./templates
-//= require app
 //= require_tree ./views
 //= require router
+//= require app
 
 $(function(){
   $(document).foundation();
