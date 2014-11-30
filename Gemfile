@@ -1,12 +1,13 @@
 source 'https://rubygems.org'
 
-ruby '2.1.3'
+ruby '2.1.5'
 
-gem 'rails', '4.1.6'
+gem 'rails', '4.1.8'
 gem 'pg', '0.17.1'
 gem 'newrelic_rpm', '3.9.1.236'
 gem 'slim-rails', '2.1.5'
 gem 'skim', '0.9.3'
+gem 'active_model_serializers', '0.8.2'
 
 gem 'jquery-rails', '3.1.1'
 gem 'devise', '3.2.4'
@@ -38,6 +39,7 @@ group :development do
   gem 'better_errors', '1.1.0'
   gem 'binding_of_caller', '0.7.2'
   gem 'letter_opener'
+  gem 'did-you-mean'
 end
 
 group :assets do

@@ -6,8 +6,7 @@ Rails.application.routes.draw do
     mount Upmin::Engine => '/admin'
   end
 
-  resources :transfers, only: [:new, :create]
-  resources :users, only: [:edit, :update] do
+  resources :users, except: [:delete] do
     get :my_balances, on: :member
     collection do
       get :dashboard
@@ -15,12 +14,17 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :transfers, only: [] do
+  resources :transfers, only: [:new, :create] do
     member do
       put :accept
       put :reject
     end
   end
+
+  resources :submitted_transfers, only: [:index]
+  resources :received_transfers, only: [:index]
+  resources :user_balances, only: [:index]
+  resources :user_debts, only: [:index]
 
   resources :orders, except: [:destroy] do
     resources :dishes, except: [:show] do
@@ -30,6 +34,9 @@ Rails.application.routes.draw do
       put :change_status
       get :shipping
       put :finalize
+    end
+    collection do
+      get :latest
     end
   end
 end

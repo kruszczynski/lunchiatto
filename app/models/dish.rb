@@ -4,6 +4,8 @@ class Dish < ActiveRecord::Base
 
   validates :price_cents, numericality: true, presence: true
   validates :name, presence: true
+  validates :user, presence: true
+  validates :order, presence: true
 
   register_currency :pln
   monetize :price_cents

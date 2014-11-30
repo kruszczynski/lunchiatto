@@ -1,46 +1,85 @@
 class OrdersController < ApplicationController
   before_filter :authenticate_user!
   before_filter :assign_users, only: [:edit, :new]
-  before_filter :find_order, except: [:new, :create, :index]
+  before_filter :find_order, except: [:new, :create, :index, :latest]
+
+  def index
+    @orders = Order.past.includes(:dishes).decorate
+    respond_to do |format|
+      format.html
+      format.json {render json: @orders}
+    end
+  end
 
   def new
     @order = Order.new
+    respond_to do |format|
+      format.html
+    end
   end
 
   def create
     @order = Order.new order_params.merge(date: Date.today)
     if @order.save
-      redirect_to dashboard_users_path
+      respond_to do |format|
+        format.html {redirect_to dashboard_users_path}
+        format.json {render json: @order.decorate}
+      end
     else
-      redirect_to new_order_path, alert: @order.errors.full_messages.join(' ')
+      respond_to do |format|
+        format.html {redirect_to new_order_path, alert: @order.errors.full_messages.join(' ')}
+        format.json {render json: {errors: @order.errors}, status: :unprocessable_entity}
+      end
+    end
+  end
+
+  def show
+    @order = @order.decorate
+    respond_to do |format|
+      format.html
+      format.json { render json: @order }
     end
   end
 
   def edit
+    respond_to do |format|
+      format.html
+    end
   end
 
   def update
     if @order.update(order_params)
-      redirect_to dashboard_users_path
+      respond_to do |format|
+        format.html {redirect_to dashboard_users_path}
+        format.json { render json: @order.decorate }
+      end
     else
-      redirect_to edit_order_path(@order), alert: @order.errors.full_messages.join(' ')
+      respond_to do |format|
+        format.html {redirect_to edit_order_path(@order), alert: @order.errors.full_messages.join(' ')}
+        format.json {render json: {errors: @order.errors}, status: :unprocessable_entity}
+      end
     end
   end
 
   def change_status
     @order.change_status!
-    redirect_to dashboard_users_path
+    respond_to do |format|
+      format.html {redirect_to dashboard_users_path}
+      format.json {render json: @order.decorate}
+    end
   end
 
   def shipping
+    respond_to do |format|
+      format.html
+    end
   end
 
-  def index
-    @orders = Order.past.decorate
-  end
-
-  def show
-    @order = @order.decorate
+  def latest
+    @order = Order.todays_order.try(:decorate)
+    respond_to do |format|
+      format.json { render json: @order }
+    end
   end
 
   private

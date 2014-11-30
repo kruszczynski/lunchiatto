@@ -22,7 +22,7 @@ module CodequestManager
     config.time_zone = 'Warsaw'
     config.middleware.use Rack::Deflater
 
-    config.autoload_paths += %W( #{config.root}/app/presenters )
+    config.autoload_paths += %W( #{config.root}/app/presenters #{config.root}/app/serializers )
 
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
   end
