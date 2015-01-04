@@ -2,7 +2,7 @@ nav.top-bar(role="navigation", data-topbar)
   ul.title-area
     li.name
       h1
-        a(href="#dashboard") code quest Manager
+        a(href="/dashboard", data-navigate) code quest Manager
     li.toggle-topbar.menu-icon
       a(href="#")
         span
@@ -11,9 +11,9 @@ nav.top-bar(role="navigation", data-topbar)
       li.balance-label
         a.unhanded(href="#") #{total_balance} PLN
       li
-        a(href="#dashboard") Dashboard
+        a(href="/dashboard", data-navigate) Dashboard
       li
-        a(href="#finances") Finances (#{pending_transfers_count})
+        a(href="/finances", data-navigate) Finances (#{pending_transfers_count})
       li
         a(href="#account-numbers") Account Numbers
       li

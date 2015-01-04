@@ -41,4 +41,6 @@ Rails.application.routes.draw do
   end
 
   resources :dashboard, only: [:index]
+  get 'finances', to: 'dashboard#index'
+
 end

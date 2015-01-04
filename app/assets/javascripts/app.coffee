@@ -15,7 +15,7 @@
   App.currentUser = undefined
 
   App.addInitializer ->
-    new App.Router
+    App.router = new App.Router
       controller: App.Controller
 
   App.on 'start', ->
@@ -24,11 +24,13 @@
 
     App.Panel.showNavbar()
 
-    Backbone.history.start()
-    fragment = Backbone.history.getFragment()
-    unless fragment
-      Backbone.history.navigate('#dashboard')
-      Backbone.history.loadUrl fragment
+    Backbone.history.start
+      pushState: true
+
+    $('body').on 'click', '[data-navigate]', (e) ->
+      e.preventDefault()
+      href = $(e.currentTarget).attr('href')
+      App.router.navigate href, {trigger: true}
 
   App
 
