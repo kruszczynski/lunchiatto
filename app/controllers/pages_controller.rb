@@ -5,6 +5,6 @@ class PagesController < ApplicationController
   end
 
   def redirect_to_dashboard
-    redirect_to dashboard_index_path if current_user
+    redirect_to app_dashboard_path if current_user
   end
 end

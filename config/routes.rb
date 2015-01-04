@@ -40,7 +40,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :dashboard, only: [:index]
-  get 'finances', to: 'dashboard#index'
+  # resources :dashboard, only: [:index]
+
+  ### Single Page App ###
+  namespace :app do
+    get 'dashboard', to: 'dashboard#index'
+    get 'finances', to: 'dashboard#index'
+
+  end
 
 end

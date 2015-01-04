@@ -11,6 +11,7 @@
 
   App.addRegions
     navbar: '#user-panel'
+    content: '#content'
 
   App.currentUser = undefined
 
@@ -26,6 +27,7 @@
 
     Backbone.history.start
       pushState: true
+      root: '/app'
 
     $('body').on 'click', '[data-navigate]', (e) ->
       e.preventDefault()

@@ -1,5 +1,5 @@
 @CodequestManager.Controller =
   dashboard: ->
-    console.log 'dashboard'
+    CodequestManager.Dashboard.layout()
   finances: ->
     console.log 'finances'
