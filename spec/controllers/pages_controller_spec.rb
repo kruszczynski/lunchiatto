@@ -12,7 +12,7 @@ describe PagesController, type: :controller do
       @user = create(:user)
       sign_in @user
       get :index
-      expect(response).to redirect_to dashboard_index_path
+      expect(response).to redirect_to app_dashboard_path
     end
   end
 end

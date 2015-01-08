@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   resources :users, except: [:delete] do
     get :my_balances, on: :member
     collection do
-      get :dashboard
       get :account_numbers
     end
   end
