@@ -1,0 +1,16 @@
+section.orderer
+  .margin-bottom-medium.light-weight <strong>#{user.name}</strong> pays.
+  .margin-bottom-medium.light-weight Ordering from: <strong>#{from}</strong>
+  .margin-bottom-medium.light-weight Total is: <strong>#{total}</strong>
+  .margin-bottom-medium.light-weight Status: <strong>#{Humanize.titleCase(status.replace('_', ' '))}</strong>
+  .margin-bottom-medium
+    if status !== 'delivered'
+      a.button(href="/orders/#{id}/edit", data-navigate) Change payer
+    //div=window.gon.current_user.id
+    if status === 'ordered' && ordered_by_current_user
+      a.button(href="/orders/#{id}/shipping", data-navigate) Add shipping
+    if ordered_by_current_user
+      if status === 'in_progress'
+        a.button.change-status-button(href="#") Mark as ordered
+      if status === 'ordered'
+        a.button.change-status-button(href="#") Mark as delivered

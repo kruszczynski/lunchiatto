@@ -18,6 +18,7 @@
   "dependencies": {
     "backbone": "~1.1.2",
     "foundation": "~5.4.0",
-    "marionette": "~2.3.0"
+    "marionette": "~2.3.0",
+    "humanize-plus": "~1.5.0"
   }
 }
