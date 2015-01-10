@@ -120,17 +120,6 @@ describe OrdersController, :type => :controller do
       end
       @order.save
     end
-    describe 'html' do
-      it 'renders show template' do
-        sign_in @user
-        get :show, id: @order.id
-        expect(response).to render_template :show
-      end
-      it 'redirects to index when not logged in' do
-        put :update, id: @order.id
-        expect(response).to redirect_to root_path
-      end
-    end
     describe 'json' do
       it 'rejects when not logged in' do
         get :show, id: @order.id, format: :json

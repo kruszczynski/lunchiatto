@@ -7,6 +7,10 @@ class OrderSerializer < ActiveModel::Serializer
     object.shipping.to_s
   end
 
+  def dishes
+    object.dishes.by_date.decorate
+  end
+
   def total
     (object.amount+object.shipping).to_s
   end

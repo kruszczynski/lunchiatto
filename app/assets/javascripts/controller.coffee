@@ -1,5 +1,7 @@
 @CodequestManager.Controller =
   dashboard: ->
-    CodequestManager.Dashboard.layout()
+    CodequestManager.Dashboard.Controller.layout()
+  editDish: ->
+    CodequestManager.Dishes.Controller.form()
   finances: ->
     console.log 'finances'

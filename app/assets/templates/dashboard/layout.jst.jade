@@ -1,10 +1,8 @@
 h1 This is the user dashboard
 .order-wrapper
   a.button(href="/orders", data-navigate) Past Orders
-  - safeNoOrder = false
-  - try {if(noOrder){safeNoOrder = true}} catch(e){}
-  if safeNoOrder
+  if locals.noOrder
     h2 No order for today
     a.button(href="/orders/new", data-navigate) Add Order
   .order-summary
-  .dishes-list
+  .order-show

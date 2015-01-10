@@ -36,7 +36,6 @@ class OrdersController < ApplicationController
   def show
     @order = @order.decorate
     respond_to do |format|
-      format.html
       format.json { render json: @order }
     end
   end

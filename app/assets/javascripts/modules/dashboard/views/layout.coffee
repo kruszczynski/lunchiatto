@@ -1,24 +1,25 @@
-CodequestManager.module 'Dashboard', (Dashboard, App, Backbone, Marionette, $, _) ->
+@CodequestManager.module 'Dashboard', (Dashboard, App, Backbone, Marionette, $, _) ->
   Dashboard.Layout = Marionette.LayoutView.extend
     template: 'dashboard/layout'
 
     ui:
-      dishesList: '.dishes-list'
+      orderShow: '.order-show'
       orderSummary: '.order-summary'
 
     regions:
-      dishesList: '@ui.dishesList'
+      orderShow: '@ui.orderShow'
       orderSummary: '@ui.orderSummary'
 
     onShow: ->
       @_showSummary()
+      @_showOrder()
 
     _showSummary: ->
       return if @model.get('noOrder')
       summary = new Dashboard.OrderSummary model: @model
       @orderSummary.show summary
 
-    _showDishesList: ->
+    _showOrder: ->
       return if @model.get('noOrder')
-      list = new Dashboard.DishesList collection: @model.get('dishes')
-      @dishesList.show list
+      order = new App.Order.Show model: @model
+      @orderShow.show order

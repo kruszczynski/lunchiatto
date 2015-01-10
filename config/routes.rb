@@ -26,8 +26,8 @@ Rails.application.routes.draw do
   resources :user_debts, only: [:index]
 
   resources :orders, except: [:destroy] do
-    resources :dishes, except: [:show] do
-      get :copy, on: :member
+    resources :dishes, except: [:new, :edit, :show] do
+      post :copy, on: :member
     end
     member do
       put :change_status

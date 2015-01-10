@@ -23,7 +23,7 @@
     App.currentUser = new App.Entities.CurrentUser gon.current_user
     $(document).foundation()
 
-    App.Panel.showNavbar()
+    App.Panel.Controller.showNavbar()
 
     Backbone.history.start
       pushState: true

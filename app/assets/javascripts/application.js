@@ -26,5 +26,5 @@
 //= require controller
 //= require router
 //= require_tree ../templates/
-//= require_tree ./models
+//= require_tree ./entities
 //= require_tree ./modules
