@@ -110,4 +110,25 @@ describe DishesController, :type => :controller do
       end
     end
   end
+
+  describe 'GET show' do
+    before do
+      @dish = build(:dish) do |dish|
+        dish.user = @user
+        dish.order = @order
+      end
+      @dish.save!
+    end
+    describe 'json' do
+      it 'rejects when not logged in' do
+        get :show, order_id: @order.id, id: @dish.id, format: :json
+        expect(response).to have_http_status(401)
+      end
+      it 'returns success' do
+        sign_in @user
+        get :show, order_id: @order.id, id: @dish.id, format: :json
+        expect(response).to have_http_status(:success)
+      end
+    end
+  end
 end

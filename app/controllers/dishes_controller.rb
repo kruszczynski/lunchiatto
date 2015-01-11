@@ -1,7 +1,7 @@
 class DishesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :find_order
-  before_filter :find_dish, only: [:copy, :destroy, :update]
+  before_filter :find_dish, only: [:copy, :destroy, :update, :show]
 
   respond_to :json
 
@@ -15,6 +15,12 @@ class DishesController < ApplicationController
       respond_to do |format|
         format.json { render json: {errors: @dish.errors}, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def show
+    respond_to do |format|
+      format.json { render json: @dish.decorate }
     end
   end
 
@@ -61,6 +67,6 @@ class DishesController < ApplicationController
   end
 
   def dish_params
-    params.require(:dish).permit(:user_id, :name, :price)
+    params.permit(:user_id, :name, :price)
   end
 end

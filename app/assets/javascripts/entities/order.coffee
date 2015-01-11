@@ -4,3 +4,6 @@
       data.dishes = new Entities.Dishes data.dishes
       data.dishes.order = this
       data
+
+    currentUserOrdered: ->
+      @get('dishes').where(user_id: App.currentUser.id).length isnt 0

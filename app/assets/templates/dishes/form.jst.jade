@@ -1,0 +1,10 @@
+if locals.name
+  h1 Edit Your Dish
+else
+  h1 New Dish For Today
+form
+  label(for='name') Dish Name
+  input#name(type='text',value=locals.name)
+  label(from='price') Dish Price
+  input#price(type='text','data-toggle'='dot-inserter',autocomplete='off',value=locals.price)
+  a.button.submit Save
