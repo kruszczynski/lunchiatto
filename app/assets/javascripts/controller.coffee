@@ -7,10 +7,21 @@ do (App = @CodequestManager) ->
       dish = new App.Entities.Dish order_id: orderId, id: dishId
       dish.fetch
         success: (dish) ->
-          App.Dishes.Controller.form(dish)
+          App.Dish.Controller.form(dish)
 
     newDish: (orderId) ->
-      dish = new App.Entities.Dish order_id: orderId, user_id: App.currentUser.id
-      App.Dishes.Controller.form(dish)
+      dish = new App.Entities.Dish order_id: orderId, user_id: App.currentUser.id, price: '0.00'
+      App.Dish.Controller.form(dish)
+
+    newOrder: ->
+      order = new App.Entities.Order
+      App.Order.Controller.form(order)
+
+    editOrder: (orderId) ->
+      order = new App.Entities.Order id: orderId
+      order.fetch
+        success: (order) ->
+          App.Order.Controller.form(order)
+
     finances: ->
       console.log 'finances'

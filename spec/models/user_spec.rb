@@ -174,4 +174,15 @@ describe User do
       expect(@user.pending_transfers_count).to eq(1)
     end
   end
+
+  describe '.all_for_select' do
+    before do
+      @user = create :user
+      @other_user = create :other_user
+    end
+    it 'returns adequate' do
+      expected = [{name: @user.name, id: @user.id},{name: @other_user.name, id: @other_user.id}]
+      expect(User.all_for_select).to eq(expected)
+    end
+  end
 end

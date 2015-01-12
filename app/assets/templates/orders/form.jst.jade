@@ -1,0 +1,14 @@
+if locals.name
+  h1 Edit order
+else
+  h1 New order
+- var selected = locals.user_id ? locals.user_id : ''
+form
+  label(for='user_id') Payer
+  select#user_id(name='user_id')
+    option(value='') Select Payer
+    each user in gon.users_for_select
+      option(value=user.id,selected=user.id==selected)=user.name
+  label(for='from') Restaurant
+  input#from(type='text',name='from',placeholder='Where are we ordering from?',value=locals.from)
+  a.button.submit Save

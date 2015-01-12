@@ -25,14 +25,12 @@ Rails.application.routes.draw do
   resources :user_balances, only: [:index]
   resources :user_debts, only: [:index]
 
-  resources :orders, except: [:destroy] do
+  resources :orders, except: [:new, :edit, :destroy] do
     resources :dishes, except: [:new, :edit] do
       post :copy, on: :member
     end
     member do
       put :change_status
-      get :shipping
-      put :finalize
     end
     collection do
       get :latest
@@ -43,6 +41,8 @@ Rails.application.routes.draw do
   namespace :app do
     get 'dashboard', to: 'dashboard#index'
     get 'finances', to: 'dashboard#index'
+    get 'orders/new', to: 'dashboard#index'
+    get 'orders/:order_id/edit', to: 'dashboard#index'
     get 'orders/:order_id/dishes/:dish_id/edit', to: 'dashboard#index'
     get 'orders/:order_id/dishes/new', to: 'dashboard#index'
   end
