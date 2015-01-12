@@ -1,9 +1,9 @@
 h1 This is the user dashboard
 .order-wrapper
-  a.button(href="/orders", data-navigate) Past Orders
   if locals.noOrder
     h2 No order for today
     a.button(href="/orders/new", data-navigate) Add Order
   else
     .margin-bottom
       a.button.success.large(href="/orders/#{locals.id}", data-navigate) TODAY'S ORDER
+  a.button(href="/orders", data-navigate) Past Orders
