@@ -15,5 +15,5 @@
         name: @ui.nameInput.val()
         price: @ui.priceInput.val().replace(',','.')
       ,
-        success: ->
-          App.router.navigate '/dashboard', {trigger: true}
+        success: (model) ->
+          App.router.navigate "/orders/#{model.get('order_id')}", {trigger: true}

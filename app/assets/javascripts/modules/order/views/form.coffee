@@ -15,5 +15,5 @@
         user_id: @ui.userSelect.val()
         from: @ui.restaurantInput.val()
       ,
-        success: ->
-          App.router.navigate '/dashboard', {trigger: true}
+        success: (model) ->
+          App.router.navigate "/orders/#{model.id}", {trigger: true}

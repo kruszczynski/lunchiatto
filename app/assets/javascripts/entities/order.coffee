@@ -11,3 +11,7 @@
 
     currentUserOrdered: ->
       @get('dishes').where(user_id: App.currentUser.id).length isnt 0
+
+  Entities.Orders = Backbone.Collection.extend
+    model: Entities.Order
+    url: '/orders'

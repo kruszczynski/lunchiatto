@@ -17,11 +17,23 @@ do (App = @CodequestManager) ->
       order = new App.Entities.Order
       App.Order.Controller.form(order)
 
+    showOrder: (orderId) ->
+      order = new App.Entities.Order id: orderId
+      order.fetch
+        success: (order) ->
+          App.Order.Controller.show(order)
+
     editOrder: (orderId) ->
       order = new App.Entities.Order id: orderId
       order.fetch
         success: (order) ->
           App.Order.Controller.form(order)
+
+    ordersIndex: ->
+      orders = new App.Entities.Orders
+      orders.fetch
+        success: (orders) ->
+          App.Order.Controller.list(orders)
 
     finances: ->
       console.log 'finances'
