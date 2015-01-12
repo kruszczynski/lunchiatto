@@ -27,12 +27,10 @@ class UsersController < ApplicationController
     @user = current_user
     if @user.update(user_params)
       respond_to do |format|
-        format.html {redirect_to dashboard_users_path}
         format.json {render json: @user}
       end
     else
       respond_to do |format|
-        format.html {redirect_to edit_user_path(@user)}
         format.json {render json: {errors: @user.errors}, status: :unprocessable_entity}
       end
     end
@@ -40,20 +38,6 @@ class UsersController < ApplicationController
 
   def dashboard
     @order = Order.todays_order.try(:decorate)
-    respond_to do |format|
-      format.html
-    end
-  end
-
-  def my_balances
-    @user = current_user
-    respond_to do |format|
-      format.html
-    end
-  end
-
-  def account_numbers
-    @users = User.all.order('name')
     respond_to do |format|
       format.html
     end
