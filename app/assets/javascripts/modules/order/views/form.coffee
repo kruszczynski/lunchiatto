@@ -3,14 +3,12 @@
     template: 'orders/form'
 
     ui:
-      userSelect: '#user_id'
-      restaurantInput: '#from'
+      userSelect: '.user-id'
+      restaurantInput: '.from'
       form: 'form'
-      submit: '.submit'
 
     triggers:
       'submit @ui.form': 'form:submit'
-      'click @ui.submit': 'form:submit'
 
     onFormSubmit: ->
       @model.save

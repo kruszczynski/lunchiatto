@@ -3,22 +3,17 @@
     template: 'dishes/form'
 
     ui:
-      priceInput: '#price'
-      nameInput: '#name'
-      submitButton: '.submit'
+      priceInput: '.price'
+      nameInput: '.name'
       form: 'form'
 
     triggers:
       'submit @ui.form': 'form:submit'
-      'click @ui.submitButton': 'form:submit'
-
-    onShow: ->
-      @ui.priceInput.dotInserter()
 
     onFormSubmit: ->
       @model.save
         name: @ui.nameInput.val()
-        price: @ui.priceInput.val()
+        price: @ui.priceInput.val().replace(',','.')
       ,
         success: ->
           App.router.navigate '/dashboard', {trigger: true}

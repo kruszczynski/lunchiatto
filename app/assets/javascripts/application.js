@@ -15,7 +15,6 @@
 //= require jquery_ujs
 //= require foundation/js/foundation.js
 //= require responsive-tables
-//= require dot_insterter
 //= require humanize-plus/public/src/humanize
 //= require underscore/underscore
 //= require backbone/backbone
