@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Order, :type => :model do
 
   it {should belong_to(:user)}
-  it {should have_many(:dish)}
+  it {should have_many(:dishes)}
   it {should callback(:ensure_one_order_per_day).before(:create)}
   it {should validate_presence_of(:user)}
 
@@ -36,7 +36,7 @@ describe Order, :type => :model do
   describe '#amout' do
     it 'should return 0 when no dishes' do
       order = Order.new date: Date.today
-      expect(order).to receive(:dish).and_return([])
+      expect(order).to receive(:dishes).and_return([])
       expect(order.amount).to eq(0)
     end
 
@@ -44,7 +44,7 @@ describe Order, :type => :model do
       order = Order.new date: Date.today
       dish = double('Dish')
       expect(dish).to receive(:price).and_return(Money.new(15,'PLN'))
-      expect(order).to receive(:dish).and_return([dish])
+      expect(order).to receive(:dishes).and_return([dish])
       expect(order.amount).to eq(Money.new(15,'PLN'))
     end
   end
@@ -92,7 +92,7 @@ describe Order, :type => :model do
       dish2 = double('Dish')
       expect(dish2).to receive(:subtract).with(Money.new(1000, 'PLN'), @user)
       allow(@order).to receive(:dishes_count).and_return(2)
-      expect(@order).to receive(:dish).and_return([dish1, dish2])
+      expect(@order).to receive(:dishes).and_return([dish1, dish2])
       @order.subtract_price
     end
   end
