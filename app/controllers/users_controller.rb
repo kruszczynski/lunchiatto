@@ -16,13 +16,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-    @user = current_user
-    respond_to do |format|
-      format.html
-    end
-  end
-
   def update
     @user = current_user
     if @user.update(user_params)
@@ -33,13 +26,6 @@ class UsersController < ApplicationController
       respond_to do |format|
         format.json {render json: {errors: @user.errors}, status: :unprocessable_entity}
       end
-    end
-  end
-
-  def dashboard
-    @order = Order.todays_order.try(:decorate)
-    respond_to do |format|
-      format.html
     end
   end
 

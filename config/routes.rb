@@ -6,12 +6,7 @@ Rails.application.routes.draw do
     mount Upmin::Engine => '/admin'
   end
 
-  resources :users, except: [:delete] do
-    get :my_balances, on: :member
-    collection do
-      get :account_numbers
-    end
-  end
+  resources :users, except: [:delete, :edit]
 
   resources :transfers, only: [:new, :create] do
     member do
@@ -48,6 +43,7 @@ Rails.application.routes.draw do
     get 'orders/:order_id/shipping', to: 'dashboard#index'
     get 'orders/:order_id/dishes/:dish_id/edit', to: 'dashboard#index'
     get 'orders/:order_id/dishes/new', to: 'dashboard#index'
+    get 'account_numbers', to: 'dashboard#index'
   end
 
 end

@@ -9,3 +9,4 @@
     'orders/:orderId/shipping': 'orderShipping'
     'orders/:orderId/dishes/:dishId/edit(/)': 'editDish'
     'orders/:orderId/dishes/new(/)': 'newDish'
+    'account_numbers': 'accountNumbers'

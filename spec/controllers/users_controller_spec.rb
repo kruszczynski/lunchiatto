@@ -1,23 +1,6 @@
 require 'spec_helper'
 
 describe UsersController, type: :controller do
-  describe 'GET :edit' do
-    before do
-      @user = create(:user)
-      @other_user = create(:other_user)
-    end
-    describe 'html' do
-      it 'renders edit page' do
-        sign_in @user
-        get :edit, id: @user.id
-        expect(response).to render_template :edit
-      end
-      it 'redirects not signed in user to root' do
-        get :edit, id: @user.id
-        expect(response).to redirect_to root_path
-      end
-    end
-  end
 
   describe 'PUT :update' do
     before do

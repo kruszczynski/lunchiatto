@@ -10,3 +10,7 @@
             model = new Backbone.Model {noOrder: true}
           dashboardLayout = new Dashboard.Layout model: model
           App.content.show dashboardLayout
+          
+    accounts: (users) ->
+      accountsView = new Dashboard.Accounts collection: users
+      App.content.show accountsView

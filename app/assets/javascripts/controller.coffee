@@ -43,3 +43,9 @@ do (App = @CodequestManager) ->
 
     finances: ->
       console.log 'finances'
+
+    accountNumbers: ->
+      users = new App.Entities.Users
+      users.fetch
+        success: (users) ->
+          App.Dashboard.Controller.accounts(users)
