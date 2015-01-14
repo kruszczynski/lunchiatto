@@ -5,16 +5,24 @@
     ui:
       dishesSection: '.dishes-section'
       orderButton: '.order-button'
+      changeStatus: '.change-status-button'
 
     regions:
       dishes: '@ui.dishesSection'
 
+    triggers:
+      'click @ui.changeStatus': 'change:status'
+
     initialize: ->
       @listenTo @model.get('dishes'), 'add remove', @_hideOrderButton
+      @model.on 'change', @render, this
 
-    onShow: ->
+    onRender: ->
       @_showDishes()
       @_hideOrderButton()
+
+    onChangeStatus: ->
+      @model.changeStatus()
 
     _showDishes: ->
       dishes = new Order.Dishes

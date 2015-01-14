@@ -10,7 +10,7 @@
       orderShow: '@ui.orderShow'
       orderSummary: '@ui.orderSummary'
 
-    onShow: ->
+    onRender: ->
       @_showSummary()
       @_showOrder()
 

@@ -12,6 +12,14 @@
     currentUserOrdered: ->
       @get('dishes').where(user_id: App.currentUser.id).length isnt 0
 
+    changeStatus: ->
+      $.ajax
+        type: 'PUT'
+        url: "#{@url()}/change_status"
+        success: (data) =>
+          @set({status: data.status})
+          @get('dishes').reset(data.dishes, parse: true)
+
   Entities.Orders = Backbone.Collection.extend
     model: Entities.Order
     url: '/orders'

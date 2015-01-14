@@ -44,7 +44,6 @@ class OrdersController < ApplicationController
   def change_status
     @order.change_status!
     respond_to do |format|
-      format.html {redirect_to dashboard_users_path}
       format.json {render json: @order.decorate}
     end
   end

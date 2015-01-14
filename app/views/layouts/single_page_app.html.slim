@@ -9,9 +9,6 @@ html
 body
   #user-panel
   section.background-div.main-wrapper class="#{controller_name} #{action_name}"
-    .errors.row
-      p.notice= notice
-      p.alert= alert
     #content.wrapper.row= yield
 
   = javascript_include_tag 'application'

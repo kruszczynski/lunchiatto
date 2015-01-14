@@ -6,7 +6,9 @@ class App::DashboardController < ApplicationController
 
   def index
     gon.push({
-                 users_for_select: User.all_for_select
+                 users_for_select: User.all_for_select,
+                 notice: flash[:notice],
+                 alert: flash[:alert]
              })
   end
 end
