@@ -11,3 +11,7 @@
     show: (order) ->
       orderView = new App.Order.Show model: order
       App.content.show orderView
+
+    shipping: (order) ->
+      shippingView = new App.Order.Shipping model: order
+      App.content.show shippingView

@@ -8,7 +8,8 @@ section.orderer
       a.button(href="/orders/#{id}/edit", data-navigate) Change payer
     //div=window.gon.current_user.id
     if status === 'ordered' && ordered_by_current_user
-      a.button(href="/orders/#{id}/shipping", data-navigate) Add shipping
+      - shippingText = parseFloat(locals.shipping) > 0 ? "Edit shipping" : "Add shipping"
+      a.button(href="/orders/#{id}/shipping", data-navigate)=shippingText
     if ordered_by_current_user
       if status === 'in_progress'
         a.button.change-status-button(href="#") Mark as ordered
