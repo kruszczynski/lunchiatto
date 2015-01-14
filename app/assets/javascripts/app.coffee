@@ -20,7 +20,7 @@
       controller: App.Controller
 
   App.on 'start', ->
-    App.currentUser = new App.Entities.CurrentUser gon.current_user
+    App.currentUser = new App.Entities.User gon.current_user
     $(document).foundation()
 
     App.Panel.Controller.showNavbar()

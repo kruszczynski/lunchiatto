@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     get 'orders/:order_id/dishes/:dish_id/edit', to: 'dashboard#index'
     get 'orders/:order_id/dishes/new', to: 'dashboard#index'
     get 'account_numbers', to: 'dashboard#index'
+    get 'settings', to: 'dashboard#index'
   end
 
 end

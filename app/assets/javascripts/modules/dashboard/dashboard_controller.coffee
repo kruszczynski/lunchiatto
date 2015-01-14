@@ -14,3 +14,7 @@
     accounts: (users) ->
       accountsView = new Dashboard.Accounts collection: users
       App.content.show accountsView
+
+    settings: (user) ->
+      settingsView = new Dashboard.Settings model: user
+      App.content.show settingsView

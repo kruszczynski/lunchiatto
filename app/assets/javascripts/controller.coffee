@@ -49,3 +49,8 @@ do (App = @CodequestManager) ->
       users.fetch
         success: (users) ->
           App.Dashboard.Controller.accounts(users)
+
+    settings: ->
+      App.currentUser.fetch
+        success: (user) ->
+          App.Dashboard.Controller.settings(user)
