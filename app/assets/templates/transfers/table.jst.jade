@@ -1,0 +1,13 @@
+table.responsive.centered.margin-bottom
+  thead
+    tr
+      if locals.type === 'received'
+        th From
+      else
+        th To
+      th Amount
+      th Submitted
+      th Status
+      if locals.type === 'received'
+        th Action
+  tbody    

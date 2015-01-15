@@ -1,7 +1,8 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :substract_from_self, :account_number, :user_balance
+  attributes :id, :name, :substract_from_self,
+             :account_number, :admin, :total_balance, :pending_transfers_count
 
-  def user_balance
-  	current_user.user_balances.newest_for(object.id).try(:balance).to_s || '0.00'
+  def total_balance
+    object.total_balance.to_s
   end
 end

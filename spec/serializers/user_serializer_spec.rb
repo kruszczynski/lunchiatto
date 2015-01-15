@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe CurrentUserSerializer do
+describe UserSerializer do
   before do
     @user = double(:user)
-    @serializer = CurrentUserSerializer.new @user
+    @serializer = UserSerializer.new @user
   end
 
   it '#total_balance' do

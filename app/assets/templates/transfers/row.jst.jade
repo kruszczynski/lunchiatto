@@ -1,0 +1,12 @@
+if locals.type === 'received'
+  td= locals.from
+else
+  td= locals.to
+td= locals.amount
+td= locals.created_at
+td= locals.status
+if locals.type === 'received' && locals.status === 'pending'
+  td
+    a.accept-transfer(href="#") Accept
+    &nbsp;
+    a.reject-transfer(href="#") Reject

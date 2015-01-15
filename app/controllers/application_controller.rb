@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   def gon_user
     return unless current_user
     gon.push({
-                 current_user: CurrentUserSerializer.new(current_user),
+                 current_user: UserSerializer.new(current_user),
                  destroy_user_session: destroy_user_session_path
              })
   end
