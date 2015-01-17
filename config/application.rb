@@ -23,5 +23,9 @@ module CodequestManager
     config.middleware.use Rack::Deflater
 
     config.autoload_paths += %W( #{config.root}/app/presenters #{config.root}/app/serializers )
+
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'javascripts')
+    config.assets.paths << Rails.root.join(Rails.root, 'app', 'assets', 'templates')
   end
 end

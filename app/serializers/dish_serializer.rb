@@ -1,5 +1,5 @@
 class DishSerializer < ActiveModel::Serializer
-  attributes :id, :user_name, :price, :name
+  attributes :id, :user_name, :price, :name, :belongs_to_current_user?, :order_id, :user_id
 
   def price
     object.price.to_s

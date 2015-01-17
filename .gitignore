@@ -19,3 +19,6 @@
 
 # Ignore coverage
 /coverage/*
+
+#ignore assets components
+/vendor/assets/components

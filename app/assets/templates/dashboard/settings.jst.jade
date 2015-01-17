@@ -1,0 +1,10 @@
+h1 Edit your account, #{locals.name}
+form
+  .inner-wrapper.margin-bottom
+    .fieldset
+      label.inline Substract payments from yourself (this is useful when you maintain a seperate account for payments)
+        input.substract.margin-left-small(type="checkbox",checked=locals.substract_from_self)
+    .fieldset
+      label Account number
+        input.account-number(type="text",value=locals.account_number)
+  input.button(type="submit",value="Update your account")

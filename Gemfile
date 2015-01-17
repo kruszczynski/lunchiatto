@@ -5,9 +5,9 @@ ruby '2.1.5'
 gem 'rails', '4.1.8'
 gem 'pg', '0.17.1'
 gem 'newrelic_rpm', '3.9.1.236'
-gem 'slim-rails', '2.1.5'
-gem 'skim', '0.9.3'
+gem 'slim-rails', '3.0.0'
 gem 'active_model_serializers', '0.8.2'
+gem 'gon', '5.2.3'
 
 gem 'jquery-rails', '3.1.1'
 gem 'devise', '3.2.4'
@@ -43,10 +43,9 @@ group :development do
 end
 
 group :assets do
-  gem 'sass-rails', '~> 4.0.3'
+  gem 'sass-rails', '~> 5.0.1'
   gem 'uglifier', '>= 1.3.0'
   gem 'coffee-rails', '~> 4.0.0'
-  gem 'foundation-rails', '5.3.3.0'
 end
 
 group :test do
@@ -57,3 +56,8 @@ group :test do
 end
 
 gem 'sdoc', '~> 0.4.0', group: :doc
+
+
+#FrontEnd
+gem 'tilt-jade', '~> 1.2.0'
+

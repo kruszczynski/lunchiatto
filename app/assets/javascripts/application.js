@@ -10,11 +10,21 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require tilt-jade/runtime
 //= require jquery
 //= require jquery_ujs
-//= require foundation.min
-//= require_tree ./lib
-
-$(function(){
-  $(document).foundation();
-});
+//= require foundation/js/foundation.js
+//= require responsive-tables
+//= require humanize-plus/public/src/humanize
+//= require underscore/underscore
+//= require backbone/backbone
+//= require backbone.babysitter/lib/backbone.babysitter.js
+//= require backbone.wreqr/lib/backbone.wreqr.js
+//= require marionette/lib/backbone.marionette.js
+//= require app
+//= require controller
+//= require router
+//= require_tree ./behaviors
+//= require_tree ../templates/
+//= require_tree ./entities
+//= require_tree ./modules

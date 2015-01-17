@@ -6,15 +6,9 @@ Rails.application.routes.draw do
     mount Upmin::Engine => '/admin'
   end
 
-  resources :users, except: [:delete] do
-    get :my_balances, on: :member
-    collection do
-      get :dashboard
-      get :account_numbers
-    end
-  end
+  resources :users, except: [:delete, :edit]
 
-  resources :transfers, only: [:new, :create] do
+  resources :transfers, only: [:create] do
     member do
       put :accept
       put :reject
@@ -26,17 +20,32 @@ Rails.application.routes.draw do
   resources :user_balances, only: [:index]
   resources :user_debts, only: [:index]
 
-  resources :orders, except: [:destroy] do
-    resources :dishes, except: [:show] do
-      get :copy, on: :member
+  resources :orders, except: [:new, :edit, :destroy] do
+    resources :dishes, except: [:new, :edit] do
+      post :copy, on: :member
     end
     member do
       put :change_status
-      get :shipping
-      put :finalize
     end
     collection do
       get :latest
     end
   end
+
+  ### Single Page App ###
+  namespace :app do
+    get 'dashboard', to: 'dashboard#index'
+    get 'finances', to: 'dashboard#index'
+    get 'orders', to: 'dashboard#index'
+    get 'orders/new', to: 'dashboard#index'
+    get 'orders/:order_id', to: 'dashboard#index'
+    get 'orders/:order_id/edit', to: 'dashboard#index'
+    get 'orders/:order_id/shipping', to: 'dashboard#index'
+    get 'orders/:order_id/dishes/:dish_id/edit', to: 'dashboard#index'
+    get 'orders/:order_id/dishes/new', to: 'dashboard#index'
+    get 'account_numbers', to: 'dashboard#index'
+    get 'settings', to: 'dashboard#index'
+    get 'transfers/new', to: 'dashboard#index'
+  end
+
 end

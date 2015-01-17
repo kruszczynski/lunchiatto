@@ -4,6 +4,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def after_sign_in_path_for(resource)
-    dashboard_users_path
+    app_dashboard_path
+  end
+
+  def gon_user
+    return unless current_user
+    gon.push({
+                 current_user: UserSerializer.new(current_user),
+                 destroy_user_session: destroy_user_session_path
+             })
   end
 end
