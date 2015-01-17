@@ -21,6 +21,8 @@
 
   App.on 'start', ->
     App.currentUser = new App.Entities.User gon.current_user
+    App.vent.on 'reload:current:user', ->
+      App.currentUser.fetch()
     $(document).foundation()
 
     App.Panel.Controller.showNavbar()

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :users, except: [:delete, :edit]
 
-  resources :transfers, only: [:new, :create] do
+  resources :transfers, only: [:create] do
     member do
       put :accept
       put :reject

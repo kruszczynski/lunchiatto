@@ -4,3 +4,11 @@
     getChildView: ->
       Finance.Balance
     childViewContainer: "tbody"
+
+    templateHelpers: () ->
+      totalBalance: @collection.totalBalance()
+
+    initialize: ->
+      @collection.on 'sync', @render, this
+      App.vent.on 'reload:finances', =>
+        @collection.fetch()

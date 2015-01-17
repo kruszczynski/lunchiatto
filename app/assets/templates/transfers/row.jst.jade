@@ -5,8 +5,9 @@ else
 td= locals.amount
 td= locals.created_at
 td= locals.status
-if locals.type === 'received' && locals.status === 'pending'
+if locals.type === 'received'
   td
-    a.accept-transfer(href="#") Accept
-    &nbsp;
-    a.reject-transfer(href="#") Reject
+    if locals.status === 'pending'
+      a.accept-transfer(href="#") Accept
+      &nbsp;
+      a.reject-transfer(href="#") Reject

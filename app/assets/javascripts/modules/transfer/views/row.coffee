@@ -16,10 +16,16 @@
       'click @ui.rejectButton': 'reject:transfer'
 
     initialize: (options) ->
+      @model.on 'change', @_reload, this
+      @model.on 'change', @render, this
       @type = options.type
 
     onRejectTransfer: ->
-      console.log 'reject'
+      @model.reject()
 
     onAcceptTransfer: ->
-      console.log 'accept'
+      @model.accept()
+
+    _reload: ->
+      App.vent.trigger 'reload:current:user'
+      App.vent.trigger 'reload:finances'

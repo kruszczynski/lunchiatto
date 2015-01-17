@@ -11,3 +11,4 @@
     'orders/:orderId/dishes/new(/)': 'newDish'
     'account_numbers(/)': 'accountNumbers'
     'settings(/)': 'settings'
+    'transfers/new(/)': 'newTransfer'

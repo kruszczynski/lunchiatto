@@ -46,7 +46,7 @@ class TransfersController < ApplicationController
   private
 
   def transfer_params
-    params.require(:transfer).permit(:amount)
+    params.permit(:amount)
   end
 
   def find_user
@@ -54,7 +54,6 @@ class TransfersController < ApplicationController
       @user = User.find(params[:user_id])
     else
       respond_to do |format|
-        format.html { redirect_to(new_transfer_path, alert: 'Please select transfer destination') }
         format.json { render json: {error: 'You must specify destination'}, status: :unprocessable_entity }
       end
     end

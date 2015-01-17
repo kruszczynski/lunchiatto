@@ -42,9 +42,7 @@ do (App = @CodequestManager) ->
           App.Order.Controller.list(orders)
 
     finances: ->
-      App.currentUser.fetch
-        success: (user) ->
-          App.Finance.Controller.index(user)
+      App.Finance.Controller.index()
 
     accountNumbers: ->
       users = new App.Entities.Users
@@ -58,4 +56,5 @@ do (App = @CodequestManager) ->
           App.Dashboard.Controller.settings(user)
 
     newTransfer: ->
-      console.log 'new transfer'
+      transfer = new App.Entities.Transfer 
+      App.Transfer.Controller.form(transfer)

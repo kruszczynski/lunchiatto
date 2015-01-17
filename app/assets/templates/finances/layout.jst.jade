@@ -1,11 +1,8 @@
 div
   a.button(href='/transfers/new',data-navigate='') New Transfer
-h2.margin-bottom Your balance is: #{locals.total_balance}
 .balances
 .debts
 h2.margin-bottom Received Transfers
 .received-transfers
 h2.margin-bottom Submitted Transfers
 .submitted-transfers
-//- = render partial: 'transfers/table', locals: {transfers: @user.received_transfers.newest_first, column: :from, action: true}
-//- = render partial: 'transfers/table', locals: {transfers: @user.submitted_transfers.newest_first, column: :to}

@@ -1,5 +1,5 @@
 @CodequestManager.module 'Finance', (Finance, App, Backbone, Marionette, $, _) ->
   Finance.Controller =
-    index: (user) ->
-      layout = new Finance.Layout model: user
+    index: ->
+      layout = new Finance.Layout
       App.content.show layout

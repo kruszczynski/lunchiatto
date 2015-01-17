@@ -18,6 +18,7 @@
         url: "#{@url()}/change_status"
         success: (data) =>
           @set({status: data.status})
+          App.vent.trigger 'reload:current:user' if data.status is 'delivered'
           @get('dishes').reset(data.dishes, parse: true)
 
   Entities.Orders = Backbone.Collection.extend

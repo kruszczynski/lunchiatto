@@ -1,0 +1,10 @@
+h1 Time to pay!
+form
+  label Destination
+    select.user-id(name='user_id')
+      option(value='') Select Destination
+      each user in gon.users_for_select
+        option(value=user.id)=user.name
+  label Transfer Amount (should be positive)
+    input.amount(type="text",autocomplete="off",value="0.00")
+  input.button(type="submit",value="Submit Transfer")
