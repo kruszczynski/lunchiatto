@@ -12,8 +12,8 @@
 
   onModelError: (model, data) ->
     @_hideErrors()
-    console.log data.responseJSON.errors
-    _.each data.responseJSON.errors, @_showError, this
+    if data && data.responseJSON
+      _.each data.responseJSON.errors, @_showError, this 
 
   _hideErrors: ->
     @ui.errorMessages.addClass('hide')

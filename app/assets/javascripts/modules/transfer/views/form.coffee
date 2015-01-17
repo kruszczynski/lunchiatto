@@ -5,14 +5,11 @@
     ui:
       userSelect: '.user-id'
       amountInput: '.amount'
-      form: 'form'
 
     behaviors:
       Errorable:
         fields: ['amount', 'to']
-
-    triggers:
-      'submit @ui.form': 'form:submit'
+      Submittable: {}
 
     onFormSubmit: ->
       @model.save

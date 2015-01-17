@@ -5,14 +5,11 @@
     ui:
       priceInput: '.price'
       nameInput: '.name'
-      form: 'form'
 
     behaviors:
       Errorable:
         fields: ['name', 'price']
-
-    triggers:
-      'submit @ui.form': 'form:submit'
+      Submittable: {}
 
     onFormSubmit: ->
       @model.save
