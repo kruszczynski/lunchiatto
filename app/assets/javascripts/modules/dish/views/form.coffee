@@ -7,6 +7,10 @@
       nameInput: '.name'
       form: 'form'
 
+    behaviors:
+      Errorable:
+        fields: ['name', 'price']
+
     triggers:
       'submit @ui.form': 'form:submit'
 

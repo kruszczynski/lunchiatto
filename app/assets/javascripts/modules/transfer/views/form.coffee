@@ -7,12 +7,16 @@
       amountInput: '.amount'
       form: 'form'
 
+    behaviors:
+      Errorable:
+        fields: ['amount', 'to']
+
     triggers:
       'submit @ui.form': 'form:submit'
 
     onFormSubmit: ->
       @model.save
-        user_id: @ui.userSelect.val()
+        to_id: @ui.userSelect.val()
         amount: @ui.amountInput.val().replace(',','.')
       ,
         success: ->

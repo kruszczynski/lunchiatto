@@ -7,6 +7,10 @@
       restaurantInput: '.from'
       form: 'form'
 
+    behaviors:
+      Errorable:
+        fields: ['user', 'from']
+
     triggers:
       'submit @ui.form': 'form:submit'
 

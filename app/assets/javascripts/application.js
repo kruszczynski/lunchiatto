@@ -24,6 +24,7 @@
 //= require app
 //= require controller
 //= require router
+//= require_tree ./behaviors
 //= require_tree ../templates/
 //= require_tree ./entities
 //= require_tree ./modules

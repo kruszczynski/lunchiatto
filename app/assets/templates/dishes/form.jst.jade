@@ -3,8 +3,10 @@ if locals.name
 else
   h1 New Dish For Today
 form
-  label Dish Name
+  label.name-label Dish Name
     input.name(type='text',name='name',value=locals.name)
-  label Dish Price
+    small.error.hide
+  label.price-label Dish Price
     input.price(type='text',name='price',autocomplete='off',value=locals.price)
+    small.error.hide
   button.button(type='submit') Save

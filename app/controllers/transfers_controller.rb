@@ -1,10 +1,9 @@
 class TransfersController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :find_user, only: [:create]
   before_filter :find_transfer, except: [:create]
 
   def create
-    @transfer = @user.received_transfers.build transfer_params
+    @transfer = Transfer.new transfer_params
     @transfer.from = current_user
     if @transfer.save
       respond_to do |format|
@@ -46,17 +45,7 @@ class TransfersController < ApplicationController
   private
 
   def transfer_params
-    params.permit(:amount)
-  end
-
-  def find_user
-    if params[:user_id].present?
-      @user = User.find(params[:user_id])
-    else
-      respond_to do |format|
-        format.json { render json: {error: 'You must specify destination'}, status: :unprocessable_entity }
-      end
-    end
+    params.permit(:amount, :to_id)
   end
 
   def find_transfer

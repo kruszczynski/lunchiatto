@@ -9,6 +9,8 @@
 
   App = new Marionette.Application()
 
+  App.Behaviors = {}
+
   App.addRegions
     navbar: '#user-panel'
     content: '#content'
@@ -20,6 +22,8 @@
       controller: App.Controller
 
   App.on 'start', ->
+    Marionette.Behaviors.behaviorsLookup = ->
+      App.Behaviors
     App.currentUser = new App.Entities.User gon.current_user
     App.vent.on 'reload:current:user', ->
       App.currentUser.fetch()
