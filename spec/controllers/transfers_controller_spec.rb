@@ -10,16 +10,16 @@ describe TransfersController, type: :controller do
       it 'creates a transfer' do
         sign_in @other_user
         expect{
-          post :create, user_id: @user.id, transfer: {amount: 14}, format: :json
+          post :create, user_id: @user.id, amount: 14, format: :json
         }.to change(Transfer, :count).by(1)
       end
       it 'rejects when not logged in' do
-        post :create, user_id: @user.id, transfer: {amount: 14}, format: :json
+        post :create, user_id: @user.id, amount: 14, format: :json
         expect(response).to have_http_status(401)
       end
       it 'returns error when no user' do
         sign_in @other_user
-        post :create, user_id: '', transfer: {amount: 14}, format: :json
+        post :create, user_id: '', amount: 14, format: :json
         expect(response).to have_http_status(422)
       end
     end
