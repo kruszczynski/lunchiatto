@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   end
 
   def self.all_for_select
-    all.map do |user|
+    all.order('name').map do |user|
       {name: user.name, id: user.id}
     end
   end
