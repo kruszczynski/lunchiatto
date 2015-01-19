@@ -3,8 +3,6 @@ class DishesController < ApplicationController
   before_filter :find_order
   before_filter :find_dish, only: [:copy, :destroy, :update, :show]
 
-  respond_to :json
-
   def create
     @dish = @order.dishes.build(dish_params)
     if @dish.save

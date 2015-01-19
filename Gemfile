@@ -2,15 +2,15 @@ source 'https://rubygems.org'
 
 ruby '2.1.5'
 
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.0'
 gem 'pg', '0.17.1'
-gem 'newrelic_rpm', '3.9.1.236'
-gem 'slim-rails', '3.0.0'
-gem 'active_model_serializers', '0.8.2'
+gem 'newrelic_rpm', '3.9.9.275'
+gem 'slim-rails', '3.0.1'
+gem 'active_model_serializers', '0.8.3'
 gem 'gon', '5.2.3'
 
 gem 'jquery-rails', '3.1.1'
-gem 'devise', '3.2.4'
+gem 'devise', '3.4.1'
 
 gem 'jbuilder', '~> 2.0'
 
@@ -21,13 +21,13 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 
 gem 'draper', '~> 1.3'
-gem 'money-rails', '0.12.0'
+gem 'money-rails', '1.2.0'
 
 gem 'upmin-admin'
 
 group :development, :test do
   gem 'cucumber-rails', :require => false
-  gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'rspec-rails', '3.1.0'
 end
 
 group :production do
@@ -36,9 +36,9 @@ end
 
 group :development do
   gem 'hirb', '0.7.2'
-  gem 'better_errors', '1.1.0'
+  gem 'web-console', '~> 2.0'
   gem 'binding_of_caller', '0.7.2'
-  gem 'letter_opener'
+  gem 'letter_opener', '1.3.0'
   gem 'did-you-mean'
 end
 
