@@ -30,4 +30,4 @@
       @dishes.show dishes
 
     _hideOrderButton: ->
-      @ui.orderButton.toggle(!@model.currentUserOrdered())
+      @ui.orderButton.toggleClass('hide',@model.currentUserOrdered())
