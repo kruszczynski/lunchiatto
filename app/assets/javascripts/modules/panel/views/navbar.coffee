@@ -3,5 +3,8 @@
     template: 'panel/navbar'
     className: 'fixed'
 
-    initialize: ->
-      @model.on 'change', @render, this
+    modelEvents:
+      'change': 'render'
+
+    onShow: ->
+      $(document).foundation('topbar', 'reflow')

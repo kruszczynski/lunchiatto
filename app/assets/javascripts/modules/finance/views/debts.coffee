@@ -8,7 +8,9 @@
     templateHelpers: () ->
       totalDebt: @collection.totalDebt()
 
+    collectionEvents:
+      'sync': 'render'
+
     initialize: ->
-      @collection.on 'sync', @render, this
       App.vent.on 'reload:finances', =>
         @collection.fetch()      

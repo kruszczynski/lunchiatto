@@ -3,12 +3,11 @@
   	template: 'dashboard/settings'
 
   	ui:
-      form: 'form'
       substract: '.substract'
       accountNumber: '.account-number'
 
-    triggers:
-      'submit @ui.form': 'form:submit'
+    behaviors:
+      Submittable: {}
 
     onFormSubmit: ->
       @model.save

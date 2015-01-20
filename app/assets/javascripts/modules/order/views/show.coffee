@@ -13,9 +13,11 @@
     triggers:
       'click @ui.changeStatus': 'change:status'
 
+    modelEvents:
+      'change': 'render'
+
     initialize: ->
       @listenTo @model.get('dishes'), 'add remove', @_hideOrderButton
-      @model.on 'change', @render, this
 
     onRender: ->
       @_showDishes()
