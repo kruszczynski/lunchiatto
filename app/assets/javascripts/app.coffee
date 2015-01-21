@@ -35,10 +35,13 @@
       pushState: true
       root: '/app'
 
+    menuIcon = $('.menu-icon')
+
     $('body').on 'click', '[data-navigate]', (e) ->
       e.preventDefault()
       href = $(e.currentTarget).attr('href')
       App.router.navigate href, {trigger: true}
+      menuIcon.click()
 
   App
 
