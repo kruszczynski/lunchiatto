@@ -36,12 +36,13 @@
       root: '/app'
 
     menuIcon = $('.menu-icon')
+    navigation = $('.top-bar')
 
     $('body').on 'click', '[data-navigate]', (e) ->
       e.preventDefault()
       href = $(e.currentTarget).attr('href')
       App.router.navigate href, {trigger: true}
-      menuIcon.click()
+      menuIcon.click() if navigation.hasClass('expanded')
 
   App
 
