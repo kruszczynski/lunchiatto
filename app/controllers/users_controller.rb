@@ -5,27 +5,19 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all.order('name')
-    respond_to do |format|
-      format.json {render json: @users}
-    end
+    render json: @users
   end
 
   def show
-    respond_to do |format|
-      format.json {render json: @user}
-    end
+    render json: @user
   end
 
   def update
     @user = current_user
     if @user.update(user_params)
-      respond_to do |format|
-        format.json {render json: @user}
-      end
+      render json: @user
     else
-      respond_to do |format|
-        format.json {render json: {errors: @user.errors}, status: :unprocessable_entity}
-      end
+      render json: {errors: @user.errors}, status: :unprocessable_entity
     end
   end
 

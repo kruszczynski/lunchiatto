@@ -3,9 +3,7 @@ class SubmittedTransfersController < ApplicationController
   before_filter :find_submitted_transfers
 
   def index
-    respond_to do |format|
-      format.json { render json: @transfers }
-    end
+    render json: @transfers
   end
 
   private

@@ -6,51 +6,35 @@ class DishesController < ApplicationController
   def create
     @dish = @order.dishes.build(dish_params)
     if @dish.save
-      respond_to do |format|
-        format.json { render json: @dish.decorate }
-      end
+      render json: @dish.decorate
     else
-      respond_to do |format|
-        format.json { render json: {errors: @dish.errors}, status: :unprocessable_entity }
-      end
+      render json: {errors: @dish.errors}, status: :unprocessable_entity
     end
   end
 
   def show
-    respond_to do |format|
-      format.json { render json: @dish.decorate }
-    end
+    render json: @dish.decorate
   end
 
   def update
     if @dish.update(dish_params)
-      respond_to do |format|
-        format.json { render json: @dish.decorate }
-      end
+      render json: @dish.decorate
     else
-      respond_to do |format|
-        format.json { render json: {errors: @dish.errors}, status: :unprocessable_entity }
-      end
+      render json: {errors: @dish.errors}, status: :unprocessable_entity
     end
   end
 
   def destroy
     @dish.delete
-    respond_to do |format|
-      format.json { render json: {status: 'success'} }
-    end
+    render json: {status: 'success'}
   end
 
   def copy
     @new_dish = @dish.copy(current_user)
     if @new_dish.save
-      respond_to do |format|
-        format.json { render json: @new_dish.decorate }
-      end
+      render json: @new_dish.decorate
     else
-      respond_to do |format|
-        format.json { render json: {errors: @new_dish.errors}, status: :unprocessable_entity }
-      end
+      render json: {errors: @new_dish.errors}, status: :unprocessable_entity
     end
   end
 

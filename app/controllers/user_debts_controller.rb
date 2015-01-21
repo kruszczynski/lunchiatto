@@ -3,9 +3,7 @@ class UserDebtsController < ApplicationController
   before_filter :find_user_debts
 
   def index
-    respond_to do |format|
-      format.json { render json: @balances }
-    end
+    render json: @balances
   end
 
   private

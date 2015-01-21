@@ -4,55 +4,39 @@ class OrdersController < ApplicationController
 
   def index
     @orders = Order.past.includes(:dishes).decorate
-    respond_to do |format|
-      format.json {render json: @orders}
-    end
+    render json: @orders
   end
 
   def create
     @order = Order.new order_params.merge(date: Date.today)
     if @order.save
-      respond_to do |format|
-        format.json {render json: @order.decorate}
-      end
+      render json: @order.decorate
     else
-      respond_to do |format|
-        format.json {render json: {errors: @order.errors}, status: :unprocessable_entity}
-      end
+      render json: {errors: @order.errors}, status: :unprocessable_entity
     end
   end
 
   def show
     @order = @order.decorate
-    respond_to do |format|
-      format.json { render json: @order }
-    end
+    render json: @order
   end
 
   def update
     if @order.update(order_params)
-      respond_to do |format|
-        format.json { render json: @order.decorate }
-      end
+      render json: @order.decorate
     else
-      respond_to do |format|
-        format.json {render json: {errors: @order.errors}, status: :unprocessable_entity}
-      end
+      render json: {errors: @order.errors}, status: :unprocessable_entity
     end
   end
 
   def change_status
     @order.change_status!
-    respond_to do |format|
-      format.json {render json: @order.decorate}
-    end
+    render json: @order.decorate
   end
 
   def latest
     @order = Order.todays_order.try(:decorate)
-    respond_to do |format|
-      format.json { render json: @order }
-    end
+    render json: @order
   end
 
   private
