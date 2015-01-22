@@ -17,13 +17,14 @@ gem 'jbuilder', '~> 2.0'
 gem 'factory_girl_rails', '~> 4.0'
 gem 'dynopoker'
 
-gem 'omniauth'
-gem 'omniauth-google-oauth2'
+gem 'omniauth', '1.2.2'
+gem 'omniauth-google-oauth2', '0.2.6  '
 
 gem 'draper', '~> 1.3'
 gem 'money-rails', '1.2.0'
 
 gem 'unicorn', '4.8.3'
+gem 'kaminari', '0.16.1'
 
 gem 'upmin-admin'
 

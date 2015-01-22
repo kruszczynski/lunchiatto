@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_filter :find_order, except: [:create, :index, :latest]
 
   def index
-    @orders = Order.past.includes(:dishes).decorate
+    @orders = Order.past.page(params[:page]).includes(:dishes).decorate
     render json: @orders
   end
 

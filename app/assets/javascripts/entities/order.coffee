@@ -27,3 +27,5 @@
   Entities.Orders = Backbone.Collection.extend
     model: Entities.Order
     url: '/orders'
+
+    nextPage
