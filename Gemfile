@@ -23,6 +23,8 @@ gem 'omniauth-google-oauth2'
 gem 'draper', '~> 1.3'
 gem 'money-rails', '1.2.0'
 
+gem 'unicorn', '4.8.3'
+
 gem 'upmin-admin'
 
 group :development, :test do
