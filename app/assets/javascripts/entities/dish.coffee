@@ -12,6 +12,8 @@
         type: 'POST'
         success: (data) =>
           copiedDish = new Entities.Dish data
+          currentDish = @collection.where user_id: data.user_id
+          @collection.remove currentDish
           @collection.add copiedDish
 
   Entities.Dishes = Backbone.Collection.extend
