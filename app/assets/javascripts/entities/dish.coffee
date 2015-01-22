@@ -16,5 +16,14 @@
           @collection.remove currentDish
           @collection.add copiedDish
 
+    yetToOrder: (user) ->
+      @collection.where(user_id: user.id).length is 0
+
+
   Entities.Dishes = Backbone.Collection.extend
     model: Entities.Dish
+
+    total: ->
+      @reduce (memo, debt) ->
+        memo + parseFloat(debt.get('price'))
+      ,0

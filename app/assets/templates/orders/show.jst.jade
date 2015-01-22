@@ -1,11 +1,11 @@
 section.orderer
   .margin-bottom-medium.light-weight <strong>#{user.name}</strong> pays.
   .margin-bottom-medium.light-weight Ordering from: <strong>#{from}</strong>
-  .margin-bottom-medium.light-weight Total is: <strong>#{total}</strong>
+  .margin-bottom-medium.light-weight Total is: <strong class="title-total">#{total}</strong>
   .margin-bottom-medium.light-weight Status: <strong>#{Humanize.titleCase(status.replace('_', ' '))}</strong>
   .margin-bottom-medium
     if status !== 'delivered'
-      a.button(href="/orders/#{id}/edit", data-navigate) Change payer
+      a.button(href="/orders/#{id}/edit", data-navigate) Edit Order
     //div=window.gon.current_user.id
     if status === 'ordered' && ordered_by_current_user
       - shippingText = parseFloat(locals.shipping) > 0 ? "Edit shipping" : "Add shipping"

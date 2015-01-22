@@ -14,10 +14,13 @@
       'click @ui.deleteButton': 'delete:dish'
 
     onCopyDish: ->
-      @model.copy() if confirm(@OVERWRITE_MESSAGE)
+      @model.copy() if @_confirmOverwrite()
 
     onDeleteDish: ->
       @model.destroy() if confirm(@DELETE_MESSAGE)
 
     serializeData: ->
       _.extend @model.toJSON(), order: @model.collection.order
+
+    _confirmOverwrite: ->
+      @model.yetToOrder(App.currentUser) || confirm(@OVERWRITE_MESSAGE)

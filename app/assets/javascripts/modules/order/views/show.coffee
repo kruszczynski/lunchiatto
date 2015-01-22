@@ -6,6 +6,7 @@
       dishesSection: '.dishes-section'
       orderButton: '.order-button'
       changeStatus: '.change-status-button'
+      orderTotal: '.title-total'
 
     regions:
       dishes: '@ui.dishesSection'
@@ -18,6 +19,7 @@
 
     initialize: ->
       @listenTo @model.get('dishes'), 'add remove', @_hideOrderButton
+      @listenTo @model.get('dishes'), 'add remove', @_recalculateTotal
 
     onRender: ->
       @_showDishes()
@@ -33,3 +35,6 @@
 
     _hideOrderButton: ->
       @ui.orderButton.toggleClass('hide',@model.currentUserOrdered())
+
+    _recalculateTotal: ->
+      @ui.orderTotal.text @model.total()

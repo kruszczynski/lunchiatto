@@ -21,6 +21,9 @@
           App.vent.trigger 'reload:current:user' if data.status is 'delivered'
           @get('dishes').reset(data.dishes, parse: true)
 
+    total: ->
+      (@get('dishes').total()+parseFloat(@get('shipping'))).toFixed(2)
+
   Entities.Orders = Backbone.Collection.extend
     model: Entities.Order
     url: '/orders'
