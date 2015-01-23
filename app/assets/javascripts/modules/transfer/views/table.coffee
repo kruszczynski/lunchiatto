@@ -8,3 +8,6 @@
     childViewContainer: 'tbody'
     childViewOptions: ->
       type: @collection.type
+
+    behaviors:
+      Pageable: {}

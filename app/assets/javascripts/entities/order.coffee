@@ -27,3 +27,14 @@
   Entities.Orders = Backbone.Collection.extend
     model: Entities.Order
     url: '/orders'
+
+    page: 1
+
+    more: ->
+      @page += 1
+      @fetch
+        data:
+          page: @page
+        remove: false
+        success: (collection, data) =>
+          @trigger 'all:fetched' if data.length < App.pageSize

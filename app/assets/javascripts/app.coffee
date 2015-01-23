@@ -21,6 +21,8 @@
     App.router = new App.Router
       controller: App.Controller
 
+  App.pageSize = 10
+
   App.on 'start', ->
     Marionette.Behaviors.behaviorsLookup = ->
       App.Behaviors
