@@ -41,7 +41,6 @@ group :development do
   gem 'hirb', '0.7.2'
   gem 'web-console', '~> 2.0'
   gem 'binding_of_caller', '0.7.2'
-  gem 'letter_opener', '1.3.0'
   gem 'did-you-mean'
 end
 
