@@ -26,3 +26,13 @@
     initialize: (models, options)->
       @type = options.type
 
+    page: 1
+
+    more: ->
+      @page += 1
+      @fetch
+        data:
+          page: @page
+        remove: false
+        success: (collection, data) =>
+          @trigger 'all:fetched' if data.length < App.pageSize

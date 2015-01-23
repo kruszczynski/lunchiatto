@@ -6,10 +6,11 @@
     'click @ui.more': 'fetch:more'
 
   onShow: ->
-    @view.collection.on 'all:fetched', @_allFetched, this
+    @view.collection.on 'all:fetched', @_hideMore, this
+    @_hideMore() if @view.collection.length < CodequestManager.pageSize
 
   onFetchMore: ->
     @view.collection.more()
 
-  _allFetched: ->
+  _hideMore: ->
     @ui.more.addClass('hide')

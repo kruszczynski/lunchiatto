@@ -37,4 +37,4 @@
           page: @page
         remove: false
         success: (collection, data) =>
-          @trigger 'all:fetched' if data.length < 10
+          @trigger 'all:fetched' if data.length < App.pageSize
