@@ -22,4 +22,8 @@ class OrderSerializer < ActiveModel::Serializer
   def include_dishes?
     !options[:shallow]
   end
+
+  def include_user?
+    !options[:shallow]
+  end
 end

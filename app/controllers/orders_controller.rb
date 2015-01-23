@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = @order.decorate
+    @order = @order.includes(:dishes, :user).decorate
     render json: @order
   end
 
