@@ -4,3 +4,6 @@
     childViewContainer: 'tbody'
     getChildView: ->
       Order.Item
+
+    behaviors:
+      Pageable: {}

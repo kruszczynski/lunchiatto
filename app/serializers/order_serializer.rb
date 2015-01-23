@@ -18,4 +18,8 @@ class OrderSerializer < ActiveModel::Serializer
   def total
     (object.amount+object.shipping).to_s
   end
+
+  def include_dishes?
+    !options[:shallow]
+  end
 end

@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
 
   def index
     @orders = Order.past.page(params[:page]).includes(:dishes).decorate
-    render json: @orders
+    render json: @orders, shallow: true
   end
 
   def create
