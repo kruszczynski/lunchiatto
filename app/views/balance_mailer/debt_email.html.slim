@@ -1,0 +1,15 @@
+= render partial: 'shared/mailer_header', locals: {name: @user.name}
+
+table.row
+  tr
+    td.wrapper.last
+      table.twelve.columns
+        - @balances.each do |balance|
+          tr
+            td
+              h4.padding-bottom You owe #{balance.payer} #{-balance.balance} PLN!
+              table.button.margin-bottom
+                tr
+                  td
+                    a href=app_transfers_new_url Send him a transfer mate!
+            td.expander
