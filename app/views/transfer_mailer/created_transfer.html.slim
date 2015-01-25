@@ -1,0 +1,15 @@
+= render partial: 'shared/mailer_header', locals: {name: @to.name}
+
+table.row
+  tr
+    td.wrapper.last
+      table.twelve.columns
+        tr
+          td
+            h4.padding-bottom #{@from} has send you #{@transfer.amount} PLN
+            p It's recommended to accept or reject once the money actually appears on your account.
+            table.button.margin-bottom
+              tr
+                td
+                  a href=app_finances_url See your finances to accept or reject
+          td.expander

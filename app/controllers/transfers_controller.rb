@@ -6,6 +6,7 @@ class TransfersController < ApplicationController
     @transfer = Transfer.new transfer_params
     @transfer.from = current_user
     if @transfer.save
+      TransferMailer.created_transfer(@transfer).deliver_now
       render json: @transfer
     else
       render json: {errors: @transfer.errors}, status: :unprocessable_entity
