@@ -47,6 +47,12 @@ describe TransfersController, type: :controller do
         put :accept, id: @transfer.id, format: :json
         expect(response).to have_http_status(422)
       end
+      it "sends an email" do
+        sign_in @other_user
+        expect{
+          put :accept, id: @transfer.id, format: :json
+        }.to change(ActionMailer::Base.deliveries, :count).by(1)
+      end
       it "rejects not pending" do
         @transfer.accepted!
         sign_in @other_user
@@ -80,6 +86,12 @@ describe TransfersController, type: :controller do
         sign_in @user
         put :reject, id: @transfer.id, format: :json
         expect(response).to have_http_status(422)
+      end
+      it "sends an email" do
+        sign_in @other_user
+        expect{
+          put :reject, id: @transfer.id, format: :json
+        }.to change(ActionMailer::Base.deliveries, :count).by(1)
       end
       it "is success" do
         sign_in @other_user

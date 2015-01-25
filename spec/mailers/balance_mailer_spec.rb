@@ -23,7 +23,7 @@ describe BalanceMailer, type: :mailer do
     let(:mail) { BalanceMailer.debt_email(user,balances) }
 
     it "sends an email" do
-      expect { mail.deliver_now}.to change { ActionMailer::Base.deliveries.count }.by(1)
+      expect { mail.deliver_now}.to change(ActionMailer::Base.deliveries, :count).by(1)
     end
 
     it "renders the subject" do

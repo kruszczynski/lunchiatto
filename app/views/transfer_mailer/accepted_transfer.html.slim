@@ -1,0 +1,14 @@
+= render partial: 'shared/mailer_header', locals: {name: @from.name}
+
+table.row
+  tr
+    td.wrapper.last
+      table.twelve.columns
+        tr
+          td
+            h4.padding-bottom #{@to} has accepted your transfer of #{@transfer.amount} PLN.
+            table.button.margin-bottom
+              tr
+                td
+                  a href=app_finances_url See your finances
+          td.expander
