@@ -39,5 +39,7 @@ Rails.application.configure do
   config.assets.digest = true
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
+  config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
 end
+
+Rails.application.routes.default_url_options[:host]= 'localhost:3000'
