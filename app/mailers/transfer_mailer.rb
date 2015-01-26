@@ -1,7 +1,4 @@
 class TransferMailer < ApplicationMailer
-  default from: "noreply@codequest-manager.herokuapp.com"
-  layout "mailer"
-
   def created_transfer(transfer)
     @transfer = transfer
     @from = transfer.from

@@ -35,7 +35,7 @@ describe BalanceMailer, type: :mailer do
     end
 
     it "renders the sender email" do
-      expect(mail.from).to eql(["noreply@codequest-manager.herokuapp.com"])
+      expect(mail.from).to eql(["admin@codequest-manager.herokuapp.com"])
     end
   end
 end

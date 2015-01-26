@@ -1,7 +1,4 @@
 class BalanceMailer < ApplicationMailer
-  default from: "noreply@codequest-manager.herokuapp.com"
-  layout "mailer"
-
   def debt_email(user, balances)
     @user = user
     @balances = balances
