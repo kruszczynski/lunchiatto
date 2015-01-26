@@ -7,6 +7,9 @@ namespace :daily_emails do
       balances = user.balances.select do |balance|
         balance.balance_cents < 0
       end
+      balances = balances.select do |balance|
+        Transfer.pending.where(to: balance.payer, from: user).blank?
+      end
       BalanceMailer.debt_email(user, balances).deliver_now if balances.present?
     end
   end
