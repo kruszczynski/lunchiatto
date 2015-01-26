@@ -4,25 +4,12 @@ describe Order, :type => :model do
 
   it {should belong_to(:user)}
   it {should have_many(:dishes)}
-  it {should callback(:ensure_one_order_per_day).before(:create)}
   it {should validate_presence_of(:user)}
+  it {should validate_presence_of(:from)}
+  it {should validate_uniqueness_of(:date).with_message("There already is an order for today")}
 
   it 'should have statuses' do
     expect(Order.statuses).to eq({"in_progress"=>0, "ordered"=>1, "delivered"=>2})
-  end
-
-  describe '#ensure_one_order_per_day' do
-    it 'should return true if no orders for the day' do
-      expect(Order).to receive(:find_by).with(date: Date.today).and_return(nil)
-      order = Order.new date: Date.today
-      expect(order.ensure_one_order_per_day).to be_truthy
-    end
-    it 'should return false if there is order for the day' do
-      mock = double('Order')
-      expect(Order).to receive(:find_by).with(date: Date.today).and_return(mock)
-      order = Order.new date: Date.today
-      expect(order.ensure_one_order_per_day).to be_falsey
-    end
   end
 
   describe '.todays_order' do

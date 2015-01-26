@@ -2,12 +2,11 @@ class Order < ActiveRecord::Base
   belongs_to :user
   has_many :dishes, dependent: :destroy
 
-  before_create :ensure_one_order_per_day
-
   validates :user, presence: true
   validates :from, presence: true
+  validates :date, uniqueness: {message: "There already is an order for today"}
 
-  scope :past, -> { where.not(date: Date.today).order('date desc')}
+  scope :past, -> { where.not(date: Date.today).order("date desc")}
   register_currency :pln
   monetize :shipping_cents
 
@@ -17,13 +16,8 @@ class Order < ActiveRecord::Base
     find_by date: Date.today
   end
 
-  def ensure_one_order_per_day
-    return if Order.find_by date: Date.today
-    true
-  end
-
   def amount
-    initial = Money.new(0, 'PLN')
+    initial = Money.new(0, "PLN")
     dishes.inject(initial) {|sum, dish| sum + dish.price }
   end
 

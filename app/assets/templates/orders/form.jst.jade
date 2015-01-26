@@ -4,6 +4,8 @@ else
   h1 New order
 - var selected = locals.user_id ? locals.user_id : ''
 form
+  .full-error.panel.hide
+    p
   label.user-label Payer
     select.user-id(name='user_id')
       option(value='') Select Payer
