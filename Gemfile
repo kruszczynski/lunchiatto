@@ -1,68 +1,69 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-ruby '2.2.0'
+ruby "2.2.0"
 
-gem 'rails', '4.2.0'
-gem 'pg', '0.17.1'
-gem 'newrelic_rpm', '3.9.9.275'
-gem 'slim-rails', '3.0.1'
-gem 'active_model_serializers', '0.8.3'
-gem 'gon', '5.2.3'
+gem "rails", "4.2.0"
+gem "pg", "0.17.1"
+gem "newrelic_rpm", "3.9.9.275"
+gem "slim-rails", "3.0.1"
+gem "active_model_serializers", "0.8.3"
+gem "gon", "5.2.3"
 
-gem 'jquery-rails', '3.1.1'
-gem 'devise', '3.4.1'
+gem "jquery-rails", "3.1.1"
+gem "devise", "3.4.1"
 
-gem 'jbuilder', '~> 2.0'
+gem "jbuilder", "~> 2.0"
 
-gem 'factory_girl_rails', '~> 4.0'
-gem 'dynopoker'
+gem "factory_girl_rails", "~> 4.0"
+gem "dynopoker"
 
-gem 'omniauth', '1.2.2'
-gem 'omniauth-google-oauth2', '0.2.6  '
+gem "omniauth", "1.2.2"
+gem "omniauth-google-oauth2", "0.2.6  "
 
-gem 'draper', '~> 1.3'
-gem 'money-rails', '1.2.0'
+gem "draper", "~> 1.3"
+gem "money-rails", "1.2.0"
 
-gem 'unicorn', '4.8.3'
-gem 'kaminari', '0.16.1'
-gem 'nokogiri'
-gem 'premailer', '1.8.2'
-gem 'premailer-rails', '1.8.0'
+gem "unicorn", "4.8.3"
+gem "kaminari", "0.16.1"
+gem "nokogiri"
+gem "premailer", "1.8.2"
+gem "premailer-rails", "1.8.0"
 
-gem 'upmin-admin'
+gem "upmin-admin"
 
 group :development, :test do
-  gem 'cucumber-rails', :require => false
-  gem 'rspec-rails', '3.1.0'
+  gem "cucumber-rails", :require => false
+  gem "rspec-rails", "3.1.0"
 end
 
 group :production do
-  gem 'rails_12factor'
+  gem "rails_12factor"
 end
 
 group :development do
-  gem 'hirb', '0.7.2'
-  gem 'web-console', '~> 2.0'
-  gem 'binding_of_caller', '0.7.2'
-  gem 'did-you-mean'
+  gem "hirb", "0.7.2"
+  gem "web-console", "~> 2.0"
+  gem "binding_of_caller", "0.7.2"
+  gem "did-you-mean"
 end
 
 group :assets do
-  gem 'sass-rails', '~> 5.0.1'
-  gem 'uglifier', '>= 1.3.0'
-  gem 'coffee-rails', '~> 4.0.0'
+  gem "sass-rails", "~> 5.0.1"
+  gem "uglifier", ">= 1.3.0"
+  gem "coffee-rails", "~> 4.0.0"
 end
 
 group :test do
-  gem 'rake'
-  gem 'shoulda-matchers', require: false
-  gem 'shoulda-callback-matchers', require: false
-  gem 'simplecov', require: false
+  gem "rake"
+  gem "shoulda-matchers", require: false
+  gem "shoulda-callback-matchers", require: false
+  gem "simplecov", require: false
+  gem "codeclimate-test-reporter", require: false
 end
 
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem "sdoc", "~> 0.4.0", group: :doc
 
 
 #FrontEnd
-gem 'tilt-jade', '~> 1.2.0'
+gem "tilt-jade", "~> 1.2.0"
 
