@@ -4,7 +4,7 @@ class Transfer < ActiveRecord::Base
 
   validates :from, :to, presence: true
 
-  scope :newest_first, -> { order 'updated_at desc' }
+  scope :newest_first, -> { order 'created_at desc' }
 
   register_currency :pln
   monetize :amount_cents

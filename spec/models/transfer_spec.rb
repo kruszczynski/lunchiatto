@@ -25,4 +25,11 @@ describe Transfer, type: :model do
       @transfer.mark_as_accepted!
     end
   end
+
+  describe 'scope newest_first' do
+    it 'should order appropriately' do
+      expect(Transfer).to receive(:order).with('created_at desc').and_return(:sorted_and_created_at)
+      expect(Transfer.newest_first).to eq(:sorted_and_created_at)
+    end
+  end
 end
