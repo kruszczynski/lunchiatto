@@ -23,7 +23,7 @@ gem "omniauth-google-oauth2", "0.2.6  "
 gem "draper", "~> 1.3"
 gem "money-rails", "1.2.0"
 
-gem "unicorn", "4.8.3"
+gem "puma", "2.11.0"
 gem "kaminari", "0.16.1"
 gem "nokogiri"
 gem "premailer", "1.8.2"
