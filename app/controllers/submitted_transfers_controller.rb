@@ -3,6 +3,7 @@ class SubmittedTransfersController < ApplicationController
   before_filter :find_submitted_transfers
 
   def index
+    @transfers = @transfers.to_user(params[:user_id]) if params[:user_id].present?
     render json: @transfers
   end
 

@@ -3,6 +3,7 @@
     template: 'transfers/table'
     templateHelpers: ->
       type: @collection.type
+      selectedUser: @collection.userId
     getChildView: ->
       Transfer.Row
     childViewContainer: 'tbody'
@@ -11,3 +12,14 @@
 
     behaviors:
       Pageable: {}
+
+    ui:
+      userSelect: '.user-id'
+
+    triggers:
+      'change @ui.userSelect': 'filter:transfers'
+
+    onFilterTransfers: ->
+      @collection.userId = @ui.userSelect.val()
+      @collection.page = 1
+      @collection.optionedFetch(reset: true)

@@ -27,12 +27,19 @@
       @type = options.type
 
     page: 1
+    userId: ''
 
     more: ->
       @page += 1
       @fetch
-        data:
-          page: @page
+        data: @_getData()
         remove: false
         success: (collection, data) =>
           @trigger 'all:fetched' if data.length < App.pageSize
+
+    optionedFetch: (options) ->
+      extendedOptions = _.extend(data: @_getData(), options)
+      Backbone.Collection::fetch.call(this, extendedOptions)
+
+    _getData: ->
+      {page: @page, user_id: @userId}

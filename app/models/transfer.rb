@@ -5,6 +5,8 @@ class Transfer < ActiveRecord::Base
   validates :from, :to, presence: true
 
   scope :newest_first, -> { order 'created_at desc' }
+  scope :from_user, ->(from_id) { where from_id: from_id }
+  scope :to_user, ->(to_id) { where to_id: to_id }
 
   register_currency :pln
   monetize :amount_cents
