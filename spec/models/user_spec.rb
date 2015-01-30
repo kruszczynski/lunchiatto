@@ -12,24 +12,9 @@ describe User do
     before do
       @user = create(:user)
       @payer = create(:other_user)
-      @balance_one = build(:user_balance) do |balance|
-        balance.user = @user
-        balance.payer = @payer
-        balance.balance = 15
-      end
-      @balance_one.save!
-      @balance_two = build(:user_balance) do |balance|
-        balance.user = @user
-        balance.payer = @payer
-        balance.balance = 17
-      end
-      @balance_two.save!
-      @balance_three = build(:user_balance) do |balance|
-        balance.user = @user
-        balance.payer = @user
-        balance.balance = 34
-      end
-      @balance_three.save!
+      @balance_one = create :user_balance, user: @user, payer: @payer, balance: 15
+      @balance_two = create :user_balance, user: @user, payer: @payer, balance: 17
+      @balance_three = create :user_balance, user: @user, payer: @user, balance: 34
     end
     it 'should return adequate' do
       expect(UserBalance).to receive(:balances_for).with(@user).and_return([@balance_two, @balance_three])
@@ -105,16 +90,8 @@ describe User do
     before do
       @user = create :user
       other_user = create :other_user
-      @balance_one = build :user_balance do |b|
-        b.user = @user
-        b.payer = @user
-        b.balance = 10
-      end
-      @balance_two = build :user_balance do |b|
-        b.user = @user
-        b.payer = other_user
-        b.balance = 40
-      end
+      @balance_one = create :user_balance, user: @user, payer: @user, balance: 10
+      @balance_two = create :user_balance, user: @user, payer: other_user, balance: 40
       expect(@user).to receive(:balances).and_return([@balance_one, @balance_two])
     end
     it 'returns proper balance' do
@@ -137,16 +114,8 @@ describe User do
     before do
       @user = create :user
       other_user = create :other_user
-      @balance_one = build :user_balance do |b|
-        b.user = @user
-        b.payer = @user
-        b.balance = 40
-      end
-      @balance_two = build :user_balance do |b|
-        b.user = other_user
-        b.payer = @user
-        b.balance = 30
-      end
+      @balance_one = create :user_balance, user: @user, payer: @user, balance: 40
+      @balance_two = create :user_balance, user: other_user, payer: @user, balance: 30
       expect(@user).to receive(:debts).and_return([@balance_one, @balance_two])
     end
     it 'returns proper balance' do
@@ -159,16 +128,8 @@ describe User do
     before do
       @user = create :user
       other_user = create :other_user
-      @transfer_one = build(:transfer) do |transfer|
-        transfer.from = @user
-        transfer.to = other_user
-      end
-      @transfer_one.save!
-      @transfer_two = build(:transfer) do |transfer|
-        transfer.from = other_user
-        transfer.to = @user
-      end
-      @transfer_two.save!
+      @transfer_one = create :transfer, from: @user, to: other_user
+      @transfer_two = create :transfer, from: other_user, to: @user
     end
     it 'returns adequate count' do
       expect(@user.pending_transfers_count).to eq(1)

@@ -4,11 +4,7 @@ describe Transfer, type: :model do
   before do
     @user = create :user
     @other_user = create :other_user
-    @transfer = build(:transfer) do |transfer|
-      transfer.from = @user
-      transfer.to = @other_user
-    end
-    @transfer.save!
+    @transfer = create :transfer, from: @user, to: @other_user
   end
   it {should belong_to(:from)}
   it {should belong_to(:to)}

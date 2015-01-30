@@ -39,10 +39,7 @@ describe Order, :type => :model do
   describe '#change_status!' do
     before do
       user = create(:user)
-      @order = build(:order) do |order|
-        order.user = user
-      end
-      @order.save
+      @order = create :order, user: user
     end
     it 'should change from in_progress to ordered' do
       expect(@order).to_not receive(:subtract_price)
@@ -67,11 +64,7 @@ describe Order, :type => :model do
   describe '#subtract_price' do
     before do
       @user = create(:user)
-      @order = build(:order) do |order|
-        order.user = @user
-        order.shipping = Money.new(2000, 'PLN')
-      end
-      @order.save
+      @order = create :order, user: @user, shipping: Money.new(2000, 'PLN')
     end
     it 'should iterate over dishes and call #subtract' do
       dish1 = double('Dish')

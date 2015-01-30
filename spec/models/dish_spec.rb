@@ -17,25 +17,15 @@ describe Dish, :type => :model do
   describe '#ensure_uniqueness' do
     before do
       @user = create(:user)
-      @order = build(:order) do |order|
-        order.user = @user
-      end
-      @order.save
+      @order = create :order, user: @user
     end
     it 'should return true when new order and user' do
       dish = Dish.new user: @user, order: @order
       expect(dish.ensure_uniqueness).to be_truthy
     end
     it 'should return false when order and user are already connected' do
-      previous_dish = build(:dish) do |dish|
-        dish.user = @user
-        dish.order = @order
-      end
-      previous_dish.save!
-      dish = build(:dish) do |dish|
-        dish.user = @user
-        dish.order = @order
-      end
+      previous_dish = create :dish, user: @user, order: @order
+      dish = build :dish, user: @user, order: @order
       expect(dish.ensure_uniqueness).to be_falsey
     end
   end
@@ -44,15 +34,8 @@ describe Dish, :type => :model do
     before do
       @user = create(:user)
       @other = create(:other_user)
-      @order = build(:order) do |order|
-        order.user = @user
-      end
-      @order.save
-      @dish = build(:dish) do |dish|
-        dish.user = @user
-        dish.order = @order
-      end
-      @dish.save
+      @order = create :order, user: @user
+      @dish = create :dish, user: @user, order: @order
     end
     it 'should return an instance of dish' do
       @new_dish = @dish.copy(@other)
@@ -63,11 +46,7 @@ describe Dish, :type => :model do
 
     describe 'with existing dish'
     before do
-      @existing_dish = build(:dish) do |dish|
-        dish.user = @other
-        dish.order = @order
-      end
-      @existing_dish.save
+      @existing_dish = create :dish, user: @other, order: @order
     end
     it 'should delete existing dish first' do
       expect {
@@ -79,16 +58,8 @@ describe Dish, :type => :model do
   describe '#subtract' do
     before do
       @user = create(:user)
-      @order = build(:order) do |order|
-        order.user = @user
-      end
-      @order.save
-      @dish = build(:dish) do |dish|
-        dish.user = @user
-        dish.order = @order
-        dish.price_cents = 1200
-      end
-      @dish.save
+      @order = create :order, user: @user
+      @dish = create :dish, user: @user, order: @order, price_cents: 1200
     end
     it 'should reduce users balance' do
       shipping = Money.new(1000, 'PLN')

@@ -32,10 +32,7 @@ describe OrdersController, :type => :controller do
 
   describe 'PUT update' do
     before do
-      @order = build(:order) do |order|
-        order.user = @user
-      end
-      @order.save
+      @order = create :order, user: @user
     end
     describe 'json' do
       it 'rejects when not logged in' do
@@ -58,10 +55,7 @@ describe OrdersController, :type => :controller do
 
   describe 'GET show' do
     before do
-      @order = build(:order) do |order|
-        order.user = @user
-      end
-      @order.save
+      @order = create :order, user: @user
     end
     describe 'json' do
       it 'rejects when not logged in' do
@@ -78,10 +72,7 @@ describe OrdersController, :type => :controller do
 
   describe 'PUT change_status' do
     before do
-      @order = build(:order) do |order|
-        order.user = @user
-      end
-      @order.save
+      @order = create :order, user: @user
     end
     describe 'json' do
       it 'rejects when not logged in' do
@@ -112,10 +103,7 @@ describe OrdersController, :type => :controller do
 
   describe 'GET :latest' do
     before do
-      @order = build(:order) do |order|
-        order.user = @user
-      end
-      @order.save!
+      @order = create :order, user: @user
     end
     describe 'json' do
       it 'rejects when not logged in' do

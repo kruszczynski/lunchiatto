@@ -4,36 +4,11 @@ describe UserDebtsController, type: :controller do
   before do
     @user = create :user
     @other_user = create :other_user
-    @balance_one = build :user_balance do |b|
-      b.user = @user
-      b.payer = @user
-      b.balance = 10
-      b.save!
-    end
-    @balance_two = build :user_balance do |b|
-      b.user = @user
-      b.payer = @other_user
-      b.balance = 40
-      b.save!
-    end
-    @balance_three = build :user_balance do |b|
-      b.user = @user
-      b.payer = @other_user
-      b.balance = 40
-      b.save!
-    end
-    @balance_four = build :user_balance do |b|
-      b.user = @user
-      b.payer = @user
-      b.balance = 40
-      b.save!
-    end
-    @balance_five = build :user_balance do |b|
-      b.user = @other_user
-      b.payer = @other_user
-      b.balance = 40
-      b.save!
-    end
+    @balance_one = create :user_balance, user: @user, payer: @user, balance: 10
+    @balance_two = create :user_balance, user: @user, payer: @other_user, balance: 40
+    @balance_three = create :user_balance, user: @user, payer: @other_user, balance: 40
+    @balance_four = create :user_balance, user: @user, payer: @user, balance: 40
+    @balance_five = create :user_balance, user: @other_user, payer: @other_user, balance: 40
   end
   describe 'GET :index' do
     it 'is success' do

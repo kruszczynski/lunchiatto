@@ -6,18 +6,8 @@ describe BalanceMailer, type: :mailer do
     let(:user) { create :user }
     let(:other_user) { create :other_user }
     let(:balances) do
-      balance_one = build :user_balance do |b|
-        b.user = user
-        b.payer = user
-        b.balance = 10
-      end
-      balance_one.save!
-      balance_two = build :user_balance do |b|
-        b.user = user
-        b.payer = other_user
-        b.balance = 40
-      end
-      balance_two.save!
+      balance_one = create :user_balance, user: user, payer: user, balance: 10
+      balance_two = create :user_balance, user: user, payer: other_user, balance: 40
       [balance_one,balance_two]
     end
     let(:mail) { BalanceMailer.debt_email(user,balances) }

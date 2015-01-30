@@ -35,11 +35,7 @@ describe TransfersController, type: :controller do
     before do
       @user = create :user
       @other_user = create :other_user
-      @transfer = build(:transfer) do |transfer|
-        transfer.from = @user
-        transfer.to = @other_user
-      end
-      @transfer.save!
+      @transfer = create :transfer, from: @user, to: @other_user
     end
     describe "json" do
       it "rejects when current_user is not the receiver" do
@@ -75,11 +71,7 @@ describe TransfersController, type: :controller do
     before do
       @user = create :user
       @other_user = create :other_user
-      @transfer = build(:transfer) do |transfer|
-        transfer.from = @user
-        transfer.to = @other_user
-      end
-      @transfer.save!
+      @transfer = create :transfer, from: @user, to: @other_user
     end
     describe "json" do
       it "redirects to root if user is not the receiver of transfer" do

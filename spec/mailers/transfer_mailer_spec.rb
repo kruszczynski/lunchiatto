@@ -5,14 +5,7 @@ describe TransferMailer, type: :mailer do
   describe "#created_transfer" do
     let(:user) {create :user}
     let(:other_user) {create :other_user}
-    let(:transfer) do
-      transfer = build :transfer do |transfer|
-        transfer.from = user
-        transfer.to = other_user
-      end
-      transfer.save!
-      transfer
-    end
+    let(:transfer) { create :transfer, from: user, to: other_user }
     let(:mail) { TransferMailer.created_transfer(transfer) }
 
     it "sends an email" do
@@ -36,11 +29,7 @@ describe TransferMailer, type: :mailer do
     let(:user) {create :user}
     let(:other_user) {create :other_user}
     let(:transfer) do
-      transfer = build :transfer do |transfer|
-        transfer.from = user
-        transfer.to = other_user
-      end
-      transfer.save!
+      transfer = create :transfer, from: user, to: other_user
       transfer.mark_as_accepted!
       transfer
     end
@@ -67,11 +56,7 @@ describe TransferMailer, type: :mailer do
     let(:user) {create :user}
     let(:other_user) {create :other_user}
     let(:transfer) do
-      transfer = build :transfer do |transfer|
-        transfer.from = user
-        transfer.to = other_user
-      end
-      transfer.save!
+      transfer = create :transfer, from: user, to: other_user
       transfer.rejected!
       transfer
     end

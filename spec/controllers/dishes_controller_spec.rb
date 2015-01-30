@@ -3,10 +3,7 @@ require 'spec_helper'
 describe DishesController, :type => :controller do
   before do
     @user = create(:user)
-    @order = build(:order) do |order|
-      order.user = @user
-      order.save!
-    end
+    @order = create :order, user: @user
   end
 
   describe 'POST create' do
@@ -30,11 +27,7 @@ describe DishesController, :type => :controller do
 
   describe 'POST update' do
     before do
-      @dish = build(:dish) do |dish|
-        dish.user = @user
-        dish.order = @order
-      end
-      @dish.save!
+      @dish = create :dish, user: @user, order: @order
     end
     describe 'json' do
       it 'rejects when not logged in' do
@@ -56,11 +49,7 @@ describe DishesController, :type => :controller do
 
   describe 'DELETE destroy' do
     before do
-      @dish = build(:dish) do |dish|
-        dish.user = @user
-        dish.order = @order
-      end
-      @dish.save!
+      @dish = create :dish, user: @user, order: @order
     end
     describe 'json' do
       it 'rejects when not logged in' do
@@ -85,11 +74,7 @@ describe DishesController, :type => :controller do
   describe 'POST copy' do
     before do
       @other_user = create(:other_user)
-      @dish = build(:dish) do |dish|
-        dish.user = @user
-        dish.order = @order
-      end
-      @dish.save
+      @dish = create :dish, user: @user, order: @order
     end
     describe 'json' do
       it 'copies a new dish' do
@@ -113,11 +98,7 @@ describe DishesController, :type => :controller do
 
   describe 'GET show' do
     before do
-      @dish = build(:dish) do |dish|
-        dish.user = @user
-        dish.order = @order
-      end
-      @dish.save!
+      @dish = create :dish, user: @user, order: @order
     end
     describe 'json' do
       it 'rejects when not logged in' do

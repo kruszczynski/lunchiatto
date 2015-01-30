@@ -3,15 +3,8 @@ require 'spec_helper'
 describe DishDecorator do
   before do
     @user = create(:user)
-    @order = build(:order) do |order|
-      order.user = @user
-    end
-    @order.save
-    @dish = build(:dish) do |dish|
-      dish.user = @user
-      dish.order = @order
-    end
-    @dish.save!
+    @order = create :order, user: @user
+    @dish = create :dish, user: @user, order: @order
     @dish = @dish.decorate
     allow(@dish).to receive(:current_user).and_return(@user)
     @other_user = create :other_user

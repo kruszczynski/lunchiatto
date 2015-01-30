@@ -3,21 +3,14 @@ require 'spec_helper'
 describe OrderDecorator do
   before do
     @user = create(:user)
-    @order = build(:order) do |order|
-      order.user = @user
-    end
-    @order.save!
+    @order = create :order, user: @user
     @order = @order.decorate
   end
 
   describe '#current_user_ordered?' do
     before do
       @other_user = create(:other_user)
-      @dish = build(:dish) do |dish|
-        dish.user = @other_user
-        dish.order = @order
-      end
-      @dish.save!
+      @dish = create :dish, user: @other_user, order: @order
     end
 
     it 'returns false when users differ' do
