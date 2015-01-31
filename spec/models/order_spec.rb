@@ -37,43 +37,39 @@ describe Order, :type => :model do
   end
 
   describe '#change_status!' do
-    before do
-      user = create(:user)
-      @order = create :order, user: user
-    end
+    let(:user) {create(:user)}
+    let(:order) {create :order, user: user}
     it 'should change from in_progress to ordered' do
-      expect(@order).to_not receive(:subtract_price)
-      @order.change_status!
-      expect(@order.ordered?).to be_truthy
+      expect(order).to_not receive(:subtract_price)
+      order.change_status!
+      expect(order.ordered?).to be_truthy
     end
     it 'should change from ordered to delivered' do
-      @order.ordered!
-      @order.save
-      expect(@order).to receive(:subtract_price)
-      @order.change_status!
-      expect(@order.delivered?).to be_truthy
+      order.ordered!
+      order.save
+      expect(order).to receive(:subtract_price)
+      order.change_status!
+      expect(order.delivered?).to be_truthy
     end
     it 'should not change further' do
-      @order.delivered!
-      expect(@order).to_not receive(:subtract_price)
-      @order.change_status!
-      expect(@order.delivered?).to be_truthy
+      order.delivered!
+      expect(order).to_not receive(:subtract_price)
+      order.change_status!
+      expect(order.delivered?).to be_truthy
     end
   end
 
   describe '#subtract_price' do
-    before do
-      @user = create(:user)
-      @order = create :order, user: @user, shipping: Money.new(2000, 'PLN')
-    end
+    let(:user) {create(:user)}
+    let(:order) {create :order, user: user, shipping: Money.new(2000, 'PLN')}
     it 'should iterate over dishes and call #subtract' do
       dish1 = double('Dish')
-      expect(dish1).to receive(:subtract).with(Money.new(1000, 'PLN'), @user)
+      expect(dish1).to receive(:subtract).with(Money.new(1000, 'PLN'), user)
       dish2 = double('Dish')
-      expect(dish2).to receive(:subtract).with(Money.new(1000, 'PLN'), @user)
-      allow(@order).to receive(:dishes_count).and_return(2)
-      expect(@order).to receive(:dishes).and_return([dish1, dish2])
-      @order.subtract_price
+      expect(dish2).to receive(:subtract).with(Money.new(1000, 'PLN'), user)
+      allow(order).to receive(:dishes_count).and_return(2)
+      expect(order).to receive(:dishes).and_return([dish1, dish2])
+      order.subtract_price
     end
   end
 end

@@ -1,36 +1,30 @@
 require 'spec_helper'
 
 describe UsersController, type: :controller do
-
+  let(:user) {create :user}
+  let(:other_user) {create :other_user}
   describe 'PUT :update' do
-    before do
-      @user = create(:user)
-    end
     describe 'json' do
       it 'returns user object on json' do
-        sign_in @user
-        put :update, id: @user.id, user: {substract_from_self: true}, format: :json
+        sign_in user
+        put :update, id: user.id, user: {substract_from_self: true}, format: :json
         expect(response).to have_http_status(:success)
       end
       it 'returns 401 for unlogged in json' do
-        put :update, id: @user.id, user: {substract_from_self: true}, format: :json
+        put :update, id: user.id, user: {substract_from_self: true}, format: :json
         expect(response).to have_http_status(401)
       end
     end
   end
 
   describe 'GET :index' do
-    before do
-      @user = create(:user)
-      @other_user = create(:other_user)
-    end
     describe 'json' do
       it 'rejects when not logged in' do
         get :index, format: :json
         expect(response).to have_http_status(401)
       end
       it 'renders json' do
-        sign_in @user
+        sign_in user
         get :index, format: :json
         expect(response).to have_http_status(:success)
       end
@@ -39,16 +33,13 @@ describe UsersController, type: :controller do
 
   describe 'GET :show' do
     describe 'json' do
-      before do
-        @user = create :user
-      end
       it 'rejects when not logged in' do
-        get :show, id: @user.id, format: :json
+        get :show, id: user.id, format: :json
         expect(response).to have_http_status(401)
       end
       it 'renders json' do
-        sign_in @user
-        get :show, id: @user.id, format: :json
+        sign_in user
+        get :show, id: user.id, format: :json
         expect(response).to have_http_status(:success)
       end
     end

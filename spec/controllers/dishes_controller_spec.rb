@@ -1,70 +1,64 @@
 require 'spec_helper'
 
 describe DishesController, :type => :controller do
-  before do
-    @user = create(:user)
-    @order = create :order, user: @user
-  end
+  let(:user) {create(:user)}
+  let(:order) {create :order, user: user}
 
   describe 'POST create' do
     describe 'json' do
       it 'rejects when not logged in' do
-        post :create, order_id: @order.id, user_id: @user.id, name: 'Name', price_cents: 14, format: :json
+        post :create, order_id: order.id, user_id: user.id, name: 'Name', price_cents: 14, format: :json
         expect(response).to have_http_status(401)
       end
       it 'returns success' do
-        sign_in @user
-        post :create, order_id: @order.id, user_id: @user.id, name: 'Name', price_cents: 14, format: :json
+        sign_in user
+        post :create, order_id: order.id, user_id: user.id, name: 'Name', price_cents: 14, format: :json
         expect(response).to have_http_status(:success)
       end
       it 'returns errors' do
-        sign_in @user
-        post :create, order_id: @order.id, user_id: @user.id, price_cents: 14, format: :json
+        sign_in user
+        post :create, order_id: order.id, user_id: user.id, price_cents: 14, format: :json
         expect(response).to have_http_status(422)
       end
     end
   end
 
   describe 'POST update' do
-    before do
-      @dish = create :dish, user: @user, order: @order
-    end
+    let(:dish) {create :dish, user: user, order: order}
     describe 'json' do
       it 'rejects when not logged in' do
-        put :update, order_id: @order.id, id: @dish.id, user_id: @user.id, name: 'Name', price: 13, format: :json
+        put :update, order_id: order.id, id: dish.id, user_id: user.id, name: 'Name', price: 13, format: :json
         expect(response).to have_http_status(401)
       end
       it 'returns success' do
-        sign_in @user
-        put :update, order_id: @order.id, id: @dish.id, user_id: @user.id, name: 'Name', price: 13, format: :json
+        sign_in user
+        put :update, order_id: order.id, id: dish.id, user_id: user.id, name: 'Name', price: 13, format: :json
         expect(response).to have_http_status(:success)
       end
       it 'returns errors' do
-        sign_in @user
-        put :update, order_id: @order.id, id: @dish.id, user_id: @user.id, name: '', price: 13, format: :json
+        sign_in user
+        put :update, order_id: order.id, id: dish.id, user_id: user.id, name: '', price: 13, format: :json
         expect(response).to have_http_status(422)
       end
     end
   end
 
   describe 'DELETE destroy' do
-    before do
-      @dish = create :dish, user: @user, order: @order
-    end
+    let!(:dish) {create :dish, user: user, order: order}
     describe 'json' do
       it 'rejects when not logged in' do
-        delete :destroy, order_id: @order.id, id: @dish.id, format: :json
+        delete :destroy, order_id: order.id, id: dish.id, format: :json
         expect(response).to have_http_status(401)
       end
       it 'decrements the dishes count' do
-        sign_in @user
+        sign_in user
         expect {
-          delete :destroy, order_id: @order.id, id: @dish.id, format: :json
+          delete :destroy, order_id: order.id, id: dish.id, format: :json
         }.to change(Dish, :count).by(-1)
       end
       it 'is success' do
-        sign_in @user
-        delete :destroy, order_id: @order.id, id: @dish.id, format: :json
+        sign_in user
+        delete :destroy, order_id: order.id, id: dish.id, format: :json
         expect(response).to have_http_status(:success)
         expect(response.body).to eq({status: 'success'}.to_json)
       end
@@ -72,42 +66,38 @@ describe DishesController, :type => :controller do
   end
 
   describe 'POST copy' do
-    before do
-      @other_user = create(:other_user)
-      @dish = create :dish, user: @user, order: @order
-    end
+    let(:other_user) {create(:other_user)}
+    let!(:dish) {create :dish, user: user, order: order}
     describe 'json' do
       it 'copies a new dish' do
-        sign_in @other_user
+        sign_in other_user
         expect {
-          post :copy, order_id: @order.id, id: @dish.id, format: :json
+          post :copy, order_id: order.id, id: dish.id, format: :json
         }.to change(Dish, :count).by(1)
       end
       it 'doesnt copy a dish if a user already has a dish in that order' do
-        sign_in @user
+        sign_in user
         expect {
-          post :copy, order_id: @order.id, id: @dish.id, format: :json
+          post :copy, order_id: order.id, id: dish.id, format: :json
         }.to_not change(Dish, :count)
       end
       it 'rejects when not logged in' do
-        post :copy, order_id: @order.id, id: @dish.id, format: :json
+        post :copy, order_id: order.id, id: dish.id, format: :json
         expect(response).to have_http_status(401)
       end
     end
   end
 
   describe 'GET show' do
-    before do
-      @dish = create :dish, user: @user, order: @order
-    end
+    let(:dish) {create :dish, user: user, order: order}
     describe 'json' do
       it 'rejects when not logged in' do
-        get :show, order_id: @order.id, id: @dish.id, format: :json
+        get :show, order_id: order.id, id: dish.id, format: :json
         expect(response).to have_http_status(401)
       end
       it 'returns success' do
-        sign_in @user
-        get :show, order_id: @order.id, id: @dish.id, format: :json
+        sign_in user
+        get :show, order_id: order.id, id: dish.id, format: :json
         expect(response).to have_http_status(:success)
       end
     end

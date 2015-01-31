@@ -3,9 +3,9 @@ require 'spec_helper'
 describe App::DashboardController, type: :controller do
   describe 'GET :index' do
     describe 'html' do
+      let(:user) {create(:user)}
       it 'shows dasboard to signed in user' do
-        @user = create(:user)
-        sign_in @user
+        sign_in user
         get :index, format: :html
         expect(response).to render_template :index
       end

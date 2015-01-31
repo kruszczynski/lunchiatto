@@ -1,13 +1,14 @@
 require 'spec_helper'
 
 describe DishDecorator do
+  let(:user) {create(:user)}
+  let(:order) {create :order, user: user}
+  let(:dish) {create :dish, user: user, order: order}
+  let(:other_user) {create :other_user}
+  
   before do
-    @user = create(:user)
-    @order = create :order, user: @user
-    @dish = create :dish, user: @user, order: @order
-    @dish = @dish.decorate
-    allow(@dish).to receive(:current_user).and_return(@user)
-    @other_user = create :other_user
+    @dish = dish.decorate
+    allow(@dish).to receive(:current_user).and_return(user)
   end
 
   describe '#belongs_to_current_user?' do
@@ -26,8 +27,8 @@ describe DishDecorator do
       expect(@dish.order_by_current_user?).to be_truthy
     end
     it 'returns false otherwise' do
-      @order.user = @other_user
-      @order.save!
+      order.user = other_user
+      order.save!
       expect(@dish.order_by_current_user?).to be_falsey
     end
   end
