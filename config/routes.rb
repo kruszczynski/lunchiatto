@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     get 'finances', to: 'dashboard#index'
     get 'orders', to: 'dashboard#index'
     get 'orders/new', to: 'dashboard#index'
-    get 'orders/:order_id', to: 'dashboard#index'
+    get 'orders/:order_id', to: 'dashboard#index', as: 'order'
     get 'orders/:order_id/edit', to: 'dashboard#index'
     get 'orders/:order_id/shipping', to: 'dashboard#index'
     get 'orders/:order_id/dishes/:dish_id/edit', to: 'dashboard#index'

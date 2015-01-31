@@ -5,7 +5,7 @@ describe DishDecorator do
   let(:order) {create :order, user: user}
   let(:dish) {create :dish, user: user, order: order}
   let(:other_user) {create :other_user}
-  
+
   before do
     @dish = dish.decorate
     allow(@dish).to receive(:current_user).and_return(user)
