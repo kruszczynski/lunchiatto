@@ -28,11 +28,7 @@ describe TransferMailer, type: :mailer do
   describe "#accepted_transfer" do
     let(:user) {create :user}
     let(:other_user) {create :other_user}
-    let(:transfer) do
-      transfer = create :transfer, from: user, to: other_user
-      transfer.mark_as_accepted!
-      transfer
-    end
+    let(:transfer) {create :transfer, from: user, to: other_user, status: :accepted}
     let(:mail) { TransferMailer.accepted_transfer(transfer) }
 
     it "sends an email" do
@@ -55,11 +51,7 @@ describe TransferMailer, type: :mailer do
   describe "#rejected_transfer" do
     let(:user) {create :user}
     let(:other_user) {create :other_user}
-    let(:transfer) do
-      transfer = create :transfer, from: user, to: other_user
-      transfer.rejected!
-      transfer
-    end
+    let(:transfer) {create :transfer, from: user, to: other_user, status: :rejected}
     let(:mail) { TransferMailer.rejected_transfer(transfer) }
 
     it "sends an email" do

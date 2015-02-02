@@ -14,9 +14,7 @@ class TransfersController < ApplicationController
   end
 
   def accept
-    if current_user == @transfer.to && @transfer.pending?
-      @transfer.mark_as_accepted!
-      TransferMailer.accepted_transfer(@transfer).deliver_now
+    if change_transfer_status.perform(:accepted)
       render json: @transfer
     else
       render json: {errors: @transfer.errors}, status: :unprocessable_entity
@@ -24,9 +22,7 @@ class TransfersController < ApplicationController
   end
 
   def reject
-    if current_user == @transfer.to && @transfer.pending?
-      @transfer.rejected!
-      TransferMailer.rejected_transfer(@transfer).deliver_now
+    if change_transfer_status.perform(:rejected)
       render json: @transfer
     else
       render json: {errors: @transfer.errors}, status: :unprocessable_entity
@@ -41,5 +37,9 @@ class TransfersController < ApplicationController
 
   def find_transfer
     @transfer = Transfer.find(params[:id])
+  end
+
+  def change_transfer_status
+    ChangeTransferStatus.new(@transfer, current_user)
   end
 end
