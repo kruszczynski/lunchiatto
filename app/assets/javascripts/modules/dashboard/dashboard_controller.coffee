@@ -9,12 +9,12 @@
           else
             model = new Backbone.Model {noOrder: true}
           dashboardLayout = new Dashboard.Layout model: model
-          App.content.show dashboardLayout
+          App.root.content.show dashboardLayout
           
     accounts: (users) ->
       accountsView = new Dashboard.Accounts collection: users
-      App.content.show accountsView
+      App.root.content.show accountsView
 
     settings: (user) ->
       settingsView = new Dashboard.Settings model: user
-      App.content.show settingsView
+      App.root.content.show settingsView

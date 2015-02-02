@@ -2,4 +2,4 @@
   Finance.Controller =
     index: ->
       layout = new Finance.Layout
-      App.content.show layout
+      App.root.content.show layout
