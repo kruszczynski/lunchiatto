@@ -14,7 +14,7 @@ class TransfersController < ApplicationController
   end
 
   def accept
-    if change_transfer_status.change_status(:accepted)
+    if change_transfer_status.perform(:accepted)
       render json: @transfer
     else
       render json: {errors: @transfer.errors}, status: :unprocessable_entity
@@ -22,7 +22,7 @@ class TransfersController < ApplicationController
   end
 
   def reject
-    if change_transfer_status.change_status(:rejected)
+    if change_transfer_status.perform(:rejected)
       render json: @transfer
     else
       render json: {errors: @transfer.errors}, status: :unprocessable_entity
