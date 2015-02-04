@@ -11,5 +11,5 @@ table.row
               table.button.margin-bottom
                 tr
                   td
-                    = link_to "Send him a transfer mate!", app_transfers_new_url
+                    = link_to "Oi! Send #{balance.payer} a transfer!", app_transfers_new_url(to_id: balance.payer.id, amount: -balance.balance)
             td.expander
