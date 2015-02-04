@@ -1,0 +1,9 @@
+table.row.callout
+  tr
+    td.wrapper.last
+      table.twelve.columns
+        tr
+          td.panel
+            h6 #{transfer.amount} PLN transfer from #{transfer.from}
+            p Submitted on #{transfer.created_at.to_formatted_s(:short)}
+          td.expander
