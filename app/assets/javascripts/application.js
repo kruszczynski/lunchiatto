@@ -20,6 +20,7 @@
 //= require backbone.babysitter/lib/backbone.babysitter.js
 //= require backbone.wreqr/lib/backbone.wreqr.js
 //= require marionette/lib/backbone.marionette.js
+//= require uri.js/src/URI.js
 //= require app
 //= require controller
 //= require router

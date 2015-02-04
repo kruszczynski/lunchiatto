@@ -56,5 +56,5 @@ do (App = @CodequestManager) ->
           App.Dashboard.Controller.settings(user)
 
     newTransfer: ->
-      transfer = new App.Entities.Transfer 
+      transfer = new App.Entities.Transfer(new URI(window.location.href).search(true))
       App.Transfer.Controller.form(transfer)

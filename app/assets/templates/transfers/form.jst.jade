@@ -6,9 +6,9 @@ form
     select.user-id(name='to_id')
       option(value='') Select Destination
       each user in gon.users_for_select
-        option(value=user.id)=user.name
+        option(value=user.id,selected=user.id==locals.to_id)=user.name
     small.error.hide
   label.amount-label Transfer Amount (should be positive)
-    input.amount(type="text",autocomplete="off",placeholder="0.00")
+    input.amount(type="text",autocomplete="off",placeholder="0.00",value=locals.amount)
     small.error.hide
   input.button(type="submit",value="Submit Transfer")
