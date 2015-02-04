@@ -2,16 +2,16 @@
   Order.Controller =
     form: (order) ->
       orderForm = new Order.Form model: order
-      App.content.show orderForm
+      App.root.content.show orderForm
 
     list: (orders) ->
       ordersList = new Order.List collection: orders
-      App.content.show ordersList
+      App.root.content.show ordersList
 
     show: (order) ->
       orderView = new App.Order.Show model: order
-      App.content.show orderView
+      App.root.content.show orderView
 
     shipping: (order) ->
       shippingView = new App.Order.Shipping model: order
-      App.content.show shippingView
+      App.root.content.show shippingView

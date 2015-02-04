@@ -2,4 +2,4 @@
   Transfer.Controller =
     form: (transfer) ->
       form = new Transfer.Form model: transfer
-      App.content.show form
+      App.root.content.show form

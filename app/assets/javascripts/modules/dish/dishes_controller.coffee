@@ -2,4 +2,4 @@
   Dish.Controller =
     form: (dish) ->
       editDish = new Dish.Form model: dish
-      App.content.show editDish
+      App.root.content.show editDish

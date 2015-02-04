@@ -2,4 +2,4 @@
   Panel.Controller =
     showNavbar: ->
       navbar = new Panel.Navbar model: App.currentUser
-      App.navbar.show(navbar)
+      App.root.navbar.show(navbar)

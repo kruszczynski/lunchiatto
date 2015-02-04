@@ -11,19 +11,16 @@
 
   App.Behaviors = {}
 
-  App.addRegions
-    navbar: '#user-panel'
-    content: '#content'
-
   App.currentUser = undefined
-
-  App.addInitializer ->
-    App.router = new App.Router
-      controller: App.Controller
 
   App.pageSize = 10
 
   App.on 'start', ->
+    App.router = new App.Router
+      controller: App.Controller
+
+    App.root = new App.Root.Layout
+
     Marionette.Behaviors.behaviorsLookup = ->
       App.Behaviors
     App.currentUser = new App.Entities.User gon.current_user
