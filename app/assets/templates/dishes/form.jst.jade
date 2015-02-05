@@ -1,14 +1,24 @@
-if locals.name
-  h1 Edit Your Dish
-else
-  h1 New Dish For Today
+.row
+  .columns.text-centered
+    if locals.name
+      h1 Edit Your Dish
+    else
+      h1 New Dish For Today
 form
-  .full-error.panel.hide
-    p
-  label.name-label Dish Name
-    input.name(type='text',name='name',value=locals.name)
-    small.error.hide
-  label.price-label Dish Price
-    input.price(type='text',name='price',autocomplete='off',value=locals.price)
-    small.error.hide
-  button.button(type='submit') Save
+  .row
+    .columns
+      .full-error.panel.hide
+        p
+  .row
+    .columns
+      label.name-label Dish Name
+        input.name(type='text',name='name',value=locals.name)
+        small.error.hide
+  .row
+    .columns
+      label.price-label Dish Price
+        input.price(type='text',name='price',autocomplete='off',value=locals.price)
+        small.error.hide
+  .row
+    .columns
+      button.success.expand.button(type='submit') Save

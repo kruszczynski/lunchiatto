@@ -1,22 +1,25 @@
 section.orderer
-  .margin-bottom-medium.light-weight <strong>#{user.name}</strong> pays.
-  .margin-bottom-medium.light-weight Ordering from: <strong>#{from}</strong>
-  .margin-bottom-medium.light-weight Total is: <strong class="title-total">#{total}</strong>
-  .margin-bottom-medium.light-weight Status: <strong>#{Humanize.titleCase(status.replace('_', ' '))}</strong>
-  .margin-bottom-medium
-    if status !== 'delivered'
-      a.button(href="/orders/#{id}/edit", data-navigate) Edit Order
-    //div=window.gon.current_user.id
-    if status === 'ordered' && ordered_by_current_user
-      - shippingText = parseFloat(locals.shipping) > 0 ? "Edit shipping" : "Add shipping"
-      a.button(href="/orders/#{id}/shipping", data-navigate)=shippingText
-    if ordered_by_current_user
-      if status === 'in_progress'
-        a.button.change-status-button(href="#") Mark as ordered
-      if status === 'ordered'
-        a.button.change-status-button(href="#") Mark as delivered
+  .row
+    .columns.text-center
+      .margin-bottom-medium.light-weight <strong>#{user.name}</strong> pays.
+      .margin-bottom-medium.light-weight Ordering from: <strong>#{from}</strong>
+      .margin-bottom-medium.light-weight Total is: <strong class="title-total">#{total}</strong>
+      .margin-bottom-medium.light-weight Status: <strong>#{Humanize.titleCase(status.replace('_', ' '))}</strong>
+  .row.margin-bottom-medium
+    .columns.text-center
+      if status !== 'delivered'
+        a.button(href="/orders/#{id}/edit", data-navigate) Edit Order
+      if status === 'ordered' && ordered_by_current_user
+        - shippingText = parseFloat(locals.shipping) > 0 ? "Edit shipping" : "Add shipping"
+        a.button(href="/orders/#{id}/shipping", data-navigate)=shippingText
+      if ordered_by_current_user
+        if status === 'in_progress'
+          a.button.change-status-button(href="#") Mark as ordered
+        if status === 'ordered'
+          a.button.change-status-button(href="#") Mark as delivered
 if status === 'in_progress'
   section.dishes
-    .margin-bottom-medium
-      a.button.order-button(href="/orders/#{id}/dishes/new",data-navigate) Click here to order
+    .row.margin-bottom-medium
+      .columns.text-center
+        a.button.order-button(href="/orders/#{id}/dishes/new",data-navigate) Click here to order
 section.dishes-section

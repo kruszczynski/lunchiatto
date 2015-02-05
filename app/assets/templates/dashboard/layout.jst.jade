@@ -1,9 +1,17 @@
-h1 This is the user dashboard
+.row
+  .columns.text-center
+    h1 This is the user dashboard
 .order-wrapper
   if locals.noOrder
-    h2 No order for today
-    a.button(href="/orders/new", data-navigate) Add Order
+    .row
+      .columns.text-center
+        h2 No order for today
   else
-    .margin-bottom
-      a.button.success.large(href="/orders/#{locals.id}", data-navigate) TODAY'S ORDER
-  a.button(href="/orders", data-navigate) Past Orders
+    .row.margin-bottom
+      .columns.small-10.medium-6.small-centered
+        a.button.expand.large(href="/orders/#{locals.id}", data-navigate) TODAY'S ORDER
+  .row
+    .columns.text-center
+      if locals.noOrder
+        a.button(href="/orders/new", data-navigate) Add Order
+      a.button(href="/orders", data-navigate) Past Orders

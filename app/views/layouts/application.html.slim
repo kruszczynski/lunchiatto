@@ -3,15 +3,17 @@ html
   title code quest manager
   = stylesheet_link_tag    'application', media: 'all'
   = javascript_include_tag 'modernizr/modernizr'
-  = include_gon
+  = include_gon(init: true)
 
   = csrf_meta_tags
   meta name='viewport' content='width=device-width, initial-scale=1.0'
 body
-  section.background-div.main-wrapper class="#{controller_name} #{action_name}"
-    .errors.row
-      p.notice= notice
-      p.alert= alert
-    .wrapper.row= yield
+  section.external-wrapper class="#{controller_name} #{action_name}"
+    .errors.margin-bottom
+      .row
+        .columns.text-center.small-centered.small-10.notice= notice
+      .row
+        .columns.text-center.small-centered.small-10.alert= alert
+    .wrapper= yield
 
-  = javascript_include_tag 'application'
+  = javascript_include_tag 'external'

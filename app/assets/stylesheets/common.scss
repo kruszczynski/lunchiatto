@@ -1,5 +1,10 @@
 @import 'common/fonts';
 @import 'common/mixins';
-@import 'common/common';
 @import 'common/colors';
-@import 'common/login_list';
+@import 'common/foundation_overrides';
+
+@import 'foundation/scss/foundation';
+
+@import 'partials/layout';
+@import 'partials/common';
+@import 'partials/home_page';

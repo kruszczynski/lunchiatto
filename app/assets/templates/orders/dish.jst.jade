@@ -1,7 +1,7 @@
-th= user_name
-th= name
-th= price
-th
+td= user_name
+td= name
+td= price
+td
   if (belongs_to_current_user && order.get('status') !== 'delivered') || (order.get('ordered_by_current_user') && order.get('status') === 'ordered')
     a.margin-right-small(href="/orders/#{order.get('id')}/dishes/#{id}/edit",data-navigate) Edit
   if belongs_to_current_user && order.get('status') === 'in_progress'

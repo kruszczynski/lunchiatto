@@ -1,18 +1,28 @@
-if locals.name
-  h1 Edit order
-else
-  h1 New order
+.row
+  .columns.text-center
+    if locals.name
+      h1 Edit order
+    else
+      h1 New order
 - var selected = locals.user_id ? locals.user_id : ''
 form
-  .full-error.panel.hide
-    p
-  label.user-label Payer
-    select.user-id(name='user_id')
-      option(value='') Select Payer
-      each user in gon.users_for_select
-        option(value=user.id,selected=user.id==selected)=user.name
-    small.error.hide
-  label.from-label Restaurant
-    input.from(type='text',name='from',placeholder='Where are we ordering from?',value=locals.from)
-    small.error.hide
-  button.button(type='submit') Save
+  .row
+    .columns
+      .full-error.panel.hide
+        p
+  .row
+    .columns
+      label.user-label Payer
+        select.user-id(name='user_id')
+          option(value='') Select Payer
+          each user in gon.users_for_select
+            option(value=user.id,selected=user.id==selected)=user.name
+        small.error.hide
+  .row
+    .columns
+      label.from-label Restaurant
+        input.from(type='text',name='from',placeholder='Where are we ordering from?',value=locals.from)
+        small.error.hide
+  .row
+    .columns
+      button.success.expand.button(type='submit') Save

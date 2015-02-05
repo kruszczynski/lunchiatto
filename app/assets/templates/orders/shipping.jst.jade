@@ -1,4 +1,8 @@
 form
-  label Shipping Cost
-    input.shipping(type="text",name="shipping",value=locals.shipping)
-  input.button(type="submit",value="Save")
+  .row
+    .columns
+      label Shipping Cost
+        input.shipping(type="text",name="shipping",value=locals.shipping)
+  .row
+    .columns
+      input.success.expand.button(type="submit",value="Save")
