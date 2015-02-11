@@ -40,7 +40,6 @@ Rails.application.routes.draw do
     get 'orders/new', to: 'dashboard#index'
     get 'orders/:order_id', to: 'dashboard#index', as: 'order'
     get 'orders/:order_id/edit', to: 'dashboard#index'
-    get 'orders/:order_id/shipping', to: 'dashboard#index'
     get 'orders/:order_id/dishes/:dish_id/edit', to: 'dashboard#index'
     get 'orders/:order_id/dishes/new', to: 'dashboard#index'
     get 'account_numbers', to: 'dashboard#index'

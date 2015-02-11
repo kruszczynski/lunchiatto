@@ -29,12 +29,6 @@ do (App = @CodequestManager) ->
         success: (order) ->
           App.Order.Controller.form(order)
 
-    orderShipping: (orderId) ->
-      order = new App.Entities.Order id: orderId
-      order.fetch
-        success: (order) ->
-          App.Order.Controller.shipping(order)
-
     ordersIndex: ->
       orders = new App.Entities.Orders
       orders.fetch

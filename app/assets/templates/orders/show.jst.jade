@@ -9,9 +9,6 @@ section.orderer
     .columns.text-center
       if status !== 'delivered'
         a.button(href="/orders/#{id}/edit", data-navigate) Edit Order
-      if status === 'ordered' && ordered_by_current_user
-        - shippingText = parseFloat(locals.shipping) > 0 ? "Edit shipping" : "Add shipping"
-        a.button(href="/orders/#{id}/shipping", data-navigate)=shippingText
       if ordered_by_current_user
         if status === 'in_progress'
           a.button.change-status-button(href="#") Mark as ordered

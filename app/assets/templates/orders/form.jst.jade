@@ -25,4 +25,9 @@ form
         small.error.hide
   .row
     .columns
+      label.shipping-label Shipping Cost
+        input.shipping(type="text",name="shipping",value=locals.shipping)
+        small.error.hide
+  .row
+    .columns
       button.success.expand.button(type='submit') Save
