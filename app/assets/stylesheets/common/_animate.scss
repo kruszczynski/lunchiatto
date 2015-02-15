@@ -1,0 +1,10 @@
+@import "compass/css3/animation";
+
+.animate__fade-in {
+  @include animation(fadein $animation-duration-medium);
+}
+
+@include keyframes(fadein) {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

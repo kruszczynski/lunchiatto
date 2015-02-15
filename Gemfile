@@ -28,6 +28,7 @@ gem "kaminari", "0.16.1"
 gem "nokogiri"
 gem "premailer", "1.8.2"
 gem "premailer-rails", "1.8.0"
+gem "compass-rails", "2.0.4"
 
 gem "upmin-admin"
 

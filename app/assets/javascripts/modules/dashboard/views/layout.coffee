@@ -1,4 +1,4 @@
 @CodequestManager.module 'Dashboard', (Dashboard, App, Backbone, Marionette, $, _) ->
   Dashboard.Layout = Marionette.ItemView.extend
     template: 'dashboard/layout'
-    className: 'order-wrapper'
+    className: 'order-wrapper animate__fade-in'

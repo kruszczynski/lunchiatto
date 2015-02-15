@@ -1,3 +1,5 @@
-th= locals.date
-th= locals.from
-th= Humanize.titleCase(locals.status.replace('_', ' '))
+.order-box.animate__fade-in
+  .order-box__restaurant= locals.from
+  .order-box__date= moment(locals.date).format('LL')
+  .order-box__status(class="order-box__status__#{locals.status.replace('_','-')}")
+    = locals.status.replace('_', ' ')

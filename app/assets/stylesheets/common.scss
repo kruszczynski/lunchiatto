@@ -1,10 +1,12 @@
-@import 'common/fonts';
-@import 'common/mixins';
-@import 'common/colors';
-@import 'common/foundation_overrides';
+@import "common/fonts";
+@import "common/mixins";
+@import "common/variables";
+@import "common/animate";
+@import "common/foundation_overrides";
 
-@import 'foundation/scss/foundation';
+@import "foundation/scss/foundation";
 
-@import 'partials/layout';
-@import 'partials/common';
-@import 'partials/home_page';
+@import "partials/layout";
+@import "partials/common";
+@import "partials/home_page";
+@import "partials/order_box";
