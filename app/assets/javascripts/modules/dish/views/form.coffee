@@ -11,7 +11,7 @@
         fields: ['name', 'price']
       Submittable: {}
       Animateable:
-        type: 'fadeIn'
+        types: ["fadeIn"]
 
     onFormSubmit: ->
       @model.save

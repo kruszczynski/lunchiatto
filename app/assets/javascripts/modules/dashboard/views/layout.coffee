@@ -5,4 +5,4 @@
 
     behaviors:
       Animateable:
-        type: "fadeIn"
+        types: ["fadeIn"]

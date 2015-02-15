@@ -16,7 +16,7 @@
 
     behaviors:
       Animateable:
-        type: 'fadeIn'
+        types: ["fadeIn"]
 
     modelEvents:
       "change": "render"

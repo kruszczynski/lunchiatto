@@ -14,6 +14,7 @@
   App.currentUser = undefined
 
   App.pageSize = 10
+  App.animationDurationMedium = 500
 
   App.on 'start', ->
     App.router = new App.Router

@@ -9,7 +9,7 @@
       
     behaviors:
       Animateable:
-        type: "fadeIn"
+        types: ["fadeIn"]
 
     onShowOrder: ->
       App.router.navigate "/orders/#{@model.id}", {trigger: true}

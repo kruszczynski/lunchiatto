@@ -1,11 +1,6 @@
-@CodequestManager.module 'Order', (Order, App, Backbone, Marionette, $, _) ->
-  Order.Dishes = Marionette.CompositeView.extend
-    template: 'orders/dishes'
-
-    childViewContainer: 'tbody'
-
-    initialize: ->
-      @model = @collection.order
-
+@CodequestManager.module "Order", (Order, App, Backbone, Marionette, $, _) ->
+  Order.Dishes = Marionette.CollectionView.extend
+    className: "dishes-list"
+    tagName: "ul"
     getChildView: ->
       Order.Dish

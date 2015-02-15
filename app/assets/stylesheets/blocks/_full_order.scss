@@ -1,10 +1,10 @@
 .full-order {
   text-align: center;
-  font-weight: lighter;
 }
 
 .full-order__restaurant,
 .full-order__total {
+  font-weight: lighter;
   font-size: 3rem;
   line-height: 4rem;
 }
@@ -25,7 +25,8 @@
 }
 
 .full-order__buttons {
-  height: 4rem;
+  line-height: 4rem;
+  visibility: top;
   .button {
     margin: 0;
   }

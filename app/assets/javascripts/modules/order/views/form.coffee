@@ -12,7 +12,7 @@
         fields: ["user", "from"]
       Submittable: {}
       Animateable:
-        type: "fadeIn"
+        types: ["fadeIn"]
 
     onFormSubmit: ->
       @model.save

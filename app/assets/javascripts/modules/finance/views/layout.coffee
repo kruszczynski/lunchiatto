@@ -10,7 +10,7 @@
 
     behaviors:
       Animateable:
-        type: 'fadeIn'
+        types: ["fadeIn"]
 
     regions:
       balances: "@ui.balances"

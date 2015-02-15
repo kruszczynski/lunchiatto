@@ -8,7 +8,7 @@
 
     behaviors:
       Animateable:
-        type: 'fadeIn'
+        types: ["fadeIn"]
 
     onShow: ->
       $(document).foundation('topbar', 'reflow')

@@ -1,10 +1,8 @@
 @CodequestManager.Behaviors.Animateable = Marionette.Behavior.extend
   initialize: (options) ->
-    return unless options.type
-    try
-      @[options.type]()
-    catch error
-      throw new Error "\"#{options.type}\" not found on Animateable"
+    return unless options.types
+    _.each options.types, (type) =>
+      @[type]()
 
   fadeIn: ->
     @view.className += " animate__fade-in"
