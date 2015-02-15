@@ -1,0 +1,33 @@
+.full-order {
+  text-align: center;
+  font-weight: lighter;
+}
+
+.full-order__restaurant,
+.full-order__total {
+  font-size: 3rem;
+  line-height: 4rem;
+}
+
+.full-order__status-row {
+  line-height: 4rem;
+}
+
+.full-order__status {
+  font-size: 1.5rem;
+  position: relative;
+  top: 0.5rem;
+}
+
+.full-order__payer {
+  line-height: 2rem;
+  margin-bottom: 1rem;
+}
+
+.full-order__buttons {
+  height: 4rem;
+  .button {
+    margin: 0;
+  }
+  margin-bottom: 1rem;
+}

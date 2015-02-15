@@ -1,22 +1,23 @@
-section.orderer
-  .row
-    .columns.text-center
-      .margin-bottom-medium.light-weight <strong>#{user.name}</strong> pays.
-      .margin-bottom-medium.light-weight Ordering from: <strong>#{from}</strong>
-      .margin-bottom-medium.light-weight Total is: <strong class="title-total">#{total}</strong>
-      .margin-bottom-medium.light-weight Status: <strong>#{Humanize.titleCase(status.replace('_', ' '))}</strong>
-  .row.margin-bottom-medium
-    .columns.text-center
-      if status !== 'delivered'
-        a.button(href="/orders/#{id}/edit", data-navigate) Edit Order
-      if ordered_by_current_user
-        if status === 'in_progress'
-          a.button.change-status-button(href="#") Mark as ordered
-        if status === 'ordered'
-          a.button.change-status-button(href="#") Mark as delivered
-if status === 'in_progress'
-  section.dishes
-    .row.margin-bottom-medium
-      .columns.text-center
-        a.button.order-button(href="/orders/#{id}/dishes/new",data-navigate) Click here to order
+.row
+  .columns
+    section.full-order
+      .full-order__restaurant=locals.from
+      .full-order__total
+        span.title-total=locals.total
+        |  PLN
+      .full-order__status-row
+        .full-order__status.status-label(class="status-label__#{locals.status.replace('_','-')}")
+          = locals.status.replace('_', ' ')
+      .full-order__payer <strong>#{user.name}</strong> pays.
+      .full-order__buttons
+        if status !== 'delivered'
+          a.button(href="/orders/#{id}/edit", data-navigate) Edit Order
+        if locals.ordered_by_current_user
+          if status === 'in_progress'
+            a.button.change-status-button(href="#") Mark as ordered
+          if status === 'ordered'
+            a.button.change-status-button(href="#") Mark as delivered
+      if locals.status === 'in_progress'
+        .full-order__buttons
+          a.button.success.order-button(href="/orders/#{id}/dishes/new",data-navigate) Add dish +
 section.dishes-section

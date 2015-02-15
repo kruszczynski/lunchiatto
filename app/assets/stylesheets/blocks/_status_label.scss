@@ -1,0 +1,12 @@
+.status-label {
+  @include label($radius: true);
+  text-transform: uppercase;
+}
+
+.status-label__ordered {
+  @include label-style($bg: $warning-color);
+}
+
+.status-label__delivered {
+  @include label-style($bg: $success-color);
+}
