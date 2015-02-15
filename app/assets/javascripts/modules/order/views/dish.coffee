@@ -4,6 +4,7 @@
     DELETE_MESSAGE: "Are you sure?"
     template: "orders/dish"
     tagName: "li"
+    className: "dishes-list__item"
 
     ui:
       copyButton: ".copy-link"
