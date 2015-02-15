@@ -2,3 +2,4 @@
   Finance.Balance = Marionette.ItemView.extend
     tagName: 'tr'
     template: 'finances/balance'
+

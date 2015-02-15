@@ -8,6 +8,10 @@
       receivedTransfers: '.received-transfers'
       submittedTransfers: '.submitted-transfers'
 
+    behaviors:
+      Animateable:
+        type: 'fadeIn'
+
     regions:
       balances: "@ui.balances"
       debts: "@ui.debts"

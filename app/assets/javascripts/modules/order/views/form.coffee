@@ -1,16 +1,18 @@
-@CodequestManager.module 'Order', (Order, App, Backbone, Marionette, $, _) ->
+@CodequestManager.module "Order", (Order, App, Backbone, Marionette, $, _) ->
   Order.Form = Marionette.ItemView.extend
-    template: 'orders/form'
+    template: "orders/form"
 
     ui:
-      userSelect: '.user-id'
-      restaurantInput: '.from'
-      shipping: '.shipping'
+      userSelect: ".user-id"
+      restaurantInput: ".from"
+      shipping: ".shipping"
 
     behaviors:
       Errorable:
-        fields: ['user', 'from']
+        fields: ["user", "from"]
       Submittable: {}
+      Animateable:
+        type: "fadeIn"
 
     onFormSubmit: ->
       @model.save

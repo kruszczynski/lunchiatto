@@ -6,5 +6,9 @@
     modelEvents:
       'change': 'render'
 
+    behaviors:
+      Animateable:
+        type: 'fadeIn'
+
     onShow: ->
       $(document).foundation('topbar', 'reflow')

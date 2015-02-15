@@ -10,6 +10,8 @@
       Errorable:
         fields: ['name', 'price']
       Submittable: {}
+      Animateable:
+        type: 'fadeIn'
 
     onFormSubmit: ->
       @model.save

@@ -1,8 +1,8 @@
-@CodequestManager.module 'Dashboard', (Dashboard, App, Backbone, Marionette, $, _) ->
+@CodequestManager.module "Dashboard", (Dashboard, App, Backbone, Marionette, $, _) ->
   Dashboard.Controller =
     layout: ->
       Backbone.ajax
-        url: '/orders/latest'
+        url: "/orders/latest"
         success: (data) =>
           if data
             model = new App.Entities.Order data, parse: true, returnToDashboard: true

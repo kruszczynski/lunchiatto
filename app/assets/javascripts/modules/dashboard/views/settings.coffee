@@ -1,17 +1,19 @@
-@CodequestManager.module 'Dashboard', (Dashboard, App, Backbone, Marionette, $, _) ->
+@CodequestManager.module "Dashboard", (Dashboard, App, Backbone, Marionette, $, _) ->
   Dashboard.Settings = Marionette.ItemView.extend
-  	template: 'dashboard/settings'
+  	template: "dashboard/settings"
 
   	ui:
-      substract: '.substract'
-      accountNumber: '.account-number'
+      substract: ".substract"
+      accountNumber: ".account-number"
 
     behaviors:
       Submittable: {}
+      Animateable:
+        type: "fadeIn"
 
     onFormSubmit: ->
       @model.save
-        substract_from_self: @ui.substract.prop('checked')
+        substract_from_self: @ui.substract.prop("checked")
         account_number: @ui.accountNumber.val()
       ,
         success: (model) ->
