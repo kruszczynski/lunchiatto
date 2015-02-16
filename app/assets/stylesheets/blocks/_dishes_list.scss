@@ -7,11 +7,15 @@
   margin-bottom: 1.5rem;
 }
 
+.dishes-list__footer {
+  line-height: 1.5rem;
+}
+
 .dishes-list__user {
   color: $monsoon;
 }
 
 .dishes-list__dish-name-price {
-  font-size: 2rem;
-  line-height: 2.5rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
 }

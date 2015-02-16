@@ -11,10 +11,11 @@
       .full-order__payer #{user.name} pays
         if status !== 'delivered'
           a.inline-block.margin-left-small(href="/orders/#{id}/edit", data-navigate) Edit details
-          if status === 'in_progress'
-            a.inline-block.margin-left-small.change-status-button(href="#") Ordered!
-          if status === 'ordered'
-            a.inline-block.margin-left-small.change-status-button(href="#") Delivered!
+          if ordered_by_current_user
+            if status === 'in_progress'
+              a.inline-block.margin-left-small.change-status-button(href="#") Ordered!
+            if status === 'ordered'
+              a.inline-block.margin-left-small.change-status-button(href="#") Delivered!
       if locals.status === 'in_progress'
         .full-order__buttons.order-button
           a.button.success(href="/orders/#{id}/dishes/new",data-navigate) Add dish +

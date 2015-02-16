@@ -3,7 +3,7 @@
     .clearfix.dishes-list__dish-name-price
       strong.right.margin-left= price
       span= name
-    footer
+    footer.dishes-list__footer
       span.dishes-list__user.margin-right-small= user_name
       if (belongs_to_current_user && order.get('status') !== 'delivered') || (order.get('ordered_by_current_user') && order.get('status') === 'ordered')
         a.margin-right-small(href="/orders/#{order.get('id')}/dishes/#{id}/edit",data-navigate) Edit
