@@ -12,8 +12,17 @@ nav.top-bar(role="navigation", data-topbar='')
         a.unhanded(href="#") #{total_balance} PLN
       li
         a(href="/dashboard", data-navigate) Dashboard
-      li
-        a(href="/finances", data-navigate) Finances (#{pending_transfers_count})
+      li.has-dropdown
+        a Finances (#{pending_transfers_count})
+        ul.dropdown
+          li
+            a(href="/balances", data-navigate) Balances
+          li
+            a(href="/transfers", data-navigate) Transfers (#{pending_transfers_count})
+          li
+            a(href='/transfers/new',data-navigate) New Transfer
+          li
+            a(href="/account_numbers", data-navigate) Account Numbers
       li
         a(href="/settings", data-navigate) Settings
       li

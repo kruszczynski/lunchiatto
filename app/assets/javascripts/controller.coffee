@@ -35,8 +35,8 @@ do (App = @CodequestManager) ->
         success: (orders) ->
           App.Order.Controller.list(orders)
 
-    finances: ->
-      App.Finance.Controller.index()
+    balancesIndex: ->
+      App.Balance.Controller.index()
 
     accountNumbers: ->
       users = new App.Entities.Users
@@ -48,6 +48,9 @@ do (App = @CodequestManager) ->
       App.currentUser.fetch
         success: (user) ->
           App.Dashboard.Controller.settings(user)
+
+    transfersIndex: ->
+      App.Transfer.Controller.index()
 
     newTransfer: ->
       transfer = new App.Entities.Transfer(new URI(window.location.href).search(true))

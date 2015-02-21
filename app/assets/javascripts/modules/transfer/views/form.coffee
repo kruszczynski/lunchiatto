@@ -20,4 +20,4 @@
       ,
         success: ->
           App.vent.trigger 'reload:current:user'
-          App.router.navigate "/finances", {trigger: true}
+          App.router.navigate "/transfers", {trigger: true}

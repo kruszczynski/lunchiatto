@@ -35,7 +35,6 @@ Rails.application.routes.draw do
   ### Single Page App ###
   namespace :app do
     get 'dashboard', to: 'dashboard#index'
-    get 'finances', to: 'dashboard#index'
     get 'orders', to: 'dashboard#index'
     get 'orders/new', to: 'dashboard#index'
     get 'orders/:order_id', to: 'dashboard#index', as: 'order'
@@ -44,6 +43,8 @@ Rails.application.routes.draw do
     get 'orders/:order_id/dishes/new', to: 'dashboard#index'
     get 'account_numbers', to: 'dashboard#index'
     get 'settings', to: 'dashboard#index'
+    get 'balances', to: 'dashboard#index'
+    get 'transfers', to: 'dashboard#index'
     get 'transfers/new', to: 'dashboard#index'
   end
 
