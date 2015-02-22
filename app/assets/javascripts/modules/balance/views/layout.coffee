@@ -15,20 +15,14 @@
       debts: "@ui.debts"
 
     onRender: ->
-      @_showBalances()
-      @_showDebts()
+      @_show("balances")
+      @_show("debts")
 
-    _showBalances: ->
-      balancesCollection = new App.Entities.Balances
-      balancesCollection.fetch
+    _show: (type) ->
+      collection = new App.Entities.Balances
+        type: type
+      collection.fetch
         success: (collection) =>
-          balancesView = new Balance.Balances collection: collection
-          @balances.show balancesView
-
-    _showDebts: ->
-      debtsCollection = new App.Entities.Debts
-      debtsCollection.fetch
-        success: (collection) =>
-          debtsView = new Balance.Debts
+          view = new Balance.Balances
             collection: collection
-          @debts.show debtsView
+          @[type].show view

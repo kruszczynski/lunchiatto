@@ -43,7 +43,7 @@
       href = $(e.currentTarget).attr('href')
       App.router.navigate href, {trigger: true}
       menuIcon.click() if navigation.hasClass('expanded')
-
+      navigation.click()
   App
 
 $ ->

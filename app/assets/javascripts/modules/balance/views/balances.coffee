@@ -3,14 +3,16 @@
     template: "balances/balances"
     getChildView: ->
       Balance.Balance
-    childViewContainer: "tbody"
+    childViewContainer: ".balances-container"
 
     templateHelpers: () ->
-      totalBalance: @collection.totalBalance()
+      total: @collection.total()
+      type: @collection.type
 
     collectionEvents:
       "sync": "render"
 
     initialize: ->
+      @type = @options.type
       App.vent.on "reload:finances", =>
         @collection.fetch()

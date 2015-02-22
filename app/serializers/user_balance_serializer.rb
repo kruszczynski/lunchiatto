@@ -6,7 +6,7 @@ class UserBalanceSerializer < ActiveModel::Serializer
   end
 
   def created_at
-    object.created_at.to_formatted_s(:short)
+    object.created_at
   end
 
   def user

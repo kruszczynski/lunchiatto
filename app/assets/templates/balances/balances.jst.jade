@@ -1,9 +1,8 @@
-.columns.text-center.medium-6
-    h2.margin-bottom Your balance is #{locals.totalBalance}
-    table.responsive.centered.margin-bottom
-      thead
-        tr
-          th Who to
-          th How Much
-          th Last updated
-      tbody
+.columns.medium-6
+  .row
+    .columns.small-12
+      if locals.type === "balances"
+        h2.margin-bottom Your balance to others #{locals.total}
+      else if locals.type === "debts"
+        h2.margin-bottom Others' balance to you #{locals.total}
+  .balances-container
