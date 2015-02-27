@@ -1,5 +1,3 @@
 # code quest manager
 
-[![Code Climate](https://codeclimate.com/github/kruszczynski/codequest-manager.png)](https://codeclimate.com/github/kruszczynski/codequest-manager)
-[![Test Coverage](https://codeclimate.com/github/kruszczynski/codequest-manager/badges/coverage.svg)](https://codeclimate.com/github/kruszczynski/codequest-manager)
-[ ![Codeship Status for kruszczynski/codequest-manager](https://codeship.io/projects/e5bbc5e0-0dd4-0132-644f-02d5bf339ff4/status)](https://codeship.io/projects/32333)
+[ ![Codeship Status for kruszczynski/codequest-manager](https://codeship.com/projects/64f892b0-8c7e-0132-b104-6e5f8c02ac8f/status?branch=master)](https://codeship.com/projects/60468)
