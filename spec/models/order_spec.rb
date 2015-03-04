@@ -20,11 +20,12 @@ describe Order, :type => :model do
     end
   end
 
-  describe '#amout' do
+  describe '#amount' do
     it 'should return 0 when no dishes' do
       order = Order.new date: Date.today
       expect(order).to receive(:dishes).and_return([])
-      expect(order.amount).to eq(0)
+      expected = Money.new(0, 'PLN')
+      expect(order.amount).to eq(expected)
     end
 
     it 'should return 15 when there is a dish' do

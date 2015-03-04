@@ -3,13 +3,13 @@ source "https://rubygems.org"
 ruby "2.2.0"
 
 gem "rails", "4.2.0"
-gem "pg", "0.17.1"
-gem "newrelic_rpm", "3.9.9.275"
+gem "pg", "0.18.1"
+gem "newrelic_rpm", "3.10.0.279"
 gem "slim-rails", "3.0.1"
 gem "active_model_serializers", "0.8.3"
 gem "gon", "5.2.3"
 
-gem "jquery-rails", "3.1.1"
+gem "jquery-rails", "4.0.3"
 gem "devise", "3.4.1"
 
 gem "jbuilder", "~> 2.0"
@@ -23,10 +23,10 @@ gem "omniauth-google-oauth2", "0.2.6  "
 gem "draper", "~> 1.3"
 gem "money-rails", "1.2.0"
 
-gem "puma", "2.11.0"
+gem "puma", "2.11.1"
 gem "kaminari", "0.16.1"
 gem "nokogiri"
-gem "premailer", "1.8.2"
+gem "premailer", "1.8.4"
 gem "premailer-rails", "1.8.0"
 gem "compass-rails", "2.0.4"
 
@@ -42,7 +42,7 @@ group :production do
 end
 
 group :development do
-  gem "hirb", "0.7.2"
+  gem "hirb", "0.7.3"
   gem "web-console", "~> 2.0"
   gem "binding_of_caller", "0.7.2"
   gem "did-you-mean"
@@ -51,15 +51,14 @@ end
 group :assets do
   gem "sass-rails", "~> 5.0.1"
   gem "uglifier", ">= 1.3.0"
-  gem "coffee-rails", "~> 4.0.0"
+  gem "coffee-rails", "~> 4.1.0"
 end
 
 group :test do
   gem "rake"
-  gem "shoulda-matchers", require: false
-  gem "shoulda-callback-matchers", require: false
-  gem "simplecov", require: false
-  gem "codeclimate-test-reporter", require: false
+  gem "shoulda-matchers", "2.8.0", require: false
+  gem "shoulda-callback-matchers", "1.1.2", require: false
+  gem "simplecov", "0.9.2", require: false
 end
 
 gem "sdoc", "~> 0.4.0", group: :doc
