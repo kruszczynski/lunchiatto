@@ -82,6 +82,15 @@ describe User do
     end
   end
 
+  describe '#account_balance' do
+    let(:user_2) { create :other_user, email: 'janek@yolo.com' }
+    let!(:balance_four) { create :user_balance, user: user_2, payer: payer, balance: 100 }
+
+    it 'returns a sum of all payer balances' do
+      expect(payer.account_balance).to eq(Money.new(11700, 'PLN'))
+    end
+  end
+
   describe '#debts' do
     it 'returns adequate' do
       expect(UserBalance).to receive(:debts_to).with(user).and_return(:debts)
