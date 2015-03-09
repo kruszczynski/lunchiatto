@@ -5,7 +5,12 @@ describe UserSerializer do
   let(:serializer) {UserSerializer.new user}
 
   it '#total_balance' do
-    expect(user).to receive(:total_balance).and_return(12)
+    expect(user).to receive(:total_balance) { 12 }
     expect(serializer.total_balance).to eq('12')
+  end
+
+  it '#account_balance' do
+    expect(user).to receive(:account_balance) { 12 }
+    expect(serializer.account_balance).to eq('12')
   end
 end

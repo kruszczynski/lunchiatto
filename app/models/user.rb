@@ -59,7 +59,11 @@ class User < ActiveRecord::Base
   end
 
   def total_balance
-    balances.map(&:balance).reduce :+
+    sum_balance_from balances
+  end
+
+  def account_balance
+    sum_balance_from debts
   end
 
   def total_debt
@@ -68,5 +72,11 @@ class User < ActiveRecord::Base
 
   def pending_transfers_count
     received_transfers.pending.size
+  end
+
+  private
+
+  def sum_balance_from(array)
+    array.map(&:balance).reduce :+
   end
 end

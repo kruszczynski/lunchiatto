@@ -5,4 +5,8 @@ class UserSerializer < ActiveModel::Serializer
   def total_balance
     object.total_balance.to_s
   end
+
+  def account_balance
+    object.account_balance.to_s
+  end
 end
