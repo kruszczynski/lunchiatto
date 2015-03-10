@@ -5,10 +5,6 @@ class UserBalanceSerializer < ActiveModel::Serializer
     object.balance.to_s
   end
 
-  def created_at
-    object.created_at
-  end
-
   def user
     object.user.name
   end
@@ -16,4 +12,6 @@ class UserBalanceSerializer < ActiveModel::Serializer
   def payer
     object.payer.name
   end
+
+  delegate :created_at, to: :object
 end

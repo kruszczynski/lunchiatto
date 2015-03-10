@@ -1,0 +1,16 @@
+.row
+  .columns.small-8.medium-9.transfer-box__user
+    if locals.type === 'received'
+      = locals.from
+    else
+      = locals.to
+  .columns.small-4.medium-3.text-right.transfer-box__amount= locals.amount
+  .columns.small-8.transfer-box__date= moment(locals.created_at).fromNow()
+  .columns.small-4.text-right
+    .status-label(class="status-label__#{locals.status}")= locals.status
+  if locals.type === 'received'
+    .columns
+      if locals.status === 'pending'
+        a.accept-transfer(href="#") Accept
+        &nbsp;
+        a.reject-transfer(href="#") Reject

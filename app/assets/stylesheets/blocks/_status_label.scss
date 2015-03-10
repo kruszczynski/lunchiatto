@@ -3,10 +3,12 @@
   text-transform: uppercase;
 }
 
-.status-label__ordered {
+.status-label__ordered,
+.status-label__rejected {
   @include label-style($bg: $warning-color);
 }
 
-.status-label__delivered {
+.status-label__delivered,
+.status-label__accepted {
   @include label-style($bg: $success-color);
 }

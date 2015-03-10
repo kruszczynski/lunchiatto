@@ -1,12 +1,14 @@
 @CodequestManager.module 'Transfer', (Transfer, App, Backbone, Marionette, $, _) ->
-  Transfer.Table = Marionette.CompositeView.extend
-    template: 'transfers/table'
+  Transfer.List = Marionette.CompositeView.extend
+    template: 'transfers/list'
     templateHelpers: ->
       type: @collection.type
       selectedUser: @collection.userId
     getChildView: ->
-      Transfer.Row
-    childViewContainer: 'tbody'
+      Transfer.Item
+    getEmptyView: ->
+      Transfer.Empty
+    childViewContainer: '.transfers'
     childViewOptions: ->
       type: @collection.type
 

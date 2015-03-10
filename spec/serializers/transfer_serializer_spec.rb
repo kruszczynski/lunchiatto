@@ -32,7 +32,7 @@ describe TransferSerializer do
   describe '#created_at' do
     it 'formats the date' do
       expect(transfer).to receive(:created_at).and_return(DateTime.new(2013,12,14,12,12))
-      expect(serializer.created_at).to eq('14 Dec 12:12')
+      expect(serializer.created_at).to eq('Sat, 14 Dec 2013 12:12:00 +0000')
     end
   end
 end

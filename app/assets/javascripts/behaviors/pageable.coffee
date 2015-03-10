@@ -6,6 +6,7 @@
     'click @ui.more': 'fetch:more'
 
   onShow: ->
+    @_collectionReset()
     @view.collection.on 'all:fetched', @_hideMore, this
     @view.collection.on 'reset', @_collectionReset, this
 

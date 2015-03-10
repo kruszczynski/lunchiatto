@@ -13,7 +13,5 @@ class TransferSerializer < ActiveModel::Serializer
     object.to.name
   end
 
-  def created_at
-    object.created_at.to_formatted_s(:short)
-  end
+  delegate :created_at, to: :object
 end

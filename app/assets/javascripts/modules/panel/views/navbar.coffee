@@ -11,4 +11,10 @@
         types: ["fadeIn"]
 
     onShow: ->
+      @_reflow()
+
+    onRender: ->
+      @_reflow()
+
+    _reflow: ->
       $(document).foundation('topbar', 'reflow')

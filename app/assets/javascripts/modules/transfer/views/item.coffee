@@ -1,9 +1,10 @@
 @CodequestManager.module 'Transfer', (Transfer, App, Backbone, Marionette, $, _) ->
-  Transfer.Row = Marionette.ItemView.extend
+  Transfer.Item = Marionette.ItemView.extend
     REJECT_MESSAGE: 'The transfer will be rejected! Are you sure?'
     ACCEPT_MESSAGE: 'Are you sure?'
-    template: 'transfers/row'
-    tagName: 'tr'
+    template: 'transfers/item'
+    tagName: 'div'
+    className: 'transfer-box'
     templateHelpers: ->
       type: @type
 

@@ -1,0 +1,14 @@
+.columns.medium-6
+  .row
+    .columns.small-12
+      h2.margin-bottom #{Humanize.capitalize(locals.type)} Transfers
+  .row
+    .large-centered.columns
+      select.user-id(name='user_id')
+        option(value='') All Users
+        each user in gon.users_for_select
+          option(value=user.id,selected=user.id==locals.selectedUser)=user.name
+  .transfers
+  .row.text-center
+    .columns
+      a.button.info.more(href='#') More

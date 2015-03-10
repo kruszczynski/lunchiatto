@@ -15,18 +15,13 @@
       submittedTransfers: "@ui.submittedTransfers"
 
     onRender: ->
-      @_showTransfers()
+      @_showTransfers("received")
+      @_showTransfers("submitted")
 
-    _showTransfers: ->
-      receivedTransfers = new App.Entities.Transfers [], type: "received"
-      receivedTransfers.optionedFetch
+    _showTransfers: (type) ->
+      transfers = new App.Entities.Transfers [], type: type
+      transfers.optionedFetch
         success: (transfers) =>
-          receivedView = new App.Transfer.Table
+          view = new App.Transfer.List
             collection: transfers
-          @receivedTransfers.show receivedView
-      submittedTransfers = new App.Entities.Transfers [], type: "submitted"
-      submittedTransfers.optionedFetch
-        success: (transfers) =>
-          submittedView = new App.Transfer.Table
-            collection: transfers
-          @submittedTransfers.show submittedView
+          @["#{type}Transfers"].show view
