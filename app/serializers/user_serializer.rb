@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :substract_from_self,
+  attributes :id, :name, :substract_from_self, :account_balance,
              :account_number, :admin, :total_balance, :pending_transfers_count
 
   def total_balance
@@ -7,6 +7,10 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def account_balance
-    object.account_balance.to_s
+    object.debt_of(current_user).to_s
+  end
+
+  def include_account_balance?
+    !options[:shallow]
   end
 end

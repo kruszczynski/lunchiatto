@@ -62,8 +62,8 @@ class User < ActiveRecord::Base
     sum_balance_from balances
   end
 
-  def account_balance
-    sum_balance_from debts
+  def debt_of(user)
+    debts.select {|debt| debt.user_id == user.id}.first.try(:balance)
   end
 
   def total_debt
