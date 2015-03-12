@@ -1,11 +1,10 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_filter :only_current_user, only: [:my_balances]
   before_filter :find_user, only: [:show]
 
   def index
     @users = User.all.order('name')
-    render json: @users
+    render json: @users, with_balance: true
   end
 
   def show
@@ -30,10 +29,4 @@ class UsersController < ApplicationController
   def find_user
     @user = User.find(params[:id])
   end
-
-  def only_current_user
-    return if find_user == current_user
-    redirect_to dashboard_users_path, alert: 'You can\' view others balances'
-  end
-
 end
