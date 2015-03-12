@@ -7,10 +7,10 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def account_balance
-    object.debt_of(current_user).to_s
+    current_user.debt_to(object).to_s
   end
 
   def include_account_balance?
-    !options[:shallow]
+    options[:with_balance]
   end
 end

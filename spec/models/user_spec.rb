@@ -82,12 +82,12 @@ describe User do
     end
   end
 
-  describe '#debt_of' do
+  describe '#debt_to' do
     let(:user_2) { create :other_user, email: 'janek@yolo.com' }
     let!(:balance_four) { create :user_balance, user: user_2, payer: payer, balance: 100 }
 
     it 'returns debt of user_2' do
-      expect(payer.debt_of(user_2)).to eq(Money.new(10000, 'PLN'))
+      expect(user_2.debt_to(payer)).to eq(Money.new(10000, 'PLN'))
     end
   end
 

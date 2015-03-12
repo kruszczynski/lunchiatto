@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all.order('name')
-    render json: @users
+    render json: @users, with_balance: true
   end
 
   def show
