@@ -3,7 +3,7 @@
     template: "dashboard/accounts"
     getChildView: ->
       Dashboard.Account
-    childViewContainer: "tbody"
+    childViewContainer: ".accounts"
 
     behaviors:
       Animateable:
