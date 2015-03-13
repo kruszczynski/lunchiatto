@@ -3,6 +3,16 @@
 }
 
 .user-box__amount {
-  line-height: 3rem;
-  font-size: 2rem;
+  color: $white;
+  background: $gray;
+  line-height: 2rem;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  .user-box__negative & {
+    background: $warning-color;
+  }
+  .user-box__positive & {
+    background: $success-color;
+  }
 }
+

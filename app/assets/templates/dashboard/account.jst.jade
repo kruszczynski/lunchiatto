@@ -1,10 +1,7 @@
 .row
-  .columns.small-centered.small-12.medium-8.large-6
-    span #{locals.name}:&nbsp;
-    if locals.account_balance
-      strong= locals.account_balance
-      |  PLN
-    else
-      | No debt found
+  .columns.small-12.medium-8.large-6.large-offset-3
+    =locals.name
     br
-    span=locals.account_number || "Number not provided"
+    =locals.account_number || "Number not provided"
+  .columns.small-12.medium-4.large-3
+    .user-box__amount(class=locals.amountClass) #{locals.account_balance || "N/A"} PLN
