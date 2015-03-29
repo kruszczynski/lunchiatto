@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
-ruby "2.2.0"
+ruby "2.2.1"
 
-gem "rails", "4.2.0"
+gem "rails", "4.2.1"
 gem "pg", "0.18.1"
 gem "newrelic_rpm", "3.10.0.279"
 gem "slim-rails", "3.0.1"
