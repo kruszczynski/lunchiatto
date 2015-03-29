@@ -1,5 +1,5 @@
 namespace :daily_emails do
-  task send: [:balance, :pending_transfers]
+  task send: [:pending_transfers]
 
   desc "Sends users an email if they owe someone money"
   task balance: :environment do
