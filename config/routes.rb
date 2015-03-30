@@ -34,18 +34,10 @@ Rails.application.routes.draw do
 
   ### Single Page App ###
   namespace :app do
-    get 'dashboard', to: 'dashboard#index'
-    get 'orders', to: 'dashboard#index'
-    get 'orders/new', to: 'dashboard#index'
+    %w(dashboard orders orders/new orders/:order_id/edit orders/:order_id/dishes/:dish_id/edit orders/:order_id/dishes/new account_numbers settings balances transfers transfers/new).each do |route|
+      get route, to: 'dashboard#index'
+    end
     get 'orders/:order_id', to: 'dashboard#index', as: 'order'
-    get 'orders/:order_id/edit', to: 'dashboard#index'
-    get 'orders/:order_id/dishes/:dish_id/edit', to: 'dashboard#index'
-    get 'orders/:order_id/dishes/new', to: 'dashboard#index'
-    get 'account_numbers', to: 'dashboard#index'
-    get 'settings', to: 'dashboard#index'
-    get 'balances', to: 'dashboard#index'
-    get 'transfers', to: 'dashboard#index'
-    get 'transfers/new', to: 'dashboard#index'
   end
 
 end
