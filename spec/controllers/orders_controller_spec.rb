@@ -80,6 +80,9 @@ describe OrdersController, :type => :controller do
   end
 
   describe 'GET :index' do
+    let!(:order) {create :order, user: user, date: Date.today}
+    let!(:order2) {create :order, user: user, date: Date.yesterday}
+    let!(:order3) {create :order, user: user, date: 2.days.ago}
     describe 'json' do
       it 'rejects when not logged in' do
         get :index, format: :json
@@ -89,6 +92,11 @@ describe OrdersController, :type => :controller do
         sign_in user
         get :index, format: :json
         expect(response).to have_http_status(:success)
+      end
+      it 'returns all orders' do
+        sign_in user
+        get :index, format: :json
+        expect(assigns(:orders).count).to eq(3)
       end
     end
   end
