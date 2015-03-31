@@ -17,16 +17,19 @@ class DishesController < ApplicationController
   end
 
   def update
-    if @dish.update(dish_params)
-      render json: @dish.decorate
+    if @dish.editable? && @dish.update(dish_params)
+      render json: @dish
     else
       render json: {errors: @dish.errors}, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @dish.delete
-    render json: {status: 'success'}
+    if @dish.deletable? && @dish.delete
+      render json: {status: 'success'}
+    else
+      render json: {errors: @dish.errors}, status: :unprocessable_entity
+    end
   end
 
   def copy
@@ -45,7 +48,7 @@ class DishesController < ApplicationController
   end
 
   def find_dish
-    @dish = @order.dishes.find(params[:id])
+    @dish = @order.dishes.find(params[:id]).decorate
   end
 
   def dish_params
