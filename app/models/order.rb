@@ -6,7 +6,7 @@ class Order < ActiveRecord::Base
   validates :from, presence: true
   validates :date, uniqueness: {message: "There already is an order for today"}
 
-  scope :past, -> { where.not(date: Date.today).order("date desc")}
+  scope :newest_first, -> { order("date desc")}
   register_currency :pln
   monetize :shipping_cents
 
