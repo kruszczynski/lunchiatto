@@ -10,7 +10,7 @@
 
     amountClass: ->
       return unless @model.get('account_balance')
-      modifier = if +@model.get('account_balance') > 0 then "positive" else "negative"
+      modifier = if +@model.get('account_balance') >= 0 then "positive" else "negative"
       "user-box__#{modifier}"
 
     formattedBalance: ->
