@@ -15,6 +15,7 @@
 /log/*.log
 /tmp
 .idea
+*.iml
 .DS_Store
 
 # Ignore coverage
@@ -22,3 +23,7 @@
 
 #ignore assets components
 /vendor/assets/components
+
+# ignore vagrant for now
+.vagrant
+Vagrantfile

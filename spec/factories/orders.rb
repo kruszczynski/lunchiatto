@@ -5,5 +5,11 @@ FactoryGirl.define do
     date Date.today
     from 'The best restaurant'
     user nil
+
+    factory :past_order do
+      sequence :date do |n|
+        Date.today - 2 * n.days
+      end
+    end
   end
 end
