@@ -12,4 +12,8 @@ class OrderDecorator < Draper::Decorator
   def ordered_by_current_user?
     user == current_user
   end
+
+  def deletable?
+    in_progress? && ordered_by_current_user?
+  end
 end

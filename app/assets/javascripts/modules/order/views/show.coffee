@@ -1,11 +1,13 @@
 @CodequestManager.module "Order", (Order, App, Backbone, Marionette, $, _) ->
   Order.Show = Marionette.LayoutView.extend
+    DELETE_MESSAGE: "This will permanently delete the order and ALL THE DISHES. Are you sure?"
     template: "orders/show"
 
     ui:
       dishesSection: ".dishes-section"
       orderButton: ".order-button"
       changeStatus: ".change-status-button"
+      deleteOrder: ".destroy-order-button"
       orderTotal: ".title-total"
 
     regions:
@@ -13,6 +15,7 @@
 
     triggers:
       "click @ui.changeStatus": "change:status"
+      "click @ui.deleteOrder": "delete:order"
 
     behaviors:
       Animateable:
@@ -31,6 +34,12 @@
 
     onChangeStatus: ->
       @model.changeStatus()
+
+    onDeleteOrder: ->
+      if confirm(@DELETE_MESSAGE)
+        @model.destroy
+          success: ->
+            App.router.navigate "/dashboard", {trigger: true}
 
     _showDishes: ->
       dishes = new Order.Dishes
