@@ -36,7 +36,25 @@ describe OrdersController, :type => :controller do
         put :update, id: order.id, format: :json
         expect(response).to have_http_status(401)
       end
-      it 'returns success' do
+      it 'returns errors when delivered' do
+        order.delivered!
+        sign_in user
+        put :update, id: order.id, from: 'Good Food INC', format: :json
+        expect(response).to have_http_status(422)
+      end
+      it 'returns errors when ordered and a different user' do
+        order.ordered!
+        sign_in other_user
+        put :update, id: order.id, from: 'Good Food INC', format: :json
+        expect(response).to have_http_status(422)
+      end
+      it 'allows when ordered and proper user' do
+        order.ordered!
+        sign_in user
+        put :update, id: order.id, from: "KFC Remote", format: :json
+        expect(response).to have_http_status(:success)
+      end
+      it 'allows when in_progress' do
         sign_in user
         put :update, id: order.id, user_id: other_user.id, format: :json
         expect(response).to have_http_status(:success)
@@ -71,10 +89,47 @@ describe OrdersController, :type => :controller do
         put :change_status, id: order.id, format: :json
         expect(response).to have_http_status(401)
       end
-      it 'returns success' do
-        sign_in user
-        put :change_status, id: order.id, format: :json
-        expect(response).to have_http_status(:success)
+      describe "order in_progress" do
+        it 'returns success for payer' do
+          sign_in user
+          put :change_status, id: order.id, format: :json
+          expect(response).to have_http_status(:success)
+        end
+        it 'returns errors for other user' do
+          sign_in other_user
+          put :change_status, id: order.id, format: :json
+          expect(response).to have_http_status(422)
+        end
+      end
+      describe "order ordered" do
+        before do
+          order.ordered!
+        end
+        it 'returns success for payer' do
+          sign_in user
+          put :change_status, id: order.id, format: :json
+          expect(response).to have_http_status(:success)
+        end
+        it 'returns errors for other user' do
+          sign_in other_user
+          put :change_status, id: order.id, format: :json
+          expect(response).to have_http_status(422)
+        end
+      end
+      describe "order delivered" do
+        before do
+          order.delivered!
+        end
+        it 'returns errors for payer' do
+          sign_in user
+          put :change_status, id: order.id, format: :json
+          expect(response).to have_http_status(422)
+        end
+        it 'returns errors for other user' do
+          sign_in other_user
+          put :change_status, id: order.id, format: :json
+          expect(response).to have_http_status(422)
+        end
       end
     end
   end

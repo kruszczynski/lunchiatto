@@ -17,12 +17,11 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = @order
     render json: @order
   end
 
   def update
-    if @order.update(order_params)
+    if @order.editable? && @order.update(order_params)
       render json: @order
     else
       render json: {errors: @order.errors}, status: :unprocessable_entity
@@ -38,8 +37,11 @@ class OrdersController < ApplicationController
   end
 
   def change_status
-    @order.change_status!
-    render json: @order.decorate
+    if @order.can_change_status? && @order.change_status!
+      render json: @order
+    else
+      render json: {errors: ["Operation not allowed"]}, status: :unprocessable_entity
+    end
   end
 
   def latest

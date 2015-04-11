@@ -1,5 +1,17 @@
 class OrderSerializer < ActiveModel::Serializer
-  attributes :id, :from, :user_id, :dishes_count, :status, :shipping, :current_user_ordered?, :ordered_by_current_user?, :total, :date, :amount, :deletable?
+  attributes :id,
+             :from,
+             :user_id,
+             :dishes_count,
+             :status,
+             :shipping,
+             :current_user_ordered?,
+             :ordered_by_current_user?,
+             :total,
+             :date,
+             :amount,
+             :editable?,
+             :deletable?
   has_many :dishes
   has_one :user
 

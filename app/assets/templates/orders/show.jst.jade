@@ -9,13 +9,13 @@
         .full-order__status.status-label(class="status-label__#{locals.status.replace('_','-')}")
           = locals.status.replace('_', ' ')
       .full-order__payer #{user.name} pays
-        if status !== 'delivered'
-          a.inline-block.margin-left-small(href="/orders/#{id}/edit", data-navigate) Edit details
-          if ordered_by_current_user
-            if status === 'in_progress'
-              a.inline-block.margin-left-small.change-status-button(href="#") Ordered!
-            if status === 'ordered'
-              a.inline-block.margin-left-small.change-status-button(href="#") Delivered!
+        if editable
+          a.inline-block.margin-left-small(href="/orders/#{id}/edit", data-navigate) Details & Shipping
+        if ordered_by_current_user
+          if status === 'in_progress'
+            a.inline-block.margin-left-small.change-status-button(href="#") Ordered!
+          if status === 'ordered'
+            a.inline-block.margin-left-small.change-status-button(href="#") Delivered!
         if deletable
           a.inline-block.margin-left-small.destroy-order-button(href="#") Delete
       if locals.status === 'in_progress'
