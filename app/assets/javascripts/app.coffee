@@ -24,7 +24,7 @@
 
     Marionette.Behaviors.behaviorsLookup = ->
       App.Behaviors
-    App.currentUser = new App.Entities.User gon.current_user
+    App.currentUser = new App.Entities.User gon.currentUser
     App.vent.on 'reload:current:user', ->
       App.currentUser.fetch()
     $(document).foundation()
