@@ -32,6 +32,8 @@ gem "compass-rails", "2.0.4"
 
 gem "upmin-admin"
 
+gem "raygun4ruby", "1.1.5"
+
 group :development, :test do
   gem "cucumber-rails", :require => false
   gem "rspec-rails", "3.1.0"

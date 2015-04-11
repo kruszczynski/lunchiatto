@@ -132,6 +132,9 @@ GEM
     hike (1.2.3)
     hirb (0.7.3)
     htmlentities (4.3.3)
+    httparty (0.13.3)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jade-js-source (0.28.0)
     jbuilder (2.2.8)
@@ -239,6 +242,10 @@ GEM
       activesupport (>= 3.0)
       i18n
       polyamorous (~> 1.1)
+    raygun4ruby (1.1.5)
+      httparty (~> 0.11)
+      json
+      rack
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
@@ -361,6 +368,7 @@ DEPENDENCIES
   rails (= 4.2.1)
   rails_12factor
   rake
+  raygun4ruby (= 1.1.5)
   rspec-rails (= 3.1.0)
   sass-rails (~> 5.0.1)
   sdoc (~> 0.4.0)
