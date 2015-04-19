@@ -14,7 +14,7 @@ do (App = @CodequestManager) ->
       App.Dish.Controller.form(dish)
 
     newOrder: ->
-      order = new App.Entities.Order
+      order = new App.Entities.Order shipping: '0.00'
       App.Order.Controller.form(order)
 
     showOrder: (orderId) ->
