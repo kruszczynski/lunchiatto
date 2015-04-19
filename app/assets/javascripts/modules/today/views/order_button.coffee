@@ -8,3 +8,6 @@
 
     triggers:
       'click @ui.button': 'select:order'
+
+    initialize: (options) ->
+      @model.set('current', options.current)

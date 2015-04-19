@@ -10,9 +10,12 @@
       Animateable:
         types: ["fadeIn"]
 
+    initialize: (options) ->
+      @currentOrder = options.order
+
     onRender: ->
       @_showButtons()
-      @showOrder(@options.order) if @options.order
+      @showOrder(@currentOrder) if @currentOrder
 
     showOrder: (order) ->
       App.router.navigate "/orders/today/#{order.id}"
@@ -23,7 +26,7 @@
           @order.show view
 
     _showButtons: ->
-      buttons = new Today.OrderButtons collection: @collection
+      buttons = new Today.OrderButtons collection: @collection, currentOrderId: @currentOrder.id
       buttons.on 'childview:select:order', (orderView) => @showOrder(orderView.model)
       @orderButtons.show buttons
 
