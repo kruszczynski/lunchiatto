@@ -45,8 +45,8 @@ class OrdersController < ApplicationController
   end
 
   def latest
-    @order = Order.todays_order.try(:decorate)
-    render json: @order
+    @orders = Order.today.decorate
+    render json: @orders, shallow: true
   end
 
   private

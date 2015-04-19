@@ -3,18 +3,16 @@ class Order < ActiveRecord::Base
   has_many :dishes, dependent: :destroy
 
   validates :user, presence: true
-  validates :from, presence: true
-  validates :date, uniqueness: {message: "There already is an order for today"}
+  validates :from, presence: true, uniqueness: {scope: :date, message: "There already is an order from there today"}
 
-  scope :newest_first, -> { order("date desc")}
+  scope :newest_first, -> { order(date: :desc, created_at: :desc) }
+  scope :as_created, -> { order(created_at: :asc) }
+  scope :today, -> { as_created.where(date: Date.today) }
+
   register_currency :pln
   monetize :shipping_cents
 
   enum status: [:in_progress, :ordered, :delivered]
-
-  def self.todays_order
-    find_by date: Date.today
-  end
 
   def amount
     initial = Money.new(0, "PLN")
