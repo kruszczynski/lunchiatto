@@ -4,7 +4,7 @@ describe DishDecorator do
   let(:user) {create(:user)}
   let(:other_user) {create :other_user}
   let(:order) {create :order, user: user}
-  let(:old_order) {create :order, user: user, from: "Ol' food", date: Date.yesterday}
+  let(:old_order) {create :order, user: user, date: 1.day.ago}
   let(:dish) {create(:dish, user: user, order: order).decorate}
   let(:other_dish) {create(:dish, user: other_user, order: order).decorate}
 

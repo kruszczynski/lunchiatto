@@ -164,7 +164,7 @@ describe OrdersController, :type => :controller do
 
   describe 'GET :index' do
     let!(:order) { create :order, user: user, date: Date.today }
-    let!(:order2) { create :order, user: user, from: "Ol' food", date: Date.yesterday }
+    let!(:order2) { create :order, user: user, date: 1.day.ago}
     let!(:order3) { create :order, user: user, date: 2.days.ago }
     describe 'json' do
       it 'rejects when not logged in' do
@@ -199,7 +199,7 @@ describe OrdersController, :type => :controller do
         let!(:order) { create :order, user: user }
         let!(:order2) { create :order, user: user, from: "Another Place" }
         let!(:order3) { create :order, user: user, from: "Pizza Place" }
-        let!(:order4) { create :order, user: user, from: "Ol' food", date: Date.yesterday}
+        let!(:order4) { create :order, user: user, date: 1.day.ago}
         it 'renders json' do
           sign_in user
           get :latest, format: :json
