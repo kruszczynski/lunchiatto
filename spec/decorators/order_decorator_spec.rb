@@ -3,7 +3,7 @@ require 'spec_helper'
 describe OrderDecorator do
   let!(:user) {create :user}
   let(:order) {create(:order, user: user).decorate}
-  let(:old_order) {create(:order, user: user, date: Date.yesterday).decorate}
+  let(:old_order) {create(:order, user: user, from: "Ol' food", date: Date.yesterday).decorate}
   let(:other_user) {create :other_user}
   let!(:dish) {create :dish, user: other_user, order: order}
 
