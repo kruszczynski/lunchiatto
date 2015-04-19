@@ -8,7 +8,8 @@ class DishSerializer < ActiveModel::Serializer
              :deletable?,
              :copyable?,
              :order_id,
-             :user_id
+             :user_id,
+             :from_today?
 
   def price
     object.price.to_s

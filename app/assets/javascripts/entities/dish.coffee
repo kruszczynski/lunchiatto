@@ -19,6 +19,11 @@
     yetToOrder: (user) ->
       @collection.where(user_id: user.id).length is 0
 
+    successPath: ->
+      if @get('from_today')
+        "/orders/today/#{@get('order_id')}"
+      else
+        "/orders/#{@get('order_id')}"
 
   Entities.Dishes = Backbone.Collection.extend
     model: Entities.Dish

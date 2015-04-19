@@ -24,4 +24,6 @@ class OrderDecorator < Draper::Decorator
   def deletable?
     in_progress? && ordered_by_current_user?
   end
+
+  delegate :today?, to: :date, prefix: :from
 end

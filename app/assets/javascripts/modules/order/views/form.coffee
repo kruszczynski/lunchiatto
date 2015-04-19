@@ -21,4 +21,4 @@
         shipping: @ui.shipping.val()
       ,
         success: (model) ->
-          App.router.navigate "/orders/#{model.id}", {trigger: true}
+          App.router.navigate model.successPath(), {trigger: true}

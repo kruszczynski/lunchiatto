@@ -4,23 +4,27 @@ class DishDecorator < Draper::Decorator
   delegate_all
 
   def belongs_to_current_user?
-    object.user == current_user
+    user == current_user
   end
 
   def order_by_current_user?
-    object.order.user == current_user
+    order.user == current_user
   end
 
   def editable?
-    (object.order.in_progress? && belongs_to_current_user?) ||
-        (object.order.ordered? && order_by_current_user?)
+    (order.in_progress? && belongs_to_current_user?) ||
+        (order.ordered? && order_by_current_user?)
   end
 
   def deletable?
-    object.order.in_progress? && belongs_to_current_user?
+    order.in_progress? && belongs_to_current_user?
   end
 
   def copyable?
-    object.order.in_progress? && !belongs_to_current_user?
+    order.in_progress? && !belongs_to_current_user?
+  end
+
+  def from_today?
+    order.date.today?
   end
 end

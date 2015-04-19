@@ -1,7 +1,7 @@
 do (App = @CodequestManager) ->
   App.Controller =
-    ordersToday: ->
-      App.Dashboard.Controller.layout()
+    ordersToday: (orderId) ->
+      App.Today.Controller.today(orderId)
 
     editDish: (orderId, dishId) ->
       dish = new App.Entities.Dish order_id: orderId, id: dishId
