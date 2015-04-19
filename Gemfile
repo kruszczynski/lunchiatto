@@ -37,6 +37,7 @@ gem "raygun4ruby", "1.1.5"
 
 group :development, :test do
   gem "rspec-rails", "3.2.1"
+  gem "faker", require: false
 end
 
 group :production do

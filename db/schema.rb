@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20141022211123) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "dishes", force: true do |t|
+  create_table "dishes", force: :cascade do |t|
     t.string   "name"
     t.integer  "price_cents", default: 0
     t.integer  "user_id"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20141022211123) do
   add_index "dishes", ["order_id"], name: "index_dishes_on_order_id", using: :btree
   add_index "dishes", ["user_id"], name: "index_dishes_on_user_id", using: :btree
 
-  create_table "orders", force: true do |t|
+  create_table "orders", force: :cascade do |t|
     t.date     "date"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20141022211123) do
 
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
-  create_table "transfers", force: true do |t|
+  create_table "transfers", force: :cascade do |t|
     t.integer  "from_id"
     t.integer  "to_id"
     t.integer  "amount_cents"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20141022211123) do
   add_index "transfers", ["from_id"], name: "index_transfers_on_from_id", using: :btree
   add_index "transfers", ["to_id"], name: "index_transfers_on_to_id", using: :btree
 
-  create_table "user_balances", force: true do |t|
+  create_table "user_balances", force: :cascade do |t|
     t.integer  "balance_cents"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20141022211123) do
   add_index "user_balances", ["payer_id"], name: "index_user_balances_on_payer_id", using: :btree
   add_index "user_balances", ["user_id"], name: "index_user_balances_on_user_id", using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",               default: "",    null: false
     t.string   "encrypted_password",  default: "",    null: false
     t.datetime "remember_created_at"
