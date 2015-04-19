@@ -1,10 +1,9 @@
 class PagesController < ApplicationController
-  before_filter :redirect_to_dashboard, only: :index
-  def index
+  before_filter :redirect_to_today, only: :index
 
-  end
+  private
 
-  def redirect_to_dashboard
-    redirect_to app_dashboard_path if current_user
+  def redirect_to_today
+    redirect_to app_orders_today_path if current_user
   end
 end

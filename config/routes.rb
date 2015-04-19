@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
   ### Single Page App ###
   namespace :app do
-    %w(dashboard orders orders/new orders/:order_id/edit orders/:order_id/dishes/:dish_id/edit orders/:order_id/dishes/new account_numbers settings balances transfers transfers/new).each do |route|
+    %w(orders orders/today orders/new orders/:order_id/edit orders/:order_id/dishes/:dish_id/edit orders/:order_id/dishes/new account_numbers settings balances transfers transfers/new).each do |route|
       get route, to: 'dashboard#index'
     end
     get 'orders/:order_id', to: 'dashboard#index', as: 'order'

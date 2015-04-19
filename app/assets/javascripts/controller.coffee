@@ -1,6 +1,6 @@
 do (App = @CodequestManager) ->
   App.Controller =
-    dashboard: ->
+    ordersToday: ->
       App.Dashboard.Controller.layout()
 
     editDish: (orderId, dishId) ->
