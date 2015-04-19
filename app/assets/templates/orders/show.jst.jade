@@ -16,6 +16,8 @@
               a.inline-block.margin-left-small.change-status-button(href="#") Ordered!
             if status === 'ordered'
               a.inline-block.margin-left-small.change-status-button(href="#") Delivered!
+        if deletable
+          a.inline-block.margin-left-small.destroy-order-button(href="#") Delete
       if locals.status === 'in_progress'
         .full-order__buttons.order-button
           a.button.success(href="/orders/#{id}/dishes/new",data-navigate) Add dish +

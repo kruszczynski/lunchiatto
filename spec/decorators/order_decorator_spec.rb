@@ -31,4 +31,27 @@ describe OrderDecorator do
       expect(@order.ordered_by_current_user?).to be_falsey
     end
   end
+
+  describe "#deletable?" do
+    it "returns false when ordered" do
+      order.ordered!
+      sign_in user
+      expect(@order.deletable?).to be_falsey
+    end
+    it "returns false when delivered" do
+      order.delivered!
+      sign_in user
+      expect(@order.deletable?).to be_falsey
+    end
+    describe "when in progress" do
+      it "returns true for payer" do
+        sign_in user
+        expect(@order.deletable?).to be_truthy
+      end
+      it "returns false for other user" do
+        sign_in other_user
+        expect(@order.deletable?).to be_falsey
+      end
+    end
+  end
 end

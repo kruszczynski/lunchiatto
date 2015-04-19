@@ -17,15 +17,23 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = @order.decorate
+    @order = @order
     render json: @order
   end
 
   def update
     if @order.update(order_params)
-      render json: @order.decorate
+      render json: @order
     else
       render json: {errors: @order.errors}, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    if @order.deletable? && @order.destroy
+      render json: {status: "success"}
+    else
+      render json: {error: ["You can't delete this order."]}, status: :unprocessable_entity
     end
   end
 
@@ -46,6 +54,6 @@ class OrdersController < ApplicationController
   end
 
   def find_order
-    @order = Order.find params[:id]
+    @order = Order.find(params[:id]).decorate
   end
 end
