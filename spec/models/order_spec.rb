@@ -16,7 +16,7 @@ describe Order, :type => :model do
     let(:user) {create :user}
     let!(:order) { create :order, user: user }
     let!(:order2) { create :order, user: user, from: "Another Place" }
-    let!(:order3) { create :order, user: user, date: Date.yesterday }
+    let!(:order3) { create :order, user: user, from: "Ol' food", date: Date.yesterday }
 
     describe ".today" do
       it "shows today's orders" do
