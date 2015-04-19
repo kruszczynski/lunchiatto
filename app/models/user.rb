@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  ACCEPTABLE_EMAILS = %w(codequest.com codequest.eu gmail.com)
+  ACCEPTABLE_EMAILS = %w(codequest.com codequest.eu)
 
   has_many :orders
   has_many :user_balances, dependent: :destroy
