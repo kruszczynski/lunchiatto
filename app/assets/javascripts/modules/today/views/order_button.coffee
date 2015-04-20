@@ -11,3 +11,6 @@
 
     initialize: (options) ->
       @model.set('current', options.current)
+
+    toggleActive: (direction) ->
+      @ui.button.toggleClass('secondary', !direction)

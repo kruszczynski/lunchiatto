@@ -6,7 +6,6 @@
     getChildView: ->
       Today.OrderButton
 
-    childViewOptions: (model) ->
-      console.log @options.currentOrderId
-      console.log model.id
-      current: true if @options.currentOrderId == model.id
+    currentOrder: (orderId) ->
+      @children.each (child) ->
+        child.toggleActive(child.model.id == orderId)

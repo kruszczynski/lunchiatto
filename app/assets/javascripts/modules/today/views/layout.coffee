@@ -22,11 +22,12 @@
       order = new App.Entities.Order id: order.id
       order.fetch
         success: (order) =>
+          @buttons.currentOrder(order.id)
           view = new App.Order.Show model: order
           @order.show view
 
     _showButtons: ->
-      buttons = new Today.OrderButtons collection: @collection, currentOrderId: @currentOrder.id
-      buttons.on 'childview:select:order', (orderView) => @showOrder(orderView.model)
-      @orderButtons.show buttons
+      @buttons = new Today.OrderButtons collection: @collection
+      @buttons.on 'childview:select:order', (orderView) => @showOrder(orderView.model)
+      @orderButtons.show @buttons
 
