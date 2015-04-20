@@ -163,7 +163,7 @@ describe OrdersController, :type => :controller do
   end
 
   describe 'GET :index' do
-    let!(:order) { create :order, user: user, date: Date.today }
+    let!(:order) { create :order, user: user, date: Time.zone.today }
     let!(:order2) { create :order, user: user, date: 1.day.ago}
     let!(:order3) { create :order, user: user, date: 2.days.ago }
     describe 'json' do

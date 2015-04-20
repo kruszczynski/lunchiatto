@@ -8,7 +8,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new order_params.merge(date: Date.today)
+    @order = Order.new order_params.merge(date: Time.zone.today)
     if @order.save
       render json: @order.decorate
     else

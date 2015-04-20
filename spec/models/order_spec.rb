@@ -37,14 +37,14 @@ describe Order, :type => :model do
 
   describe '#amount' do
     it 'should return 0 when no dishes' do
-      order = Order.new date: Date.today
+      order = Order.new date: Time.zone.today
       expect(order).to receive(:dishes).and_return([])
       expected = Money.new(0, 'PLN')
       expect(order.amount).to eq(expected)
     end
 
     it 'should return 15 when there is a dish' do
-      order = Order.new date: Date.today
+      order = Order.new date: Time.zone.today
       dish = double('Dish')
       expect(dish).to receive(:price).and_return(Money.new(15,'PLN'))
       expect(order).to receive(:dishes).and_return([dish])

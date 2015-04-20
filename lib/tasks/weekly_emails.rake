@@ -1,6 +1,6 @@
 namespace :weekly_email do
   task send: :environment do
-    if Date.today.monday?
+    if Time.zone.today.monday?
       Rake::Task["weekly_email:balance"].invoke
     end
   end
