@@ -1,9 +1,0 @@
-.row.margin-bottom
-  .columns.text-center
-    a(href="/orders", data-navigate) All Orders
-.row
-  .columns.text-center
-    if locals.noOrder
-      a.button.success(href="/orders/new", data-navigate) + Add Order
-    else
-      a.button(href="/orders/#{locals.id}", data-navigate) Today's Order

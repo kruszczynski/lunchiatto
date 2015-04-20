@@ -1,6 +1,6 @@
 @CodequestManager.Router = Marionette.AppRouter.extend
   appRoutes:
-    "dashboard(/)": "dashboard"
+    "orders/today(/)(:orderId)(/)": "ordersToday"
     "balances(/)": "balancesIndex"
     "orders(/)": "ordersIndex"
     "orders/new(/)": "newOrder"

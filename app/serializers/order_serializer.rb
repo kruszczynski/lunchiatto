@@ -11,7 +11,9 @@ class OrderSerializer < ActiveModel::Serializer
              :date,
              :amount,
              :editable?,
-             :deletable?
+             :deletable?,
+             :from_today?
+  
   has_many :dishes
   has_one :user
 

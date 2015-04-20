@@ -24,6 +24,12 @@
     total: ->
       (@get('dishes').total()+parseFloat(@get('shipping'))).toFixed(2)
 
+    successPath: ->
+      if @get('from_today')
+        "/orders/today/#{@id}"
+      else
+        "/orders/#{@id}"
+
   Entities.Orders = Backbone.Collection.extend
     model: Entities.Order
     url: '/orders'

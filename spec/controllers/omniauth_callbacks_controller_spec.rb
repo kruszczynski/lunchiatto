@@ -23,7 +23,7 @@ describe Users::OmniauthCallbacksController, type: :controller do
     end
     it 'redirects to index' do
       get :google_oauth2
-      expect(response).to redirect_to(app_dashboard_path)
+      expect(response).to redirect_to(app_orders_today_path)
     end
     it 'creates a user' do
       expect {

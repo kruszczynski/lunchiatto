@@ -16,15 +16,43 @@ describe OrdersController, :type => :controller do
         post :create, user_id: user.id, from: 'A restaurant', format: :json
         expect(response).to have_http_status(401)
       end
+      describe "when an order from this restaurant already exists" do
+        let!(:order) { create :order, from: 'A restaurant', user: user }
+        it "returns unprocessable" do
+          sign_in user
+          post :create, user_id: user.id, from: 'A restaurant', format: :json
+          expect(response).to have_http_status(422)
+        end
+        it "doesn't create the order in such case" do
+          sign_in user
+          expect {
+            post :create, user_id: user.id, from: 'A restaurant', format: :json
+          }.to_not change(Order, :count)
+        end
+      end
       it 'returns success' do
         sign_in user
         post :create, user_id: user.id, from: 'A restaurant', format: :json
         expect(response).to have_http_status(:success)
       end
-      it 'returns errors' do
+      it "returns success with existing order" do
+        create :order, user: user
         sign_in user
-        post :create, from: 'A restaurant', format: :json
-        expect(response).to have_http_status(422)
+        post :create, user_id: user.id, from: 'A restaurant', format: :json
+        expect(response).to have_http_status(:success)
+      end
+      describe "incomplete data" do
+        it 'returns errors' do
+          sign_in user
+          post :create, from: 'A restaurant', format: :json
+          expect(response).to have_http_status(422)
+        end
+        it "doesn't create an order" do
+          sign_in user
+          expect {
+            post :create, from: 'A restaurant', format: :json
+          }.to_not change(Order, :count)
+        end
       end
     end
   end
@@ -136,7 +164,7 @@ describe OrdersController, :type => :controller do
 
   describe 'GET :index' do
     let!(:order) { create :order, user: user, date: Date.today }
-    let!(:order2) { create :order, user: user, date: Date.yesterday }
+    let!(:order2) { create :order, user: user, date: 1.day.ago}
     let!(:order3) { create :order, user: user, date: 2.days.ago }
     describe 'json' do
       it 'rejects when not logged in' do
@@ -157,16 +185,31 @@ describe OrdersController, :type => :controller do
   end
 
   describe 'GET :latest' do
-    let(:order) { create :order, user: user }
     describe 'json' do
       it 'rejects when not logged in' do
         get :latest, format: :json
         expect(response).to have_http_status(401)
       end
-      it 'renders json' do
+      it "returns an empty collection" do
         sign_in user
         get :latest, format: :json
-        expect(response).to have_http_status(:success)
+        expect(JSON.parse(response.body).size).to be(0)
+      end
+      describe "with orders" do
+        let!(:order) { create :order, user: user }
+        let!(:order2) { create :order, user: user, from: "Another Place" }
+        let!(:order3) { create :order, user: user, from: "Pizza Place" }
+        let!(:order4) { create :order, user: user, date: 1.day.ago}
+        it 'renders json' do
+          sign_in user
+          get :latest, format: :json
+          expect(response).to have_http_status(:success)
+        end
+        it "returns today's orders" do
+          sign_in user
+          get :latest, format: :json
+          expect(JSON.parse(response.body).size).to be(3)
+        end
       end
     end
   end

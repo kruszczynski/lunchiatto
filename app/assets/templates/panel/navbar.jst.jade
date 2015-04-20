@@ -2,7 +2,7 @@ nav.top-bar(role="navigation", data-topbar='', data-options="mobile_show_parent_
   ul.title-area
     li.name
       h1
-        a(href="/dashboard", data-navigate) code quest Manager
+        a(href="/orders/today", data-navigate) code quest Manager
     li.toggle-topbar.menu-icon
       a(href="#")
         span
@@ -11,7 +11,7 @@ nav.top-bar(role="navigation", data-topbar='', data-options="mobile_show_parent_
       li.balance-label
         a.unhanded(href="#") #{total_balance} PLN
       li
-        a(href="/dashboard", data-navigate) Dashboard
+        a(href="/orders/today", data-navigate) Today
       li.has-dropdown
         a(href="#") Finances (#{pending_transfers_count})
         ul.dropdown

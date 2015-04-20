@@ -39,7 +39,7 @@
       if confirm(@DELETE_MESSAGE)
         @model.destroy
           success: ->
-            App.router.navigate "/dashboard", {trigger: true}
+            App.router.navigate "/orders/today", {trigger: true}
 
     _showDishes: ->
       dishes = new Order.Dishes

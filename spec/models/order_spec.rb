@@ -6,17 +6,32 @@ describe Order, :type => :model do
   it {should have_many(:dishes)}
   it {should validate_presence_of(:user)}
   it {should validate_presence_of(:from)}
-  it {should validate_uniqueness_of(:date).with_message("There already is an order for today")}
+  it {should validate_uniqueness_of(:from).with_message("There already is an order from there today")}
 
   it 'should have statuses' do
     expect(Order.statuses).to eq({"in_progress"=>0, "ordered"=>1, "delivered"=>2})
   end
 
-  describe '.todays_order' do
-    it 'should call find' do
-      mock = double('Order')
-      expect(Order).to receive(:find_by).with(date: Date.today).and_return(mock)
-      expect(Order.todays_order).to eq(mock)
+  describe "scopes" do
+    let(:user) {create :user}
+    let!(:order) { create :order, user: user }
+    let!(:order2) { create :order, user: user, from: "Another Place" }
+    let!(:order3) { create :order, user: user, date: 1.day.ago }
+
+    describe ".today" do
+      it "shows today's orders" do
+        expect(Order.today).to eq([order, order2])
+      end
+    end
+    describe ".as_created" do
+      it "shows in creation order" do
+        expect(Order.as_created).to eq([order, order2, order3])
+      end
+    end
+    describe ".newest_first" do
+      it "shows newest first" do
+        expect(Order.newest_first).to eq([order2, order, order3])
+      end
     end
   end
 
