@@ -5,6 +5,10 @@
       .full-order__total
         span.title-total=locals.total
         |  PLN
+      if parseFloat(shipping) > 0
+        .full-order__shipping
+          | SHIPPING:&nbsp;
+          strong #{shipping} PLN
       .full-order__status-row
         .full-order__status.status-label(class="status-label__#{locals.status.replace('_','-')}")
           = locals.status.replace('_', ' ')
