@@ -7,7 +7,7 @@ class Order < ActiveRecord::Base
 
   scope :newest_first, -> { order(date: :desc, created_at: :desc) }
   scope :as_created, -> { order(created_at: :asc) }
-  scope :today, -> { as_created.where(date: Date.today) }
+  scope :today, -> { as_created.where(date: Time.zone.today) }
 
   register_currency :pln
   monetize :shipping_cents
