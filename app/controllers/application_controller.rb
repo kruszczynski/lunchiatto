@@ -4,14 +4,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def after_sign_in_path_for(resource)
-    app_orders_today_path
+    new_company_url
   end
 
   def gon_user
     return unless current_user
     gon.push({
                  current_user: UserSerializer.new(current_user),
-                 destroy_user_session: destroy_user_session_path
+                 destroy_user_session: destroy_user_session_path,
+                 company_name: current_user.decorate.company_name
              })
   end
 end

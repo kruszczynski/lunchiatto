@@ -1,5 +1,6 @@
 class App::DashboardController < ApplicationController
   before_action :authenticate_user!
+  before_action :check_if_user_has_company
   before_action :gon_user
 
   layout 'single_page_app'
@@ -10,5 +11,11 @@ class App::DashboardController < ApplicationController
                  notice: flash[:notice],
                  alert: flash[:alert]
              })
+  end
+
+  private
+
+  def check_if_user_has_company
+    redirect_to new_company_url if current_user.company.nil?
   end
 end

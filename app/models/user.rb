@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :balances_as_payer, class_name: 'UserBalance', inverse_of: :payer, foreign_key: :payer_id
   has_many :submitted_transfers, inverse_of: :from, class_name: 'Transfer', foreign_key: :from_id
   has_many :received_transfers, inverse_of: :to, class_name: 'Transfer', foreign_key: :to_id
+  belongs_to :company
 
   after_create :add_first_balance
 

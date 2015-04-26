@@ -21,15 +21,11 @@ describe Users::OmniauthCallbacksController, type: :controller do
       request.env["devise.mapping"] = Devise.mappings[:user] # If using
       request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2_codequest]
     end
-    it 'redirects to index' do
-      get :google_oauth2
-      expect(response).to redirect_to(app_orders_today_path)
-    end
-    it 'creates a user' do
+    it 'redirects to new_company_path if user has no company' do
       expect {
         get :google_oauth2
       }.to change(User, :count).by(1)
-
+      expect(response).to redirect_to(new_company_url)
     end
   end
 end

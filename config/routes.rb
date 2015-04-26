@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, except: [:delete, :edit]
+  resources :companies, only: [:new, :create]
 
   resources :transfers, only: [:create] do
     member do
