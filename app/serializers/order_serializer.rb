@@ -40,4 +40,18 @@ class OrderSerializer < ActiveModel::Serializer
   def include_user?
     !options[:shallow]
   end
+
+  def editable?
+    policy.update?
+  end
+
+  def deletable?
+    policy.destroy?
+  end
+
+  private
+
+  def policy
+    @policy ||= OrderPolicy.new current_user, object
+  end
 end

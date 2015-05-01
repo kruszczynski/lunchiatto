@@ -62,19 +62,19 @@ describe OrdersController, :type => :controller do
     describe 'json' do
       it 'rejects when not logged in' do
         put :update, id: order.id, format: :json
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
       end
-      it 'returns errors when delivered' do
+      it 'returns unauthorized when delivered' do
         order.delivered!
         sign_in user
         put :update, id: order.id, from: 'Good Food INC', format: :json
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unauthorized)
       end
-      it 'returns errors when ordered and a different user' do
+      it 'returns unauthorized when ordered and a different user' do
         order.ordered!
         sign_in other_user
         put :update, id: order.id, from: 'Good Food INC', format: :json
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unauthorized)
       end
       it 'allows when ordered and proper user' do
         order.ordered!
@@ -90,7 +90,7 @@ describe OrdersController, :type => :controller do
       it 'returns errors' do
         sign_in user
         put :update, id: order.id, from: '', format: :json
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
@@ -123,10 +123,10 @@ describe OrdersController, :type => :controller do
           put :change_status, id: order.id, format: :json
           expect(response).to have_http_status(:success)
         end
-        it 'returns errors for other user' do
+        it 'returns unprocessable for other user' do
           sign_in other_user
           put :change_status, id: order.id, format: :json
-          expect(response).to have_http_status(422)
+          expect(response).to have_http_status(401)
         end
       end
       describe "order ordered" do
@@ -138,25 +138,25 @@ describe OrdersController, :type => :controller do
           put :change_status, id: order.id, format: :json
           expect(response).to have_http_status(:success)
         end
-        it 'returns errors for other user' do
+        it 'returns unprocessable for other user' do
           sign_in other_user
           put :change_status, id: order.id, format: :json
-          expect(response).to have_http_status(422)
+          expect(response).to have_http_status(401)
         end
       end
       describe "order delivered" do
         before do
           order.delivered!
         end
-        it 'returns errors for payer' do
+        it 'returns unprocessable for payer' do
           sign_in user
           put :change_status, id: order.id, format: :json
-          expect(response).to have_http_status(422)
+          expect(response).to have_http_status(401)
         end
-        it 'returns errors for other user' do
+        it 'returns unprocessable for other user' do
           sign_in other_user
           put :change_status, id: order.id, format: :json
-          expect(response).to have_http_status(422)
+          expect(response).to have_http_status(401)
         end
       end
     end
@@ -225,19 +225,19 @@ describe OrdersController, :type => :controller do
         order.ordered!
         sign_in user
         delete :destroy, id: order.id, format: :json
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(401)
       end
       it "rejects when order delivered" do
         order.delivered!
         sign_in user
         delete :destroy, id: order.id, format: :json
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(401)
       end
       describe "order in progress" do
         it "doesn't allow others to delete" do
           sign_in other_user
           delete :destroy, id: order.id, format: :json
-          expect(response).to have_http_status(422)
+          expect(response).to have_http_status(401)
         end
         describe "when payer" do
           it "allows payer to delete" do

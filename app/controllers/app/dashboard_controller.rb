@@ -1,11 +1,11 @@
 class App::DashboardController < ApplicationController
-  before_action :authenticate_user!
-  before_action :check_if_user_has_company
-  before_action :gon_user
-
   layout 'single_page_app'
 
+  before_action :authenticate_user!
+
   def index
+    authorize :dashboard
+    gon_user
     gon.push({
                  users_for_select: User.all_for_select,
                  notice: flash[:notice],
@@ -15,7 +15,11 @@ class App::DashboardController < ApplicationController
 
   private
 
-  def check_if_user_has_company
-    redirect_to new_company_url if current_user.company.nil?
+  def user_not_authorized(exception)
+    if exception.message == "must be logged in"
+      redirect_to root_url
+    else
+      redirect_to new_company_url
+    end
   end
 end

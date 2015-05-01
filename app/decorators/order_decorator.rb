@@ -13,17 +13,7 @@ class OrderDecorator < Draper::Decorator
     user == current_user
   end
 
-  def editable?
-    in_progress? || ordered? && ordered_by_current_user?
+  def from_today?
+    date.today?
   end
-
-  def can_change_status?
-    !delivered? && ordered_by_current_user?
-  end
-
-  def deletable?
-    in_progress? && ordered_by_current_user?
-  end
-
-  delegate :today?, to: :date, prefix: :from
 end

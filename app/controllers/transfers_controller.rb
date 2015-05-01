@@ -1,31 +1,35 @@
 class TransfersController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :find_transfer, except: [:create]
+  before_action :authenticate_user!
 
   def create
-    @transfer = Transfer.new transfer_params
-    @transfer.from = current_user
-    if @transfer.save
-      TransferMailer.created_transfer(@transfer).deliver_now
-      render json: @transfer
+    transfer = Transfer.new transfer_params
+    authorize transfer
+    transfer.from = current_user
+    if transfer.save
+      TransferMailer.created_transfer(transfer).deliver_now
+      render json: transfer
     else
-      render json: {errors: @transfer.errors}, status: :unprocessable_entity
+      render json: {errors: transfer.errors}, status: :unprocessable_entity
     end
   end
 
   def accept
-    if change_transfer_status.perform(:accepted)
-      render json: @transfer
+    transfer = find_transfer
+    authorize transfer, :update?
+    if change_transfer_status(transfer).perform(:accepted)
+      render json: transfer
     else
-      render json: {errors: @transfer.errors}, status: :unprocessable_entity
+      render json: {errors: transfer.errors}, status: :unprocessable_entity
     end
   end
 
   def reject
-    if change_transfer_status.perform(:rejected)
-      render json: @transfer
+    transfer = find_transfer
+    authorize transfer, :update?
+    if change_transfer_status(transfer).perform(:rejected)
+      render json: transfer
     else
-      render json: {errors: @transfer.errors}, status: :unprocessable_entity
+      render json: {errors: transfer.errors}, status: :unprocessable_entity
     end
   end
 
@@ -36,10 +40,10 @@ class TransfersController < ApplicationController
   end
 
   def find_transfer
-    @transfer = Transfer.find(params[:id])
+    Transfer.find(params[:id])
   end
 
-  def change_transfer_status
-    ChangeTransferStatus.new(@transfer, current_user)
+  def change_transfer_status(transfer)
+    ChangeTransferStatus.new(transfer, current_user)
   end
 end

@@ -4,6 +4,7 @@ describe App::DashboardController, type: :controller do
   describe "GET :index" do
     describe "html" do
       let(:user) { create(:user) }
+      let(:company) { create(:company) }
 
       it "redirects not signed in user to root" do
         get :index
@@ -18,10 +19,8 @@ describe App::DashboardController, type: :controller do
 
       context "when user has a company" do
         before do
-          company = instance_double('Company')
-          allow(company).to receive(:name) { "My Socks Are On Fire" }
-          allow(user).to receive(:company) { company }
-          allow(controller).to receive(:current_user) { user }
+          user.company = company
+          user.save!
         end
 
         it "renders SPA scaffold to signed in user" do

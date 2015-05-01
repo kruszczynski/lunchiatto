@@ -1,54 +1,62 @@
 class DishesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :find_order
-  before_filter :find_dish, only: [:copy, :destroy, :update, :show]
+  before_action :authenticate_user!
 
   def create
-    @dish = @order.dishes.build(dish_params)
-    if @dish.save
-      render json: @dish.decorate
+    order = find_order
+    dish = order.dishes.build(dish_params)
+    authorize dish
+    if dish.save
+      render json: dish.decorate
     else
-      render json: {errors: @dish.errors}, status: :unprocessable_entity
+      render json: {errors: dish.errors}, status: :unprocessable_entity
     end
   end
 
   def show
-    render json: @dish.decorate
+    dish = find_dish
+    authorize dish
+    render json: dish.decorate
   end
 
   def update
-    if @dish.editable? && @dish.update(dish_params)
-      render json: @dish
+    dish = find_dish
+    authorize dish
+    if dish.update(dish_params)
+      render json: dish
     else
-      render json: {errors: @dish.errors}, status: :unprocessable_entity
+      render json: {errors: dish.errors}, status: :unprocessable_entity
     end
   end
 
   def destroy
-    if @dish.deletable? && @dish.delete
+    dish = find_dish
+    authorize dish
+    if dish.delete
       render json: {status: 'success'}
     else
-      render json: {errors: @dish.errors}, status: :unprocessable_entity
+      render json: {errors: dish.errors}, status: :unprocessable_entity
     end
   end
 
   def copy
-    @new_dish = @dish.copy(current_user)
-    if @new_dish.save
-      render json: @new_dish.decorate
+    dish = find_dish
+    authorize dish
+    new_dish = dish.copy(current_user)
+    if new_dish.save
+      render json: new_dish.decorate
     else
-      render json: {errors: @new_dish.errors}, status: :unprocessable_entity
+      render json: {errors: new_dish.errors}, status: :unprocessable_entity
     end
   end
 
   private
 
   def find_order
-    @order = Order.find(params[:order_id])
+    Order.find(params[:order_id])
   end
 
   def find_dish
-    @dish = @order.dishes.find(params[:id]).decorate
+    find_order.dishes.find(params[:id]).decorate
   end
 
   def dish_params
