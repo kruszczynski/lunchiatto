@@ -17,9 +17,8 @@
         type: 'PUT'
         url: "#{@url()}/change_status"
         success: (data) =>
-          @set({status: data.status})
+          @set(@parse(data))
           App.vent.trigger 'reload:current:user' if data.status is 'delivered'
-          @get('dishes').reset(data.dishes, parse: true)
 
     total: ->
       (@get('dishes').total()+parseFloat(@get('shipping'))).toFixed(2)
