@@ -40,25 +40,5 @@ describe ChangeTransferStatus do
         expect(service.perform(:rejected))
       end
     end
-    describe "not pending" do
-      it "returns false" do
-        expect(accepted_transfer_service.perform(:accepted)).to be_falsey
-      end
-      it "doesn't send email" do
-        expect{accepted_transfer_service.perform(:accepted)}.to_not change(ActionMailer::Base.deliveries, :count)
-      end
-    end
-    describe "not to current_user" do
-      it "returns false" do
-        expect(other_user_service.perform(:accepted)).to be_falsey
-      end
-      it "doesn't send email" do
-        expect{other_user_service.perform(:accepted)}.to_not change(ActionMailer::Base.deliveries, :count)
-      end
-      it "doesn't change status" do
-        other_user_service.perform(:accepted)
-        expect(transfer.status).to eq("pending")
-      end
-    end
   end
 end

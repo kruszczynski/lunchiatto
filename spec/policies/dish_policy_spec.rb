@@ -1,0 +1,132 @@
+require "spec_helper"
+
+describe DishPolicy do
+  let(:user) { create :user }
+  let(:other_user) { create :other_user }
+  let(:order) { create :order, user: user }
+  let(:dish) { create :dish, order: order, user: user }
+  let(:other_dish) { create :dish, user: other_user, order: order }
+  subject { DishPolicy.new(user, dish) }
+
+  describe "#create?" do
+    it "returns true" do
+      expect(subject.create?).to be_truthy
+    end
+  end
+
+  describe "#show?" do
+    it "returns true" do
+      expect(subject.show?).to be_truthy
+    end
+  end
+
+  describe "#update?" do
+    describe "order in progress" do
+      it "returns true when user's" do
+        expect(subject.update?).to be_truthy
+      end
+      it "returns false when other user's" do
+        policy = DishPolicy.new other_user, dish
+        expect(policy.update?).to be_falsey
+      end
+    end
+    describe "order ordered" do
+      before do
+        order.ordered!
+      end
+      it "returns false when user's" do
+        policy = DishPolicy.new other_user, other_dish
+        expect(policy.update?).to be_falsey
+      end
+      it "returns false when other user's" do
+        policy = DishPolicy.new other_user, dish
+        expect(policy.update?).to be_falsey
+      end
+      it "returns true when edited by orderer" do
+        policy = DishPolicy.new user, other_dish
+        expect(policy.update?).to be_truthy
+      end
+    end
+    describe "order delivered" do
+      before do
+        order.delivered!
+      end
+      it "returns false when user's" do
+        expect(subject.update?).to be_falsey
+      end
+      it "returns false when other user's" do
+        policy = DishPolicy.new other_user, dish
+        expect(policy.update?).to be_falsey
+      end
+    end
+  end
+
+  describe "#destroy?" do
+    let(:other_policy) { DishPolicy.new other_user, dish }
+    describe "order in progress" do
+      it "is true for the user" do
+        expect(subject.destroy?).to be_truthy
+      end
+      it "is false for the other user" do
+        expect(other_policy.destroy?).to be_falsey
+      end
+    end
+    describe "order ordered" do
+      before do
+        order.ordered!
+      end
+      it "is false for the user" do
+        expect(subject.destroy?).to be_falsey
+      end
+      it "is false for the other user" do
+        expect(other_policy.destroy?).to be_falsey
+      end
+    end
+    describe "order delivered" do
+      before do
+        order.delivered!
+      end
+      it "is false for the user" do
+        expect(subject.destroy?).to be_falsey
+      end
+      it "is false for the other user" do
+        expect(other_policy.destroy?).to be_falsey
+      end
+    end
+  end
+
+  describe "#copy?" do
+    let(:other_policy) { DishPolicy.new other_user, dish }
+    describe "order in progress" do
+      it "is true for the user" do
+        expect(subject.copy?).to be_falsey
+      end
+      it "is false for the other user" do
+        expect(other_policy.copy?).to be_truthy
+      end
+    end
+    describe "order ordered" do
+      before do
+        order.ordered!
+      end
+      it "is false for the user" do
+        expect(subject.copy?).to be_falsey
+      end
+      it "is false for the other user" do
+        expect(other_policy.copy?).to be_falsey
+      end
+    end
+    describe "order delivered" do
+      before do
+        order.delivered!
+      end
+      it "is false for the user" do
+        expect(subject.copy?).to be_falsey
+      end
+      it "is false for the other user" do
+        expect(other_policy.copy?).to be_falsey
+      end
+    end
+  end
+
+end

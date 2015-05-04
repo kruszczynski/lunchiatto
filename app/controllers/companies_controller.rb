@@ -1,12 +1,13 @@
 class CompaniesController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_company, only: [:new, :create]
 
   def new
+    authorize :company, :create?
     @company = Company.new
   end
 
   def create
+    authorize :company
     creator = company_creator
     if creator.perform.success?
       redirect_to root_url
@@ -16,17 +17,14 @@ class CompaniesController < ApplicationController
     end
   end
 
+  rescue_from Pundit::NotAuthorizedError do |exception|
+    redirect_to root_url, notice: "couldn't overwrite an existing company"
+  end
+
   private
 
   def company_params
     params.require(:company).permit(:name)
-  end
-
-  def check_company
-    if current_user.company.present?
-      redirect_to root_url, notice: "couldn't overwrite an existing company"
-      false
-    end
   end
 
   def company_creator
