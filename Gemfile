@@ -26,7 +26,7 @@ gem "omniauth", "1.2.2"
 gem "omniauth-google-oauth2", "0.2.6  "
 
 gem "draper"
-gem "money-rails", "1.3.0"
+gem "money-rails"
 gem "pundit"
 
 gem "puma", "2.11.2"
