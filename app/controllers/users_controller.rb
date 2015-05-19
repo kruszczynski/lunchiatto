@@ -1,22 +1,22 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_filter :find_user, only: [:show]
 
   def index
-    @users = User.all.order('name')
-    render json: @users, with_balance: true
+    users = current_user.company.users_by_name
+    render json: users, with_balance: true
   end
 
   def show
-    render json: @user
+    user = find_user
+    render json: user
   end
 
   def update
-    @user = current_user
-    if @user.update(user_params)
-      render json: @user
+    user = current_user
+    if user.update(user_params)
+      render json: user
     else
-      render json: {errors: @user.errors}, status: :unprocessable_entity
+      render json: {errors: user.errors}, status: :unprocessable_entity
     end
   end
 
@@ -27,6 +27,6 @@ class UsersController < ApplicationController
   end
 
   def find_user
-    @user = User.find(params[:id])
+    User.find(params[:id])
   end
 end

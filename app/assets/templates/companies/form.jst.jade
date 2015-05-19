@@ -1,0 +1,16 @@
+.row
+  .columns
+    h1 Edit Company Details
+form
+  .row
+    .columns
+      .full-error.panel.hide
+        p
+  .row
+    .columns
+      label.name-label Name
+        input.name(type='text',name='name',value=locals.name)
+        small.error.hide
+  .row
+    .columns
+      button.success.expand.button(type='submit') Save

@@ -3,5 +3,6 @@
 FactoryGirl.define do
   factory :dish do
     name 'delicious dinner'
+    price "13.30"
   end
 end

@@ -21,12 +21,12 @@ describe TransfersController, type: :controller do
       end
       it "rejects when not logged in" do
         post :create, to_id: user.id, amount: 14, format: :json
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
       end
       it "returns error when no user" do
         sign_in other_user
         post :create, amount: 14, format: :json
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
@@ -36,7 +36,7 @@ describe TransfersController, type: :controller do
       it "rejects when current_user is not the receiver" do
         sign_in user
         put :accept, id: transfer.id, format: :json
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unauthorized)
       end
       it "sends an email" do
         sign_in other_user
@@ -48,7 +48,7 @@ describe TransfersController, type: :controller do
         transfer.accepted!
         sign_in other_user
         put :accept, id: transfer.id, format: :json
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unauthorized)
       end
       it "is success" do
         sign_in other_user
@@ -57,7 +57,7 @@ describe TransfersController, type: :controller do
       end
       it "rejects when not logged in" do
         put :accept, id: transfer.id, format: :json
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end
@@ -67,7 +67,7 @@ describe TransfersController, type: :controller do
       it "redirects to root if user is not the receiver of transfer" do
         sign_in user
         put :reject, id: transfer.id, format: :json
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unauthorized)
       end
       it "sends an email" do
         sign_in other_user
@@ -82,7 +82,7 @@ describe TransfersController, type: :controller do
       end
       it "rejects when not logged in" do
         put :reject, id: transfer.id, format: :json
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end

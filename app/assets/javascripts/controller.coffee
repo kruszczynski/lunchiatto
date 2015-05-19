@@ -39,10 +39,7 @@ do (App = @CodequestManager) ->
       App.Balance.Controller.index()
 
     accountNumbers: ->
-      users = new App.Entities.Users
-      users.fetch
-        success: (users) ->
-          App.Dashboard.Controller.accounts(users)
+      App.Dashboard.Controller.accounts()
 
     settings: ->
       App.currentUser.fetch
@@ -55,3 +52,9 @@ do (App = @CodequestManager) ->
     newTransfer: ->
       transfer = new App.Entities.Transfer(new URI(window.location.href).search(true))
       App.Transfer.Controller.form(transfer)
+
+    companyMembers: ->
+      App.Company.Controller.members()
+
+    editCompany: ->
+      App.Company.Controller.edit()

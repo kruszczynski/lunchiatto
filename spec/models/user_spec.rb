@@ -1,18 +1,19 @@
 require 'spec_helper'
 
 describe User do
-  it {should have_many(:orders)}
-  it {should have_many(:user_balances)}
-  it {should have_many(:balances_as_payer)}
-  it {should have_many(:submitted_transfers)}
-  it {should have_many(:received_transfers)}
-  it {should callback(:add_first_balance).after(:create)}
+  it { should have_many(:orders) }
+  it { should have_many(:user_balances) }
+  it { should have_many(:balances_as_payer) }
+  it { should have_many(:submitted_transfers) }
+  it { should have_many(:received_transfers) }
+  it { should belong_to(:company) }
+  it { should callback(:add_first_balance).after(:create) }
 
-  let(:user) {create(:user)}
-  let(:payer) {create(:other_user)}
-  let!(:balance_one) {create :user_balance, user: user, payer: payer, balance: 15}
-  let!(:balance_two) {create :user_balance, user: user, payer: payer, balance: 17}
-  let!(:balance_three) {create :user_balance, user: user, payer: user, balance: 34}
+  let(:user) { create(:user) }
+  let(:payer) { create(:other_user) }
+  let!(:balance_one) { create :user_balance, user: user, payer: payer, balance: 15 }
+  let!(:balance_two) { create :user_balance, user: user, payer: payer, balance: 17 }
+  let!(:balance_three) { create :user_balance, user: user, payer: user, balance: 34 }
 
   describe '#balances' do
     it 'should return adequate' do
@@ -37,20 +38,20 @@ describe User do
   describe '#subtract' do
     it 'add a new reduced user balance' do
       money = Money.new 1200, 'PLN'
-      expect(user).to receive(:payer_balance).with(payer).and_return(Money.new(5000,'PLN'))
-      expect {user.subtract(money, payer)}.to change(user.user_balances, :count).by(1)
+      expect(user).to receive(:payer_balance).with(payer).and_return(Money.new(5000, 'PLN'))
+      expect { user.subtract(money, payer) }.to change(user.user_balances, :count).by(1)
     end
     it 'doesnt reduce when substract_from_self is false' do
       money = Money.new 1200, 'PLN'
       expect(user).to receive(:substract_from_self).and_return(false)
       expect(user).to_not receive(:payer_balance).with(user)
-      expect {user.subtract(money, user)}.to_not change(user.user_balances, :count)
+      expect { user.subtract(money, user) }.to_not change(user.user_balances, :count)
     end
     it 'does reduce when substract_from_self is true' do
       money = Money.new 1200, 'PLN'
-      expect(user).to receive(:payer_balance).with(user).and_return(Money.new(5000,'PLN'))
+      expect(user).to receive(:payer_balance).with(user).and_return(Money.new(5000, 'PLN'))
       expect(user).to receive(:substract_from_self).and_return(true)
-      expect {user.subtract(money, user)}.to change(user.user_balances, :count).by(1)
+      expect { user.subtract(money, user) }.to change(user.user_balances, :count).by(1)
     end
   end
 
@@ -106,17 +107,10 @@ describe User do
   end
 
   describe '#pending_transfers_count' do
-    let!(:transfer_one) {create :transfer, from: user, to: payer}
-    let!(:transfer_two) {create :transfer, from: payer, to: user}
+    let!(:transfer_one) { create :transfer, from: user, to: payer }
+    let!(:transfer_two) { create :transfer, from: payer, to: user }
     it 'returns adequate count' do
       expect(user.pending_transfers_count).to eq(1)
-    end
-  end
-
-  describe '.all_for_select' do
-    it 'returns adequate' do
-      expected = [{name: user.name, id: user.id},{name: payer.name, id: payer.id}]
-      expect(User.all_for_select).to eq(expected)
     end
   end
 end

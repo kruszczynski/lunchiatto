@@ -1,9 +1,10 @@
 require 'spec_helper'
 
 describe DishesController, :type => :controller do
-  let(:user) {create(:user)}
-  let(:other_user) {create(:other_user)}
-  let(:order) {create :order, user: user}
+  let(:company) { create(:company) }
+  let(:user) { create :user, company: company }
+  let(:other_user) { create :other_user, company: company }
+  let(:order) { create :order, user: user, company: company }
 
   describe 'POST create' do
     describe 'json' do
@@ -45,7 +46,7 @@ describe DishesController, :type => :controller do
       it 'does not allow others to edit' do
         sign_in other_user
         put :update, order_id: order.id, id: dish.id, user_id: user.id, name: 'Name', price: 13, format: :json
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unauthorized)
       end
       it 'allows the orderer to edit once ordered' do
         order.ordered!
@@ -66,7 +67,7 @@ describe DishesController, :type => :controller do
       it "rejects request from a different user" do
         sign_in other_user
         delete :destroy, order_id: order.id, id: dish.id, format: :json
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unauthorized)
       end
       it 'decrements the dishes count' do
         sign_in user

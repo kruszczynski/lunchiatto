@@ -3,8 +3,9 @@ require "spec_helper"
 
 describe OrderMailer, type: :mailer do
   describe "#status_email" do
-    let(:user) {create :user}
-    let(:order) {create :order, user: user, from: 'The food place'}
+    let(:company) { create :company }
+    let(:user) { create :user, company: company }
+    let(:order) { create :order, user: user, from: 'The food place', company: company }
     let(:mail) { OrderMailer.status_email(order) }
 
     it "sends an email" do

@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141022211123) do
+ActiveRecord::Schema.define(version: 20150519182717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "companies", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "dishes", force: :cascade do |t|
     t.string   "name"
@@ -37,8 +43,10 @@ ActiveRecord::Schema.define(version: 20141022211123) do
     t.string   "from"
     t.integer  "status",         default: 0
     t.integer  "shipping_cents", default: 0
+    t.integer  "company_id"
   end
 
+  add_index "orders", ["company_id"], name: "index_orders_on_company_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "transfers", force: :cascade do |t|
@@ -81,8 +89,11 @@ ActiveRecord::Schema.define(version: 20141022211123) do
     t.boolean  "admin",               default: false
     t.boolean  "substract_from_self", default: false
     t.string   "account_number"
+    t.integer  "company_id"
+    t.boolean  "company_admin",       default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "orders", "companies"
 end

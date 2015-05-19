@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, except: [:delete, :edit]
+  resources :companies, only: [:new, :create, :show, :update]
 
   resources :transfers, only: [:create] do
     member do
@@ -45,6 +46,8 @@ Rails.application.routes.draw do
       settings balances
       transfers
       transfers/new
+      edit_company
+      members
     ).each do |route|
       get route, to: 'dashboard#index'
     end

@@ -1,14 +1,14 @@
 class UserDebtsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :find_user_debts
-
+  before_action :authenticate_user!
+  
   def index
-    render json: @balances
+    debts = find_user_debts
+    render json: debts
   end
 
   private
 
   def find_user_debts
-    @balances = UserBalanceDecorator.decorate_collection(current_user.debts)
+    UserBalanceDecorator.decorate_collection(current_user.debts)
   end
 end
