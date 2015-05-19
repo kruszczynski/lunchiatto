@@ -1,8 +1,9 @@
 require "spec_helper"
 
 describe OrderSerializer do
-  let(:user) { create :user }
-  let(:order) { create :order, user: user }
+  let(:company) { create :company }
+  let(:user) { create :user, company: company }
+  let(:order) { create :order, user: user, company: company }
   let(:serializer) { OrderSerializer.new order, scope: user }
   let(:policy) { double("OrderPolicy") }
 

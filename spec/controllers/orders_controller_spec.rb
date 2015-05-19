@@ -1,8 +1,11 @@
 require 'spec_helper'
 
 describe OrdersController, :type => :controller do
-  let(:user) { create(:user) }
-  let(:other_user) { create(:other_user) }
+  let(:company) { create :company }
+  let(:other_company) { create :company, name: "Other Company" }
+  let(:user) { create :user, company: company }
+  let(:other_user) { create :other_user, company: company }
+  let(:other_company_user) { create :user, company: other_company, name: "Other", email: "other@other.com" }
 
   describe 'POST create' do
     it 'creates an order' do
@@ -17,7 +20,7 @@ describe OrdersController, :type => :controller do
         expect(response).to have_http_status(401)
       end
       describe "when an order from this restaurant already exists" do
-        let!(:order) { create :order, from: 'A restaurant', user: user }
+        let!(:order) { create :order, from: 'A restaurant', user: user, company: company }
         it "returns unprocessable" do
           sign_in user
           post :create, user_id: user.id, from: 'A restaurant', format: :json
@@ -36,7 +39,7 @@ describe OrdersController, :type => :controller do
         expect(response).to have_http_status(:success)
       end
       it "returns success with existing order" do
-        create :order, user: user
+        create :order, user: user, company: company
         sign_in user
         post :create, user_id: user.id, from: 'A restaurant', format: :json
         expect(response).to have_http_status(:success)
@@ -58,7 +61,7 @@ describe OrdersController, :type => :controller do
   end
 
   describe 'PUT update' do
-    let(:order) { create :order, user: user }
+    let(:order) { create :order, user: user, company: company }
     describe 'json' do
       it 'rejects when not logged in' do
         put :update, id: order.id, format: :json
@@ -96,7 +99,7 @@ describe OrdersController, :type => :controller do
   end
 
   describe 'GET show' do
-    let(:order) { create :order, user: user }
+    let(:order) { create :order, user: user, company: company }
     describe 'json' do
       it 'rejects when not logged in' do
         get :show, id: order.id, format: :json
@@ -111,7 +114,7 @@ describe OrdersController, :type => :controller do
   end
 
   describe 'PUT change_status' do
-    let(:order) { create :order, user: user }
+    let(:order) { create :order, user: user, company: company }
     describe 'json' do
       it 'rejects when not logged in' do
         put :change_status, id: order.id, format: :json
@@ -163,9 +166,9 @@ describe OrdersController, :type => :controller do
   end
 
   describe 'GET :index' do
-    let!(:order) { create :order, user: user, date: Time.zone.today }
-    let!(:order2) { create :order, user: user, date: 1.day.ago}
-    let!(:order3) { create :order, user: user, date: 2.days.ago }
+    let!(:order) { create :order, user: user, date: Time.zone.today, company: company }
+    let!(:order2) { create :order, user: user, date: 1.day.ago, company: company }
+    let!(:order3) { create :order, user: user, date: 2.days.ago, company: company }
     describe 'json' do
       it 'rejects when not logged in' do
         get :index, format: :json
@@ -196,16 +199,17 @@ describe OrdersController, :type => :controller do
         expect(JSON.parse(response.body).size).to be(0)
       end
       describe "with orders" do
-        let!(:order) { create :order, user: user }
-        let!(:order2) { create :order, user: user, from: "Another Place" }
-        let!(:order3) { create :order, user: user, from: "Pizza Place" }
-        let!(:order4) { create :order, user: user, date: 1.day.ago}
+        let!(:order) { create :order, user: user, company: company }
+        let!(:order2) { create :order, user: user, from: "Another Place", company: company }
+        let!(:order3) { create :order, user: user, from: "Pizza Place", company: company }
+        let!(:order4) { create :order, user: user, date: 1.day.ago, company: company }
+        let!(:order5) { create :order, user: other_company_user, from: "Pizza Place", company: other_company }
         it 'renders json' do
           sign_in user
           get :latest, format: :json
           expect(response).to have_http_status(:success)
         end
-        it "returns today's orders" do
+        it "returns today's orders from rhis company" do
           sign_in user
           get :latest, format: :json
           expect(JSON.parse(response.body).size).to be(3)
@@ -215,7 +219,7 @@ describe OrdersController, :type => :controller do
   end
 
   describe "DELETE :destroy" do
-    let!(:order) { create :order, user: user }
+    let!(:order) { create :order, user: user, company: company }
     describe "json" do
       it 'rejects when not logged in' do
         delete :destroy, id: order.id, format: :json

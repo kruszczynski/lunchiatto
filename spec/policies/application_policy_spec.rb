@@ -1,9 +1,10 @@
 require "spec_helper"
 
 describe ApplicationPolicy do
-  let(:user) { create :user }
-  let(:other_user) { create :other_user }
-  let(:record) { create :order, user: user }
+  let(:company) { create :company }
+  let(:user) { create :user, company: company }
+  let(:other_user) { create :other_user, company: company }
+  let(:record) { create :order, user: user, company: company }
   subject { ApplicationPolicy.new(user, record) }
 
   describe "#initialize" do

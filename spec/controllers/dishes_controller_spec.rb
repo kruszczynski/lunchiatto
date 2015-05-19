@@ -1,9 +1,10 @@
 require 'spec_helper'
 
 describe DishesController, :type => :controller do
-  let(:user) {create(:user)}
-  let(:other_user) {create(:other_user)}
-  let(:order) {create :order, user: user}
+  let(:company) { create(:company) }
+  let(:user) { create :user, company: company }
+  let(:other_user) { create :other_user, company: company }
+  let(:order) { create :order, user: user, company: company }
 
   describe 'POST create' do
     describe 'json' do

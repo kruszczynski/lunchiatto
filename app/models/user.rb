@@ -28,12 +28,6 @@ class User < ActiveRecord::Base
     user
   end
 
-  def self.all_for_select
-    all.order('name').map do |user|
-      {name: user.name, id: user.id}
-    end
-  end
-
   def balances
     @balances ||= UserBalance.balances_for(self)
   end

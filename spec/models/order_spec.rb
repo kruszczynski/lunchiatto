@@ -2,21 +2,24 @@ require 'spec_helper'
 
 describe Order, :type => :model do
 
-  it {should belong_to(:user)}
-  it {should have_many(:dishes)}
-  it {should validate_presence_of(:user)}
-  it {should validate_presence_of(:from)}
-  it {should validate_uniqueness_of(:from).with_message("There already is an order from there today")}
+  it { should belong_to(:user) }
+  it { should have_many(:dishes) }
+  it { should belong_to(:company) }
+  it { should validate_presence_of(:user) }
+  it { should validate_presence_of(:from) }
+  it { should validate_presence_of(:company) }
+  it { should validate_uniqueness_of(:from).with_message("There already is an order from there today").scoped_to(:company_id) }
+  let(:company) { create :company }
+  let(:user) { create :user, company: company }
 
   it 'should have statuses' do
     expect(Order.statuses).to eq({"in_progress"=>0, "ordered"=>1, "delivered"=>2})
   end
 
   describe "scopes" do
-    let(:user) {create :user}
-    let!(:order) { create :order, user: user }
-    let!(:order2) { create :order, user: user, from: "Another Place" }
-    let!(:order3) { create :order, user: user, date: 1.day.ago }
+    let!(:order) { create :order, user: user, company: company }
+    let!(:order2) { create :order, user: user, from: "Another Place", company: company }
+    let!(:order3) { create :order, user: user, date: 1.day.ago, company: company }
 
     describe ".today" do
       it "shows today's orders" do
@@ -53,8 +56,7 @@ describe Order, :type => :model do
   end
 
   describe '#change_status!' do
-    let(:user) {create(:user)}
-    let(:order) {create :order, user: user}
+    let(:order) { create :order, user: user, company: company }
     it 'should change from in_progress to ordered' do
       expect(order).to_not receive(:subtract_price)
       order.change_status!
@@ -76,8 +78,7 @@ describe Order, :type => :model do
   end
 
   describe '#subtract_price' do
-    let(:user) {create(:user)}
-    let(:order) {create :order, user: user, shipping: Money.new(2000, 'PLN')}
+    let(:order) { create :order, user: user, shipping: Money.new(2000, 'PLN'), company: company }
     it 'should iterate over dishes and call #subtract' do
       dish1 = double('Dish')
       expect(dish1).to receive(:subtract).with(Money.new(1000, 'PLN'), user)

@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 describe UsersController, type: :controller do
-  let(:user) {create :user}
-  let(:other_user) {create :other_user}
+  let(:company) { create :company }
+  let!(:user) { create :user, company: company }
+  let!(:other_user) { create :other_user }
   describe 'PUT :update' do
     describe 'json' do
       it 'returns user object on json' do
@@ -20,14 +21,22 @@ describe UsersController, type: :controller do
   describe 'GET :index' do
     describe 'json' do
       it 'rejects when not logged in' do
-        get :index, format: :json
+        get_index(should_login: false)
         expect(response).to have_http_status(401)
       end
       it 'renders json' do
-        sign_in user
-        get :index, format: :json
+        get_index
         expect(response).to have_http_status(:success)
       end
+      it "returns only current company users" do
+        get_index
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response.count).to eq(1)
+      end
+    end
+    def get_index(should_login: true)
+      sign_in user if should_login
+      get :index, format: :json
     end
   end
 
