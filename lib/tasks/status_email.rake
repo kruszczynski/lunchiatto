@@ -1,7 +1,9 @@
 namespace :status_email do
   task send: :environment do
-    order = Order.todays_order
-    exit if order.nil? || order.delivered?
-    OrderMailer.status_email(order).deliver_now
+    statuses = [Order.statuses[:in_progress], Order.statuses[:ordered]]
+    orders = Order.where(status: statuses)
+    orders.find_each do |order|
+      OrderMailer.status_email(order).deliver_now
+    end
   end
 end
