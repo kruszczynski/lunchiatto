@@ -10,10 +10,11 @@ describe Dish, :type => :model do
   it {should validate_presence_of(:order)}
   it {should validate_uniqueness_of(:user).scoped_to(:order_id).with_message('can only order one dish')}
 
-  let(:user) {create :user}
-  let(:other_user) {create :other_user}
-  let(:order) {create :order, user: user}
-  let!(:dish) {create :dish, user: user, order: order, price_cents: 1200}
+  let(:company) { create :company }
+  let(:user) { create :user, company: company }
+  let(:other_user) { create :other_user, company: company }
+  let(:order) { create :order, user: user, company: company }
+  let!(:dish) { create :dish, user: user, order: order, price_cents: 1200 }
 
   it 'should monetize price' do
     expect(monetize(:price_cents)).to be_truthy

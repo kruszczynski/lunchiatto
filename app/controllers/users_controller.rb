@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    users = User.all.order('name')
+    users = current_user.company.users_by_name
     render json: users, with_balance: true
   end
 

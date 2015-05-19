@@ -39,10 +39,7 @@ do (App = @CodequestManager) ->
       App.Balance.Controller.index()
 
     accountNumbers: ->
-      users = new App.Entities.Users
-      users.fetch
-        success: (users) ->
-          App.Dashboard.Controller.accounts(users)
+      App.Dashboard.Controller.accounts()
 
     settings: ->
       App.currentUser.fetch

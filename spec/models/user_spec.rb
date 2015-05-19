@@ -113,11 +113,4 @@ describe User do
       expect(user.pending_transfers_count).to eq(1)
     end
   end
-
-  describe '.all_for_select' do
-    it 'returns adequate' do
-      expected = [{name: user.name, id: user.id}, {name: payer.name, id: payer.id}]
-      expect(User.all_for_select).to eq(expected)
-    end
-  end
 end

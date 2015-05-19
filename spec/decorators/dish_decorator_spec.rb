@@ -1,11 +1,12 @@
 require 'spec_helper'
 
 describe DishDecorator do
-  let(:user) {create(:user)}
-  let(:other_user) {create :other_user}
-  let(:order) {create :order, user: user}
-  let(:old_order) {create :order, user: user, date: 1.day.ago}
-  let(:dish) {create(:dish, user: user, order: order).decorate}
+  let(:company) { create(:company) }
+  let(:user) { create :user, company: company }
+  let(:other_user) { create :other_user, company: company }
+  let(:order) { create :order, user: user, company: company }
+  let(:old_order) { create :order, user: user, date: 1.day.ago, company: company }
+  let(:dish) { create(:dish, user: user, order: order).decorate }
 
   before do
     allow(dish).to receive(:current_user).and_return(user)

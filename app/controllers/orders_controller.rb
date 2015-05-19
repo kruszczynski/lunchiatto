@@ -8,7 +8,10 @@ class OrdersController < ApplicationController
   end
 
   def create
-    order = Order.new order_params.merge(date: Time.zone.today)
+    order = Order.new order_params.merge(
+      date: Time.zone.today,
+      company: current_user.company
+    )
     authorize order, :index?
     if order.save
       render json: order.decorate
@@ -70,6 +73,6 @@ class OrdersController < ApplicationController
   end
 
   def find_todays_orders
-    Order.today.decorate
+    current_user.company.orders.today.decorate
   end
 end

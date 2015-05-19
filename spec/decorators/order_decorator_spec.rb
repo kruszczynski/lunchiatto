@@ -1,11 +1,12 @@
 require "spec_helper"
 
 describe OrderDecorator do
-  let!(:user) {create :user}
-  let(:order) {create(:order, user: user).decorate}
-  let(:old_order) {create(:order, user: user, date: 1.day.ago).decorate}
-  let(:other_user) {create :other_user}
-  let!(:dish) {create :dish, user: other_user, order: order}
+  let(:company) { create :company }
+  let!(:user) { create :user, company: company }
+  let(:order) { create(:order, user: user, company: company).decorate }
+  let(:old_order) { create(:order, user: user, date: 1.day.ago, company: company).decorate }
+  let(:other_user) { create :other_user, company: company }
+  let!(:dish) { create :dish, user: other_user, order: order }
 
   describe "#current_user_ordered?" do
     it "returns false when users differ" do

@@ -7,7 +7,7 @@ class App::DashboardController < ApplicationController
     authorize :dashboard
     gon_user
     gon.push({
-                 users_for_select: User.all_for_select,
+                 users_for_select: users_for_select,
                  notice: flash[:notice],
                  alert: flash[:alert]
              })
@@ -21,5 +21,9 @@ class App::DashboardController < ApplicationController
     else
       redirect_to new_company_url
     end
+  end
+
+  def users_for_select
+    ActiveModel::ArraySerializer.new(current_user.company.users_by_name, each_serializer: UserForSelectSerializer)
   end
 end
