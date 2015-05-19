@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
 
   def index
     authorize Order
-    @orders = Order.newest_first.page(params[:page]).includes(:dishes).decorate
+    @orders = current_user.company.orders.newest_first.page(params[:page]).includes(:dishes).decorate
     render json: @orders, shallow: true
   end
 

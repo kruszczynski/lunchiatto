@@ -169,6 +169,7 @@ describe OrdersController, :type => :controller do
     let!(:order) { create :order, user: user, date: Time.zone.today, company: company }
     let!(:order2) { create :order, user: user, date: 1.day.ago, company: company }
     let!(:order3) { create :order, user: user, date: 2.days.ago, company: company }
+    let!(:order4) { create :order, user: other_company_user, company: other_company }
     describe 'json' do
       it 'rejects when not logged in' do
         get :index, format: :json
@@ -179,7 +180,7 @@ describe OrdersController, :type => :controller do
         get :index, format: :json
         expect(response).to have_http_status(:success)
       end
-      it 'returns all orders' do
+      it 'returns all orders for the company' do
         sign_in user
         get :index, format: :json
         expect(assigns(:orders).count).to eq(3)
