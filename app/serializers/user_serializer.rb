@@ -4,9 +4,10 @@ class UserSerializer < ActiveModel::Serializer
              :substract_from_self,
              :account_balance,
              :account_number,
-             :admin,
              :total_balance,
-             :pending_transfers_count
+             :pending_transfers_count,
+             :company_admin,
+             :company_id
 
   def total_balance
     object.total_balance.to_s

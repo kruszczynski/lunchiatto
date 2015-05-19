@@ -1,0 +1,14 @@
+.users-list__item {
+  border-left: 4px solid $blue;
+  padding-left: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.users-list__item--admin {
+  border-left-color: $green;
+}
+
+.users-list__admin-text {
+  color: $gray;
+  text-transform: uppercase;
+}

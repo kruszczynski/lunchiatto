@@ -23,6 +23,14 @@ nav.top-bar(role="navigation", data-topbar='', data-options="mobile_show_parent_
             a(href='/transfers/new',data-navigate) New Transfer
           li
             a(href="/account_numbers", data-navigate) Account Numbers
+      if locals.company_admin
+        li.has-dropdown
+          a(href="#") Company
+          ul.dropdown
+            li
+              a(href="/members", data-navigate) Company Members
+            li
+              a(href="/edit_company", data-navigate) Edit Company
       li
         a(href="/settings", data-navigate) Settings
       li

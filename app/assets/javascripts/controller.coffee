@@ -55,3 +55,9 @@ do (App = @CodequestManager) ->
     newTransfer: ->
       transfer = new App.Entities.Transfer(new URI(window.location.href).search(true))
       App.Transfer.Controller.form(transfer)
+
+    companyMembers: ->
+      App.Company.Controller.members()
+
+    editCompany: ->
+      App.Company.Controller.edit()
