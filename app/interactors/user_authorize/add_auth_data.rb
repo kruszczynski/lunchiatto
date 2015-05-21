@@ -3,7 +3,7 @@ module UserAuthorize
     include Interactor
 
     def call
-      return unless context.user.nil? && omniauth_params.info.email.split('@')[1].in?(User::ACCEPTABLE_EMAILS)
+      return if context.user.present?
       user = User.find_by(email: omniauth_params.info.email)
       return unless user
       user.update(user_params)

@@ -3,29 +3,23 @@ require "spec_helper"
 describe UserAuthorize::AddAuthData do
   let(:user) { double("User") }
   let(:info) { OpenStruct.new(email: "test@codequest.com", name: "Test Smith") }
-  let(:invalid_info) { OpenStruct.new(email: "test@gmail.com") }
+  let(:non_codequest_info) { OpenStruct.new(email: "test@gmail.com", name: "Test Smith") }
   let(:omniauth_params) { double("Omniauth::AuthHash") }
   let(:user_params) { double("UserParams") }
   subject { UserAuthorize::AddAuthData.new omniauth_params: omniauth_params }
 
   describe "#call" do
 
-    it "returns when email is inappropriate" do
-      expect(omniauth_params).to receive(:info) { invalid_info }
-      expect(User).to_not receive(:find_by)
-      subject.call
-    end
-
     it "returns when user is not nil" do
       subject.context.user = user
       expect(User).to_not receive(:find_by)
       subject.call
     end
-
-    context "when updating user" do
+    context "when updating codequest user" do
       before do
         allow(omniauth_params).to receive(:info) { info }
       end
+
       it "finds a user by email and updates" do
         expect(subject).to receive(:user_params) { user_params }
         expect(user).to receive(:update).with(user_params)
@@ -47,6 +41,19 @@ describe UserAuthorize::AddAuthData do
         expect(User).to receive(:find_by).with(email: "test@codequest.com")
         subject.call
         expect(subject.context.user).to be_nil
+      end
+    end
+
+    context "when updating non-codequest user" do
+      before do
+        allow(omniauth_params).to receive(:info) { non_codequest_info }
+      end
+
+      it "finds a user by email and updates" do
+        expect(subject).to receive(:user_params) { user_params }
+        expect(user).to receive(:update).with(user_params)
+        expect(User).to receive(:find_by).with(email: "test@gmail.com") { user }
+        subject.call
       end
     end
   end
