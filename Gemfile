@@ -28,6 +28,7 @@ gem "omniauth-google-oauth2", "0.2.6  "
 gem "draper"
 gem "money-rails"
 gem "pundit"
+gem "interactor"
 
 gem "puma", "2.11.2"
 gem "kaminari", "0.16.3"

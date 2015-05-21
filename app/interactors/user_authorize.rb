@@ -1,0 +1,2 @@
+module UserAuthorize
+end
