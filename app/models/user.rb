@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-  ACCEPTABLE_EMAILS = %w(codequest.com codequest.eu)
-
   has_many :orders
   has_many :user_balances, dependent: :destroy
   has_many :balances_as_payer, class_name: 'UserBalance', inverse_of: :payer, foreign_key: :payer_id
