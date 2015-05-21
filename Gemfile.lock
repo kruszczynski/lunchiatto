@@ -118,6 +118,7 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
+    interactor (3.1.0)
     jade-js-source (0.28.0)
     jbuilder (2.2.13)
       activesupport (>= 3.0.0, < 5)
@@ -335,6 +336,7 @@ DEPENDENCIES
   faker
   gon
   hirb
+  interactor
   jbuilder (~> 2.0)
   jquery-rails (= 4.0.3)
   kaminari (= 0.16.3)

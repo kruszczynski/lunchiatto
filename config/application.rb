@@ -22,7 +22,7 @@ module CodequestManager
 
     config.middleware.use Rack::Deflater
 
-    config.autoload_paths += %W( #{config.root}/app/presenters #{config.root}/app/serializers #{config.root}/app/policies )
+    config.autoload_paths += %W( #{config.root}/app/presenters #{config.root}/app/serializers #{config.root}/app/policies  #{config.root}/app/interactors )
 
     config.active_record.raise_in_transactional_callbacks = true
 
