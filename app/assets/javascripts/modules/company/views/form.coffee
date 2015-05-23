@@ -14,5 +14,8 @@
       @model.save
         name: @ui.nameInput.val()
       ,
-        success: => @render()
+        success: (model) =>
+          gon.companyName = model.get('name')
+          App.vent.trigger 'rerender:topbar'
+          @render()
 

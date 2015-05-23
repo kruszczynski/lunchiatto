@@ -5,4 +5,5 @@
 
     parse: (data) ->
       data.users = new Entities.Users data.users
+      data.invitations = new Entities.Invitations data.invitations
       data

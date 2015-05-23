@@ -4,7 +4,13 @@ module UserAuthorize
     include Interactor::Organizer
 
     organize FindByUid,
-             AddAuthData
+             FindInvitation,
+             CreateUser,
+             DeleteInvitation
 
+    def call
+      super
+    rescue Interactor::Failure
+    end
   end
 end

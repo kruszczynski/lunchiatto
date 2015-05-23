@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Company, type: :model do
   it { should have_many(:users) }
   it { should have_many(:orders) }
+  it { should have_many(:invitations) }
   it { should validate_presence_of(:name) }
 
   let(:user) { create :user, company: subject }

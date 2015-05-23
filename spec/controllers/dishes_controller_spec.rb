@@ -17,6 +17,12 @@ describe DishesController, :type => :controller do
         post :create, order_id: order.id, user_id: user.id, name: 'Name', price_cents: 14, format: :json
         expect(response).to have_http_status(:success)
       end
+      it "creates a dish" do
+        sign_in user
+        expect {
+          post :create, order_id: order.id, user_id: user.id, name: 'Name', price_cents: 14, format: :json
+        }.to change(Dish, :count).by(1)
+      end
       it 'returns errors' do
         sign_in user
         post :create, order_id: order.id, user_id: user.id, price_cents: 14, format: :json
