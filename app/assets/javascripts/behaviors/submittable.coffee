@@ -8,6 +8,7 @@
 
   modelEvents:
     error: '_enableSubmit'
+    sync: '_enableSubmit'
 
   onShow: ->
     @_focusFistInput() unless @view.model.id

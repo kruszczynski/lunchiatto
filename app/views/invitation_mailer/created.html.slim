@@ -1,0 +1,20 @@
+table.row
+  tr
+    td.wrapper.last
+      table.twelve.columns
+        tr
+          td
+            h1 Hi #{@invitation.email}!
+          td.expander
+table.row
+  tr
+    td.wrapper.last
+      table.twelve.columns
+        tr
+          td
+            p Join #{@company.name} on code quest Manager and order you lunch in no time!
+            table.button.margin-bottom
+              tr
+                td
+                  = link_to "Join #{@company.name}", invitation_url(@invitation)
+          td.expander

@@ -1,6 +1,7 @@
 @CodequestManager.Behaviors.Errorable = Marionette.Behavior.extend
   modelEvents:
     error: 'onModelError'
+    sync: "hideErrors"
 
   ui:
     errorMessages: 'small.error'
@@ -13,7 +14,7 @@
       @ui["#{field}Label"] = ".#{field}-label"
 
   onModelError: (model, data) ->
-    @_hideErrors()
+    @hideErrors()
     if data && data.responseJSON
       message = ""
       _.each data.responseJSON.errors, (errors, key)=>
@@ -27,7 +28,7 @@
           message += "<br/>"
       @_showFulError(message) if message
 
-  _hideErrors: ->
+  hideErrors: ->
     @ui.fullErrorParagraph.empty()
     @ui.fullError.addClass('hide')
     @ui.errorMessages.addClass('hide')

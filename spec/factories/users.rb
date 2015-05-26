@@ -1,13 +1,16 @@
 FactoryGirl.define do
-  factory :user do |user|
-    user.name 'Bartek Szef'
-    user.email 'bartek@test.net'
-    user.password 'jacekjacek'
+  factory :user do
+    name "Bartek Szef"
+    email "bartek@test.net"
+    password "jacekjacek"
+    factory :admin_user do
+      company_admin true
+    end
   end
 
-  factory :other_user, class: User do |user|
-    user.name 'Kruszcz Puszcz'
-    user.email 'krus@test.net'
-    user.password 'password'
+  factory :other_user, class: User do
+    name "Kruszcz Puszcz"
+    email "krus@test.net"
+    password "password"
   end
 end

@@ -10,6 +10,9 @@
       Animateable:
         types: ["fadeIn"]
 
+    initialize: ->
+      App.vent.on 'rerender:topbar', => @render()
+
     onShow: ->
       @_reflow()
 

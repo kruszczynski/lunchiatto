@@ -3,7 +3,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     organizer = UserAuthorize::Organizer.new omniauth_params: omniauth_params
     organizer.call
     @user = organizer.context.user
-    if @user
+    if organizer.context.success? && @user
       sign_in_and_redirect @user
       set_flash_message(:notice, :success, kind: 'Google')
     else
