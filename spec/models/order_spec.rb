@@ -9,6 +9,8 @@ describe Order, :type => :model do
   it { should validate_presence_of(:from) }
   it { should validate_presence_of(:company) }
   it { should validate_uniqueness_of(:from).with_message("There already is an order from there today").scoped_to(:company_id) }
+  it { should validate_length_of(:from).is_at_most(255) }
+
   let(:company) { create :company }
   let(:user) { create :user, company: company }
 

@@ -9,6 +9,7 @@ describe Dish, :type => :model do
   it {should validate_presence_of(:user)}
   it {should validate_presence_of(:order)}
   it {should validate_uniqueness_of(:user).scoped_to(:order_id).with_message('can only order one dish')}
+  it { should validate_length_of(:name).is_at_most(255) }
 
   let(:company) { create :company }
   let(:user) { create :user, company: company }

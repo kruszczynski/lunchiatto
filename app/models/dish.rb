@@ -3,7 +3,7 @@ class Dish < ActiveRecord::Base
   belongs_to :order, counter_cache: true
 
   validates :price_cents, numericality: true, presence: true
-  validates :name, presence: true
+  validates :name, presence: true, length: {maximum: 255}
   validates :user, presence: true, uniqueness: {scope: :order, message: 'can only order one dish'}
   validates :order, presence: true
 

@@ -3,7 +3,7 @@ class Company < ActiveRecord::Base
   has_many :orders
   has_many :invitations
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true, length: {maximum: 255}
 
   def users_by_name
     users.by_name
