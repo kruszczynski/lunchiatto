@@ -15,7 +15,7 @@ gem "compass-rails", "2.0.4"
 gem "uglifier"
 gem "coffee-rails"
 
-gem "devise", "3.4.1"
+gem "devise"
 
 gem "jbuilder", "~> 2.0"
 
