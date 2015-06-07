@@ -30,7 +30,7 @@ gem "money-rails"
 gem "pundit"
 gem "interactor"
 
-gem "puma", "2.11.2"
+gem "puma"
 gem "kaminari", "0.16.3"
 gem "nokogiri"
 gem "premailer"
