@@ -17,8 +17,6 @@ gem "coffee-rails"
 
 gem "devise"
 
-gem "jbuilder", "~> 2.0"
-
 gem "factory_girl_rails", "~> 4.0"
 gem "dynopoker"
 
