@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby "2.2.2"
 
 gem "rails", "4.2.1"
-gem "pg", "0.18.1"
+gem "pg"
 gem "newrelic_rpm"
 gem "slim-rails", "3.0.1"
 gem "active_model_serializers", "0.8.3"
