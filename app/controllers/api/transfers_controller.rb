@@ -1,4 +1,4 @@
-class TransfersController < ApplicationController
+class Api::TransfersController < ApplicationController
   before_action :authenticate_user!
 
   def create

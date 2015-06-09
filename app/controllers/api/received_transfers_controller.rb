@@ -1,4 +1,4 @@
-class ReceivedTransfersController < ApplicationController
+class Api::ReceivedTransfersController < ApplicationController
   before_action :authenticate_user!
 
   def index

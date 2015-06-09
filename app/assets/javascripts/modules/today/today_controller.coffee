@@ -3,7 +3,7 @@
     today: (orderId) ->
       orderId = parseInt(orderId, 10)
       Backbone.ajax
-        url: "/orders/latest"
+        url: "/api/orders/latest"
         success: (data) =>
           collection = new Backbone.Collection data
           if orderId

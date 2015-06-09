@@ -26,6 +26,6 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_today
-    redirect_to app_orders_today_path if current_user
+    redirect_to orders_today_path if current_user
   end
 end

@@ -33,7 +33,6 @@
 
     Backbone.history.start
       pushState: true
-      root: '/app'
 
     menuIcon = $('.menu-icon')
     navigation = $('.top-bar')

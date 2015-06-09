@@ -1,4 +1,4 @@
-class DishesController < ApplicationController
+class Api::DishesController < ApplicationController
   before_action :authenticate_user!
 
   def create

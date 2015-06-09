@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe SubmittedTransfersController, type: :controller do
+describe Api::SubmittedTransfersController, type: :controller do
 
   let(:user) {create :user}
   let(:other_user) {create :other_user}

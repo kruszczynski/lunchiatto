@@ -1,4 +1,4 @@
-class App::DashboardController < ApplicationController
+class DashboardController < ApplicationController
   layout 'single_page_app'
 
   before_action :authenticate_user!

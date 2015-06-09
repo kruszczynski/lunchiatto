@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UsersController, type: :controller do
+describe Api::UsersController, type: :controller do
   let(:company) { create :company }
   let!(:user) { create :user, company: company }
   let!(:other_user) { create :other_user }

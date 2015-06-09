@@ -1,4 +1,4 @@
-class UserDebtsController < ApplicationController
+class Api::UserDebtsController < ApplicationController
   before_action :authenticate_user!
   
   def index
