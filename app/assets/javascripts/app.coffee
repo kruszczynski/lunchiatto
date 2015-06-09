@@ -38,6 +38,7 @@
     navigation = $('.top-bar')
 
     $('body').on 'click', '[data-navigate]', (e) ->
+      return if e.metaKey
       e.preventDefault()
       href = $(e.currentTarget).attr('href')
       App.router.navigate href, {trigger: true}
