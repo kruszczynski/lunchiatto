@@ -1,4 +1,4 @@
-class UserBalancesController < ApplicationController
+class Api::UserBalancesController < ApplicationController
   before_action :authenticate_user!
 
   def index

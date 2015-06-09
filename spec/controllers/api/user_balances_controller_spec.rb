@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UserDebtsController, type: :controller do
+describe Api::UserBalancesController, type: :controller do
   let(:user) {create :user}
   let(:other_user) {create :other_user}
   let!(:balance_one) {create :user_balance, user: user, payer: user, balance: 10}
@@ -14,7 +14,7 @@ describe UserDebtsController, type: :controller do
       sign_in user
       get :index, format: :json
       expect(response).to have_http_status(:success)
-      expect(JSON.parse(response.body).length).to be(1)
+      expect(JSON.parse(response.body).length).to be(2)
     end
     it 'rejects when not logged in' do
       get :index, format: :json

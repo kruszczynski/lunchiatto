@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe ReceivedTransfersController, type: :controller do
+describe Api::ReceivedTransfersController, type: :controller do
   let(:user) {create :user}
   let(:other_user) {create :other_user}
   let!(:transfer) {create(:transfer, from: user, to: other_user)}

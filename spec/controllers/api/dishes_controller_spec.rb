@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DishesController, :type => :controller do
+describe Api::DishesController, :type => :controller do
   let(:company) { create(:company) }
   let(:user) { create :user, company: company }
   let(:other_user) { create :other_user, company: company }

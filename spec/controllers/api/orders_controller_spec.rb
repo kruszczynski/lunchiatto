@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe OrdersController, :type => :controller do
+describe Api::OrdersController, :type => :controller do
   let(:company) { create :company }
   let(:other_company) { create :company, name: "Other Company" }
   let(:user) { create :user, company: company }

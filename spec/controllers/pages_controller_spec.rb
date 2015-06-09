@@ -12,7 +12,7 @@ describe PagesController, type: :controller do
     it 'redirects logged in user to dashboard' do
       sign_in user
       get :index
-      expect(response).to redirect_to app_orders_today_path
+      expect(response).to redirect_to orders_today_path
     end
   end
 end

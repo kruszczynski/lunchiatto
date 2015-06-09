@@ -3,7 +3,7 @@
 
   Entities.Balances = Backbone.Collection.extend
     url: ->
-      "/user_#{@type}"
+      "/api/user_#{@type}"
 
     initialize: (options) ->
       @type = options.type

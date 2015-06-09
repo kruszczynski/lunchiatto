@@ -2,7 +2,7 @@
   Entities.Order = Backbone.Model.extend
 
     urlRoot: ->
-      "/orders"
+      "/api/orders"
 
     parse: (data) ->
       data.dishes = new Entities.Dishes data.dishes
@@ -31,7 +31,7 @@
 
   Entities.Orders = Backbone.Collection.extend
     model: Entities.Order
-    url: '/orders'
+    url: '/api/orders'
 
     page: 1
 

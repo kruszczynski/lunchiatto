@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe App::DashboardController, type: :controller do
+describe DashboardController, type: :controller do
   describe "GET :index" do
     describe "html" do
       let(:user) { create(:user) }

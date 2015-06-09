@@ -1,10 +1,10 @@
 @CodequestManager.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
   Entities.Dish = Backbone.Model.extend
     copyUrl: ->
-      "/orders/#{@get('order_id')}/dishes/#{@id}/copy"
+      "/api/orders/#{@get('order_id')}/dishes/#{@id}/copy"
 
     urlRoot: ->
-      "/orders/#{@get('order_id')}/dishes"
+      "/api/orders/#{@get('order_id')}/dishes"
 
     copy: ->
       $.ajax
