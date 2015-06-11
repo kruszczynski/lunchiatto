@@ -113,4 +113,16 @@ describe User do
       expect(user.pending_transfers_count).to eq(1)
     end
   end
+
+  describe "admin scope" do
+    let(:admin) { create :user, admin: true, email: "admin@adminbook.com" }
+    before do
+      user
+      payer
+      admin
+    end
+    it "Only returns admin" do
+      expect(User.admin.count).to be(1)
+    end
+  end
 end
