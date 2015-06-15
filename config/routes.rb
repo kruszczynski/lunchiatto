@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 
   resources :companies, only: [:new, :create]
   resources :invitations, only: [:show]
+  resources :user_accesses, only: [:create]
 
   ### Single Page App ###
   %w(

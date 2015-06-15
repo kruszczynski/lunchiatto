@@ -14,3 +14,4 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation/js/foundation.js
+//= require external/request_access
