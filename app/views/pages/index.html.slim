@@ -10,7 +10,7 @@
 .row
   .columns.small-10.medium-6.small-centered
     h3.small.text-center Do you want access? We'll let you try!
-    = form_tag user_accesses_url, remote: true, class: "request-access-form" do |f|
-      = email_field_tag :email, nil, placeholder: "What's your google email?"
-      = submit_tag "Request accesss!", class: 'success expand button'
+    = form_for Invitation.new, remote: true, html: {class: "request-access-form"} do |f|
+      = f.email_field :email, placeholder: "What's your google email?"
+      = f.submit "Request accesss!", class: 'success expand button'
 

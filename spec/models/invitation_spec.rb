@@ -8,6 +8,7 @@ describe Invitation, type: :model do
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:email) }
   it { should validate_length_of(:email).is_at_most(255) }
+  it { should have_db_column(:authorized).with_options(default: false) }
 
   describe "validate email" do
     let!(:user) { create :user, email: "test@party.com" }

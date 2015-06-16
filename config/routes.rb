@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   end
 
   resources :companies, only: [:new, :create]
-  resources :invitations, only: [:show]
+  resources :invitations, only: [:show, :create]
   resources :user_accesses, only: [:create]
 
   ### Single Page App ###

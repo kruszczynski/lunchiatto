@@ -38,24 +38,43 @@ describe Users::OmniauthCallbacksController, type: :controller do
     end
     context "when user is invited" do
       let(:company) { create :company }
-      let!(:invitation) { create :invitation, company: company, email: "test@codequest.com" }
       before do
-        request.env["devise.mapping"] = Devise.mappings[:user] 
+        request.env["devise.mapping"] = Devise.mappings[:user]
         request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2_codequest]
       end
-      it "redirects" do
-        get :google_oauth2
-        expect(response).to redirect_to(new_company_url)
-      end
-      it "creates user" do
-        expect {
+      context "and not authorized" do
+        let!(:invitation) { create :invitation, company: company, email: "test@codequest.com" }
+        it "redirects" do
           get :google_oauth2
-        }.to change(User, :count).by(1)
+          expect(response).to redirect_to(root_url)
+        end
+        it "does not create a user" do
+          expect {
+            get :google_oauth2
+          }.to change(User, :count).by(0)
+        end
+        it "does not delete the invitation" do
+          expect {
+            get :google_oauth2
+          }.to change(Invitation, :count).by(0)
+        end
       end
-      it "deletes the invitation" do
-        expect {
+      context "and authorized" do
+        let!(:invitation) { create :invitation, company: company, email: "test@codequest.com", authorized: true }
+        it "redirects" do
           get :google_oauth2
-        }.to change(Invitation, :count).by(-1)
+          expect(response).to redirect_to(new_company_url)
+        end
+        it "creates user" do
+          expect {
+            get :google_oauth2
+          }.to change(User, :count).by(1)
+        end
+        it "deletes the invitation" do
+          expect {
+            get :google_oauth2
+          }.to change(Invitation, :count).by(-1)
+        end
       end
     end
   end
