@@ -20,13 +20,13 @@ describe UserAuthorize::FindInvitation do
       end
 
       it "finds a invitation by email" do
-        expect(Invitation).to receive(:find_by).with(email: "test@codequest.com") { invitation }
+        expect(Invitation).to receive(:find_by).with(email: "test@codequest.com", authorized: true) { invitation }
         subject.call
         expect(subject.context.invitation).to eq(invitation)
       end
 
       it "fails when invitation is not found" do
-        allow(Invitation).to receive(:find_by).with(email: "test@codequest.com") { nil }
+        allow(Invitation).to receive(:find_by).with(email: "test@codequest.com", authorized: true) { nil }
         expect(subject.context).to receive(:fail!)
         subject.call
       end
