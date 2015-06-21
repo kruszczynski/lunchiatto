@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby "2.2.2"
 
-gem "rails", "4.2.1"
+gem "rails"
 gem "pg"
 gem "newrelic_rpm"
 gem "slim-rails", "3.0.1"
