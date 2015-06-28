@@ -15,7 +15,10 @@
 
     onRender: ->
       @_showButtons()
-      @showOrder(@currentOrder) if @currentOrder
+      if @currentOrder
+        @showOrder(@currentOrder)
+      else
+        @_navigateToToday()
 
     showOrder: (order) ->
       App.router.navigate "/orders/today/#{order.id}"
@@ -31,3 +34,5 @@
       @buttons.on 'childview:select:order', (orderView) => @showOrder(orderView.model)
       @orderButtons.show @buttons
 
+    _navigateToToday: ->
+      App.router.navigate "/orders/today"
