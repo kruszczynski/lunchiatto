@@ -58,8 +58,8 @@ end
 
 group :test do
   gem "rake"
-  gem "shoulda-matchers", "2.8.0", require: false
-  gem "shoulda-callback-matchers", "1.1.3", require: false
+  gem "shoulda-matchers", require: false
+  gem "shoulda-callback-matchers", require: false
   gem "simplecov", require: false
 end
 
