@@ -183,7 +183,8 @@ describe Api::OrdersController, :type => :controller do
       it 'returns all orders for the company' do
         sign_in user
         get :index, format: :json
-        expect(assigns(:orders).count).to eq(3)
+        parsed_body = JSON.parse(response.body)
+        expect(parsed_body.count).to eq(3)
       end
     end
   end
