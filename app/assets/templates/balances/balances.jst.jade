@@ -1,8 +1,7 @@
-.columns.medium-6
-  .row
-    .columns.small-12
-      if locals.type === "balances"
-        h2.margin-bottom Your balance to others #{locals.total}
-      else if locals.type === "debts"
-        h2.margin-bottom Others' balance to you #{locals.total}
-  .balances-container
+.row
+  .columns.small-12
+    if locals.type === "balances"
+      h2.margin-bottom Your balance to others #{locals.total}
+    else if locals.type === "debts"
+      h2.margin-bottom Others' balance to you #{locals.total}
+.balances-container

@@ -1,5 +1,9 @@
 @CodequestManager.module "Balance", (Balance, App, Backbone, Marionette, $, _) ->
   Balance.Controller =
-    index: ->
-      layout = new Balance.Layout
-      App.root.content.show layout
+    you: ->
+      balances = new Balance.Balances type: "balances"
+      App.root.content.show balances
+
+    others: ->
+      balances = new Balance.Balances type: "debts"
+      App.root.content.show balances

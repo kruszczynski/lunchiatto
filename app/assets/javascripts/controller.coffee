@@ -35,8 +35,11 @@ do (App = @CodequestManager) ->
         success: (orders) ->
           App.Order.Controller.list(orders)
 
-    balancesIndex: ->
-      App.Balance.Controller.index()
+    yourBalances: ->
+      App.Balance.Controller.you()
+
+    othersBalances: ->
+      App.Balance.Controller.others()
 
     accountNumbers: ->
       App.Dashboard.Controller.accounts()

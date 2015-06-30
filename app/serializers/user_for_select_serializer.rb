@@ -1,3 +1,3 @@
 class UserForSelectSerializer < ActiveModel::Serializer
-  attributes :name, :id
+  attributes :name, :id, :account_number
 end

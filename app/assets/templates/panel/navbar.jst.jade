@@ -16,13 +16,13 @@ nav.top-bar(role="navigation", data-topbar='', data-options="mobile_show_parent_
         a(href="#") Finances (#{pending_transfers_count})
         ul.dropdown
           li
-            a(href="/balances", data-navigate) Balances
+            a(href="/you", data-navigate) You 2 others
+          li
+            a(href="/others", data-navigate) Others 2 you
           li
             a(href="/transfers", data-navigate) Transfers (#{pending_transfers_count})
           li
             a(href='/transfers/new',data-navigate) New Transfer
-          li
-            a(href="/account_numbers", data-navigate) Account Numbers
       if locals.company_admin
         li.has-dropdown
           a(href="#") Company
