@@ -4,22 +4,15 @@ class Api::InvitationsController < ApplicationController
   def create
     invitation = current_user.company.invitations.build invitation_params
     authorize invitation
-    if invitation.save
+    save_record invitation do |invitation|
       InvitationMailer.created(invitation).deliver_now
-      render json: invitation
-    else
-      render json: {errors: invitation.errors}, status: :unprocessable_entity
     end
   end
 
   def destroy
     invitation = find_invitation
     authorize invitation
-    if invitation.delete
-      render json: {status: 'success'}
-    else
-      render json: {status: "failed"}
-    end
+    destroy_record invitation
   end
 
   private

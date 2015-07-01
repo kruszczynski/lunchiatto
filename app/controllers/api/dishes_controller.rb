@@ -5,11 +5,7 @@ class Api::DishesController < ApplicationController
     order = find_order
     dish = order.dishes.build(dish_params)
     authorize dish
-    if dish.save
-      render json: dish.decorate
-    else
-      render json: {errors: dish.errors}, status: :unprocessable_entity
-    end
+    save_record dish
   end
 
   def show
@@ -21,32 +17,20 @@ class Api::DishesController < ApplicationController
   def update
     dish = find_dish
     authorize dish
-    if dish.update(dish_params)
-      render json: dish
-    else
-      render json: {errors: dish.errors}, status: :unprocessable_entity
-    end
+    update_record dish, dish_params
   end
 
   def destroy
     dish = find_dish
     authorize dish
-    if dish.delete
-      render json: {status: 'success'}
-    else
-      render json: {errors: dish.errors}, status: :unprocessable_entity
-    end
+    destroy_record dish
   end
 
   def copy
     dish = find_dish
     authorize dish
     new_dish = dish.copy(current_user)
-    if new_dish.save
-      render json: new_dish.decorate
-    else
-      render json: {errors: new_dish.errors}, status: :unprocessable_entity
-    end
+    save_record new_dish
   end
 
   private

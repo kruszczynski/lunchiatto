@@ -5,18 +5,15 @@ class Api::TransfersController < ApplicationController
     transfer = Transfer.new transfer_params
     authorize transfer
     transfer.from = current_user
-    if transfer.save
+    save_record transfer do |transfer|
       TransferMailer.created_transfer(transfer).deliver_now
-      render json: transfer
-    else
-      render json: {errors: transfer.errors}, status: :unprocessable_entity
     end
   end
 
   def accept
     transfer = find_transfer
     authorize transfer, :update?
-    if change_transfer_status(transfer).perform(:accepted)
+    if change_transfer_status(transfer, :accepted)
       render json: transfer
     else
       render json: {errors: transfer.errors}, status: :unprocessable_entity
@@ -26,7 +23,7 @@ class Api::TransfersController < ApplicationController
   def reject
     transfer = find_transfer
     authorize transfer, :update?
-    if change_transfer_status(transfer).perform(:rejected)
+    if change_transfer_status(transfer, :rejected)
       render json: transfer
     else
       render json: {errors: transfer.errors}, status: :unprocessable_entity
@@ -43,7 +40,7 @@ class Api::TransfersController < ApplicationController
     Transfer.find(params[:id])
   end
 
-  def change_transfer_status(transfer)
-    ChangeTransferStatus.new(transfer, current_user)
+  def change_transfer_status(transfer, status)
+    ChangeTransferStatus.new(transfer, current_user).perform(status)
   end
 end

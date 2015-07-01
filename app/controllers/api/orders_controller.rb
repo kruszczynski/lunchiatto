@@ -3,8 +3,8 @@ class Api::OrdersController < ApplicationController
 
   def index
     authorize Order
-    @orders = current_user.company.orders.newest_first.page(params[:page]).includes(:dishes).decorate
-    render json: @orders, shallow: true
+    orders = current_user.company.orders.newest_first.page(params[:page]).includes(:dishes).decorate
+    render json: orders, shallow: true
   end
 
   def create
@@ -13,11 +13,7 @@ class Api::OrdersController < ApplicationController
       company: current_user.company
     )
     authorize order, :index?
-    if order.save
-      render json: order.decorate
-    else
-      render json: {errors: order.errors}, status: :unprocessable_entity
-    end
+    save_record order
   end
 
   def show
@@ -29,21 +25,13 @@ class Api::OrdersController < ApplicationController
   def update
     order = find_order
     authorize order
-    if order.update(order_params)
-      render json: order
-    else
-      render json: {errors: order.errors}, status: :unprocessable_entity
-    end
+    update_record order, order_params
   end
 
   def destroy
     order = find_order
     authorize order
-    if order.destroy
-      render json: {status: "success"}
-    else
-      render json: {error: ["You can't delete this order."]}, status: :unprocessable_entity
-    end
+    destroy_record order
   end
 
   def change_status

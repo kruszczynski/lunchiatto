@@ -9,11 +9,8 @@ class InvitationsController < ApplicationController
 
   def create
     invitation = Invitation.new invitation_params
-    if invitation.save
+    save_record invitation do |invitation|
       UserAccessMailer.create_email(invitation.email).deliver_now
-      render json: :no_content
-    else
-      render json: {errors: invitation.errors.full_messages}, status: :unprocessable_entity
     end
   end
 

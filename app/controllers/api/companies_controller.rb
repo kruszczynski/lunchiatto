@@ -10,11 +10,7 @@ class Api::CompaniesController < ApplicationController
   def update
     company = find_company
     authorize company
-    if company.update(company_params)
-      render json: company
-    else
-      render json: {errors: company.errors}, status: :unprocessable_entity
-    end
+    update_record company, company_params
   end
 
   private
