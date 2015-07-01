@@ -14,5 +14,8 @@
 
     initialize: ->
       @type = @options.type
+      @collection = new App.Entities.Balances [], type: @type
+      @collection.fetch()
+
       App.vent.on "reload:finances", =>
         @collection.fetch()

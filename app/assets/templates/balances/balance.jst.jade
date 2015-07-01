@@ -1,11 +1,11 @@
 .row
-  .columns.small-8.large-9
-    if locals.type === "balances"
-      .balance-box__name= locals.payer
-    else if locals.type === "debts"
-      .balance-box__name= locals.user
+  .columns.small-12.medium-8.large-9
+    .balance-box__name= locals.adequateUser
     .balance-box__date
       span Last Change:&nbsp;
       = moment(locals.created_at).format('LL')
-  .columns.small-4.large-3.text-right
-    .balance-box__balance= locals.balance
+      if locals.transferLink && +locals.balance < 0
+        | &nbsp;
+        a(href=locals.transferLink,data-navigate) Send transfer
+  .columns.small-12.medium-4.large-3
+    .money-box(class=locals.amountClass)= locals.formattedBalance

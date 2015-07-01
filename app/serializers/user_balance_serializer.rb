@@ -1,5 +1,11 @@
 class UserBalanceSerializer < ActiveModel::Serializer
-  attributes :id, :balance, :created_at, :user, :payer
+  attributes :id,
+             :balance,
+             :created_at,
+             :user,
+             :user_id,
+             :payer,
+             :payer_id
 
   def balance
     object.balance.to_s

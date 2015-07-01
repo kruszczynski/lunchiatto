@@ -49,11 +49,13 @@ Rails.application.routes.draw do
     orders/:order_id/dishes/:dish_id/edit
     orders/:order_id/dishes/new
     account_numbers
-    settings balances
+    settings
     transfers
     transfers/new
     edit_company
     members
+    you
+    others
   ).each do |route|
     get route, to: 'dashboard#index'
   end
@@ -61,6 +63,7 @@ Rails.application.routes.draw do
 
   # redirect from the dashboard for existing users
   get 'dashboard', to: redirect('orders/today')
+  get 'balances', to: redirect('you')
 
   # redirect old /app urls to root
   get "app/*path", to: redirect { |path, req| req.original_url.gsub("app/", "") }

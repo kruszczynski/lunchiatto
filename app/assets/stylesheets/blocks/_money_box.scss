@@ -1,18 +1,16 @@
-.user-box {
-  margin-bottom: 1.5rem;
-}
-
-.user-box__amount {
+.money-box {
   color: $white;
   background: $gray;
   line-height: 2rem;
   font-size: 1.5rem;
   padding: 0.5rem 1rem;
-  .user-box__negative & {
+  @media #{$small-only} {
+    margin-top: 0.5rem;
+  }
+  &.money-box--negative {
     background: $warning-color;
   }
-  .user-box__positive & {
+  &.money-box--positive {
     background: $success-color;
   }
 }
-

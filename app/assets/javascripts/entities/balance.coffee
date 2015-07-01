@@ -5,7 +5,7 @@
     url: ->
       "/api/user_#{@type}"
 
-    initialize: (options) ->
+    initialize: (models, options) ->
       @type = options.type
 
     total: ->
