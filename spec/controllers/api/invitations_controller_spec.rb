@@ -26,6 +26,11 @@ describe Api::InvitationsController, type: :controller do
             post_invitation
           }.to change(Invitation, :count).by(1)
         end
+        it "creates an authorized invitation" do
+          expect {
+            post_invitation
+          }.to change(Invitation.where(authorized: true), :count).by(1)
+        end
         it "sends an email" do
           expect {
             post_invitation

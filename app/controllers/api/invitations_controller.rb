@@ -18,7 +18,7 @@ class Api::InvitationsController < ApplicationController
   private
 
   def invitation_params
-    params.permit(:email)
+    params.permit(:email).merge({authorized: true})
   end
 
   def find_invitation

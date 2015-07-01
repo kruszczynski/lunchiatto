@@ -54,6 +54,11 @@ describe InvitationsController, type: :controller do
           post_request
         }.to change(Invitation, :count).by(1)
       end
+      it "creates an unauthorized invitiation" do
+        expect {
+          post_request
+        }.to change(Invitation.where(authorized: false), :count).by(1)
+      end
     end
 
     describe "if there's no email" do
