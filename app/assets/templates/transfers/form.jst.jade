@@ -14,7 +14,7 @@ form
           each user in gon.usersForSelect
             option(value=user.id,selected=user.id==locals.to_id)=user.name
         small.error.hide
-  .row.account-number-section(class=locals.to_id?"":"hide")
+  .row.account-number-section.hide
     .columns
       label Account Number
       input.account-number-input(type="text",disabled)

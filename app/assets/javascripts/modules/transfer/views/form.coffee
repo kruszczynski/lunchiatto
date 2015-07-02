@@ -18,6 +18,9 @@
       Animateable:
         types: ["fadeIn"]
 
+    onShow: ->
+      @onUserSelected() if @model.get("to_id")
+
     onUserSelected: ->
       userId = @ui.userSelect.val()
       if userId
