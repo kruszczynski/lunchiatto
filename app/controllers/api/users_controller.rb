@@ -19,7 +19,7 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:substract_from_self, :account_number)
+    params.permit(:subtract_from_self, :account_number)
   end
 
   def find_user

@@ -3,7 +3,7 @@
   	template: "dashboard/settings"
 
   	ui:
-      substract: ".substract"
+      subtract: ".subtract"
       accountNumber: ".account-number"
 
     behaviors:
@@ -13,8 +13,8 @@
 
     onFormSubmit: ->
       @model.save
-        substract_from_self: @ui.substract.prop("checked")
+        subtract_from_self: @ui.subtract.prop("checked")
         account_number: @ui.accountNumber.val()
       ,
         success: (model) ->
-          App.router.navigate "/dashboard", {trigger: true}
+          App.router.navigate "/orders/today", {trigger: true}
