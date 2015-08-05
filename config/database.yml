@@ -23,5 +23,5 @@ production:
   database: codequestmanager_production
   pool: 5
   username: postgres
-  host: <%= ENV['RAILS_DB_1_PORT_5432_TCP_ADDR'] %>
-  port: <%= ENV['RAILS_DB_1_PORT_5432_TCP_PORT'] %>
+  host: <%= ENV['LUNCHIATTO_DB_1_PORT_5432_TCP_ADDR'] %>
+  port: <%= ENV['LUNCHIATTO_DB_1_PORT_5432_TCP_PORT'] %>
