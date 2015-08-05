@@ -95,4 +95,4 @@ Rails.application.configure do
   }
 end
 
-Rails.application.routes.default_url_options[:host]= 'https://codequest-manager.herokuapp.com'
+Rails.application.routes.default_url_options[:host]= 'https://www.lunchiatto.com'

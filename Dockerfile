@@ -14,14 +14,22 @@ RUN apt-get install -y libqt4-webkit libqt4-dev xvfb
 # for a JS runtime
 RUN apt-get install -y nodejs
 
+# set env to production
+ENV RAILS_ENV production
+ENV RACK_ENV production
+ENV SECRET_KEY_BASE 7ec2d1b94f00fe9b82d7ab0cfb60daf826f70170f753743b748581eb6bd7dadf31815f0448945d4ec970be29ba41752d4fc988cd4fe5b18163c53df0d2367cb6
+
+
+# name and create home dir
 ENV APP_HOME /lunchiatto
+
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 ADD Gemfile* $APP_HOME/
-RUN bundle install --without development test
+RUN ["bundle", "install", "--without", "development", "test"]
 
 ADD . $APP_HOME
 
-RUN bundle exec rake assets:clean
-RUN bundle exec rake assets:precompile
+RUN ["rake", "assets:clobber"]
+RUN ["rake", "assets:precompile"]
