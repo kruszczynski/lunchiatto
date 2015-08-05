@@ -15,3 +15,13 @@ test:
   pool: 5
   username: postgres
   password: postgres
+
+production:
+  adapter: postgresql
+  host: localhost
+  encoding: unicode
+  database: codequestmanager_production
+  pool: 5
+  username: postgres
+  host: <%= ENV['RAILS_DB_1_PORT_5432_TCP_ADDR'] %>
+  port: <%= ENV['RAILS_DB_1_PORT_5432_TCP_PORT'] %>
