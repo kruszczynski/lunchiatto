@@ -13,8 +13,6 @@ web:
     - "3000:3000"
   links:
     - db
-  volumes:
-    - .:/lunchiatto
   environment:
     RACK_ENV: production
     RAILS_ENV: production
