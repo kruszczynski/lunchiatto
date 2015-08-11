@@ -16,5 +16,7 @@ RUN bundle install --without production test
 
 ADD . /lunchiatto
 WORKDIR /lunchiatto
+RUN npm install -g bower
+RUN bower install --allow-root
 RUN bundle exec rake assets:clobber
 RUN bundle exec rake assets:precompile --trace
