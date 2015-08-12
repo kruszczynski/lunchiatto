@@ -18,7 +18,6 @@ gem "coffee-rails"
 gem "devise"
 
 gem "factory_girl_rails", "~> 4.0"
-gem "dynopoker"
 
 gem "omniauth", "1.2.2"
 gem "omniauth-google-oauth2", "0.2.6  "

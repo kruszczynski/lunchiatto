@@ -87,8 +87,6 @@ GEM
       activemodel (>= 3.0)
       activesupport (>= 3.0)
       request_store (~> 1.0)
-    dynopoker (1.3.2)
-      logger
     erubis (2.7.0)
     execjs (2.5.2)
     factory_girl (4.5.0)
@@ -130,7 +128,6 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     levenshtein (0.2.2)
-    logger (1.2.8)
     loofah (2.0.2)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -328,7 +325,6 @@ DEPENDENCIES
   devise
   did-you-mean
   draper
-  dynopoker
   factory_girl_rails (~> 4.0)
   faker
   gon
