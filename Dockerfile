@@ -12,7 +12,7 @@ ENV SECRET_KEY_BASE 7ec2d1b94f00fe9b82d7ab0cfb60daf826f70170f753743b748581eb6bd7
 WORKDIR /tmp
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
-RUN bundle install --without production test
+RUN bundle install --without development test
 
 ADD . /lunchiatto
 WORKDIR /lunchiatto
