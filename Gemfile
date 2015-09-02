@@ -42,6 +42,7 @@ gem "raygun4ruby"
 group :development, :test do
   gem "rspec-rails"
   gem "faker", require: false
+  gem "dotenv-rails"
 end
 
 group :development do
