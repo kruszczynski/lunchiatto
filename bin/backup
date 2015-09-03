@@ -2,6 +2,7 @@
 # run a backup
 NAME="$(/bin/date +"%Y%m%d%H%M")_dump.sql"
 BACKUP_PATH="/tmp/$NAME"
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 docker-compose run db pg_dump -U postgres -h db codequestmanager_production > $BACKUP_PATH
 aws s3 cp $BACKUP_PATH s3://lunchiatto-backups/$NAME
 rm $BACKUP_PATH
