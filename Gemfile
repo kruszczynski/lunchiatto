@@ -37,7 +37,8 @@ gem "tilt-jade"
 
 gem "upmin-admin"
 
-gem "raygun4ruby"
+# error reporting
+gem "airbrake"
 
 group :development, :test do
   gem "rspec-rails"
