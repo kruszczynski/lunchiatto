@@ -27,3 +27,7 @@
 # ignore vagrant for now
 .vagrant
 Vagrantfile
+
+# ENV VARS
+.env
+.prod-env

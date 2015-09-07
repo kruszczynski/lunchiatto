@@ -2,9 +2,6 @@ db:
   image: postgres:9.4.1
   ports:
     - "5432:5432"
-  environment:
-    RACK_ENV: production
-    RAILS_ENV: production
 
 web:
   build: .
