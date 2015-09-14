@@ -2,10 +2,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}
   root 'pages#index'
 
-  authenticate :user, lambda { |u| u.admin? } do
-    mount Upmin::Engine => '/admin'
-  end
-
   namespace :api do
     resources :users, except: [:delete, :edit]
     resources :companies, only: [:show, :update]

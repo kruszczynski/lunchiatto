@@ -34,9 +34,6 @@ gem "premailer"
 gem "premailer-rails"
 gem "tilt-jade"
 
-
-gem "upmin-admin"
-
 # error reporting
 gem "airbrake"
 
