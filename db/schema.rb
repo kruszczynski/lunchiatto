@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722205906) do
+ActiveRecord::Schema.define(version: 20150914215728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 20150722205906) do
   end
 
   create_table "dishes", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "price_cents", default: 0
+    t.string   "name",        limit: 255
+    t.integer  "price_cents",             default: 0
     t.integer  "user_id"
     t.integer  "order_id"
     t.datetime "created_at"
@@ -49,10 +49,10 @@ ActiveRecord::Schema.define(version: 20150722205906) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "dishes_count",   default: 0
-    t.string   "from"
-    t.integer  "status",         default: 0
-    t.integer  "shipping_cents", default: 0
+    t.integer  "dishes_count",               default: 0
+    t.string   "from",           limit: 255
+    t.integer  "status",                     default: 0
+    t.integer  "shipping_cents",             default: 0
     t.integer  "company_id"
   end
 
@@ -76,33 +76,36 @@ ActiveRecord::Schema.define(version: 20150722205906) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "recipient_id"
     t.integer  "payer_id"
   end
 
   add_index "user_balances", ["payer_id"], name: "index_user_balances_on_payer_id", using: :btree
+  add_index "user_balances", ["recipient_id"], name: "index_user_balances_on_recipient_id", using: :btree
   add_index "user_balances", ["user_id"], name: "index_user_balances_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",               default: "",    null: false
-    t.string   "encrypted_password",  default: "",    null: false
+    t.string   "email",               limit: 255, default: "",    null: false
+    t.string   "encrypted_password",  limit: 255, default: "",    null: false
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",       default: 0,     null: false
+    t.integer  "sign_in_count",                   default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",  limit: 255
+    t.string   "last_sign_in_ip",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "name"
-    t.boolean  "admin",               default: false
-    t.boolean  "subtract_from_self",  default: false
-    t.string   "account_number"
+    t.string   "provider",            limit: 255
+    t.string   "uid",                 limit: 255
+    t.string   "name",                limit: 255
+    t.boolean  "admin",                           default: false
+    t.boolean  "subtract_from_self",              default: false
+    t.string   "account_number",      limit: 255
     t.integer  "company_id"
-    t.boolean  "company_admin",       default: false
+    t.boolean  "company_admin",                   default: false
   end
 
+  add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   add_foreign_key "invitations", "companies"
