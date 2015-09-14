@@ -3,5 +3,5 @@
 cd ~/lunchiatto
 git pull origin master
 ./bin/backup
-docker-compose build
-docker-compose restart web
+docker-compose build web
+docker-compose up -d web
