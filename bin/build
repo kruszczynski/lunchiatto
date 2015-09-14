@@ -5,3 +5,4 @@ git pull origin master
 ./bin/backup
 docker-compose build web
 docker-compose up -d web
+docker-compose run web rake db:migrate
