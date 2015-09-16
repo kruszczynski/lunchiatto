@@ -8,7 +8,7 @@ RUN mkdir /lunchiatto
 WORKDIR /tmp
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
-RUN bundle install --without development test
+RUN bundle install --jobs 10 --without development test
 
 ADD . /lunchiatto
 WORKDIR /lunchiatto
