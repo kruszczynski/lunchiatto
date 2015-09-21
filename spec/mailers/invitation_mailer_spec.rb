@@ -12,7 +12,7 @@ describe InvitationMailer, type: :mailer do
     end
 
     it "renders the subject" do
-      expect(subject.subject).to eql("Join MyString on code quest Manager")
+      expect(subject.subject).to eql("Join MyString on Lunchiatto")
     end
 
     it "renders the receiver email" do
@@ -20,7 +20,7 @@ describe InvitationMailer, type: :mailer do
     end
 
     it "renders the sender email" do
-      expect(subject.from).to eql(["admin@codequest-manager.herokuapp.com"])
+      expect(subject.from).to eql(["admin@lunchiatto.com"])
     end
   end
 

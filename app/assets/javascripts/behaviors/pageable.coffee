@@ -1,4 +1,4 @@
-@CodequestManager.Behaviors.Pageable = Marionette.Behavior.extend
+@Lunchiatto.Behaviors.Pageable = Marionette.Behavior.extend
   ui:
     more: '.more'
 
@@ -17,4 +17,4 @@
     @ui.more.addClass('hide')
 
   _collectionReset: ->
-    @ui.more.toggleClass('hide', @view.collection.length < CodequestManager.pageSize)
+    @ui.more.toggleClass('hide', @view.collection.length < Lunchiatto.pageSize)

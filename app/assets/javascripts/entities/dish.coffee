@@ -1,4 +1,4 @@
-@CodequestManager.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
   Entities.Dish = Backbone.Model.extend
     copyUrl: ->
       "/api/orders/#{@get('order_id')}/dishes/#{@id}/copy"

@@ -1,4 +1,4 @@
-@CodequestManager.module "Dashboard", (Dashboard, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module "Dashboard", (Dashboard, App, Backbone, Marionette, $, _) ->
   Dashboard.Settings = Marionette.ItemView.extend
   	template: "dashboard/settings"
 

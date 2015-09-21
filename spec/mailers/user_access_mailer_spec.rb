@@ -18,7 +18,7 @@ describe UserAccessMailer, type: :mailer do
     end
 
     it "uses proper sender email" do
-      expect(mail.from).to eql(["admin@codequest-manager.herokuapp.com"])
+      expect(mail.from).to eql(["admin@lunchiatto.com"])
     end
 
   end

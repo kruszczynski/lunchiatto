@@ -1,4 +1,4 @@
-do (App = @CodequestManager) ->
+do (App = @Lunchiatto) ->
   App.Controller =
     ordersToday: (orderId) ->
       App.Today.Controller.today(orderId)

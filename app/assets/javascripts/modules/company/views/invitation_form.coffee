@@ -1,4 +1,4 @@
-@CodequestManager.module "Company", (Company, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module "Company", (Company, App, Backbone, Marionette, $, _) ->
   Company.InvitationForm = Marionette.ItemView.extend
     template: "companies/invitation_form"
 

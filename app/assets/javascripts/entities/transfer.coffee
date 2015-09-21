@@ -1,4 +1,4 @@
-@CodequestManager.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
   Entities.Transfer = Backbone.Model.extend
     urlRoot: ->
       "/api/transfers"
@@ -16,7 +16,7 @@
         url: "#{@url()}/reject"
         success: (data) =>
           @set(data)
-      
+
 
   Entities.Transfers = Backbone.Collection.extend
     model: Entities.Transfer

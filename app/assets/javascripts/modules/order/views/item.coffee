@@ -1,4 +1,4 @@
-@CodequestManager.module "Order", (Order, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module "Order", (Order, App, Backbone, Marionette, $, _) ->
   Order.Item = Marionette.ItemView.extend
     template: "orders/item"
     tagName: "li"
@@ -6,7 +6,7 @@
 
     triggers:
       "click": "show:order"
-      
+
     behaviors:
       Animateable:
         types: ["fadeIn"]

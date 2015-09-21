@@ -1,4 +1,4 @@
-@CodequestManager.module 'Transfer', (Transfer, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module 'Transfer', (Transfer, App, Backbone, Marionette, $, _) ->
   Transfer.List = Marionette.CompositeView.extend
     template: 'transfers/list'
     templateHelpers: ->

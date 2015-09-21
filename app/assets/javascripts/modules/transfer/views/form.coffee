@@ -1,4 +1,4 @@
-@CodequestManager.module 'Transfer', (Transfer, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module 'Transfer', (Transfer, App, Backbone, Marionette, $, _) ->
   Transfer.Form = Marionette.ItemView.extend
     template: 'transfers/form'
 

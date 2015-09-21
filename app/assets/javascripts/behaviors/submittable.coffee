@@ -1,4 +1,4 @@
-@CodequestManager.Behaviors.Submittable = Marionette.Behavior.extend
+@Lunchiatto.Behaviors.Submittable = Marionette.Behavior.extend
   ui:
     form: 'form'
     submitButton: "[type='submit']"
