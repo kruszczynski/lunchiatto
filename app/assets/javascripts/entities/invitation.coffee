@@ -1,4 +1,4 @@
-@CodequestManager.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
   Entities.Invitation = Backbone.Model.extend
     urlRoot: "/api/invitations"
 

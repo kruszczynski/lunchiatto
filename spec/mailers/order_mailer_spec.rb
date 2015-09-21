@@ -21,7 +21,7 @@ describe OrderMailer, type: :mailer do
     end
 
     it "renders the sender email" do
-      expect(mail.from).to eql(["admin@codequest-manager.herokuapp.com"])
+      expect(mail.from).to eql(["admin@lunchiatto.com"])
     end
   end
 end

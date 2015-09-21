@@ -1,4 +1,4 @@
-@CodequestManager.Behaviors.Errorable = Marionette.Behavior.extend
+@Lunchiatto.Behaviors.Errorable = Marionette.Behavior.extend
   modelEvents:
     error: 'onModelError'
     sync: "hideErrors"

@@ -1,4 +1,4 @@
-@CodequestManager.Behaviors.Animateable = Marionette.Behavior.extend
+@Lunchiatto.Behaviors.Animateable = Marionette.Behavior.extend
   initialize: (options) ->
     return unless options.types
     _.each options.types, (type) =>

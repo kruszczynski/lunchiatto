@@ -1,4 +1,4 @@
-@CodequestManager.module "Balance", (Balance, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module "Balance", (Balance, App, Backbone, Marionette, $, _) ->
   Balance.Balances = Marionette.CompositeView.extend
     template: "balances/balances"
     getChildView: ->

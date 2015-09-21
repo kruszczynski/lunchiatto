@@ -1,4 +1,4 @@
-@CodequestManager.module "Today", (Today, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module "Today", (Today, App, Backbone, Marionette, $, _) ->
   Today.OrderButton = Marionette.ItemView.extend
     template: 'today/order_button'
     tagName: 'span'

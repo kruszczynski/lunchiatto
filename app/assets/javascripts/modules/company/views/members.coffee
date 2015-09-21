@@ -1,4 +1,4 @@
-@CodequestManager.module "Company", (Company, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module "Company", (Company, App, Backbone, Marionette, $, _) ->
   Company.Members = Marionette.CompositeView.extend
     template: "companies/members"
 

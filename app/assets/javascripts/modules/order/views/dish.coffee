@@ -1,4 +1,4 @@
-@CodequestManager.module "Order", (Order, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module "Order", (Order, App, Backbone, Marionette, $, _) ->
   Order.Dish = Marionette.ItemView.extend
     OVERWRITE_MESSAGE: "This might overwrite your current dish! Are you sure?"
     DELETE_MESSAGE: "Are you sure?"

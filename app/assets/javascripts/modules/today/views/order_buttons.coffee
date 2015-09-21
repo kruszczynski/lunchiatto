@@ -1,4 +1,4 @@
-@CodequestManager.module "Today", (Today, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module "Today", (Today, App, Backbone, Marionette, $, _) ->
   Today.OrderButtons = Marionette.CompositeView.extend
     template: 'today/order_buttons'
     childViewContainer: '.buttons-container'

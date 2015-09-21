@@ -1,4 +1,4 @@
-@CodequestManager.module 'Dish', (Dish, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module 'Dish', (Dish, App, Backbone, Marionette, $, _) ->
   Dish.Form = Marionette.ItemView.extend
     template: 'dishes/form'
 

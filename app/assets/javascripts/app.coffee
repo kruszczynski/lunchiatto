@@ -1,4 +1,4 @@
-@CodequestManager = do (Backbone, Marionette) ->
+@Lunchiatto = do (Backbone, Marionette) ->
   Marionette.Renderer.oldRender = Marionette.Renderer.render
   Marionette.Renderer.render = (template, data) ->
     template = template() if typeof template == 'function'
@@ -47,4 +47,4 @@
   App
 
 $ ->
-  CodequestManager.start()
+  Lunchiatto.start()

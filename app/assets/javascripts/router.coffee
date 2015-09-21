@@ -1,4 +1,4 @@
-@CodequestManager.Router = Marionette.AppRouter.extend
+@Lunchiatto.Router = Marionette.AppRouter.extend
   appRoutes:
     "orders/today(/)(:orderId)(/)": "ordersToday"
     "you(/)": "yourBalances"

@@ -1,4 +1,4 @@
-@CodequestManager.module "Today", (Today, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module "Today", (Today, App, Backbone, Marionette, $, _) ->
   Today.Layout = Marionette.LayoutView.extend
     template: "today/layout"
 

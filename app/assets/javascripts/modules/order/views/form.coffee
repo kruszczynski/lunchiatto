@@ -1,4 +1,4 @@
-@CodequestManager.module "Order", (Order, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module "Order", (Order, App, Backbone, Marionette, $, _) ->
   Order.Form = Marionette.ItemView.extend
     template: "orders/form"
 

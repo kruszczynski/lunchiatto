@@ -1,4 +1,4 @@
-@CodequestManager.module 'Transfer', (Transfer, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module 'Transfer', (Transfer, App, Backbone, Marionette, $, _) ->
   Transfer.Item = Marionette.ItemView.extend
     REJECT_MESSAGE: 'The transfer will be rejected! Are you sure?'
     ACCEPT_MESSAGE: 'Are you sure?'
