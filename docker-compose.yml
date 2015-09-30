@@ -2,11 +2,22 @@ db:
   image: postgres:9.4.1
   ports:
     - "5432:5432"
-web:
+web: &web
   build: .
   command: bundle exec puma -C config/puma.rb
   ports:
     - "3000:3000"
   links:
     - db
+
+web_production:
+  <<: *web
+  dockerfile: Dockerfile-production
   env_file: .prod-env
+
+web_development:
+  <<: *web
+  dockerfile: Dockerfile-development
+  volumes:
+    - .:/lunchiatto
+  env_file: .env
