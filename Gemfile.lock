@@ -336,3 +336,6 @@ DEPENDENCIES
   tilt-jade
   uglifier
   web-console (~> 2.0)
+
+BUNDLED WITH
+   1.10.6

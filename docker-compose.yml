@@ -2,22 +2,28 @@ db:
   image: postgres:9.4.1
   ports:
     - "5432:5432"
+
+bundle:
+  image: busybox
+  volumes:
+    - /bundle
+
 web: &web
   build: .
-  command: bundle exec puma -C config/puma.rb
+  env_file: .env
   ports:
     - "3000:3000"
   links:
     - db
+  volumes_from:
+    - bundle
 
-web_production:
+web_prod:
   <<: *web
-  dockerfile: Dockerfile-production
-  env_file: .prod-env
+  command: ./bin/prod
 
-web_development:
+web_dev:
   <<: *web
-  dockerfile: Dockerfile-development
   volumes:
     - .:/lunchiatto
-  env_file: .env
+  command: ./bin/dev

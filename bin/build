@@ -3,6 +3,6 @@
 cd ~/lunchiatto
 git pull origin master
 ./bin/backup
-docker-compose build web_production
-docker-compose up -d web_production
+docker-compose build web_prod
+docker-compose up -d web_prod
 docker-compose run web_production rake db:migrate
