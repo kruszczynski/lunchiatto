@@ -31,3 +31,7 @@ Vagrantfile
 # ENV VARS
 .env
 .prod-env
+
+# RVM
+.ruby-gemset
+.ruby-version
