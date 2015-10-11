@@ -37,6 +37,9 @@ gem "tilt-jade"
 # error reporting
 gem "airbrake"
 
+# doc
+gem "sdoc", "~> 0.4.0", group: :doc
+
 group :development, :test do
   gem "rspec-rails"
   gem "faker", require: false
@@ -45,8 +48,6 @@ group :development, :test do
 end
 
 group :development do
-  gem "hirb"
-  gem "web-console", "~> 2.0"
   gem "binding_of_caller", "0.7.2"
   gem "did-you-mean"
 end
@@ -58,4 +59,3 @@ group :test do
   gem "simplecov", require: false
 end
 
-gem "sdoc", "~> 0.4.0", group: :doc

@@ -1,0 +1,5 @@
+# Changes to these entities will not cause Docker containers.
+coverage/*
+log/*
+tmp/*
+.git
