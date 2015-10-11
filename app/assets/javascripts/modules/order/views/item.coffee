@@ -11,5 +11,9 @@
       Animateable:
         types: ["fadeIn"]
 
+    templateHelpers: ->
+      machineStatus: @model.get('status').replace('_','-')
+      humanStatus: @model.get('status').replace('_', ' ')
+
     onShowOrder: ->
       App.router.navigate "/orders/#{@model.id}", {trigger: true}

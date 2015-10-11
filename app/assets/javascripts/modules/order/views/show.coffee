@@ -7,6 +7,7 @@
       dishesSection: ".dishes-section"
       orderButton: ".order-button"
       changeStatus: ".change-status-button"
+      revertStatus: ".revert-status-button"
       deleteOrder: ".destroy-order-button"
       orderTotal: ".title-total"
 
@@ -15,6 +16,7 @@
 
     triggers:
       "click @ui.changeStatus": "change:status"
+      "click @ui.revertStatus": "revert:status"
       "click @ui.deleteOrder": "delete:order"
 
     behaviors:
@@ -23,6 +25,10 @@
 
     modelEvents:
       "change": "render"
+
+    templateHelpers: ->
+      machineStatus: @model.get('status').replace('_','-')
+      humanStatus: @model.get('status').replace('_', ' ')
 
     initialize: ->
       @listenTo @model.get("dishes"), "add remove", @_hideOrderButton
@@ -34,6 +40,9 @@
 
     onChangeStatus: ->
       @model.changeStatus()
+
+    onRevertStatus: ->
+      @model.revertStatus()
 
     onDeleteOrder: ->
       if confirm(@DELETE_MESSAGE)

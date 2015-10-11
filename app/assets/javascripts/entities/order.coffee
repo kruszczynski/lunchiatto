@@ -1,5 +1,6 @@
 @Lunchiatto.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
   Entities.Order = Backbone.Model.extend
+    STATUSES: ['in_progress', 'ordered', 'delivered']
 
     urlRoot: ->
       "/api/orders"
@@ -13,12 +14,10 @@
       @get('dishes').where(user_id: App.currentUser.id).length isnt 0
 
     changeStatus: ->
-      $.ajax
-        type: 'PUT'
-        url: "#{@url()}/change_status"
-        success: (data) =>
-          @set(@parse(data))
-          App.vent.trigger 'reload:current:user' if data.status is 'delivered'
+      @_updateStatus(@_nextStatus())
+
+    revertStatus: ->
+      @_updateStatus(@_prevStatus())
 
     total: ->
       (@get('dishes').total()+parseFloat(@get('shipping'))).toFixed(2)
@@ -28,6 +27,25 @@
         "/orders/today/#{@id}"
       else
         "/orders/#{@id}"
+
+    _updateStatus: (newStatus) ->
+      $.ajax
+        type: "PUT"
+        url: "#{@url()}/change_status"
+        data:
+          status: newStatus
+        success: (data) =>
+          @set(@parse(data))
+          App.vent.trigger 'reload:current:user' if data.status is 'delivered'
+
+    _nextStatus: ->
+      @STATUSES[Math.min(2, @_statusInt()+1)]
+    _prevStatus: ->
+      @STATUSES[Math.max(0, @_statusInt()-1)]
+
+    _statusInt: ->
+      @STATUSES.indexOf(@get('status'))
+
 
   Entities.Orders = Backbone.Collection.extend
     model: Entities.Order
