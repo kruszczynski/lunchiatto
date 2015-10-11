@@ -1,15 +1,14 @@
 db:
   image: postgres:9.4.1
-  ports:
-    - "5432:5432"
 
 bundle:
   image: busybox
   volumes:
     - /bundle
 
-web: &web
+web_prod: &web_prod
   build: .
+  command: ./bin/prod
   env_file: .env
   ports:
     - "3000:3000"
@@ -18,12 +17,8 @@ web: &web
   volumes_from:
     - bundle
 
-web_prod:
-  <<: *web
-  command: ./bin/prod
-
 web_dev:
-  <<: *web
+  <<: *web_prod
   volumes:
     - .:/lunchiatto
   command: ./bin/dev
