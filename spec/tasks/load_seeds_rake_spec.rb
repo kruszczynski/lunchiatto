@@ -5,11 +5,11 @@ describe 'load_seeds' do
   include_context 'rake'
 
   it 'raises an error when user is not found' do
-    expect { subject.invoke('jan@jan.pl') }.to raise_error
+    expect { subject.invoke('jan@jan.pl') }.to raise_error(RuntimeError)
   end
 
   it 'raises an error with no parameters' do
-    expect { subject.invoke }.to raise_error
+    expect { subject.invoke }.to raise_error(RuntimeError)
   end
 end
 
