@@ -57,25 +57,48 @@ describe Order, :type => :model do
     end
   end
 
-  describe '#change_status!' do
+  describe '#change_status' do
     let(:order) { create :order, user: user, company: company }
-    it 'should change from in_progress to ordered' do
-      expect(order).to_not receive(:subtract_price)
-      order.change_status!
-      expect(order.ordered?).to be_truthy
+    context "when in progress" do
+      it 'should change from in_progress to ordered' do
+        order.change_status(:ordered)
+        expect(order.ordered?).to be_truthy
+      end
+      it 'should not substract price' do
+        expect(order).to_not receive(:subtract_price)
+        order.change_status(:ordered)
+      end
+      it 'should not allow changing from in progress to delivered' do
+        order.change_status(:delivered)
+        expect(order.in_progress?).to be_truthy
+      end
     end
-    it 'should change from ordered to delivered' do
-      order.ordered!
-      order.save
-      expect(order).to receive(:subtract_price)
-      order.change_status!
-      expect(order.delivered?).to be_truthy
+    context 'when ordered' do
+      before { order.ordered! }
+      it 'should change to delivered' do
+        order.change_status(:delivered)
+        expect(order.delivered?).to be_truthy
+      end
+      it 'should substract price' do
+        expect(order).to receive(:subtract_price)
+        order.change_status(:delivered)
+      end
+      it 'should change to in_progress' do
+        order.change_status(:in_progress)
+        expect(order.in_progress?).to be_truthy
+      end
     end
-    it 'should not change further' do
-      order.delivered!
-      expect(order).to_not receive(:subtract_price)
-      order.change_status!
-      expect(order.delivered?).to be_truthy
+    context "when delivered" do
+      it 'should not change to ordered' do
+        order.delivered!
+        order.change_status(:ordered)
+        expect(order.delivered?).to be_truthy
+      end
+      it 'should not change to in_progress' do
+        order.delivered!
+        order.change_status('in_progress')
+        expect(order.delivered?).to be_truthy
+      end
     end
   end
 

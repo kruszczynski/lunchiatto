@@ -45,6 +45,7 @@ group :development, :test do
   gem "faker", require: false
   gem "dotenv-rails"
   gem "lol_dba"
+  gem "rubocop"
 end
 
 group :development do

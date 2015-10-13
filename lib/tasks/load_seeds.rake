@@ -31,7 +31,9 @@ end
 def create_order(user)
   order = user.orders.create!(attributes_for(:past_order, from: Faker::Company.name))
   add_dishes order
-  2.times { order.change_status! }
+  order.change_status(:ordered)
+  order.change_status(:delivered)
+  order.save!
 end
 
 def add_dishes(order)

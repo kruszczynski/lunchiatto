@@ -5,7 +5,9 @@ class Order < ActiveRecord::Base
 
   validates :user, presence: true
   validates :from, presence: true,
-                   uniqueness: {scope: [:date, :company_id], message: "There already is an order from there today"},
+                   uniqueness: {
+                     scope: [:date, :company_id],
+                     message: "There already is an order from there today"},
                    length: {maximum: 255}
   validates :company, presence: true
 
@@ -16,20 +18,24 @@ class Order < ActiveRecord::Base
   register_currency :pln
   monetize :shipping_cents
 
-  enum status: [:in_progress, :ordered, :delivered]
+  enum status: {
+    in_progress: 0,
+    ordered: 1,
+    delivered: 2
+  }
 
   def amount
-    initial = Money.new(0, "PLN")
-    dishes.inject(initial) {|sum, dish| sum + dish.price }
+    dishes.inject(Money.new(0, "PLN")) do |sum, dish|
+      sum + dish.price
+    end
   end
 
-  def change_status!
-    int_status = Order.statuses[status]
-    if int_status < Order.statuses.count - 1
-      self.status = int_status+1
-      subtract_price if int_status == 1
-      save!
-    end
+  # This method updates status if legal and
+  # triggers price substraction of the order
+  def change_status(new_status)
+    return if delivered? || (new_status == :delivered && in_progress?)
+    self.status = new_status
+    subtract_price if delivered?
   end
 
   def subtract_price

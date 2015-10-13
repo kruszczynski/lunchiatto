@@ -37,7 +37,8 @@ class Api::OrdersController < ApplicationController
   def change_status
     order = find_order
     authorize order
-    if order.change_status!
+    order.change_status(params[:status].to_sym)
+    if  order.save
       render json: order
     else
       render json: {errors: ["Operation not allowed"]}, status: :unprocessable_entity

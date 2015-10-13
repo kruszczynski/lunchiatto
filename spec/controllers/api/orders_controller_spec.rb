@@ -117,50 +117,46 @@ describe Api::OrdersController, :type => :controller do
     let(:order) { create :order, user: user, company: company }
     describe 'json' do
       it 'rejects when not logged in' do
-        put :change_status, id: order.id, format: :json
+        put :change_status, id: order.id, status: 'ordered', format: :json
+        expect(response).to have_http_status(401)
+      end
+      it 'returns unauthorized for other user' do
+        sign_in other_user
+        put :change_status, id: order.id, status: 'ordered', format: :json
         expect(response).to have_http_status(401)
       end
       describe "order in_progress" do
-        it 'returns success for payer' do
-          sign_in user
-          put :change_status, id: order.id, format: :json
+        it 'returns success' do
+          put_status(status: 'ordered')
           expect(response).to have_http_status(:success)
-        end
-        it 'returns unprocessable for other user' do
-          sign_in other_user
-          put :change_status, id: order.id, format: :json
-          expect(response).to have_http_status(401)
         end
       end
       describe "order ordered" do
         before do
           order.ordered!
         end
-        it 'returns success for payer' do
-          sign_in user
-          put :change_status, id: order.id, format: :json
+        it 'returns success to delivered' do
+          put_status(status: 'delivered')
           expect(response).to have_http_status(:success)
         end
-        it 'returns unprocessable for other user' do
-          sign_in other_user
-          put :change_status, id: order.id, format: :json
-          expect(response).to have_http_status(401)
+        it 'returns success to in progress' do
+          put_status(status: 'in_progress')
+          expect(response).to have_http_status(:success)
         end
       end
       describe "order delivered" do
         before do
           order.delivered!
         end
-        it 'returns unprocessable for payer' do
-          sign_in user
-          put :change_status, id: order.id, format: :json
+        it 'returns unauthorized' do
+          put_status(status: 'ordered')
           expect(response).to have_http_status(401)
         end
-        it 'returns unprocessable for other user' do
-          sign_in other_user
-          put :change_status, id: order.id, format: :json
-          expect(response).to have_http_status(401)
-        end
+      end
+
+      def put_status(status: nil)
+        sign_in user
+        put :change_status, id: order.id, status: status, format: :json
       end
     end
   end
