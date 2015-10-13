@@ -2,7 +2,8 @@ class CompanyCreator
   attr_accessor :user, :company, :params
 
   def initialize(**context)
-    @user, @params = context[:user], context[:params]
+    @user = context[:user]
+    @params = context[:params]
     @success = false
   end
 
@@ -17,6 +18,7 @@ class CompanyCreator
     self
   end
 
+  # rubocop:disable Style/TrivialAccessors
   def success?
     @success
   end

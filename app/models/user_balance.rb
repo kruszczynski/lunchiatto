@@ -8,7 +8,9 @@ class UserBalance < ActiveRecord::Base
   register_currency :pln
   monetize :balance_cents
 
-  scope :newest_for, -> (payer_id) {where(payer_id: payer_id).order('created_at desc').first}
+  scope :newest_for, lambda { |payer_id|
+    where(payer_id: payer_id).order('created_at desc').first
+  }
 
   def self.balances_for(user)
     payers_ids(user).map do |payer_id|

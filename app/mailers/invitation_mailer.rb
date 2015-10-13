@@ -4,5 +4,4 @@ class InvitationMailer < ApplicationMailer
     @company = invitation.company
     mail(to: @invitation.email, subject: "Join #{@company.name} on Lunchiatto")
   end
-
 end

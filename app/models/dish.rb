@@ -2,15 +2,19 @@ class Dish < ActiveRecord::Base
   belongs_to :user
   belongs_to :order, counter_cache: true
 
-  validates :price_cents, numericality: true, presence: true
-  validates :name, presence: true, length: {maximum: 255}
-  validates :user, presence: true, uniqueness: {scope: :order, message: 'can only order one dish'}
+  validates :price_cents, numericality: true,
+                          presence: true
+  validates :name, presence: true,
+                   length: {maximum: 255}
+  validates :user, presence: true,
+                   uniqueness: {scope: :order,
+                                message: 'can only order one dish'}
   validates :order, presence: true
 
   register_currency :pln
   monetize :price_cents
 
-  scope :by_date, -> {order('created_at')}
+  scope :by_date, -> { order('created_at') }
 
   def copy(new_user)
     dish = Dish.find_by order: order, user: new_user
@@ -21,6 +25,6 @@ class Dish < ActiveRecord::Base
   end
 
   def subtract(shipping, payer)
-    user.subtract(price+shipping, payer)
+    user.subtract(price + shipping, payer)
   end
 end

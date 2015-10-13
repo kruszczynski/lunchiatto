@@ -7,7 +7,7 @@ class Order < ActiveRecord::Base
   validates :from, presence: true,
                    uniqueness: {
                      scope: [:date, :company_id],
-                     message: "There already is an order from there today"},
+                     message: 'There already is an order from there today'},
                    length: {maximum: 255}
   validates :company, presence: true
 
@@ -21,11 +21,11 @@ class Order < ActiveRecord::Base
   enum status: {
     in_progress: 0,
     ordered: 1,
-    delivered: 2
+    delivered: 2,
   }
 
   def amount
-    dishes.inject(Money.new(0, "PLN")) do |sum, dish|
+    dishes.inject(Money.new(0, 'PLN')) do |sum, dish|
       sum + dish.price
     end
   end
@@ -41,7 +41,7 @@ class Order < ActiveRecord::Base
   def subtract_price
     return if dishes_count == 0
     dishes.each do |dish|
-      dish.subtract shipping/(dishes_count), user
+      dish.subtract shipping / (dishes_count), user
     end
   end
 end

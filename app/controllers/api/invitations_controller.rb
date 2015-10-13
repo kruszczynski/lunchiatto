@@ -1,27 +1,29 @@
-class Api::InvitationsController < ApplicationController
-  before_action :authenticate_user!
+module Api
+  class InvitationsController < ApplicationController
+    before_action :authenticate_user!
 
-  def create
-    invitation = current_user.company.invitations.build invitation_params
-    authorize invitation
-    save_record invitation do |invitation|
-      InvitationMailer.created(invitation).deliver_now
+    def create
+      invitation = current_user.company.invitations.build invitation_params
+      authorize invitation
+      save_record invitation do |saved_invitation|
+        InvitationMailer.created(saved_invitation).deliver_now
+      end
     end
-  end
 
-  def destroy
-    invitation = find_invitation
-    authorize invitation
-    destroy_record invitation
-  end
+    def destroy
+      invitation = find_invitation
+      authorize invitation
+      destroy_record invitation
+    end
 
-  private
+    private
 
-  def invitation_params
-    params.permit(:email).merge({authorized: true})
-  end
+    def invitation_params
+      params.permit(:email).merge(authorized: true)
+    end
 
-  def find_invitation
-    Invitation.find(params[:id])
+    def find_invitation
+      Invitation.find(params[:id])
+    end
   end
 end

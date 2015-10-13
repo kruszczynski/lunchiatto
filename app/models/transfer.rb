@@ -15,7 +15,8 @@ class Transfer < ActiveRecord::Base
 
   def mark_as_accepted!
     accepted!
-    from.user_balances.create balance: (from.payer_balance(to) + amount), payer: to
+    from.user_balances.create balance: (from.payer_balance(to) + amount),
+                              payer: to
   end
 
   alias_method :mark_as_rejected!, :rejected!

@@ -1,6 +1,6 @@
 class OrderDecorator < Draper::Decorator
   include Draper::LazyHelpers
-  
+
   delegate_all
 
   DELIVER_TEXT = 'Did you remember to add shipping cost?'

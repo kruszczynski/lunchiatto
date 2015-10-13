@@ -19,7 +19,7 @@ class CompaniesController < ApplicationController
 
   private
 
-  def user_not_authorized(exception)
+  def user_not_authorized(_exception)
     redirect_to root_url, notice: "couldn't overwrite an existing company"
   end
 

@@ -13,7 +13,7 @@ class OrderSerializer < ActiveModel::Serializer
              :editable?,
              :deletable?,
              :from_today?
-  
+
   has_many :dishes
   has_one :user
 
@@ -30,7 +30,7 @@ class OrderSerializer < ActiveModel::Serializer
   end
 
   def total
-    (object.amount+object.shipping).to_s
+    (object.amount + object.shipping).to_s
   end
 
   def include_dishes?

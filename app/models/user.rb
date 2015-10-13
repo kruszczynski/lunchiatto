@@ -1,9 +1,15 @@
 class User < ActiveRecord::Base
   has_many :orders
   has_many :user_balances, dependent: :destroy
-  has_many :balances_as_payer, class_name: 'UserBalance', inverse_of: :payer, foreign_key: :payer_id
-  has_many :submitted_transfers, inverse_of: :from, class_name: 'Transfer', foreign_key: :from_id
-  has_many :received_transfers, inverse_of: :to, class_name: 'Transfer', foreign_key: :to_id
+  has_many :balances_as_payer, class_name: 'UserBalance',
+                               inverse_of: :payer,
+                               foreign_key: :payer_id
+  has_many :submitted_transfers, inverse_of: :from,
+                                 class_name: 'Transfer',
+                                 foreign_key: :from_id
+  has_many :received_transfers, inverse_of: :to,
+                                class_name: 'Transfer',
+                                foreign_key: :to_id
   belongs_to :company
 
   after_create :add_first_balance
@@ -11,7 +17,11 @@ class User < ActiveRecord::Base
   scope :by_name, -> { order 'name' }
   scope :admin, -> { where admin: true }
 
-  devise :database_authenticatable, :rememberable, :trackable, :omniauthable, :omniauth_providers => [:google_oauth2]
+  devise :database_authenticatable,
+         :rememberable,
+         :trackable,
+         :omniauthable,
+         omniauth_providers: [:google_oauth2]
 
   def balances
     @balances ||= UserBalance.balances_for(self)
@@ -43,11 +53,12 @@ class User < ActiveRecord::Base
   end
 
   def debt_to(user)
-    balances.select {|balance| balance.payer_id == user.id}.first.try(:balance)
+    balances.find { |balance| balance.payer_id == user.id }.try(:balance)
   end
 
   def total_debt
-    debts.inject(Money.new(0,'PLN')) {|sum, debt| sum = sum+debt.balance}
+    # rubocop:disable Style/SingleLineBlockParams
+    debts.inject(Money.new(0, 'PLN')) { |sum, debt| sum + debt.balance }
   end
 
   def pending_transfers_count
