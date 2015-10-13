@@ -1,11 +1,9 @@
 namespace :weekly_email do
   task send: :environment do
-    if Time.zone.today.monday?
-      Rake::Task["weekly_email:balance"].invoke
-    end
+    Rake::Task['weekly_email:balance'].invoke if Time.zone.today.monday?
   end
 
-  desc "Sends users an email if they owe someone money"
+  desc 'Sends users an email if they owe someone money'
   task balance: :environment do
     User.find_each do |user|
       balances = user.balances.select do |balance|

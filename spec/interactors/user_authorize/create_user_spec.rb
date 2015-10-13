@@ -20,19 +20,26 @@ describe UserAuthorize::CreateUser do
     context "with invitation" do
       it "performs" do
         expect(invitation).to receive(:email) { "test@codequest.com" }
-        expect(subject).to receive(:user_params) { user_params }
-        expect(user).to receive(:save!)
-        expect(User).to receive(:new).with(user_params) { user }
+        expect(subject).to receive(:create_user) { user }
         subject.call
-        expect(subject.context.user).to eq(user)
       end
       it "fails when invitation's email is different" do
         expect(invitation).to receive(:email) { "sth-else@codequest.com" }
-        expect(subject).to_not receive(:user_params) { user_params }
-        expect(user).to_not receive(:save!)
-        expect(User).to_not receive(:new).with(user_params) { user }
+        # expect(subject).to_not receive(:user_params) { user_params }
+        # expect(user).to_not receive(:save!)
+        # expect(User).to_not receive(:new).with(user_params) { user }
+        expect(subject).to_not receive(:create_user)
         expect { subject.call }.to raise_error(Interactor::Failure)
       end
+    end
+  end
+
+  describe "#create_user" do
+    it 'creates a user' do
+      expect(subject).to receive(:user_params) { user_params }
+      expect(user).to receive(:save!)
+      expect(User).to receive(:new).with(user_params) { user }
+      expect(subject.create_user).to eq(user)
     end
   end
 

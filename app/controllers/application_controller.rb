@@ -8,17 +8,15 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(_resource)
     new_company_url
   end
 
   def gon_user
     return unless current_user
-    gon.push({
-                 current_user: UserSerializer.new(current_user),
-                 destroy_user_session: destroy_user_session_path,
-                 company_name: current_user.decorate.company_name
-             })
+    gon.push(current_user: UserSerializer.new(current_user),
+             destroy_user_session: destroy_user_session_path,
+             company_name: current_user.decorate.company_name)
   end
 
   private

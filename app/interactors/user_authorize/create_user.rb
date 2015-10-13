@@ -5,6 +5,10 @@ module UserAuthorize
     def call
       return if context.user.present?
       context.fail! if omniauth_params.info.email != invitation.email
+      create_user
+    end
+
+    def create_user
       user = User.new(user_params)
       user.save!
       context.user = user
@@ -24,7 +28,7 @@ module UserAuthorize
         uid: omniauth_params.uid,
         name: omniauth_params.info.name,
         email: omniauth_params.info.email,
-        company: invitation.company
+        company: invitation.company,
       }
     end
   end

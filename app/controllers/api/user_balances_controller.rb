@@ -1,14 +1,16 @@
-class Api::UserBalancesController < ApplicationController
-  before_action :authenticate_user!
+module Api
+  class UserBalancesController < ApplicationController
+    before_action :authenticate_user!
 
-  def index
-    balances = find_user_balances
-    render json: balances
-  end
+    def index
+      balances = find_user_balances
+      render json: balances
+    end
 
-  private
+    private
 
-  def find_user_balances
-    UserBalanceDecorator.decorate_collection(current_user.balances)
+    def find_user_balances
+      UserBalanceDecorator.decorate_collection(current_user.balances)
+    end
   end
 end
