@@ -1,36 +1,42 @@
 require 'spec_helper'
 
-describe Api::OrdersController, :type => :controller do
+describe Api::OrdersController, type: :controller do
   let(:company) { create :company }
-  let(:other_company) { create :company, name: "Other Company" }
+  let(:other_company) { create :company, name: 'Other Company' }
   let(:user) { create :user, company: company }
   let(:other_user) { create :other_user, company: company }
-  let(:other_company_user) { create :user, company: other_company, name: "Other", email: "other@other.com" }
+  let(:other_company_user) do
+    create :user, company: other_company,
+                  name: 'Other',
+                  email: 'other@other.com'
+  end
 
   describe 'POST create' do
     it 'creates an order' do
       sign_in user
-      expect {
+      expect do
         post :create, user_id: user.id, from: 'A restaurant', format: :json
-      }.to change(Order, :count)
+      end.to change(Order, :count)
     end
     describe 'json' do
       it 'rejects when not logged in' do
         post :create, user_id: user.id, from: 'A restaurant', format: :json
         expect(response).to have_http_status(401)
       end
-      describe "when an order from this restaurant already exists" do
-        let!(:order) { create :order, from: 'A restaurant', user: user, company: company }
-        it "returns unprocessable" do
+      describe 'when an order from this restaurant already exists' do
+        let!(:order) do
+          create :order, from: 'A restaurant', user: user, company: company
+        end
+        it 'returns unprocessable' do
           sign_in user
           post :create, user_id: user.id, from: 'A restaurant', format: :json
           expect(response).to have_http_status(422)
         end
         it "doesn't create the order in such case" do
           sign_in user
-          expect {
+          expect do
             post :create, user_id: user.id, from: 'A restaurant', format: :json
-          }.to_not change(Order, :count)
+          end.to_not change(Order, :count)
         end
       end
       it 'returns success' do
@@ -38,13 +44,13 @@ describe Api::OrdersController, :type => :controller do
         post :create, user_id: user.id, from: 'A restaurant', format: :json
         expect(response).to have_http_status(:success)
       end
-      it "returns success with existing order" do
+      it 'returns success with existing order' do
         create :order, user: user, company: company
         sign_in user
         post :create, user_id: user.id, from: 'A restaurant', format: :json
         expect(response).to have_http_status(:success)
       end
-      describe "incomplete data" do
+      describe 'incomplete data' do
         it 'returns errors' do
           sign_in user
           post :create, from: 'A restaurant', format: :json
@@ -52,9 +58,9 @@ describe Api::OrdersController, :type => :controller do
         end
         it "doesn't create an order" do
           sign_in user
-          expect {
+          expect do
             post :create, from: 'A restaurant', format: :json
-          }.to_not change(Order, :count)
+          end.to_not change(Order, :count)
         end
       end
     end
@@ -82,7 +88,7 @@ describe Api::OrdersController, :type => :controller do
       it 'allows when ordered and proper user' do
         order.ordered!
         sign_in user
-        put :update, id: order.id, from: "KFC Remote", format: :json
+        put :update, id: order.id, from: 'KFC Remote', format: :json
         expect(response).to have_http_status(:success)
       end
       it 'allows when in_progress' do
@@ -125,13 +131,13 @@ describe Api::OrdersController, :type => :controller do
         put :change_status, id: order.id, status: 'ordered', format: :json
         expect(response).to have_http_status(401)
       end
-      describe "order in_progress" do
+      describe 'order in_progress' do
         it 'returns success' do
           put_status(status: 'ordered')
           expect(response).to have_http_status(:success)
         end
       end
-      describe "order ordered" do
+      describe 'order ordered' do
         before do
           order.ordered!
         end
@@ -144,7 +150,7 @@ describe Api::OrdersController, :type => :controller do
           expect(response).to have_http_status(:success)
         end
       end
-      describe "order delivered" do
+      describe 'order delivered' do
         before do
           order.delivered!
         end
@@ -162,10 +168,18 @@ describe Api::OrdersController, :type => :controller do
   end
 
   describe 'GET :index' do
-    let!(:order) { create :order, user: user, date: Time.zone.today, company: company }
-    let!(:order2) { create :order, user: user, date: 1.day.ago, company: company }
-    let!(:order3) { create :order, user: user, date: 2.days.ago, company: company }
-    let!(:order4) { create :order, user: other_company_user, company: other_company }
+    let!(:order) do
+      create :order, user: user, date: Time.zone.today, company: company
+    end
+    let!(:order2) do
+      create :order, user: user, date: 1.day.ago, company: company
+    end
+    let!(:order3) do
+      create :order, user: user, date: 2.days.ago, company: company
+    end
+    let!(:order4) do
+      create :order, user: other_company_user, company: other_company
+    end
     describe 'json' do
       it 'rejects when not logged in' do
         get :index, format: :json
@@ -191,17 +205,27 @@ describe Api::OrdersController, :type => :controller do
         get :latest, format: :json
         expect(response).to have_http_status(401)
       end
-      it "returns an empty collection" do
+      it 'returns an empty collection' do
         sign_in user
         get :latest, format: :json
         expect(JSON.parse(response.body).size).to be(0)
       end
-      describe "with orders" do
+      describe 'with orders' do
         let!(:order) { create :order, user: user, company: company }
-        let!(:order2) { create :order, user: user, from: "Another Place", company: company }
-        let!(:order3) { create :order, user: user, from: "Pizza Place", company: company }
-        let!(:order4) { create :order, user: user, date: 1.day.ago, company: company }
-        let!(:order5) { create :order, user: other_company_user, from: "Pizza Place", company: other_company }
+        let!(:order2) do
+          create :order, user: user, from: 'Another Place', company: company
+        end
+        let!(:order3) do
+          create :order, user: user, from: 'Pizza Place', company: company
+        end
+        let!(:order4) do
+          create :order, user: user, date: 1.day.ago, company: company
+        end
+        let!(:order5) do
+          create :order, user: other_company_user,
+                         from: 'Pizza Place',
+                         company: other_company
+        end
         it 'renders json' do
           sign_in user
           get :latest, format: :json
@@ -216,42 +240,42 @@ describe Api::OrdersController, :type => :controller do
     end
   end
 
-  describe "DELETE :destroy" do
+  describe 'DELETE :destroy' do
     let!(:order) { create :order, user: user, company: company }
-    describe "json" do
+    describe 'json' do
       it 'rejects when not logged in' do
         delete :destroy, id: order.id, format: :json
         expect(response).to have_http_status(401)
       end
-      it "rejects when order ordered" do
+      it 'rejects when order ordered' do
         order.ordered!
         sign_in user
         delete :destroy, id: order.id, format: :json
         expect(response).to have_http_status(401)
       end
-      it "rejects when order delivered" do
+      it 'rejects when order delivered' do
         order.delivered!
         sign_in user
         delete :destroy, id: order.id, format: :json
         expect(response).to have_http_status(401)
       end
-      describe "order in progress" do
+      describe 'order in progress' do
         it "doesn't allow others to delete" do
           sign_in other_user
           delete :destroy, id: order.id, format: :json
           expect(response).to have_http_status(401)
         end
-        describe "when payer" do
-          it "allows payer to delete" do
+        describe 'when payer' do
+          it 'allows payer to delete' do
             sign_in user
             delete :destroy, id: order.id, format: :json
             expect(response).to have_http_status(200)
           end
-          it "deletes the order" do
+          it 'deletes the order' do
             sign_in user
-            expect {
+            expect do
               delete :destroy, id: order.id, format: :json
-            }.to change{Order.count}.by(-1)
+            end.to change { Order.count }.by(-1)
           end
         end
       end

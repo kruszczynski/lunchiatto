@@ -11,7 +11,7 @@ describe Company, type: :model do
   let(:other_user) { create :other_user, company: subject }
   subject { create :company }
 
-  describe "#users_by_name" do
+  describe '#users_by_name' do
     it 'returns adequate' do
       expected = [user, other_user]
       expect(subject.users_by_name).to eq(expected)

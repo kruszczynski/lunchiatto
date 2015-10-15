@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe PagesController, type: :controller do
-  let(:user) {create(:user)}
+  let(:user) { create(:user) }
 
   describe 'GET #index' do
     it 'renders index page' do

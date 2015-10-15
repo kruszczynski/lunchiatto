@@ -11,13 +11,20 @@ describe User do
 
   let(:user) { create(:user) }
   let(:payer) { create(:other_user) }
-  let!(:balance_one) { create :user_balance, user: user, payer: payer, balance: 15 }
-  let!(:balance_two) { create :user_balance, user: user, payer: payer, balance: 17 }
-  let!(:balance_three) { create :user_balance, user: user, payer: user, balance: 34 }
+  let!(:balance_one) do
+    create :user_balance, user: user, payer: payer, balance: 15
+  end
+  let!(:balance_two) do
+    create :user_balance, user: user, payer: payer, balance: 17
+  end
+  let!(:balance_three) do
+    create :user_balance, user: user, payer: user, balance: 34
+  end
 
   describe '#balances' do
     it 'should return adequate' do
-      expect(UserBalance).to receive(:balances_for).with(user).and_return([balance_two, balance_three])
+      expect(UserBalance).to receive(:balances_for)
+        .with(user).and_return([balance_two, balance_three])
       balances = user.balances
       expect(balances.count).to be(2)
     end
@@ -29,7 +36,7 @@ describe User do
     end
     it 'should create a user_balance' do
       balances = double('UserBalances')
-      expect(balances).to receive(:create).with({balance: 0, payer: @user})
+      expect(balances).to receive(:create).with(balance: 0, payer: @user)
       expect(@user).to receive(:user_balances).and_return(balances)
       @user.add_first_balance
     end
@@ -38,20 +45,25 @@ describe User do
   describe '#subtract' do
     it 'add a new reduced user balance' do
       money = Money.new 1200, 'PLN'
-      expect(user).to receive(:payer_balance).with(payer).and_return(Money.new(5000, 'PLN'))
-      expect { user.subtract(money, payer) }.to change(user.user_balances, :count).by(1)
+      expect(user).to receive(:payer_balance).with(payer)
+        .and_return(Money.new(5000, 'PLN'))
+      expect { user.subtract(money, payer) }
+        .to change(user.user_balances, :count).by(1)
     end
     it 'doesnt reduce when subtract_from_self is false' do
       money = Money.new 1200, 'PLN'
       expect(user).to receive(:subtract_from_self).and_return(false)
       expect(user).to_not receive(:payer_balance).with(user)
-      expect { user.subtract(money, user) }.to_not change(user.user_balances, :count)
+      expect { user.subtract(money, user) }
+        .to_not change(user.user_balances, :count)
     end
     it 'does reduce when subtract_from_self is true' do
       money = Money.new 1200, 'PLN'
-      expect(user).to receive(:payer_balance).with(user).and_return(Money.new(5000, 'PLN'))
+      expect(user).to receive(:payer_balance)
+        .with(user).and_return(Money.new(5000, 'PLN'))
       expect(user).to receive(:subtract_from_self).and_return(true)
-      expect { user.subtract(money, user) }.to change(user.user_balances, :count).by(1)
+      expect { user.subtract(money, user) }
+        .to change(user.user_balances, :count).by(1)
     end
   end
 
@@ -70,7 +82,8 @@ describe User do
       balance = double('UserBalance')
       newest_for_payer = double('UserBalance')
       expect(newest_for_payer).to receive(:balance).and_return(balance)
-      expect(user_balances).to receive(:newest_for).with(5).and_return(newest_for_payer)
+      expect(user_balances).to receive(:newest_for).with(5)
+        .and_return(newest_for_payer)
       expect(user).to receive(:user_balances).and_return(user_balances)
       expect(user.payer_balance(payer)).to eq(balance)
     end
@@ -85,10 +98,12 @@ describe User do
 
   describe '#debt_to' do
     let(:user_2) { create :other_user, email: 'janek@yolo.com' }
-    let!(:balance_four) { create :user_balance, user: user_2, payer: payer, balance: 100 }
+    let!(:balance_four) do
+      create :user_balance, user: user_2, payer: payer, balance: 100
+    end
 
     it 'returns debt of user_2' do
-      expect(user_2.debt_to(payer)).to eq(Money.new(10000, 'PLN'))
+      expect(user_2.debt_to(payer)).to eq(Money.new(10_000, 'PLN'))
     end
   end
 
@@ -114,14 +129,14 @@ describe User do
     end
   end
 
-  describe "admin scope" do
-    let(:admin) { create :user, admin: true, email: "admin@adminbook.com" }
+  describe 'admin scope' do
+    let(:admin) { create :user, admin: true, email: 'admin@adminbook.com' }
     before do
       user
       payer
       admin
     end
-    it "Only returns admin" do
+    it 'Only returns admin' do
       expect(User.admin.count).to be(1)
     end
   end

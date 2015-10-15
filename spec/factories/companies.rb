@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :company do
-    name "MyString"
+    name 'MyString'
   end
 
   factory :other_company, class: Company do
-    name "The Other Company"
+    name 'The Other Company'
   end
 end

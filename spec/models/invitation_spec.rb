@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe Invitation, type: :model do
   let(:company) { create :company }
@@ -10,10 +10,10 @@ describe Invitation, type: :model do
   it { should validate_length_of(:email).is_at_most(255) }
   it { should have_db_column(:authorized).with_options(default: false) }
 
-  describe "validate email" do
-    let!(:user) { create :user, email: "test@party.com" }
-    subject { build :invitation, company: company, email: "test@party.com" }
-    it "is not valid" do
+  describe 'validate email' do
+    let!(:user) { create :user, email: 'test@party.com' }
+    subject { build :invitation, company: company, email: 'test@party.com' }
+    it 'is not valid' do
       expect(subject.valid?).to be_falsey
     end
   end

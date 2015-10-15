@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe ApplicationPolicy do
   let(:company) { create :company }
@@ -7,20 +7,20 @@ describe ApplicationPolicy do
   let(:record) { create :order, user: user, company: company }
   subject { ApplicationPolicy.new(user, record) }
 
-  describe "#initialize" do
-    it "assigns user" do
+  describe '#initialize' do
+    it 'assigns user' do
       expect(subject.user).to eq(user)
     end
-    it "assigns record" do
+    it 'assigns record' do
       expect(subject.record).to eq(record)
     end
   end
 
-  describe "#record_belongs_to_user?" do
-    it "returns true" do
+  describe '#record_belongs_to_user?' do
+    it 'returns true' do
       expect(subject.record_belongs_to_user?).to be_truthy
     end
-    it "returns false" do
+    it 'returns false' do
       record.user = other_user
       expect(subject.record_belongs_to_user?).to be_falsey
     end

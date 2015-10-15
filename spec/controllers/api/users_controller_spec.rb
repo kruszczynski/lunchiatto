@@ -8,11 +8,15 @@ describe Api::UsersController, type: :controller do
     describe 'json' do
       it 'returns user object on json' do
         sign_in user
-        put :update, id: user.id, user: {subtract_from_self: true}, format: :json
+        put :update, id: user.id,
+                     user: {subtract_from_self: true},
+                     format: :json
         expect(response).to have_http_status(:success)
       end
       it 'returns 401 for unlogged in json' do
-        put :update, id: user.id, user: {subtract_from_self: true}, format: :json
+        put :update, id: user.id,
+                     user: {subtract_from_self: true},
+                     format: :json
         expect(response).to have_http_status(401)
       end
     end
@@ -28,7 +32,7 @@ describe Api::UsersController, type: :controller do
         get_index
         expect(response).to have_http_status(:success)
       end
-      it "returns only current company users" do
+      it 'returns only current company users' do
         get_index
         parsed_response = JSON.parse(response.body)
         expect(parsed_response.count).to eq(1)

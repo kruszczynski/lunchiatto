@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe UserSerializer do
-  let(:user) {double(:user)}
-  let(:current_user) {double(:current_user)}
-  let(:serializer) {UserSerializer.new user}
-  let(:extended_serializer) {UserSerializer.new user, with_balance: true}
+  let(:user) { double(:user) }
+  let(:current_user) { double(:current_user) }
+  let(:serializer) { UserSerializer.new user }
+  let(:extended_serializer) { UserSerializer.new user, with_balance: true }
 
   it '#total_balance' do
     expect(user).to receive(:total_balance) { 12 }
@@ -12,12 +12,12 @@ describe UserSerializer do
   end
 
   it '#account_balance' do
-    expect(serializer).to receive(:current_user) {current_user}
+    expect(serializer).to receive(:current_user) { current_user }
     expect(current_user).to receive(:debt_to).with(user) { 12 }
     expect(serializer.account_balance).to eq('12')
   end
 
-  describe "#include_account_balance?" do
+  describe '#include_account_balance?' do
     it 'returns false by default' do
       expect(serializer.include_account_balance?).to be_falsey
     end

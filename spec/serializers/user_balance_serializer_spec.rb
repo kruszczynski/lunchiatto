@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe UserBalanceSerializer do
-  let(:user_balance) {double :user_balance}
-  let(:serializer) {UserBalanceSerializer.new user_balance}
+  let(:user_balance) { double :user_balance }
+  let(:serializer) { UserBalanceSerializer.new user_balance }
 
   describe '#balance' do
     it 'delegates balance' do
@@ -13,8 +13,10 @@ describe UserBalanceSerializer do
 
   describe '#created_at' do
     it 'formats the date' do
-      expect(user_balance).to receive(:created_at).and_return(DateTime.new(2013,12,12,12,12))
-      expect(serializer.created_at).to eq('Thu, 12 Dec 2013 12:12:00.000000000 +0000')
+      expect(user_balance).to receive(:created_at)
+        .and_return(DateTime.new(2013, 12, 12, 12, 12))
+      expect(serializer.created_at)
+        .to eq('Thu, 12 Dec 2013 12:12:00.000000000 +0000')
     end
   end
 end
