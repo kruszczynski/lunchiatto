@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}
+  devise_for :users, controllers: {
+    omniauth_callbacks: 'users/omniauth_callbacks'}
   root 'pages#index'
 
   namespace :api do
@@ -62,5 +63,7 @@ Rails.application.routes.draw do
   get 'balances', to: redirect('you')
 
   # redirect old /app urls to root
-  get "app/*path", to: redirect { |path, req| req.original_url.gsub("app/", "") }
+  get 'app/*path', to: redirect do |_path, req|
+    req.original_url.gsub('app/', '')
+  end
 end

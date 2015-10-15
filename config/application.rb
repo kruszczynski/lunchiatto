@@ -1,5 +1,6 @@
-require File.expand_path('../boot', __FILE__)
+# rubocop:disable Lint/LineLength
 
+require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
@@ -34,6 +35,6 @@ module Lunchiatto
 
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
     config.assets.paths << Rails.root.join('vendor', 'assets', 'javascripts')
-    config.assets.paths << Rails.root.join(Rails.root, 'app', 'assets', 'templates')
+    config.assets.paths << Rails.root.join('app', 'assets', 'templates')
   end
 end
