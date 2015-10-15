@@ -63,7 +63,5 @@ Rails.application.routes.draw do
   get 'balances', to: redirect('you')
 
   # redirect old /app urls to root
-  get 'app/*path', to: redirect do |_path, req|
-    req.original_url.gsub('app/', '')
-  end
+  get 'app/*a', to: redirect { |_path, req| req.original_url.gsub('app/', '') }
 end
