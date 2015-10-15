@@ -1,40 +1,48 @@
 require 'spec_helper'
 
-describe Order, :type => :model do
-
+describe Order, type: :model do
   it { should belong_to(:user) }
   it { should have_many(:dishes) }
   it { should belong_to(:company) }
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:from) }
   it { should validate_presence_of(:company) }
-  it { should validate_uniqueness_of(:from).with_message("There already is an order from there today").scoped_to(:company_id) }
+  it do
+    should validate_uniqueness_of(:from)
+      .with_message('There already is an order from there today')
+      .scoped_to(:company_id)
+  end
   it { should validate_length_of(:from).is_at_most(255) }
 
   let(:company) { create :company }
   let(:user) { create :user, company: company }
 
   it 'should have statuses' do
-    expect(Order.statuses).to eq({"in_progress"=>0, "ordered"=>1, "delivered"=>2})
+    expect(Order.statuses)
+      .to eq('in_progress' => 0, 'ordered' => 1, 'delivered' => 2)
   end
 
-  describe "scopes" do
+  describe 'scopes' do
     let!(:order) { create :order, user: user, company: company }
-    let!(:order2) { create :order, user: user, from: "Another Place", company: company }
-    let!(:order3) { create :order, user: user, date: 1.day.ago, company: company }
+    let!(:order2) do
+      create :order, user: user, from: 'Another Place', company: company
+    end
+    let!(:order3) do
+      create :order, user: user, date: 1.day.ago, company: company
+    end
 
-    describe ".today" do
+    describe '.today' do
       it "shows today's orders" do
         expect(Order.today).to eq([order, order2])
       end
     end
-    describe ".as_created" do
-      it "shows in creation order" do
+    describe '.as_created' do
+      it 'shows in creation order' do
         expect(Order.as_created).to eq([order, order2, order3])
       end
     end
-    describe ".newest_first" do
-      it "shows newest first" do
+    describe '.newest_first' do
+      it 'shows newest first' do
         expect(Order.newest_first).to eq([order2, order, order3])
       end
     end
@@ -51,15 +59,15 @@ describe Order, :type => :model do
     it 'should return 15 when there is a dish' do
       order = Order.new date: Time.zone.today
       dish = double('Dish')
-      expect(dish).to receive(:price).and_return(Money.new(15,'PLN'))
+      expect(dish).to receive(:price).and_return(Money.new(15, 'PLN'))
       expect(order).to receive(:dishes).and_return([dish])
-      expect(order.amount).to eq(Money.new(15,'PLN'))
+      expect(order.amount).to eq(Money.new(15, 'PLN'))
     end
   end
 
   describe '#change_status' do
     let(:order) { create :order, user: user, company: company }
-    context "when in progress" do
+    context 'when in progress' do
       it 'should change from in_progress to ordered' do
         order.change_status(:ordered)
         expect(order.ordered?).to be_truthy
@@ -88,7 +96,7 @@ describe Order, :type => :model do
         expect(order.in_progress?).to be_truthy
       end
     end
-    context "when delivered" do
+    context 'when delivered' do
       it 'should not change to ordered' do
         order.delivered!
         order.change_status(:ordered)
@@ -103,7 +111,11 @@ describe Order, :type => :model do
   end
 
   describe '#subtract_price' do
-    let(:order) { create :order, user: user, shipping: Money.new(2000, 'PLN'), company: company }
+    let(:order) do
+      create :order, user: user,
+                     shipping: Money.new(2000, 'PLN'),
+                     company: company
+    end
     it 'should iterate over dishes and call #subtract' do
       dish1 = double('Dish')
       expect(dish1).to receive(:subtract).with(Money.new(1000, 'PLN'), user)

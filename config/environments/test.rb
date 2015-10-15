@@ -1,3 +1,5 @@
+# rubocop:disable Lint/LineLength
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   config.time_zone = 'Warsaw'
@@ -42,4 +44,4 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 end
 
-Rails.application.routes.default_url_options[:host]= 'localhost'
+Rails.application.routes.default_url_options[:host] = 'localhost'

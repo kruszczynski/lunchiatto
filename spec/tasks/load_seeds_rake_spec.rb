@@ -12,4 +12,3 @@ describe 'load_seeds' do
     expect { subject.invoke }.to raise_error(RuntimeError)
   end
 end
-

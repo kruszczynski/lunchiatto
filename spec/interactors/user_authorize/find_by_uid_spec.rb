@@ -1,16 +1,16 @@
 require 'spec_helper'
 
 describe UserAuthorize::FindByUid do
-  let(:user) { double "User" }
+  let(:user) { double 'User' }
   let(:omniauth_params) { {} }
   subject { UserAuthorize::FindByUid.new omniauth_params: omniauth_params }
 
-  describe "#call" do
+  describe '#call' do
     before do
-      omniauth_params[:provider] = "google_oauth2"
-      omniauth_params[:uid] = "111111111111111111111"
+      omniauth_params[:provider] = 'google_oauth2'
+      omniauth_params[:uid] = '111111111111111111111'
     end
-    it "finds the user by uuid" do
+    it 'finds the user by uuid' do
       expect(User).to receive(:find_by).with(omniauth_params) { user }
       subject.call
       expect(subject.context[:user]).to eq(user)

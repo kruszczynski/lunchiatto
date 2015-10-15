@@ -1,14 +1,18 @@
 require 'spec_helper'
 
-describe Dish, :type => :model do
-  it {should belong_to(:user)}
-  it {should belong_to(:order)}
-  it {should validate_numericality_of(:price_cents)}
-  it {should validate_presence_of(:price_cents)}
-  it {should validate_presence_of(:name)}
-  it {should validate_presence_of(:user)}
-  it {should validate_presence_of(:order)}
-  it {should validate_uniqueness_of(:user).scoped_to(:order_id).with_message('can only order one dish')}
+describe Dish, type: :model do
+  it { should belong_to(:user) }
+  it { should belong_to(:order) }
+  it { should validate_numericality_of(:price_cents) }
+  it { should validate_presence_of(:price_cents) }
+  it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:user) }
+  it { should validate_presence_of(:order) }
+  it do
+    should validate_uniqueness_of(:user)
+      .scoped_to(:order_id)
+      .with_message('can only order one dish')
+  end
   it { should validate_length_of(:name).is_at_most(255) }
 
   let(:company) { create :company }
@@ -30,11 +34,11 @@ describe Dish, :type => :model do
     end
 
     describe 'with existing dish' do
-      let!(:existing_dish) {create :dish, user: other_user, order: order}
+      let!(:existing_dish) { create :dish, user: other_user, order: order }
       it 'should delete existing dish first' do
-        expect {
+        expect do
           dish.copy(other_user)
-        }.to change(Dish, :count).by(-1)
+        end.to change(Dish, :count).by(-1)
       end
     end
   end

@@ -5,7 +5,9 @@ describe DishDecorator do
   let(:user) { create :user, company: company }
   let(:other_user) { create :other_user, company: company }
   let(:order) { create :order, user: user, company: company }
-  let(:old_order) { create :order, user: user, date: 1.day.ago, company: company }
+  let(:old_order) do
+    create :order, user: user, date: 1.day.ago, company: company
+  end
   let(:dish) { create(:dish, user: user, order: order).decorate }
 
   before do
@@ -34,11 +36,11 @@ describe DishDecorator do
     end
   end
 
-  describe "#from_today" do
-    it "return true" do
+  describe '#from_today' do
+    it 'return true' do
       expect(dish.from_today?).to be_truthy
     end
-    it "returns false" do
+    it 'returns false' do
       dish.order = old_order
       expect(dish.from_today?).to be_falsey
     end

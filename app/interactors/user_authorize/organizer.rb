@@ -9,8 +9,8 @@ module UserAuthorize
 
     def call
       super
+    # rubocop:disable Lint/HandleExceptions
     rescue Interactor::Failure
-      puts 'User authorization failed'
     end
   end
 end

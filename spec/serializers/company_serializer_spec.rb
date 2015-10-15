@@ -1,11 +1,11 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe CompanySerializer do
-  let(:company) { double("Company") }
-  let(:users) { double("Users") }
+  let(:company) { double('Company') }
+  let(:users) { double('Users') }
   subject { CompanySerializer.new company }
 
-  describe "#users" do
+  describe '#users' do
     it "sorts'em" do
       expect(users).to receive(:by_name) { :sorted_users }
       expect(company).to receive(:users) { users }

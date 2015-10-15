@@ -1,79 +1,93 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe Users::OmniauthCallbacksController, type: :controller do
-  describe "GET google_oauth2" do
-    context "with success" do
+  describe 'GET google_oauth2' do
+    context 'with success' do
       before do
-        request.env["devise.mapping"] = Devise.mappings[:user] 
-        request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2_codequest]
-        User.create(email: "test@codequest.com", provider: "google_oauth2", uid: "123545")
+        request.env['devise.mapping'] = Devise.mappings[:user]
+        request.env['omniauth.auth'] =
+          OmniAuth.config.mock_auth[:google_oauth2_codequest]
+        User.create(email: 'test@codequest.com',
+                    provider: 'google_oauth2',
+                    uid: '123545')
       end
 
-      it "redirects to new_company_path if user has no company" do
+      it 'redirects to new_company_path if user has no company' do
         get :google_oauth2
         expect(response).to redirect_to(new_company_url)
       end
     end
-    context "works for non-codequest users" do
+    context 'works for non-codequest users' do
       before do
-        request.env["devise.mapping"] = Devise.mappings[:user] 
-        request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2_non_codequest]
-        User.create(email: "test@email.com", provider: "google_oauth2", uid: "123545")
+        request.env['devise.mapping'] = Devise.mappings[:user]
+        request.env['omniauth.auth'] =
+          OmniAuth.config.mock_auth[:google_oauth2_non_codequest]
+        User.create(email: 'test@email.com',
+                    provider: 'google_oauth2',
+                    uid: '123545')
       end
 
-      it "redirects to new_company_path if user has no company" do
+      it 'redirects to new_company_path if user has no company' do
         get :google_oauth2
         expect(response).to redirect_to(new_company_url)
       end
     end
-    context "when user does not exist" do
+    context 'when user does not exist' do
       before do
-        request.env["devise.mapping"] = Devise.mappings[:user] 
-        request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2_codequest]
+        request.env['devise.mapping'] = Devise.mappings[:user]
+        request.env['omniauth.auth'] =
+          OmniAuth.config.mock_auth[:google_oauth2_codequest]
       end
-      it "redirects to index" do
+      it 'redirects to index' do
         get :google_oauth2
         expect(response).to redirect_to(root_path)
       end
     end
-    context "when user is invited" do
+    context 'when user is invited' do
       let(:company) { create :company }
       before do
-        request.env["devise.mapping"] = Devise.mappings[:user]
-        request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2_codequest]
+        request.env['devise.mapping'] = Devise.mappings[:user]
+        request.env['omniauth.auth'] =
+          OmniAuth.config.mock_auth[:google_oauth2_codequest]
       end
-      context "and not authorized" do
-        let!(:invitation) { create :invitation, company: company, email: "test@codequest.com" }
-        it "redirects" do
+      context 'and not authorized' do
+        let!(:invitation) do
+          create :invitation, company: company, email: 'test@codequest.com'
+        end
+        it 'redirects' do
           get :google_oauth2
           expect(response).to redirect_to(root_url)
         end
-        it "does not create a user" do
-          expect {
+        it 'does not create a user' do
+          expect do
             get :google_oauth2
-          }.to change(User, :count).by(0)
+          end.to change(User, :count).by(0)
         end
-        it "does not delete the invitation" do
-          expect {
+        it 'does not delete the invitation' do
+          expect do
             get :google_oauth2
-          }.to change(Invitation, :count).by(0)
+          end.to change(Invitation, :count).by(0)
         end
       end
-      context "and authorized" do
-        let!(:invitation) { create :invitation, company: company, email: "test@codequest.com", authorized: true }
-        it "redirects" do
+      context 'and authorized' do
+        let!(:invitation) do
+          create :invitation, company: company,
+                              email: 'test@codequest.com',
+                              authorized: true
+        end
+        it 'redirects' do
           get :google_oauth2
           expect(response).to redirect_to(new_company_url)
         end
-        it "creates user" do
-          expect {
+        it 'creates user' do
+          expect do
             get :google_oauth2
-          }.to change(User, :count).by(1)
+          end.to change(User, :count).by(1)
         end
-        it "deletes the invitation" do
-          expect {
+        it 'deletes the invitation' do
+          expect do
             get :google_oauth2
-          }.to change(Invitation, :count).by(-1)
+          end.to change(Invitation, :count).by(-1)
         end
       end
     end

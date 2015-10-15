@@ -1,13 +1,23 @@
 require 'spec_helper'
 
 describe Api::UserBalancesController, type: :controller do
-  let(:user) {create :user}
-  let(:other_user) {create :other_user}
-  let!(:balance_one) {create :user_balance, user: user, payer: user, balance: 10}
-  let!(:balance_two) {create :user_balance, user: user, payer: other_user, balance: 40}
-  let!(:balance_three) {create :user_balance, user: user, payer: other_user, balance: 40}
-  let!(:balance_four) {create :user_balance, user: user, payer: user, balance: 40}
-  let!(:balance_five) {create :user_balance, user: other_user, payer: other_user, balance: 40}
+  let(:user) { create :user }
+  let(:other_user) { create :other_user }
+  let!(:balance_one) do
+    create :user_balance, user: user, payer: user, balance: 10
+  end
+  let!(:balance_two) do
+    create :user_balance, user: user, payer: other_user, balance: 40
+  end
+  let!(:balance_three) do
+    create :user_balance, user: user, payer: other_user, balance: 40
+  end
+  let!(:balance_four) do
+    create :user_balance, user: user, payer: user, balance: 40
+  end
+  let!(:balance_five) do
+    create :user_balance, user: other_user, payer: other_user, balance: 40
+  end
 
   describe 'GET :index' do
     it 'is success' do

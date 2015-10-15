@@ -19,7 +19,8 @@ describe CompaniesController, type: :controller do
         allow(user).to receive(:company) { instance_double('Company') }
         send verb, action, company: {name: ''}
         expect(response).to redirect_to(root_url)
-        expect(flash[:notice]).to match /couldn't overwrite an existing company/
+        expect(flash[:notice])
+          .to match(/couldn't overwrite an existing company/)
       end
     end
 
@@ -63,7 +64,7 @@ describe CompaniesController, type: :controller do
 
       def expect_company_error_message(msg)
         errors = assigns(:company).errors.full_messages.join(' ')
-        expect(errors).to match /#{msg}/
+        expect(errors).to match(/#{msg}/)
       end
     end
   end
