@@ -9,17 +9,17 @@ describe Api::InvitationsController, type: :controller do
     describe 'json' do
       it 'rejects when not logged in' do
         post_invitation should_login: false
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
       end
       it 'rejects a non-admin user' do
         sign_in other_user
         post :create, email: 'test@user.com', format: :json
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
       end
       context 'with good data' do
         it 'returns a success' do
           post_invitation
-          expect(response).to have_http_status(200)
+          expect(response).to have_http_status(:success)
         end
         it 'creates an invitation' do
           expect do
@@ -41,7 +41,7 @@ describe Api::InvitationsController, type: :controller do
         let!(:taken_user) { create :user, email: 'test@user.com' }
         it 'returns unprocessable entity' do
           post_invitation
-          expect(response).to have_http_status(422)
+          expect(response).to have_http_status(:unprocessable_entity)
         end
       end
       context 'with email taken by an invitation' do
@@ -50,13 +50,13 @@ describe Api::InvitationsController, type: :controller do
         end
         it 'returns unprocessable entity' do
           post_invitation
-          expect(response).to have_http_status(422)
+          expect(response).to have_http_status(:unprocessable_entity)
         end
       end
       context 'with missing data' do
         it 'returns unprocessable entity' do
           post_invitation(email: '')
-          expect(response).to have_http_status(422)
+          expect(response).to have_http_status(:unprocessable_entity)
         end
       end
       def post_invitation(should_login: true, email: 'test@user.com')
@@ -70,17 +70,17 @@ describe Api::InvitationsController, type: :controller do
     describe 'json' do
       it 'rejects when not logged in' do
         delete_invitation(should_login: false)
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
       end
       it 'rejects a non-admin user' do
         sign_in other_user
         delete :destroy, id: invitation.id
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
       end
       context 'with proper data' do
         it 'returns a success' do
           delete_invitation
-          expect(response).to have_http_status(200)
+          expect(response).to have_http_status(:no_content)
         end
         it 'deletes the invitation' do
           invitation # to make sure the invitation is created

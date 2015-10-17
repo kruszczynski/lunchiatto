@@ -245,31 +245,31 @@ describe Api::OrdersController, type: :controller do
     describe 'json' do
       it 'rejects when not logged in' do
         delete :destroy, id: order.id, format: :json
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
       end
       it 'rejects when order ordered' do
         order.ordered!
         sign_in user
         delete :destroy, id: order.id, format: :json
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
       end
       it 'rejects when order delivered' do
         order.delivered!
         sign_in user
         delete :destroy, id: order.id, format: :json
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
       end
       describe 'order in progress' do
         it "doesn't allow others to delete" do
           sign_in other_user
           delete :destroy, id: order.id, format: :json
-          expect(response).to have_http_status(401)
+          expect(response).to have_http_status(:unauthorized)
         end
         describe 'when payer' do
           it 'allows payer to delete' do
             sign_in user
             delete :destroy, id: order.id, format: :json
-            expect(response).to have_http_status(200)
+            expect(response).to have_http_status(:no_content)
           end
           it 'deletes the order' do
             sign_in user

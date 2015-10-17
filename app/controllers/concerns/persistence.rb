@@ -20,7 +20,7 @@ module Persistence
 
   def destroy_record(model)
     if model.destroy
-      render json: {status: 'success'}
+      head :no_content
     else
       render json: {errors: model.errors}, status: :unprocessable_entity
     end

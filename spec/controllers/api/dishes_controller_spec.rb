@@ -9,39 +9,30 @@ describe Api::DishesController, type: :controller do
   describe 'POST create' do
     describe 'json' do
       it 'rejects when not logged in' do
-        post :create, order_id: order.id,
-                      user_id: user.id,
-                      name: 'Name',
-                      price_cents: 14,
-                      format: :json
+        post_create
         expect(response).to have_http_status(401)
       end
       it 'returns success' do
         sign_in user
-        post :create, order_id: order.id,
-                      user_id: user.id,
-                      name: 'Name',
-                      price_cents: 14,
-                      format: :json
+        post_create
         expect(response).to have_http_status(:success)
       end
       it 'creates a dish' do
         sign_in user
-        expect do
-          post :create, order_id: order.id,
-                        user_id: user.id,
-                        name: 'Name',
-                        price_cents: 14,
-                        format: :json
-        end.to change(Dish, :count).by(1)
+        expect { post_create }.to change(Dish, :count).by(1)
       end
       it 'returns errors' do
         sign_in user
+        post_create(name: nil)
+        expect(response).to have_http_status(422)
+      end
+
+      def post_create(name: 'Name')
         post :create, order_id: order.id,
                       user_id: user.id,
                       price_cents: 14,
+                      name: name,
                       format: :json
-        expect(response).to have_http_status(422)
       end
     end
   end
@@ -107,8 +98,7 @@ describe Api::DishesController, type: :controller do
       it 'is success' do
         sign_in user
         delete :destroy, order_id: order.id, id: dish.id, format: :json
-        expect(response).to have_http_status(:success)
-        expect(response.body).to eq({status: 'success'}.to_json)
+        expect(response).to have_http_status(:no_content)
       end
     end
   end
@@ -119,19 +109,19 @@ describe Api::DishesController, type: :controller do
     describe 'json' do
       it 'copies a new dish' do
         sign_in other_user
-        expect do
-          post :copy, order_id: order.id, id: dish.id, format: :json
-        end.to change(Dish, :count).by(1)
+        expect { post_copy }.to change(Dish, :count).by(1)
       end
       it 'doesnt copy a dish if a user already has a dish in that order' do
         sign_in user
-        expect do
-          post :copy, order_id: order.id, id: dish.id, format: :json
-        end.to_not change(Dish, :count)
+        expect { post_copy }.to_not change(Dish, :count)
       end
       it 'rejects when not logged in' do
-        post :copy, order_id: order.id, id: dish.id, format: :json
+        post_copy
         expect(response).to have_http_status(401)
+      end
+
+      def post_copy
+        post :copy, order_id: order.id, id: dish.id, format: :json
       end
     end
   end
@@ -140,13 +130,16 @@ describe Api::DishesController, type: :controller do
     let(:dish) { create :dish, user: user, order: order }
     describe 'json' do
       it 'rejects when not logged in' do
-        get :show, order_id: order.id, id: dish.id, format: :json
+        request_show
         expect(response).to have_http_status(401)
       end
       it 'returns success' do
         sign_in user
-        get :show, order_id: order.id, id: dish.id, format: :json
+        request_show
         expect(response).to have_http_status(:success)
+      end
+      def request_show
+        get :show, order_id: order.id, id: dish.id, format: :json
       end
     end
   end
