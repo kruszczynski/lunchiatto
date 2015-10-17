@@ -4,7 +4,7 @@ db:
 bundle:
   image: busybox
   volumes:
-    - /bundle
+    - /lunchiatto_bundle
 
 web_prod: &web_prod
   build: .

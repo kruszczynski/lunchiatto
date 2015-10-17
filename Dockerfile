@@ -7,7 +7,7 @@ RUN apt-get update -qq && apt-get install -y build-essential nodejs npm nodejs-l
 RUN npm install -g bower
 
 # set bundle data volume path
-ENV BUNDLE_PATH=/bundle
+ENV BUNDLE_PATH=/lunchiatto_bundle
 
 # set app home
 ENV APP_HOME=/lunchiatto
