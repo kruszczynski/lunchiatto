@@ -17,6 +17,7 @@
   App.animationDurationMedium = 500
 
   App.on 'start', ->
+    $title = $('head title')
     App.router = new App.Router
       controller: App.Controller
 
@@ -27,6 +28,9 @@
     App.currentUser = new App.Entities.User gon.currentUser
     App.vent.on 'reload:current:user', ->
       App.currentUser.fetch()
+    App.vent.on 'set:html:title', (title) ->
+      $title.text(title)
+
     $(document).foundation()
 
     App.Panel.Controller.showNavbar()
@@ -40,6 +44,7 @@
     $('body').on 'click', '[data-navigate]', (e) ->
       return if e.metaKey
       e.preventDefault()
+      $title.text('Lunchiatto')
       href = $(e.currentTarget).attr('href')
       App.router.navigate href, {trigger: true}
       menuIcon.click() if navigation.hasClass('expanded')

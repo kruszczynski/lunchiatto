@@ -22,6 +22,7 @@
     behaviors:
       Animateable:
         types: ["fadeIn"]
+      Titleable: {}
 
     modelEvents:
       "change": "render"
@@ -60,3 +61,6 @@
 
     _recalculateTotal: ->
       @ui.orderTotal.text @model.total()
+
+    _htmlTitle: ->
+      @model.get('from')

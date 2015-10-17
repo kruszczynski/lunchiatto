@@ -12,6 +12,7 @@
       Submittable: {}
       Animateable:
         types: ["fadeIn"]
+      Titleable: {}
 
     onFormSubmit: ->
       @model.save
@@ -20,3 +21,7 @@
       ,
         success: (model) ->
           App.router.navigate model.successPath(), {trigger: true}
+
+    _htmlTitle: ->
+      return "Edit Dish" if @model.get('id')
+      "Add Dish"

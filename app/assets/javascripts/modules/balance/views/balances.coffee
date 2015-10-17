@@ -5,6 +5,9 @@
       Balance.Balance
     childViewContainer: ".balances-container"
 
+    behaviors:
+      Titleable: {}
+
     templateHelpers: () ->
       total: @collection.total()
       type: @collection.type
@@ -19,3 +22,7 @@
 
       App.vent.on "reload:finances", =>
         @collection.fetch()
+
+    _htmlTitle: ->
+      return "You 2 Others" if @type == 'balances'
+      "Others 2 You"

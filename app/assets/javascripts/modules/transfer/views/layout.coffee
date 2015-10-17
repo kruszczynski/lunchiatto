@@ -9,6 +9,7 @@
     behaviors:
       Animateable:
         types: ["fadeIn"]
+      Titleable: {}
 
     regions:
       receivedTransfers: "@ui.receivedTransfers"
@@ -25,3 +26,6 @@
           view = new App.Transfer.List
             collection: transfers
           @["#{type}Transfers"].show view
+
+    _htmlTitle: ->
+      'Transfers'

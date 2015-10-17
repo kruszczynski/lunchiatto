@@ -15,6 +15,7 @@
     behaviors:
       Animateable:
         types: ["fadeIn"]
+      Titleable: {}
 
     onRender: ->
       @_showMembers()
@@ -35,3 +36,5 @@
       invitationForm = new Company.InvitationForm invitations: @model.get("invitations")
       @inviteNew.show invitationForm
 
+    _htmlTitle: ->
+      "#{@model.get('name')} Members"

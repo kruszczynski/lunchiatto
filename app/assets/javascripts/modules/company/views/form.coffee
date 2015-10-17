@@ -9,6 +9,7 @@
       Errorable:
         fields: ["name"]
       Submittable: {}
+      Titleable: {}
 
     onFormSubmit: ->
       @model.save
@@ -19,3 +20,5 @@
           App.vent.trigger 'rerender:topbar'
           @render()
 
+    _htmlTitle: ->
+      "Edit Company"

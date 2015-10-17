@@ -10,6 +10,7 @@
       Submittable: {}
       Animateable:
         types: ["fadeIn"]
+      Titleable: {}
 
     onFormSubmit: ->
       @model.save
@@ -18,3 +19,6 @@
       ,
         success: (model) ->
           App.router.navigate "/orders/today", {trigger: true}
+
+    _htmlTitle: ->
+      "Settings"

@@ -17,6 +17,7 @@
       Submittable: {}
       Animateable:
         types: ["fadeIn"]
+      Titleable: {}
 
     onShow: ->
       @onUserSelected() if @model.get("to_id")
@@ -36,3 +37,6 @@
         success: ->
           App.vent.trigger 'reload:current:user'
           App.router.navigate "/transfers", {trigger: true}
+
+    _htmlTitle: ->
+      "New Transfer"
