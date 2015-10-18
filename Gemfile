@@ -46,6 +46,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'lol_dba'
   gem 'rubocop'
+  gem 'inch'
 end
 
 group :development do
