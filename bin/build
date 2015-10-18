@@ -4,4 +4,5 @@ cd ~/lunchiatto
 git pull origin master
 ./bin/backup
 docker-compose build web_prod
+docker-compose up -d bundle
 docker-compose up -d web_prod
