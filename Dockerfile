@@ -1,7 +1,7 @@
 FROM ruby:2.2.3
 
 # Environment variables
-ENV BUNDLE_PATH=/lunchiatto_bundle
+ENV BUNDLE_PATH=/bundle
 ENV APP_HOME=/lunchiatto
 
 # deps
