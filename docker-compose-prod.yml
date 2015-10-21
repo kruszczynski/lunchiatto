@@ -8,7 +8,7 @@ bundle:
 
 web:
   build: .
-  command: ./bin/dev
+  command: ./bin/prod
   env_file: .env
   ports:
     - "3000:3000"
@@ -16,5 +16,3 @@ web:
     - db
   volumes_from:
     - bundle
-  volumes:
-    - .:/lunchiatto
