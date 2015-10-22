@@ -14,6 +14,7 @@
       Animateable:
         types: ["fadeIn"]
       Titleable: {}
+      Selectable: {}
 
     onFormSubmit: ->
       @model.save

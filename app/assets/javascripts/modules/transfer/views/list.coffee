@@ -14,6 +14,7 @@
 
     behaviors:
       Pageable: {}
+      Selectable: {}
 
     ui:
       userSelect: '.user-id'

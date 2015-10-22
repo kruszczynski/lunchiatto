@@ -13,7 +13,7 @@ form
   .row
     .columns
       label.user-label Payer
-        select.user-id(name='user_id')
+        select.chosen-select.user-id(name='user_id')
           option(value='') Select Payer
           each user in gon.usersForSelect
             option(value=user.id,selected=user.id==selected)=user.name
