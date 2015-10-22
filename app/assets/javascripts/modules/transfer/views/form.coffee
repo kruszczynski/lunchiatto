@@ -18,6 +18,7 @@
       Animateable:
         types: ["fadeIn"]
       Titleable: {}
+      Selectable: {}
 
     onShow: ->
       @onUserSelected() if @model.get("to_id")

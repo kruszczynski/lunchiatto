@@ -5,10 +5,12 @@
 @import "common/foundation_overrides";
 
 @import "foundation/scss/foundation";
+@import "chosen/chosen.min";
 
 @import "partials/layout";
 @import "partials/common";
 @import "partials/home_page";
+@import "partials/chosen_overrides";
 
 @import "blocks/status_label";
 @import "blocks/money_box";
