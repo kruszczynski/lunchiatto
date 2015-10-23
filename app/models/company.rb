@@ -5,7 +5,6 @@ class Company < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true, length: {maximum: 255}
 
-  def users_by_name
-    users.by_name
-  end
+  # Usage def users_by_name
+  delegate :by_name, to: :users, prefix: true
 end

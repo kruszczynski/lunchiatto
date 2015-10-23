@@ -1,7 +1,6 @@
 class UserDecorator < Draper::Decorator
   delegate_all
 
-  def company_name
-    company.name
-  end
+  # Usage def company_name
+  delegate :name, to: :company, prefix: true
 end
