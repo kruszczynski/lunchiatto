@@ -1,6 +1,6 @@
 #!/bin/bash
 # build lunchiatto
-cd ~/lunchiatto
+cd /home/bartek/lunchiatto
 git pull origin master
 ./bin/backup
 docker-compose build web
