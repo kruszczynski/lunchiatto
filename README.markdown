@@ -1,3 +1,3 @@
 # Lunchiatto
 
-[ ![Codeship Status for lunchiatto/lunchiatto](https://codeship.com/projects/64f892b0-8c7e-0132-b104-6e5f8c02ac8f/status?branch=master)](https://codeship.com/projects/60468)
+[ ![Codeship Status for kruszczynski/lunchiatto](https://codeship.com/projects/7a73bf70-5b2e-0133-bedd-5e7504acb14b/status?branch=master)](https://codeship.com/projects/110675)
