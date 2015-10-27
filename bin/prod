@@ -1,6 +1,6 @@
 #!/bin/bash
 bundle install --jobs 20 --without development test
-bower install --allow-root
+bower install --allow-root --force-latest
 bundle exec rake db:migrate
 bundle exec rake assets:clean
 bundle exec rake assets:precompile

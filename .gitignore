@@ -22,7 +22,7 @@
 /coverage/*
 
 #ignore assets components
-/vendor/assets/components
+/vendor/assets/components/*
 
 # ignore vagrant for now
 .vagrant

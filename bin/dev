@@ -1,4 +1,4 @@
 #!/bin/bash
 bundle install --jobs 20
-bower install --allow-root
+bower install --allow-root --save --force-latest
 bundle exec puma -C config/puma.rb
