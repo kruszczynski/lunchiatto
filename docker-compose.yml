@@ -1,6 +1,11 @@
 db:
   image: postgres:9.4.1
 
+mailcatcher:
+  image: schickling/mailcatcher
+  ports:
+    - "1080:1080"
+
 bundle:
   image: busybox
   volumes:
@@ -14,6 +19,7 @@ web:
     - "3000:3000"
   links:
     - db
+    - mailcatcher
   volumes_from:
     - bundle
   volumes:
