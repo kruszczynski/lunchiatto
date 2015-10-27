@@ -1,8 +1,4 @@
 @Lunchiatto.Behaviors.Errorable = Marionette.Behavior.extend
-  modelEvents:
-    error: 'onModelError'
-    sync: "hideErrors"
-
   ui:
     errorMessages: 'small.error'
     fullError: '.full-error'
@@ -12,6 +8,10 @@
     @fields = options.fields
     _.each options.fields, (field) =>
       @ui["#{field}Label"] = ".#{field}-label"
+
+  onShow: ->
+    @listenTo(@view.model, 'error', @onModelError, this)
+    @listenTo(@view.model, 'sync', @hideErrors, this)
 
   onModelError: (model, data) ->
     @hideErrors()

@@ -15,8 +15,8 @@
 //= require jquery_ujs
 //= require foundation/js/foundation.js
 //= require humanize-plus/public/src/humanize
-//= require underscore/underscore
-//= require backbone/backbone
+//= require underscore/underscore-min
+//= require backbone/backbone-min
 //= require backbone.babysitter/lib/backbone.babysitter.js
 //= require backbone.wreqr/lib/backbone.wreqr.js
 //= require marionette/lib/backbone.marionette.js

@@ -6,11 +6,9 @@
   triggers:
     'submit @ui.form': 'form:submit'
 
-  modelEvents:
-    error: '_enableSubmit'
-    sync: '_enableSubmit'
-
   onShow: ->
+    @listenTo(@view.model, 'error', @_enableSubmit, this)
+    @listenTo(@view.model, 'sync', @_enableSubmit, this)
     @_focusFistInput() unless @view.model.id
 
   onFormSubmit: ->
