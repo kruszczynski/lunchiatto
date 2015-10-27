@@ -2,6 +2,6 @@
 bundle install --jobs 20 --without development test
 bower install --allow-root
 bundle exec rake db:migrate
-bundle exec rake assets:clobber
-bundle exec rake assets:precompile --trace
+bundle exec rake assets:clean
+bundle exec rake assets:precompile
 bundle exec puma -C config/puma.rb

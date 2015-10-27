@@ -5,6 +5,8 @@ bundle:
   image: busybox
   volumes:
     - /bundle
+    - /lunchiatto/vendor/assets/components
+    - /lunchiatto/public/assets
 
 web:
   build: .
