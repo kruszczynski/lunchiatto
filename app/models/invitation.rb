@@ -4,4 +4,6 @@ class Invitation < ActiveRecord::Base
                     uniqueness: true,
                     length: {maximum: 255}
   validates_with InvitationEmailValidator
+
+  scope :without_company, -> { where(company_id: nil) }
 end

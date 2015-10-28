@@ -3,7 +3,7 @@ module Api
     before_action :authenticate_user!
 
     def create
-      invitation = current_user.company.invitations.build invitation_params
+      invitation = find_or_create_invitation
       authorize invitation
       save_record invitation do |saved_invitation|
         InvitationMailer.created(saved_invitation).deliver_now
@@ -17,6 +17,14 @@ module Api
     end
 
     private
+
+    def find_or_create_invitation
+      Invitation.without_company
+        .find_or_initialize_by(email: params[:email]).tap do |invitation|
+        invitation.company = current_user.company
+        invitation.attributes = invitation_params
+      end
+    end
 
     def invitation_params
       params.permit(:email).merge(authorized: true)

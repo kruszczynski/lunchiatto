@@ -44,13 +44,32 @@ describe Api::InvitationsController, type: :controller do
           expect(response).to have_http_status(:unprocessable_entity)
         end
       end
-      context 'with email taken by an invitation' do
+      context 'with email taken by an invitation within company' do
         let!(:taken_invitation) do
           create :invitation, company: company, email: 'test@user.com'
         end
         it 'returns unprocessable entity' do
           post_invitation
           expect(response).to have_http_status(:unprocessable_entity)
+        end
+      end
+      context 'with email taken by an invitation outside company' do
+        let!(:taken_invitation) do
+          create :invitation, email: 'test@user.com'
+        end
+        it 'returns success' do
+          post_invitation
+          expect(response).to have_http_status(:success)
+        end
+        it 'creates an authorized invitation' do
+          expect do
+            post_invitation
+          end.to change(Invitation.where(authorized: true), :count).by(1)
+        end
+        it 'sends an email' do
+          expect do
+            post_invitation
+          end.to change(ActionMailer::Base.deliveries, :count).by(1)
         end
       end
       context 'with missing data' do
