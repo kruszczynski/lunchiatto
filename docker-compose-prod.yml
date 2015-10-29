@@ -1,12 +1,20 @@
 db:
   image: postgres:9.4.1
 
-web:
+redis:
+  image: redis:3.0.5
+
+sidekiq: &sidekiq
   build: .
   dockerfile: Dockerfile::Prod
-  command: bundle exec puma -C config/puma.rb
+  command: bundle exec sidekiq -q default -q mailers
   env_file: .env
-  ports:
-    - "3000:3000"
   links:
     - db
+    - redis
+
+web:
+  <<: *sidekiq
+  command: bundle exec puma -C config/puma.rb
+  ports:
+    - "3000:3000"

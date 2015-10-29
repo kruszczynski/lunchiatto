@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe InvitationsController, type: :controller do
+  include ActiveJob::TestHelper
   let(:company) { create :company }
   let(:user) { create :user, company: company, company_admin: true }
   let(:other_user) { create :other_user, company: company }
@@ -38,10 +39,10 @@ describe InvitationsController, type: :controller do
   describe 'POST :create' do
     describe 'with proper data' do
       let!(:admin) { create :user, admin: true }
-      it 'sends an email' do
+      it 'enqueues an email' do
         expect do
           post_request
-        end.to change(ActionMailer::Base.deliveries, :count).by(1)
+        end.to change(enqueued_jobs, :count).by(1)
       end
 
       it 'is a success' do
@@ -62,10 +63,10 @@ describe InvitationsController, type: :controller do
     end
 
     describe "if there's no email" do
-      it "doesn't send an email" do
+      it "doesn't enqueue an email" do
         expect do
           post_request email: ''
-        end.to_not change(ActionMailer::Base.deliveries, :count)
+        end.to_not change(enqueued_jobs, :count)
       end
       it 'returns unprocessable' do
         post_request email: ''
@@ -75,10 +76,10 @@ describe InvitationsController, type: :controller do
 
     describe "if there's a user for this email" do
       let!(:taken_user) { create :user, email: 'party@mate.gate' }
-      it "doesn't send an email" do
+      it "doesn't enqueue an email" do
         expect do
           post_request
-        end.to_not change(ActionMailer::Base.deliveries, :count)
+        end.to_not change(enqueued_jobs, :count)
       end
       it 'returns unprocessable' do
         post_request
@@ -88,10 +89,10 @@ describe InvitationsController, type: :controller do
 
     describe "if there's an invitation for this email" do
       let!(:taken_invitation) { create :invitation, email: 'party@mate.gate' }
-      it "doesn't send an email" do
+      it "doesn't enqueue an email" do
         expect do
           post_request
-        end.to_not change(ActionMailer::Base.deliveries, :count)
+        end.to_not change(enqueued_jobs, :count)
       end
       it 'returns unprocessable' do
         post_request

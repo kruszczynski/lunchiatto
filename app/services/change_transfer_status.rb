@@ -7,7 +7,7 @@ class ChangeTransferStatus
 
   def perform(new_status)
     transfer.send("mark_as_#{new_status}!")
-    TransferMailer.send("#{new_status}_transfer", transfer).deliver_now
+    TransferMailer.send("#{new_status}_transfer", transfer).deliver_later
     true
   end
 end
