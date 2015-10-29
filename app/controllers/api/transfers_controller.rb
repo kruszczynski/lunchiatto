@@ -14,21 +14,15 @@ module Api
     def accept
       transfer = find_transfer
       authorize transfer, :update?
-      if change_transfer_status(transfer, :accepted)
-        render json: transfer
-      else
-        render json: {errors: transfer.errors}, status: :unprocessable_entity
-      end
+      change_transfer_status(transfer, :accepted)
+      render json: transfer
     end
 
     def reject
       transfer = find_transfer
       authorize transfer, :update?
-      if change_transfer_status(transfer, :rejected)
-        render json: transfer
-      else
-        render json: {errors: transfer.errors}, status: :unprocessable_entity
-      end
+      change_transfer_status(transfer, :rejected)
+      render json: transfer
     end
 
     private

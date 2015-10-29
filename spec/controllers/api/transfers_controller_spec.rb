@@ -44,16 +44,17 @@ describe Api::TransfersController, type: :controller do
           put :accept, id: transfer.id, format: :json
         end.to change(ActionMailer::Base.deliveries, :count).by(1)
       end
+      it 'is success' do
+        sign_in other_user
+        put :accept, id: transfer.id, format: :json
+        expect(response).to have_http_status(:success)
+      end
+
       it 'rejects not pending' do
         transfer.accepted!
         sign_in other_user
         put :accept, id: transfer.id, format: :json
         expect(response).to have_http_status(:unauthorized)
-      end
-      it 'is success' do
-        sign_in other_user
-        put :accept, id: transfer.id, format: :json
-        expect(response).to have_http_status(:success)
       end
       it 'rejects when not logged in' do
         put :accept, id: transfer.id, format: :json
