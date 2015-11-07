@@ -1,20 +1,12 @@
 db:
   image: postgres:9.4.1
 
-bundle:
-  image: busybox
-  volumes:
-    - /bundle
-    - /lunchiatto/vendor/assets/components
-    - /lunchiatto/public/assets
-
 web:
   build: .
-  command: ./bin/prod
+  dockerfile: Dockerfile::Prod
+  command: bundle exec puma -C config/puma.rb
   env_file: .env
   ports:
     - "3000:3000"
   links:
     - db
-  volumes_from:
-    - bundle
