@@ -21,7 +21,7 @@ WORKDIR $APP_HOME
 ADD . $APP_HOME
 
 #install bower
-RUN bower install --allow-root
+RUN bower install --allow-root --save --force-latest
 
 #precompile assets
 RUN rake assets:precompile
