@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe ChangeTransferStatus do
+  include ActiveJob::TestHelper
   let(:user) { create :user }
   let(:other_user) { create :other_user }
   let(:transfer) { create :transfer, from: user, to: user }
@@ -21,9 +22,9 @@ describe ChangeTransferStatus do
 
   describe '#perform' do
     describe 'accepts' do
-      it 'sends acception email' do
+      it 'enqueues acception email' do
         expect { service.perform(:accepted) }
-          .to change(ActionMailer::Base.deliveries, :count).by(1)
+          .to change(enqueued_jobs, :count).by(1)
       end
       it 'changes status' do
         service.perform(:accepted)
@@ -34,9 +35,9 @@ describe ChangeTransferStatus do
       end
     end
     describe 'rejects' do
-      it 'sends rejection email' do
+      it 'enqueues rejection email' do
         expect { service.perform(:rejected) }
-          .to change(ActionMailer::Base.deliveries, :count).by(1)
+          .to change(enqueued_jobs, :count).by(1)
       end
       it 'changes status' do
         service.perform(:rejected)

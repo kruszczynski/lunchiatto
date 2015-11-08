@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Api::InvitationsController, type: :controller do
+  include ActiveJob::TestHelper
   let(:company) { create :company }
   let(:user) { create :user, company: company, company_admin: true }
   let(:other_user) { create :other_user, company: company }
@@ -31,10 +32,10 @@ describe Api::InvitationsController, type: :controller do
             post_invitation
           end.to change(Invitation.where(authorized: true), :count).by(1)
         end
-        it 'sends an email' do
+        it 'enqueues email' do
           expect do
             post_invitation
-          end.to change(ActionMailer::Base.deliveries, :count).by(1)
+          end.to change(enqueued_jobs, :count).by(1)
         end
       end
       context 'with email taken by a user' do
@@ -66,10 +67,10 @@ describe Api::InvitationsController, type: :controller do
             post_invitation
           end.to change(Invitation.where(authorized: true), :count).by(1)
         end
-        it 'sends an email' do
+        it 'enqueues email' do
           expect do
             post_invitation
-          end.to change(ActionMailer::Base.deliveries, :count).by(1)
+          end.to change(enqueued_jobs, :count).by(1)
         end
       end
       context 'with missing data' do

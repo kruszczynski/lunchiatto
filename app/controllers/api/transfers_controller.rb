@@ -7,7 +7,7 @@ module Api
       authorize transfer
       transfer.from = current_user
       save_record transfer do |saved_transfer|
-        TransferMailer.created_transfer(saved_transfer).deliver_now
+        TransferMailer.created_transfer(saved_transfer).deliver_later
       end
     end
 

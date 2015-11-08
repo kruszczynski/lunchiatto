@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Api::TransfersController, type: :controller do
+  include ActiveJob::TestHelper
   let(:user) { create :user }
   let(:other_user) { create :other_user }
   let(:transfer) { create :transfer, from: user, to: other_user }
@@ -13,11 +14,11 @@ describe Api::TransfersController, type: :controller do
           post :create, to_id: user.id, amount: 14, format: :json
         end.to change(Transfer, :count).by(1)
       end
-      it 'sends an email' do
+      it 'enqueues an email' do
         sign_in other_user
         expect do
           post :create, to_id: user.id, amount: 14, format: :json
-        end.to change(ActionMailer::Base.deliveries, :count).by(1)
+        end.to change(enqueued_jobs, :count).by(1)
       end
       it 'rejects when not logged in' do
         post :create, to_id: user.id, amount: 14, format: :json
@@ -38,11 +39,11 @@ describe Api::TransfersController, type: :controller do
         put :accept, id: transfer.id, format: :json
         expect(response).to have_http_status(:unauthorized)
       end
-      it 'sends an email' do
+      it 'enqueues an email' do
         sign_in other_user
         expect do
           put :accept, id: transfer.id, format: :json
-        end.to change(ActionMailer::Base.deliveries, :count).by(1)
+        end.to change(enqueued_jobs, :count).by(1)
       end
       it 'is success' do
         sign_in other_user
@@ -70,11 +71,11 @@ describe Api::TransfersController, type: :controller do
         put :reject, id: transfer.id, format: :json
         expect(response).to have_http_status(:unauthorized)
       end
-      it 'sends an email' do
+      it 'enqueues an email' do
         sign_in other_user
         expect do
           put :reject, id: transfer.id, format: :json
-        end.to change(ActionMailer::Base.deliveries, :count).by(1)
+        end.to change(enqueued_jobs, :count).by(1)
       end
       it 'is success' do
         sign_in other_user

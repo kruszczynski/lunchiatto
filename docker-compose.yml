@@ -1,6 +1,9 @@
 db:
   image: postgres:9.4.1
 
+redis:
+  image: redis:3.0.5
+
 mailcatcher:
   image: schickling/mailcatcher
   ports:
@@ -10,17 +13,29 @@ bundle:
   image: busybox
   volumes:
     - /bundle
-    - /lunchiatto/vendor/assets/components
+
+sidekiq: &sidekiq
+  build: .
+  command: bundle exec sidekiq -q default -q mailers
+  env_file: .env
+  links:
+    - db
+    - mailcatcher
+    - redis
+  volumes_from:
+    - bundle
+  volumes:
+    - .:/lunchiatto
 
 web:
-  build: .
+  <<: *sidekiq
   command: bundle exec puma -C config/puma.rb
-  env_file: .env
   ports:
     - "3000:3000"
   links:
     - db
     - mailcatcher
+    - redis
   volumes_from:
     - bundle
   volumes:

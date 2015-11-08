@@ -6,7 +6,7 @@ module Api
       invitation = find_or_create_invitation
       authorize invitation
       save_record invitation do |saved_invitation|
-        InvitationMailer.created(saved_invitation).deliver_now
+        InvitationMailer.created(saved_invitation).deliver_later
       end
     end
 

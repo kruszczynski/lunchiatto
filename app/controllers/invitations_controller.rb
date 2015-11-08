@@ -12,7 +12,7 @@ class InvitationsController < ApplicationController
   def create
     invitation = Invitation.new invitation_params
     save_record invitation do |saved_invitation|
-      UserAccessMailer.create_email(saved_invitation.email).deliver_now
+      UserAccessMailer.create_email(saved_invitation.email).deliver_later
     end
   end
 

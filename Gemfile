@@ -40,6 +40,8 @@ gem 'airbrake'
 # doc
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'sidekiq'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'faker', require: false
