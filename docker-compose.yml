@@ -16,7 +16,7 @@ bundle:
 
 sidekiq: &sidekiq
   build: .
-  command: bundle exec sidekiq -q default -q mailers
+  command: bundle exec sidekiq -q mailers -c 5
   env_file: .env
   links:
     - db
