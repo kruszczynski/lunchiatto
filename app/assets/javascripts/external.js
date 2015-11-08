@@ -13,5 +13,5 @@
 //= require tilt-jade/runtime
 //= require jquery
 //= require jquery_ujs
-//= require foundation/js/foundation.js
+//= require foundation
 //= require external/request_access
