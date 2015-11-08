@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe User do
+describe User, type: :model do
   it { should have_many(:orders) }
   it { should have_many(:user_balances) }
   it { should have_many(:balances_as_payer) }
