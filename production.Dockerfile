@@ -14,7 +14,6 @@ RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 COPY Gemfile* ${APP_HOME}/
-WORKDIR /tmp
 RUN bundle install
 
 #copy code
