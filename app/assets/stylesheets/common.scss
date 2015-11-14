@@ -1,22 +1,22 @@
-@import "common/fonts";
-@import "common/mixins";
-@import "common/variables";
-@import "common/animate";
-@import "common/foundation_overrides";
+@import 'common/fonts';
+@import 'common/mixins';
+@import 'common/variables';
+@import 'common/animate';
+@import 'common/foundation_overrides';
 
-@import "foundation";
-@import "chosen";
+@import 'foundation';
+@import 'chosen';
 
-@import "partials/layout";
-@import "partials/common";
-@import "partials/home_page";
-@import "partials/chosen_overrides";
+@import 'partials/layout';
+@import 'partials/common';
+@import 'partials/home_page';
+@import 'partials/chosen_overrides';
 
-@import "blocks/status_label";
-@import "blocks/money_box";
-@import "blocks/order_box";
-@import "blocks/full_order";
-@import "blocks/dishes_list";
-@import "blocks/balance_box";
-@import "blocks/transfer_box";
-@import "blocks/users_list";
+@import 'blocks/status_label';
+@import 'blocks/money_box';
+@import 'blocks/order_box';
+@import 'blocks/full_order';
+@import 'blocks/dishes_list';
+@import 'blocks/balance_box';
+@import 'blocks/transfer_box';
+@import 'blocks/users_list';

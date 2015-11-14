@@ -4,7 +4,12 @@ body {
   margin: 0 auto;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 100;
 }
 
@@ -18,12 +23,12 @@ label {
 }
 
 .margin-right-small {
-  margin-right: 0.5rem;
+  margin-right: .5rem;
 }
 
 .margin-left-small,
-input[type='checkbox'].margin-left-small {
-  margin-left: 0.5rem;
+[type='checkbox'].margin-left-small {
+  margin-left: .5rem;
 }
 
 .margin-bottom {
@@ -42,9 +47,12 @@ input[type='checkbox'].margin-left-small {
   display: inline-block;
 }
 
+// this selector is used on a link that does not link anywhere (yuck)
+// scss-lint:disable QualifyingElement
 a.unhanded {
   cursor: default;
 }
+// scss-lint:enable QualifyingElement
 
 @media only screen and (min-width: 767px) {
   .centered {

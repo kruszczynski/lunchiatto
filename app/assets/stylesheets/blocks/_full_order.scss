@@ -4,8 +4,8 @@
 
 .full-order__restaurant,
 .full-order__total {
-  font-weight: lighter;
   font-size: 3rem;
+  font-weight: lighter;
   line-height: 4rem;
 }
 
@@ -16,7 +16,7 @@
 .full-order__status {
   font-size: 1.5rem;
   position: relative;
-  top: 0.5rem;
+  top: .5rem;
 }
 
 .full-order__payer {
@@ -26,11 +26,12 @@
 
 .full-order__buttons {
   line-height: 4rem;
+  margin-bottom: 1rem;
   visibility: top;
+
   .button {
     margin: 0;
   }
-  margin-bottom: 1rem;
 }
 
 .full-order__shipping {

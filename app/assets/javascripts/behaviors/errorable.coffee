@@ -38,7 +38,8 @@
   _showError: (errors, key) ->
     label = @ui["#{key}Label"]
     label.addClass('error')
-    label.find('.error').removeClass('hide').text("\"#{key}\" #{errors.join(', ')}")
+    label.find('.error').removeClass('hide')
+      .text("\"#{key}\" #{errors.join(', ')}")
 
   _showFulError: (message) ->
     @ui.fullError.removeClass('hide')

@@ -1,6 +1,9 @@
+// this rule overrides Foundation therefore requires the qualifying element
+// scss-lint:disable QualifyingElement
 small.error.hide {
   display: none;
 }
+// scss-lint:enable QualifyingElement
 
 .button.hide {
   display: none;

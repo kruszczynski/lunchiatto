@@ -33,7 +33,8 @@
       @invitations.show invitationsView
 
     _showForm: ->
-      invitationForm = new Company.InvitationForm invitations: @model.get("invitations")
+      invitationForm = new Company.InvitationForm
+        invitations: @model.get("invitations")
       @inviteNew.show invitationForm
 
     _htmlTitle: ->

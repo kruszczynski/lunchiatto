@@ -1,6 +1,9 @@
 # This is the default configuration file. Enabling and disabling is configured
 # in separate files. This file adds all other parameters apart from Enabled.
 
+Documentation:
+  Enabled: false
+
 # Common configuration.
 AllCops:
   # Include common Ruby source files.
@@ -56,9 +59,6 @@ AllCops:
   # which is "/tmp" on Unix-like systems, but could be something else on other
   # systems.
   CacheRootDirectory: /tmp
-
-Documentation:
-  Enabled: false
 
 # Indent private/protected/public as deep as method definitions
 Style/AccessModifierIndentation:
@@ -153,7 +153,7 @@ Style/AlignParameters:
 Style/AndOr:
   # Whether `and` and `or` are banned only in conditionals (conditionals)
   # or completely (always).
-  EnforcedStyle: always
+  EnforcedStyle: conditionals
   SupportedStyles:
     - always
     - conditionals

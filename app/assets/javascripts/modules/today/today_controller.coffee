@@ -4,7 +4,7 @@
       orderId = parseInt(orderId, 10)
       Backbone.ajax
         url: "/api/orders/latest"
-        success: (data) =>
+        success: (data) ->
           collection = new Backbone.Collection data
           order = collection.get(orderId) or order = collection.first()
           layout = new Today.Layout collection: collection, order: order

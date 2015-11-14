@@ -1,15 +1,18 @@
 .money-box {
-  color: $white;
   background: $gray;
-  line-height: 2rem;
+  color: $white;
   font-size: 1.5rem;
-  padding: 0.5rem 1rem;
+  line-height: 2rem;
+  padding: .5rem 1rem;
+
   @media #{$small-only} {
-    margin-top: 0.5rem;
+    margin-top: .5rem;
   }
+
   &.money-box--negative {
     background: $warning-color;
   }
+
   &.money-box--positive {
     background: $success-color;
   }
