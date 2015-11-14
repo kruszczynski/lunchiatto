@@ -1,9 +1,11 @@
 @Lunchiatto.module "Balance", (Balance, App, Backbone, Marionette, $, _) ->
   Balance.Controller =
     you: ->
-      balances = new Balance.Balances type: "balances"
-      App.root.content.show balances
+      App.root.content.show @_createView('balances')
 
     others: ->
-      balances = new Balance.Balances type: "debts"
-      App.root.content.show balances
+      App.root.content.show @_createView('debts')
+
+    _createView: (type) ->
+      new Balance.Balances
+        collection: new App.Entities.Balances [], type: type
