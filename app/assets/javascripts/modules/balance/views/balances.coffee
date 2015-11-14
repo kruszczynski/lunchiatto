@@ -1,28 +1,32 @@
-@Lunchiatto.module "Balance", (Balance, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module 'Balance', (Balance, App, Backbone, Marionette, $, _) ->
   Balance.Balances = Marionette.CompositeView.extend
-    template: "balances/balances"
+    template: 'balances/balances'
     getChildView: ->
       Balance.Balance
-    childViewContainer: ".balances-container"
+    childViewContainer: '.balances-container'
+
+    balancesHeader: 'Your balance to others'
+    debtsHeader: 'Others\' balance to you'
+
+    balancesTitle: 'You 2 Others'
+    debtsTitle: 'Others 2 You'
 
     behaviors:
       Titleable: {}
 
-    templateHelpers: () ->
-      total: @collection.total()
-      type: @collection.type
+    templateHelpers: ->
+      # calls balancesHeader, debtsHeader
+      totalLabel: "#{@["#{@collection.type}Header"]} #{@collection.total()}"
 
     collectionEvents:
-      "sync": "render"
+      'sync': 'render'
 
     initialize: ->
-      @type = @options.type
-      @collection = new App.Entities.Balances [], type: @type
       @collection.fetch()
 
-      App.vent.on "reload:finances", =>
+      App.vent.on 'reload:finances', =>
         @collection.fetch()
 
     _htmlTitle: ->
-      return "You 2 Others" if @type == 'balances'
-      "Others 2 You"
+      # calls balancesTitle, debtsTitle
+      @["#{@collection.type}Title"]

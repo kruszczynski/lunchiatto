@@ -1,7 +1,4 @@
 .row
   .columns.small-12
-    if locals.type === "balances"
-      h2.margin-bottom Your balance to others #{locals.total}
-    else if locals.type === "debts"
-      h2.margin-bottom Others' balance to you #{locals.total}
+    h2.margin-bottom #{locals.totalLabel}
 .balances-container
