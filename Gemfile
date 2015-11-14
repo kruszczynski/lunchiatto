@@ -52,11 +52,11 @@ source 'https://rails-assets.org' do
 end
 
 group :development, :test do
+  gem 'codeguard'
   gem 'rspec-rails'
   gem 'faker', require: false
   gem 'dotenv-rails'
   gem 'lol_dba'
-  gem 'rubocop'
   gem 'inch'
 end
 

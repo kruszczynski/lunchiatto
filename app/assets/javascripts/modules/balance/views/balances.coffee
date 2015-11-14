@@ -16,7 +16,8 @@
 
     templateHelpers: ->
       # calls balancesHeader, debtsHeader
-      totalLabel: "#{@["#{@collection.type}Header"]} #{@collection.total()}"
+      headerText = @["#{@collection.type}Header"]
+      totalLabel: "#{headerText} #{@collection.total()}"
 
     collectionEvents:
       'sync': 'render'

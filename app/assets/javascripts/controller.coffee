@@ -10,7 +10,10 @@ do (App = @Lunchiatto) ->
           App.Dish.Controller.form(dish)
 
     newDish: (orderId) ->
-      dish = new App.Entities.Dish order_id: orderId, user_id: App.currentUser.id, price: '0.00'
+      dish = new App.Entities.Dish
+        order_id: orderId,
+        user_id: App.currentUser.id,
+        price: '0.00'
       App.Dish.Controller.form(dish)
 
     newOrder: ->

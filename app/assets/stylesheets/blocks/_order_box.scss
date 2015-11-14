@@ -1,13 +1,14 @@
 .order-box {
+  @include single-transition(all, $animation-duration-medium);
   padding: 10px;
   text-align: center;
-  @include single-transition(all, $animation-duration-medium);
+
   &:hover {
     background-color: $snow;
   }
 }
 
 .order-box__date {
-  font-size: 0.75rem;
   color: $monsoon;
+  font-size: .75rem;
 }

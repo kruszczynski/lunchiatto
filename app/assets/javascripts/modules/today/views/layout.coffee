@@ -1,14 +1,14 @@
 @Lunchiatto.module "Today", (Today, App, Backbone, Marionette, $, _) ->
   Today.Layout = Marionette.LayoutView.extend
-    template: "today/layout"
+    template: 'today/layout'
 
     regions:
-      orderButtons: ".order-buttons"
-      order: ".order"
+      orderButtons: '.order-buttons'
+      order: '.order'
 
     behaviors:
       Animateable:
-        types: ["fadeIn"]
+        types: ['fadeIn']
 
     initialize: (options) ->
       @currentOrder = options.order
@@ -31,8 +31,9 @@
 
     _showButtons: ->
       @buttons = new Today.OrderButtons collection: @collection
-      @buttons.on 'childview:select:order', (orderView) => @showOrder(orderView.model)
+      @buttons.on 'childview:select:order',
+                  (orderView) => @showOrder(orderView.model)
       @orderButtons.show @buttons
 
     _navigateToToday: ->
-      App.router.navigate "/orders/today"
+      App.router.navigate '/orders/today'

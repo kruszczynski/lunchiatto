@@ -1,6 +1,7 @@
 @Lunchiatto.module "Order", (Order, App, Backbone, Marionette, $, _) ->
   Order.Show = Marionette.LayoutView.extend
-    DELETE_MESSAGE: "This will permanently delete the order and ALL THE DISHES. Are you sure?"
+    DELETE_MESSAGE: "This will permanently delete the order and
+                     ALL THE DISHES. Are you sure?"
     template: "orders/show"
 
     ui:
