@@ -5,12 +5,13 @@
 @import 'common/foundation_overrides';
 
 @import 'foundation';
-@import 'chosen';
+@import 'select2';
+
+@import 'common/select2_overrides';
 
 @import 'partials/layout';
 @import 'partials/common';
 @import 'partials/home_page';
-@import 'partials/chosen_overrides';
 
 @import 'blocks/status_label';
 @import 'blocks/money_box';
