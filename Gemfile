@@ -58,6 +58,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'lol_dba'
   gem 'inch'
+  gem 'reek'
 end
 
 group :development do
