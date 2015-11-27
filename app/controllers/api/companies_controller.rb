@@ -1,4 +1,5 @@
 module Api
+  # Company management API
   class CompaniesController < ApplicationController
     before_action :authenticate_user!
 

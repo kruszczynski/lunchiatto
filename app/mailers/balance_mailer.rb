@@ -1,3 +1,4 @@
+# Balance email
 class BalanceMailer < ApplicationMailer
   def debt_email(user, balances)
     @user = user

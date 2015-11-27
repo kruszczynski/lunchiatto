@@ -1,4 +1,5 @@
 module Api
+  # Invtations API
   class InvitationsController < ApplicationController
     before_action :authenticate_user!
 

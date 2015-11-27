@@ -1,3 +1,4 @@
+# Order emails
 class OrderMailer < ApplicationMailer
   def status_email(order)
     @order = order

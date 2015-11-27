@@ -1,3 +1,4 @@
+# Immutable balance of user's account
 class UserBalance < ActiveRecord::Base
   belongs_to :user
   belongs_to :payer, class_name: 'User'

@@ -1,13 +1,14 @@
 module UserAuthorize
+  # Does user creation's heavy lifting
   class CreateUser
     include Interactor
 
-    # Usage def omniauth_params, def invitation
     delegate :omniauth_params, :invitation, to: :context
+    delegate :info, to: :omniauth_params
 
     def call
       return if context.user.present?
-      context.fail! if omniauth_params.info.email != invitation.email
+      context.fail! if info.email != invitation.email
       create_user
     end
 
@@ -21,8 +22,8 @@ module UserAuthorize
       {
         provider: omniauth_params.provider,
         uid: omniauth_params.uid,
-        name: omniauth_params.info.name,
-        email: omniauth_params.info.email,
+        name: info.name,
+        email: info.email,
         company: invitation.company,
       }
     end

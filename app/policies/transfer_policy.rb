@@ -1,3 +1,4 @@
+# Transfer access policy
 class TransferPolicy < ApplicationPolicy
   def create?
     true

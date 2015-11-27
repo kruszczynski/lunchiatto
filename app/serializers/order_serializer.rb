@@ -1,3 +1,4 @@
+# Serialize Order for API
 class OrderSerializer < ActiveModel::Serializer
   attributes :id,
              :from,

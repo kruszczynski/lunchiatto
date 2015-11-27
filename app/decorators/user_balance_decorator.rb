@@ -1,3 +1,4 @@
+# Decorates user balance
 class UserBalanceDecorator < Draper::Decorator
   delegate_all
 

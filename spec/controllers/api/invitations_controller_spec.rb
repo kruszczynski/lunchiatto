@@ -9,7 +9,7 @@ describe Api::InvitationsController, type: :controller do
   describe 'POST :create' do
     describe 'json' do
       it 'rejects when not logged in' do
-        post_invitation should_login: false
+        post :create, email: 'test@user.com', format: :json
         expect(response).to have_http_status(:unauthorized)
       end
       it 'rejects a non-admin user' do
@@ -79,8 +79,8 @@ describe Api::InvitationsController, type: :controller do
           expect(response).to have_http_status(:unprocessable_entity)
         end
       end
-      def post_invitation(should_login: true, email: 'test@user.com')
-        sign_in user if should_login
+      def post_invitation(email: 'test@user.com')
+        sign_in user
         post :create, email: email, format: :json
       end
     end
@@ -89,7 +89,7 @@ describe Api::InvitationsController, type: :controller do
   describe 'DELETE :destroy' do
     describe 'json' do
       it 'rejects when not logged in' do
-        delete_invitation(should_login: false)
+        delete :destroy, id: invitation.id, format: :json
         expect(response).to have_http_status(:unauthorized)
       end
       it 'rejects a non-admin user' do
@@ -111,8 +111,8 @@ describe Api::InvitationsController, type: :controller do
       end
     end
 
-    def delete_invitation(should_login: true)
-      sign_in user if should_login
+    def delete_invitation
+      sign_in user
       delete :destroy, id: invitation.id, format: :json
     end
   end

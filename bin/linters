@@ -2,6 +2,7 @@
 
 # run linter
 
-docker-compose run web bundle exec rubocop app lib config spec
-docker-compose run web bundle exec scss-lint -c .scss-lint.yml app/assets/stylesheets/**/*.scss
-coffeelint -f coffeelint.json app
+docker-compose run web bundle exec rubocop app lib config spec &&
+docker-compose run web bundle exec scss-lint -c .scss-lint.yml app/assets/stylesheets/**/*.scss &&
+coffeelint -f coffeelint.json app &&
+docker-compose run web bundle exec reek app lib config spec

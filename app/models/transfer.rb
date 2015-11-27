@@ -1,3 +1,7 @@
+# A transfer between users. When accepted creates a UserBalance
+# This method smells of :reek:PrimaDonnaMethod
+# todo(kruszczynski)
+# refactor mark_as_accepted
 class Transfer < ActiveRecord::Base
   belongs_to :from, class_name: 'User'
   belongs_to :to, class_name: 'User'

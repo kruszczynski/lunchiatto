@@ -1,7 +1,9 @@
 module Api
+  # Received transfers API
   class ReceivedTransfersController < ApplicationController
     before_action :authenticate_user!
 
+    # This method smells of :reek:DuplicateMethodCall
     def index
       transfers = find_received_transfers
       if params[:user_id].present?

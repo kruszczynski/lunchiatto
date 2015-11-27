@@ -4,6 +4,7 @@ require 'active_record'
 class InvitationEmailValidatorModel
   include ActiveModel::Validations
   validates_with InvitationEmailValidator
+  # This method smells of :reek:Attribute
   attr_accessor :email
 end
 
