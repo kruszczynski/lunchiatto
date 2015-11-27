@@ -79,7 +79,7 @@
     "level": "ignore"
   },
   "no_interpolation_in_single_quotes": {
-    "level": "ignore"
+    "level": "warn"
   },
   "no_nested_string_interpolation": {
     "level": "warn"
@@ -130,6 +130,9 @@
     "level": "ignore"
   },
   "transform_messes_up_line_numbers": {
+    "level": "warn"
+  },
+  "eol_last": {
     "level": "warn"
   }
 }

@@ -1,5 +1,7 @@
+# Company creation requires certain actions on creator and
+# this object encapsulates that logic
 class CompanyCreator
-  attr_accessor :user, :company, :params
+  attr_reader :user, :company, :params
 
   def initialize(**context)
     @user = context[:user]
@@ -9,8 +11,7 @@ class CompanyCreator
 
   def perform
     @company = Company.new(params)
-    company.save
-    if company.persisted?
+    if company.save
       @user.company = company
       @user.update(company_admin: true)
       @success = true

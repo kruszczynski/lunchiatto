@@ -6,12 +6,12 @@ describe Api::CompaniesController, type: :controller do
 
   describe 'GET show' do
     it 'requires authentication' do
-      get_company(should_sign_in: false)
+      get :show, id: company.id
       expect(response).to redirect_to(root_path)
     end
 
     it 'refutes non-member' do
-      get_company
+      show_company
       expect(response).to have_http_status(401)
     end
 
@@ -21,7 +21,7 @@ describe Api::CompaniesController, type: :controller do
         user.save!
       end
       it 'refutes' do
-        get_company
+        show_company
         expect(response).to have_http_status(401)
       end
     end
@@ -33,25 +33,25 @@ describe Api::CompaniesController, type: :controller do
         user.save!
       end
       it 'is a success' do
-        get_company
+        show_company
         expect(response).to have_http_status(200)
       end
       it 'returns company' do
-        get_company
+        show_company
         parsed_response = JSON.parse(response.body)
         expect(parsed_response['name']).to eq('MyString')
       end
     end
 
-    def get_company(should_sign_in:true)
-      sign_in user if should_sign_in
+    def show_company
+      sign_in user
       get :show, id: company.id
     end
   end
 
   describe 'PUT update' do
     it 'requires authentication' do
-      put_company(should_sign_in: false)
+      put :update, id: company.id, name: 'The new name'
       expect(response).to redirect_to(root_path)
     end
 
@@ -92,8 +92,8 @@ describe Api::CompaniesController, type: :controller do
       end
     end
 
-    def put_company(should_sign_in: true, name: 'The new name')
-      sign_in user if should_sign_in
+    def put_company(name: 'The new name')
+      sign_in user
       put :update, id: company.id, name: name
     end
   end

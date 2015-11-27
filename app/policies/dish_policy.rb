@@ -1,3 +1,4 @@
+# Dish access policy
 class DishPolicy < ApplicationPolicy
   def create?
     true

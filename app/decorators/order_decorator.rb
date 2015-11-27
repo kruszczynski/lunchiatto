@@ -1,3 +1,4 @@
+# Decorates order
 class OrderDecorator < Draper::Decorator
   include Draper::LazyHelpers
 

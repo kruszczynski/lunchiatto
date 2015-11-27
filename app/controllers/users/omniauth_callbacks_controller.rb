@@ -1,10 +1,11 @@
 module Users
+  # Handles redirect request from omniauth
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+    # This method smells of :reek:UncommunicativeMethodName
+    # google_oauth2 is expected callback action name in this case
     def google_oauth2
-      organizer = UserAuthorize::Organizer.new omniauth_params: omniauth_params
-      organizer.call
-      @user = organizer.context.user
-      if organizer.context.success? && @user
+      run_user_authorize
+      if @organizer.context.success? && @user
         sign_in_and_redirect @user
         set_flash_message(:notice, :success, kind: 'Google')
       else
@@ -14,6 +15,12 @@ module Users
     end
 
     private
+
+    def run_user_authorize
+      @organizer = UserAuthorize::Organizer.new omniauth_params: omniauth_params
+      @organizer.call
+      @user = @organizer.context.user
+    end
 
     def omniauth_params
       request.env['omniauth.auth']

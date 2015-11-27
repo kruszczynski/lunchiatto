@@ -1,4 +1,5 @@
 module Api
+  # User's debts API
   class UserDebtsController < ApplicationController
     before_action :authenticate_user!
 

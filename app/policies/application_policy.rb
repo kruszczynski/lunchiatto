@@ -1,3 +1,4 @@
+# Abstract policy all others inherit from
 class ApplicationPolicy
   attr_reader :user, :record
 

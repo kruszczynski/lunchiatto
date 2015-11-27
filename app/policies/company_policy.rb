@@ -1,3 +1,4 @@
+# Company access policy
 class CompanyPolicy < ApplicationPolicy
   def create?
     user.company.blank?

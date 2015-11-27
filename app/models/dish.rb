@@ -1,3 +1,4 @@
+# Individual user's order
 class Dish < ActiveRecord::Base
   belongs_to :user
   belongs_to :order, counter_cache: true

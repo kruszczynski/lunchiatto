@@ -1,3 +1,4 @@
+# Non-api controller for company creation
 class CompaniesController < ApplicationController
   before_action :authenticate_user!
 

@@ -1,3 +1,4 @@
+# Serialize Company for API
 class CompanySerializer < ActiveModel::Serializer
   attributes :name
   has_many :users

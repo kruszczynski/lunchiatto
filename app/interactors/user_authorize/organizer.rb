@@ -1,4 +1,5 @@
 module UserAuthorize
+  # User auth organizer
   class Organizer
     include Interactor::Organizer
 

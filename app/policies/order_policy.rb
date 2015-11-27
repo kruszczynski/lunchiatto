@@ -1,3 +1,4 @@
+# Order access policy
 class OrderPolicy < ApplicationPolicy
   def index?
     true

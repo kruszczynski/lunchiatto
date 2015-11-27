@@ -1,3 +1,4 @@
+# Fundamental user class
 class User < ActiveRecord::Base
   has_many :orders
   has_many :user_balances, dependent: :destroy
@@ -49,7 +50,7 @@ class User < ActiveRecord::Base
   end
 
   def total_balance
-    sum_balance_from balances
+    balances.map(&:balance).reduce :+
   end
 
   def debt_to(user)
@@ -63,11 +64,5 @@ class User < ActiveRecord::Base
 
   def pending_transfers_count
     received_transfers.pending.size
-  end
-
-  private
-
-  def sum_balance_from(array)
-    array.map(&:balance).reduce :+
   end
 end

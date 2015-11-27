@@ -1,4 +1,5 @@
 module Api
+  # User's balances API
   class UserBalancesController < ApplicationController
     before_action :authenticate_user!
 

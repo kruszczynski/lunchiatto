@@ -1,3 +1,7 @@
+# Emails for transfers
+# This method smells of :reek:TooManyInstanceVariables
+# todo(kruszczynski)
+# #from and #to calls could be moved to partials
 class TransferMailer < ApplicationMailer
   def created_transfer(transfer)
     @transfer = transfer

@@ -1,10 +1,13 @@
 module UserAuthorize
+  # Removes realized invitation
   class DeleteInvitation
     include Interactor
 
+    delegate :invitation, to: :context
+
     def call
-      return unless context.invitation.present?
-      context.invitation.delete
+      return unless invitation.present?
+      invitation.delete
     end
   end
 end

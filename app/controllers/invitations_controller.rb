@@ -1,9 +1,10 @@
+# New user invitations, non-api
 class InvitationsController < ApplicationController
   def show
     redirect_to_today
     @invitation = find_invitation
     # rubocop:disable Style/GuardClause
-    if @invitation.nil?
+    unless @invitation
       return redirect_to root_path,
                          notice: 'Invitation already completed please sign in'
     end

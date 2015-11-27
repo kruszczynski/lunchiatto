@@ -1,4 +1,5 @@
 module UserAuthorize
+  # finds user's invitation
   class FindInvitation
     include Interactor
 

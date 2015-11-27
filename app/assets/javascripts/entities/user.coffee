@@ -8,4 +8,3 @@
 
     url: ->
       "/api/users"
-

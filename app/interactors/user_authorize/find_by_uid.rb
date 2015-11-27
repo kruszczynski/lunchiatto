@@ -1,4 +1,5 @@
 module UserAuthorize
+  # Finds user from provider's uid
   class FindByUid
     include Interactor
 

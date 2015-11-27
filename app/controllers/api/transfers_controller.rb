@@ -1,4 +1,5 @@
 module Api
+  # Transfers API
   class TransfersController < ApplicationController
     before_action :authenticate_user!
 
