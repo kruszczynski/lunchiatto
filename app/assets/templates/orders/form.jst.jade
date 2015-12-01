@@ -16,17 +16,17 @@ form
         select.chosen-select.user-id(name='user_id')
           option(value='') Select Payer
           each user in gon.usersForSelect
-            option(value=user.id,selected=user.id==selected)=user.name
+            option(value=user.id, selected=user.id==selected)=user.name
         small.error.hide
   .row
     .columns
       label.from-label Restaurant
-        input.from(type='text',name='from',placeholder='Where are we ordering from?',value=locals.from)
+        input.from(type='text', name='from', placeholder='Where are we ordering from?' + 'food', value=locals.from)
         small.error.hide
   .row
     .columns
       label.shipping-label Shipping Cost
-        input.shipping(type="text",name="shipping",value=locals.shipping)
+        input.shipping(type='text', name="shipping", value=locals.shipping)
         small.error.hide
   .row
     .columns

@@ -1,4 +1,4 @@
-= render partial: 'shared/mailer_header', locals: {name: @to.name}
+= render partial: 'shared/mailer_header', locals: {name: @transfer.to.name}
 
 table.row
   tr
@@ -6,10 +6,15 @@ table.row
       table.twelve.columns
         tr
           td
-            h4.padding-bottom #{@from} has send you #{@transfer.amount} PLN
-            p It's recommended to accept or reject once the money actually appears on your account.
+            h4.padding-bottom
+              | #{@transfer.from} has send you #{@transfer.amount} PLN
+            p
+              |
+                It's recommended to accept or reject once the money
+                actually appears on your account.
             table.button.margin-bottom
               tr
                 td
-                  = link_to "See your transfers to accept or reject", transfers_url
+                  = link_to 'See your transfers to accept or reject',
+                            transfers_url
           td.expander

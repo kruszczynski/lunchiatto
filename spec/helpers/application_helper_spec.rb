@@ -2,12 +2,16 @@ require 'spec_helper'
 
 describe ApplicationHelper, type: :helper do
   describe 'field_with_errors' do
-    let(:object) { double(errors: {}) }
+    let(:object) { double }
     let(:yielded_stuff) { sanitize('<input type="text" name="name" />') }
     let(:errors) { {name: ["Can't be blank"]} }
+    let(:empty_errors) { {} }
     let(:text_field_proc) { proc { yielded_stuff } }
 
     it 'renders a label without errors' do
+      allow(object).to receive(:errors) { empty_errors }
+      allow(empty_errors).to receive(:full_messages_for)
+        .with(:name) { [] }
       result = render_field
       expect(result).to match(/^\s*<label>/)
       expect(result).to match(/#{yielded_stuff}/)

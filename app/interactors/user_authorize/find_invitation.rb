@@ -8,10 +8,16 @@ module UserAuthorize
 
     def call
       return if context.user.present?
-      invitation = Invitation.find_by(email: omniauth_params.info.email,
-                                      authorized: true)
+      invitation = find_invitation
       context.fail! unless invitation
       context.invitation = invitation
+    end
+
+    private
+
+    def find_invitation
+      Invitation.find_by(email: omniauth_params.info.email,
+                         authorized: true)
     end
   end
 end
