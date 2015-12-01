@@ -1,4 +1,4 @@
-= render partial: 'shared/mailer_header', locals: {name: @from.name}
+= render partial: 'shared/mailer_header', locals: {name: @transfer.from.name}
 
 table.row
   tr
@@ -6,9 +6,12 @@ table.row
       table.twelve.columns
         tr
           td
-            h4.padding-bottom #{@to} has accepted your transfer of #{@transfer.amount} PLN.
+            h4.padding-bottom
+              |
+                #{@transfer.to} has accepted your transfer
+                of #{@transfer.amount} PLN.
             table.button.margin-bottom
               tr
                 td
-                  = link_to "See your finances", balances_url
+                  = link_to 'See your finances', balances_url
           td.expander

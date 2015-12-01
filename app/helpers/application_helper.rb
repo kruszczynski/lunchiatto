@@ -1,17 +1,18 @@
 # Helps Application
 module ApplicationHelper
-  # This method smells of :reek:DuplicateMethodCall
-  # This method smells of :reek:TooManyStatements
   def field_with_errors(object, field_name)
     css_class = 'error' if object.errors[field_name].present?
     content_tag(:label, class: css_class) do
-      res = yield
-      if css_class
-        res += content_tag(:small, class: 'error') do
-          object.errors.full_messages_for(field_name).join(', ')
-        end
-      end
-      res.html_safe
+      (yield + error_message_tag(object, field_name)).html_safe
+    end
+  end
+
+  # This method smells of :reek:FeatureEnvy
+  def error_message_tag(object, field_name)
+    error_messages = object.errors.full_messages_for(field_name)
+    return '' if error_messages.blank?
+    content_tag(:small, class: 'error') do
+      error_messages.join(', ')
     end
   end
 end
