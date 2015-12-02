@@ -3,6 +3,11 @@ module Api
   class TransfersController < ApplicationController
     before_action :authenticate_user!
 
+    def index
+      transfers = find_transfers
+      render json: transfers
+    end
+
     def create
       transfer = Transfer.new transfer_params
       authorize transfer
@@ -34,6 +39,28 @@ module Api
 
     def find_transfer
       Transfer.find(params[:id])
+    end
+
+    def find_transfers
+      type = params[:type].to_sym
+      fail unless type.in? %i(received submitted)
+      # calls received_transfers, submitted_transfers
+      transfers = current_user.send("#{type}_transfers")
+      # calls filter_submitted_tranfsers, filter_received_tranfsers
+      transfers = send("filter_#{type}_tranfsers", transfers, params[:user_id])
+      transfers.newest_first.page(params[:page])
+    end
+
+    # this method reeks of :reek:UtilityFunction
+    def filter_submitted_tranfsers(transfers, user_id)
+      return transfers unless user_id.present?
+      transfers.to_user(user_id)
+    end
+
+    # this method reeks of :reek:UtilityFunction
+    def filter_received_tranfsers(transfers, user_id)
+      return transfers unless user_id.present?
+      transfers.from_user(user_id)
     end
 
     def change_transfer_status(transfer, status)

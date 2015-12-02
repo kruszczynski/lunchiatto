@@ -14,16 +14,19 @@ class TransferMailer < ApplicationMailer
   end
 
   def accepted_transfer(transfer)
-    @transfer = transfer
-    mail(to: @transfer.from.email,
-         subject: "#{@transfer.to} has accepted your transfer of
-                   #{@transfer.amount} PLN")
+    status_email(transfer, 'accepted')
   end
 
   def rejected_transfer(transfer)
+    status_email(transfer, 'rejected')
+  end
+
+  private
+
+  def status_email(transfer, direction)
     @transfer = transfer
     mail(to: @transfer.from.email,
-         subject: "#{@transfer.to} has rejected your transfer of
+         subject: "#{@transfer.to} has #{direction} your transfer of
                    #{@transfer.amount} PLN")
   end
 end
