@@ -4,7 +4,42 @@ describe Api::TransfersController, type: :controller do
   include ActiveJob::TestHelper
   let(:user) { create :user }
   let(:other_user) { create :other_user }
-  let(:transfer) { create :transfer, from: user, to: other_user }
+  let!(:transfer) { create :transfer, from: user, to: other_user }
+
+  describe 'GET to index' do
+    let!(:other_transfer) { create(:transfer, from: user, to: other_user) }
+    let!(:third_transfer) do
+      create(:transfer, from: other_user, to: other_user)
+    end
+    let!(:forth_transfer) { create(:transfer, from: user, to: user) }
+
+    shared_examples 'transfers index' do |type, expected_count, user|
+      it "returns #{user} transfers" do
+        user_id = user ? send(user).id : nil
+        get :index, user_id: user_id, type: type, format: :json
+        expect(JSON.parse(response.body).length).to eq(expected_count)
+      end
+    end
+
+    it 'rejects when not logged in' do
+      get :index, format: :json
+      expect(response).to have_http_status(401)
+    end
+
+    context 'received transfers' do
+      before { sign_in other_user }
+      it_behaves_like 'transfers index', 'received', 3
+      it_behaves_like 'transfers index', 'received', 2, :user
+      it_behaves_like 'transfers index', 'received', 1, :other_user
+    end
+
+    context 'submitted transfers' do
+      before { sign_in user }
+      it_behaves_like 'transfers index', 'submitted', 3
+      it_behaves_like 'transfers index', 'submitted', 2, :other_user
+      it_behaves_like 'transfers index', 'submitted', 1, :user
+    end
+  end
 
   describe 'POST to create' do
     describe 'json' do

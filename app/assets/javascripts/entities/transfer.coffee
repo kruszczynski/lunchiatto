@@ -21,7 +21,7 @@
   Entities.Transfers = Backbone.Collection.extend
     model: Entities.Transfer
     url: ->
-      "/api/#{@type}_transfers"
+      "/api/transfers"
 
     initialize: (models, options)->
       @type = options.type
@@ -42,4 +42,4 @@
       Backbone.Collection::fetch.call(this, extendedOptions)
 
     _getData: ->
-      {page: @page, user_id: @userId}
+      {page: @page, user_id: @userId, type: @type}

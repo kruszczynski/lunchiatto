@@ -8,15 +8,13 @@ Rails.application.routes.draw do
     resources :companies, only: [:show, :update]
     resources :invitations, only: [:create, :destroy]
 
-    resources :transfers, only: [:create] do
+    resources :transfers, only: [:index, :create] do
       member do
         put :accept
         put :reject
       end
     end
 
-    resources :submitted_transfers, only: [:index]
-    resources :received_transfers, only: [:index]
     resources :user_balances, only: [:index]
     resources :user_debts, only: [:index]
 
