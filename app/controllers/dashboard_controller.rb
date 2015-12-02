@@ -1,4 +1,3 @@
-# Renders the scaffold for single page app
 class DashboardController < ApplicationController
   layout 'single_page_app'
 

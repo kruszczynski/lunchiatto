@@ -1,4 +1,3 @@
-# New invitation email
 class InvitationMailer < ApplicationMailer
   def created(invitation)
     @invitation = invitation

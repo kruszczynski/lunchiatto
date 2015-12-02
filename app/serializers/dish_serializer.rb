@@ -1,4 +1,3 @@
-# Serialize Dish for API
 class DishSerializer < ActiveModel::Serializer
   attributes :id,
              :user_name,

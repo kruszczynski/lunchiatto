@@ -1,4 +1,3 @@
-# Serialize UserBalance for API
 class UserBalanceSerializer < ActiveModel::Serializer
   attributes :id,
              :balance,

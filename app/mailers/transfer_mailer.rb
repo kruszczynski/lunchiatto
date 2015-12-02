@@ -1,4 +1,3 @@
-# Emails for transfers
 class TransferMailer < ApplicationMailer
   def created_transfer(transfer)
     @transfer = transfer

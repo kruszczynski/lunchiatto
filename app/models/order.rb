@@ -1,4 +1,3 @@
-# An order to which users add dishes
 class Order < ActiveRecord::Base
   belongs_to :user
   has_many :dishes, dependent: :destroy

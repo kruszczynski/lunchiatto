@@ -1,4 +1,4 @@
-# Abstraction of model persistence
+# Abstraction of model persistence in controllers
 module Persistence
   extend ActiveSupport::Concern
 

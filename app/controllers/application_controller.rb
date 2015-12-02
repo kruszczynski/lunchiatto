@@ -1,4 +1,3 @@
-# App's abstract controller
 class ApplicationController < ActionController::Base
   include Pundit
   include Persistence

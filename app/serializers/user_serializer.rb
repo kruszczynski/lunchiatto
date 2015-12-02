@@ -1,4 +1,3 @@
-# Serialize User for API
 class UserSerializer < ActiveModel::Serializer
   attributes :id,
              :name,

@@ -1,5 +1,4 @@
 module Api
-  # Order API
   class OrdersController < ApplicationController
     before_action :authenticate_user!
 

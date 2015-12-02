@@ -1,4 +1,3 @@
-# Decorates Dish
 class DishDecorator < Draper::Decorator
   include Draper::LazyHelpers
 
