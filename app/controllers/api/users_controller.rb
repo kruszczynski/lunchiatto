@@ -1,5 +1,4 @@
 module Api
-  # Users API
   class UsersController < ApplicationController
     before_action :authenticate_user!
 

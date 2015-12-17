@@ -1,4 +1,3 @@
-# Invitation to join the app
 class Invitation < ActiveRecord::Base
   belongs_to :company
   validates :email, presence: true,

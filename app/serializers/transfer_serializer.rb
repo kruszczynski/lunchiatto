@@ -1,4 +1,3 @@
-# Serialize Transfer for API
 class TransferSerializer < ActiveModel::Serializer
   attributes :id, :amount, :status, :from, :to, :created_at
 

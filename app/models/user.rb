@@ -1,4 +1,3 @@
-# Fundamental user class
 class User < ActiveRecord::Base
   has_many :orders
   has_many :user_balances, dependent: :destroy

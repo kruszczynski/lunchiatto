@@ -1,4 +1,3 @@
-# Email when someone requests access
 class UserAccessMailer < ApplicationMailer
   def create_email(email)
     @email = email

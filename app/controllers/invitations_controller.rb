@@ -1,4 +1,3 @@
-# New user invitations, non-api
 class InvitationsController < ApplicationController
   def show
     redirect_to_today

@@ -1,5 +1,4 @@
 module Users
-  # Handles redirect request from omniauth
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # This method smells of :reek:UncommunicativeMethodName
     # google_oauth2 is expected callback action name in this case

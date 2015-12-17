@@ -1,4 +1,3 @@
-# A primary grouping of users
 class Company < ActiveRecord::Base
   has_many :users
   has_many :orders
