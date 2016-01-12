@@ -6,7 +6,6 @@ redis:
 
 sidekiq: &sidekiq
   build: .
-  dockerfile: production.Dockerfile
   command: bundle exec sidekiq -q mailers -c 2
   env_file: .env
   links:

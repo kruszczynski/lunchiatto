@@ -16,6 +16,7 @@ bundle:
 
 sidekiq: &sidekiq
   build: .
+  dockerfile: dev.Dockerfile
   command: bundle exec sidekiq -q mailers -c 1
   env_file: .env
   links:
@@ -32,11 +33,3 @@ web:
   command: bundle exec puma -C config/puma.rb
   ports:
     - "3000:3000"
-  links:
-    - db
-    - mailcatcher
-    - redis
-  volumes_from:
-    - bundle
-  volumes:
-    - .:/lunchiatto
