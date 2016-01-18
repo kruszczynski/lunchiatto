@@ -17,4 +17,4 @@ test:
 production:
   <<: *default
   database: codequestmanager_production
-  password: <%= ENV['LUNCHIATTO_DB_1_ENV_POSTGRES_PASS'] %>
+  password: <%= ENV['LUNCHIATTO_DB_1_ENV_POSTGRES_PASSWORD'] %>
