@@ -6,7 +6,6 @@ redis:
 
 sidekiq: &sidekiq
   build: .
-  dockerfile: production.Dockerfile
   command: bundle exec sidekiq -q mailers -c 2
   env_file: .env
   links:
@@ -17,4 +16,4 @@ web:
   <<: *sidekiq
   command: bundle exec puma -C config/puma.rb
   ports:
-    - "3000:3000"
+    - "80:80"
