@@ -1,0 +1,49 @@
+db:
+  image: postgres:9.4.1
+  tags:
+    - lunchiatto
+  environment:
+    POSTGRES_PASSWORD:
+redis:
+  image: redis:3.0.5
+  tags:
+    - lunchiatto
+sidekiq:
+  image: kruszczynski/lunchiatto
+  command: bundle exec sidekiq -q mailers -c 2
+  environment:
+    LANG: en_US.UTF-8
+    AIRBRAKE_API_KEY:
+    SECRET_KEY_BASE:
+    SENDGRID_PASSWORD:
+    SENDGRID_USERNAME:
+    GOOGLE_KEY:
+    GOOGLE_SECRET:
+  links:
+    - db
+    - redis
+  autoredeploy: true
+  tags:
+    - lunchiatto
+web:
+  image: kruszczynski/lunchiatto
+  environment:
+    LANG: en_US.UTF-8
+    AIRBRAKE_API_KEY:
+    SECRET_KEY_BASE:
+    SENDGRID_PASSWORD:
+    SENDGRID_USERNAME:
+    WEB_CONCURRENCY: 1
+    MIN_THREADS: 3
+    MAX_THREADS: 8
+    GOOGLE_KEY:
+    GOOGLE_SECRET:
+  links:
+    - db
+    - redis
+  autoredeploy: true
+  tags:
+    - lunchiatto
+  command: bundle exec puma -C config/puma.rb
+  ports:
+    - "3000:3000"
