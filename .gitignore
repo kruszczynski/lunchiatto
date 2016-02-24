@@ -35,3 +35,6 @@ Vagrantfile
 # RVM
 .ruby-gemset
 .ruby-version
+
+# Stackfile
+stackfile.yml
