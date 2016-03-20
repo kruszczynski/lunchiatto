@@ -17,7 +17,7 @@ bundle:
 sidekiq: &sidekiq
   build: .
   dockerfile: dev.Dockerfile
-  command: bundle exec sidekiq -q mailers -c 1
+  command: bundle exec sidekiq -q mailers -q default -c 1
   env_file: .env
   links:
     - db
@@ -26,7 +26,7 @@ sidekiq: &sidekiq
   volumes_from:
     - bundle
   volumes:
-    - .:/lunchiatto
+    - .:/usr/src/app
 
 web:
   <<: *sidekiq

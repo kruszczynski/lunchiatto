@@ -1,0 +1,2 @@
+OrderReminderWorker:
+  cron: '47 12 * * *'
