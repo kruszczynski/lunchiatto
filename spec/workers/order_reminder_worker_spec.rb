@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe OrderReminderWorker do
   let(:order) { double('order') }
-  let(:orders) { double('orders_collection')}
+  let(:orders) { double('orders_collection') }
   let(:mailer) { double('mailer') }
 
   describe '#perform' do

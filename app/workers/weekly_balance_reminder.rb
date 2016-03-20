@@ -1,10 +1,7 @@
-namespace :weekly_email do
-  task send: :environment do
-    Rake::Task['weekly_email:balance'].invoke if Time.zone.today.monday?
-  end
+class WeeklyBalanceReminder
+  include Sidekiq::Worker
 
-  desc 'Sends users an email if they owe someone money'
-  task balance: :environment do
+  def perform
     User.find_each do |user|
       balances = user.balances.select do |balance|
         balance.balance_cents < 0
@@ -15,4 +12,4 @@ namespace :weekly_email do
       BalanceMailer.debt_email(user, balances).deliver_now if balances.present?
     end
   end
-end
+end # WeeklyBalanceReminder

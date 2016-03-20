@@ -1,2 +1,4 @@
 OrderReminderWorker:
   cron: '47 12 * * *'
+WeeklyBalanceReminder:
+  cron: '0 9 * * 1'
