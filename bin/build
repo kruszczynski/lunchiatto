@@ -1,7 +1,0 @@
-#!/bin/bash
-# build lunchiatto
-cd /home/bartek/lunchiatto
-git pull origin master
-./bin/backup
-docker-compose build
-docker-compose up -d

@@ -40,7 +40,9 @@ gem 'airbrake'
 # doc
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# queues
 gem 'sidekiq'
+gem 'sidekiq-scheduler'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-foundation'
