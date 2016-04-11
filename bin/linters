@@ -2,8 +2,8 @@
 
 # run linter
 
-bundle exec rubocop app lib config spec &&
-bundle exec scss-lint -c .scss-lint.yml app/assets/stylesheets/**/*.scss &&
-coffeelint -f coffeelint.json app &&
+bundle exec rubocop app lib config spec
+bundle exec scss-lint -c .scss-lint.yml app/assets/stylesheets/**/*.scss
+coffeelint -f coffeelint.json app
 bundle exec reek app lib config spec
 bundle exec slim-lint app
