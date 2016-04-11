@@ -44,7 +44,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
 
-source 'https://rails-assets.tenex.tech' do
+source 'https://rails-assets.org' do
   gem 'rails-assets-foundation'
   gem 'rails-assets-marionette'
   gem 'rails-assets-humanize-plus'

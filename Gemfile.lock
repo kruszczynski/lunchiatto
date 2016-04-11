@@ -1,6 +1,6 @@
 GEM
   remote: https://rubygems.org/
-  remote: https://rails-assets.tenex.tech/
+  remote: https://rails-assets.org/
   specs:
     abstract_type (0.0.7)
     actionmailer (4.2.5)

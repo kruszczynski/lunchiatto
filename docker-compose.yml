@@ -33,3 +33,9 @@ web:
   command: bundle exec puma -C config/puma.rb
   ports:
     - "3000:3000"
+
+# backuper:
+#   env_file: .env
+#   image: lunchiatto/backuper:latest
+#   links:
+#     - db
