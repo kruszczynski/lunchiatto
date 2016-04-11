@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Company creation requires certain actions on creator and
 # this object encapsulates that logic
 class CompanyCreator
@@ -19,7 +20,6 @@ class CompanyCreator
     self
   end
 
-  # rubocop:disable Style/TrivialAccessors
   def success?
     @success
   end

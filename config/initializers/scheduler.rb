@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'sidekiq/scheduler'
 
 Sidekiq.configure_server do |config|

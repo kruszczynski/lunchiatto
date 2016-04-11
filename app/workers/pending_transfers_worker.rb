@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class PendingTransfersWorker
   include Sidekiq::Worker
 
@@ -6,7 +7,7 @@ class PendingTransfersWorker
     User.find_each do |user|
       transfers =
         user.received_transfers.newest_first.pending
-        .where('created_at <= ?', Time.zone.now - 3.days)
+          .where('created_at <= ?', Time.zone.now - 3.days)
       next if transfers.empty?
       TransferMailer.pending_transfers(transfers, user).deliver_now
     end

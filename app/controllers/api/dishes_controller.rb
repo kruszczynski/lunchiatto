@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Api
   class DishesController < ApplicationController
     before_action :authenticate_user!

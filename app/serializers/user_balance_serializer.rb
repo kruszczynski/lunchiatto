@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class UserBalanceSerializer < ActiveModel::Serializer
   attributes :id,
              :balance,

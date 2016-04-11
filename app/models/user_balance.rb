@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Immutable balance of user's account
 class UserBalance < ActiveRecord::Base
   belongs_to :user
@@ -10,8 +11,8 @@ class UserBalance < ActiveRecord::Base
   monetize :balance_cents
 
   scope :newest_for, lambda { |payer_id|
-    where(payer_id: payer_id).order('created_at desc').first
-  }
+                       where(payer_id: payer_id).order('created_at desc').first
+                     }
 
   def self.balances_for(user)
     payers_ids(user).map do |payer_id|

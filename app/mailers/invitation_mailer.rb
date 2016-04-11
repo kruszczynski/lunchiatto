@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class InvitationMailer < ApplicationMailer
   def created(invitation)
     @invitation = invitation

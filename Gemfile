@@ -1,10 +1,10 @@
+# frozen_string_literal: true
 source 'https://rubygems.org'
 
-ruby '2.2.4'
+ruby '2.3.0'
 
 gem 'rails'
 gem 'pg'
-gem 'newrelic_rpm'
 gem 'slim-rails'
 gem 'active_model_serializers', '0.8.3'
 gem 'gon'
@@ -54,10 +54,12 @@ source 'https://rails-assets.org' do
 end
 
 group :development, :test do
-  gem 'codeguard'
+  gem 'slim_lint'
+  gem 'reek'
+  gem 'scss_lint'
+  gem 'rubocop'
   gem 'rspec-rails'
   gem 'faker', require: false
-  gem 'dotenv-rails'
   gem 'lol_dba'
   gem 'inch'
 end

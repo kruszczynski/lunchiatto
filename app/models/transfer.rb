@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # A transfer between users. When accepted creates a UserBalance
 # This method smells of :reek:PrimaDonnaMethod
 # todo(kruszczynski)

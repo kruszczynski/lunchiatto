@@ -1,1 +1,2 @@
-Premailer::Rails.config.merge!(remove_ids: true)
+# frozen_string_literal: true
+Premailer::Rails.config[:remove_ids] = true

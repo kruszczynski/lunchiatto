@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module UserAuthorize
   # Removes realized invitation
   class DeleteInvitation

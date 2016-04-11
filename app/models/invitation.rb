@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Invitation < ActiveRecord::Base
   belongs_to :company
   validates :email, presence: true,

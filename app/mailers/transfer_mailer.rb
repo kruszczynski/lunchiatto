@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class TransferMailer < ApplicationMailer
   def created_transfer(transfer)
     @transfer = transfer

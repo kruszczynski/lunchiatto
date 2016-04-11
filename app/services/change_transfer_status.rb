@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Changing transfer status require an email
 # This object encapsulates that
 class ChangeTransferStatus

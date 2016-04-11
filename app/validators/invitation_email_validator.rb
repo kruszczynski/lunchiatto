@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Validates that invitation's emails
 # are not registered already in the app
 class InvitationEmailValidator < ActiveModel::Validator
