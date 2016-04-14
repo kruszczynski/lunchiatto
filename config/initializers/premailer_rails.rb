@@ -1,2 +1,2 @@
 # frozen_string_literal: true
-Premailer::Rails.config.merge!(remove_ids: true) # rubocop:disable all
+# Premailer::Rails.config.merge!(remove_ids: true) # rubocop:disable all
