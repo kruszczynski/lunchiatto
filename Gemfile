@@ -30,8 +30,8 @@ gem 'interactor'
 gem 'puma'
 gem 'kaminari', '0.16.3'
 gem 'nokogiri'
-# gem 'premailer'
-# gem 'premailer-rails'
+gem 'premailer'
+gem 'premailer-rails'
 gem 'tilt-jade'
 
 # error reporting
