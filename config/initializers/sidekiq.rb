@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 redis_opts = {url: 'redis://redis:6379'}
 
 Sidekiq.configure_server do |config|

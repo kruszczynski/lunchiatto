@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Order < ActiveRecord::Base
   belongs_to :user
   has_many :dishes, dependent: :destroy
@@ -41,7 +42,7 @@ class Order < ActiveRecord::Base
   def subtract_price
     return if dishes_count == 0
     dishes.each do |dish|
-      dish.subtract shipping / (dishes_count), user
+      dish.subtract shipping / dishes_count, user
     end
   end
 end

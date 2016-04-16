@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe Transfer, type: :model do
@@ -10,9 +11,10 @@ describe Transfer, type: :model do
   it { should validate_presence_of(:to) }
   it { should validate_presence_of(:from) }
 
-  it 'Aliases #mark_as_rejected! to #rejected!' do
-    expect(transfer.method(:mark_as_rejected!))
-      .to eq(transfer.method(:rejected!))
+  it '#mark_as_rejected!' do
+    expect { transfer.mark_as_rejected! }
+      .to change { transfer.rejected? }
+      .to(true)
   end
 
   describe '#mark_as_accepted!' do

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module UserAuthorize
   # Finds user from provider's uid
   class FindByUid

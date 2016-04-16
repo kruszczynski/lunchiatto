@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class DishDecorator < Draper::Decorator
   include Draper::LazyHelpers
 

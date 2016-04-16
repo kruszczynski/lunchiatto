@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module UserAuthorize
   # finds user's invitation
   class FindInvitation

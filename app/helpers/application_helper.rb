@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ApplicationHelper
   def field_with_errors(object, field_name)
     css_class = 'error' if object.errors[field_name].present?

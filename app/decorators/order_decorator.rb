@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class OrderDecorator < Draper::Decorator
   include Draper::LazyHelpers
 

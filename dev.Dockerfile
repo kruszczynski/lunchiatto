@@ -1,8 +1,11 @@
-FROM ruby:2.2.4-slim
+FROM ruby:2.3.0-slim
 
 # deps
 RUN apt-get update -qq && apt-get install -y build-essential \
   nodejs npm nodejs-legacy vim git libpq-dev
+
+# install coffeelint
+RUN npm install -g coffeelint
 
 # Environment variables
 ENV BUNDLE_PATH=/bundle

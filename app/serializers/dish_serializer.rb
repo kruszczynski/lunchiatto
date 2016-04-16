@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class DishSerializer < ActiveModel::Serializer
   attributes :id,
              :user_name,

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 task :load_seeds, [:user_email] => :environment do |_t, args|
   require 'faker'
   require 'faker/company'

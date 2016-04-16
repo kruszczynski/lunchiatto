@@ -1,10 +1,10 @@
+# frozen_string_literal: true
 source 'https://rubygems.org'
 
-ruby '2.2.4'
+ruby '2.3.0'
 
 gem 'rails'
 gem 'pg'
-gem 'newrelic_rpm'
 gem 'slim-rails'
 gem 'active_model_serializers', '0.8.3'
 gem 'gon'
@@ -19,8 +19,8 @@ gem 'devise'
 
 gem 'factory_girl_rails', '~> 4.0'
 
-gem 'omniauth', '1.2.2'
-gem 'omniauth-google-oauth2', '0.2.10'
+gem 'omniauth', '1.3.1'
+gem 'omniauth-google-oauth2', '0.4.1'
 
 gem 'draper'
 gem 'money-rails'
@@ -54,10 +54,12 @@ source 'https://rails-assets.org' do
 end
 
 group :development, :test do
-  gem 'codeguard'
+  gem 'slim_lint'
+  gem 'reek'
+  gem 'scss_lint', require: false
+  gem 'rubocop'
   gem 'rspec-rails'
   gem 'faker', require: false
-  gem 'dotenv-rails'
   gem 'lol_dba'
   gem 'inch'
 end

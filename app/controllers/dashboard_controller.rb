@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class DashboardController < ApplicationController
   layout 'single_page_app'
 
