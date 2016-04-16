@@ -1060,10 +1060,6 @@ Lint/UnusedMethodArgument:
   AllowUnusedKeywordArguments: false
   IgnoreEmptyMethods: true
 
-# Checks for unused block arguments.
-Lint/UnusedBlockArgument:
-  AllowUnusedKeywordArguments: false
-
 ##################### Performance ############################
 
 Performance/RedundantMerge:
