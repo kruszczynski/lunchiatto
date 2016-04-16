@@ -20,7 +20,7 @@
 //= require backbone.wreqr
 //= require backbone.babysitter
 //= require marionette
-//= require uri.js
+//= require uri.js.js
 //= require moment
 //= require select2
 //= require app
