@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 source 'https://rubygems.org'
 
-ruby '2.2.4'
+ruby '2.3.0'
 
 gem 'rails'
 gem 'pg'
@@ -56,7 +56,7 @@ end
 group :development, :test do
   gem 'slim_lint'
   gem 'reek'
-  gem 'scss_lint'
+  gem 'scss_lint', require: false
   gem 'rubocop'
   gem 'rspec-rails'
   gem 'faker', require: false
