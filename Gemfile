@@ -19,8 +19,8 @@ gem 'devise'
 
 gem 'factory_girl_rails', '~> 4.0'
 
-gem 'omniauth', '1.2.2'
-gem 'omniauth-google-oauth2', '0.2.10'
+gem 'omniauth', '1.3.1'
+gem 'omniauth-google-oauth2', '0.4.1'
 
 gem 'draper'
 gem 'money-rails'
