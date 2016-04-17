@@ -4,8 +4,8 @@ require 'spec_helper'
 describe UserSerializer do
   let(:user) { double(:user) }
   let(:current_user) { double(:current_user) }
-  let(:serializer) { UserSerializer.new user }
-  let(:extended_serializer) { UserSerializer.new user, with_balance: true }
+  let(:serializer) { described_class.new user }
+  let(:extended_serializer) { described_class.new user, with_balance: true }
 
   it '#total_balance' do
     expect(user).to receive(:total_balance) { 12 }

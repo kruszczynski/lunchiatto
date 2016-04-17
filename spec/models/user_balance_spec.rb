@@ -6,7 +6,7 @@ describe UserBalance, type: :model do
   it { should belong_to(:payer) }
   it { should validate_presence_of(:user) }
   it { should validate_presence_of(:payer) }
-  it 'should monetize balance' do
+  it 'monetizes balance' do
     expect(monetize(:balance_cents)).to be_truthy
   end
 
@@ -29,32 +29,32 @@ describe UserBalance, type: :model do
   end
 
   describe '.balances_for' do
-    it 'should call adequate methods' do
-      expect(UserBalance).to receive(:payers_ids).with(user)
+    it 'calls adequate methods' do
+      expect(described_class).to receive(:payers_ids).with(user)
         .and_return([user.id, other_user.id])
-      expect(UserBalance.balances_for(user))
+      expect(described_class.balances_for(user))
         .to contain_exactly(balance_four, balance_three)
     end
   end
 
   describe '.payers_ids' do
     it 'returns adequate ids' do
-      expect(UserBalance.payers_ids(user))
+      expect(described_class.payers_ids(user))
         .to contain_exactly(other_user.id, user.id)
     end
   end
 
   describe '.debtors_ids' do
     it 'returns adequate ids' do
-      expect(UserBalance.debtors_ids(user)).to contain_exactly(user.id)
+      expect(described_class.debtors_ids(user)).to contain_exactly(user.id)
     end
   end
 
   describe '.debts_to' do
-    it 'should call adequate methods' do
-      expect(UserBalance).to receive(:debtors_ids)
+    it 'calls adequate methods' do
+      expect(described_class).to receive(:debtors_ids)
         .with(user).and_return([user.id])
-      expect(UserBalance.debts_to(user)).to contain_exactly(balance_four)
+      expect(described_class.debts_to(user)).to contain_exactly(balance_four)
     end
   end
 end

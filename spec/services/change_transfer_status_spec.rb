@@ -10,10 +10,10 @@ describe ChangeTransferStatus do
     create :transfer, from: user, to: other_user, status: :accepted
   end
 
-  let(:service) { ChangeTransferStatus.new transfer, user }
-  let(:other_user_service) { ChangeTransferStatus.new transfer, other_user }
+  let(:service) { described_class.new transfer, user }
+  let(:other_user_service) { described_class.new transfer, other_user }
   let(:accepted_transfer_service) do
-    ChangeTransferStatus.new accepted_transfer, other_user
+    described_class.new accepted_transfer, other_user
   end
 
   it 'initializes' do

@@ -5,7 +5,7 @@ describe DishSerializer do
   let(:dish) { double(:dish) }
   let(:policy) { double(:policy) }
   let(:user) { double :user }
-  let(:serializer) { DishSerializer.new dish }
+  let(:serializer) { described_class.new dish }
 
   describe '#price' do
     it 'delegates price' do

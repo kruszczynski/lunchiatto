@@ -8,7 +8,7 @@ describe OrderMailer, type: :mailer do
     let(:order) do
       create :order, user: user, from: 'The food place', company: company
     end
-    let(:mail) { OrderMailer.status_email(order) }
+    let(:mail) { described_class.status_email(order) }
 
     it 'sends an email' do
       expect { mail.deliver_now }

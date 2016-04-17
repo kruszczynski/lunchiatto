@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable RSpec/DescribedClass
 require 'spec_helper'
 
 describe Persistence do

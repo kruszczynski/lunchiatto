@@ -4,7 +4,7 @@ require 'spec_helper'
 describe DashboardPolicy do
   let(:user) { create :user }
   let(:company) { create :company }
-  subject { DashboardPolicy.new user, :dashboard }
+  subject { described_class.new user, :dashboard }
 
   describe '#index?' do
     it "returns false when user hasn't got a company" do

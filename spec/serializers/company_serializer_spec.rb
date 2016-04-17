@@ -4,7 +4,7 @@ require 'spec_helper'
 describe CompanySerializer do
   let(:company) { double('Company') }
   let(:users) { double('Users') }
-  subject { CompanySerializer.new company }
+  subject { described_class.new company }
 
   describe '#users' do
     it "sorts'em" do

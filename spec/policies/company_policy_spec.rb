@@ -4,7 +4,7 @@ require 'spec_helper'
 describe CompanyPolicy do
   let(:user) { create :user }
   let(:company) { create :company }
-  subject { CompanyPolicy.new user, company }
+  subject { described_class.new user, company }
 
   describe '#create?' do
     it 'returns true when user has no company' do

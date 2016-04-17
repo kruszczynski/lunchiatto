@@ -23,7 +23,7 @@ describe User, type: :model do
   end
 
   describe '#balances' do
-    it 'should return adequate' do
+    it 'returns adequate' do
       expect(UserBalance).to receive(:balances_for)
         .with(user).and_return([balance_two, balance_three])
       balances = user.balances
@@ -32,14 +32,13 @@ describe User, type: :model do
   end
 
   describe '#add_first_balance' do
-    before do
-      @user = User.new
-    end
-    it 'should create a user_balance' do
-      balances = double('UserBalances')
-      expect(balances).to receive(:create).with(balance: 0, payer: @user)
-      expect(@user).to receive(:user_balances).and_return(balances)
-      @user.add_first_balance
+    let(:user) { described_class.new }
+    let(:balances) { double('UserBalances') }
+
+    it 'creates a user_balance' do
+      expect(balances).to receive(:create).with(balance: 0, payer: user)
+      expect(user).to receive(:user_balances).and_return(balances)
+      user.add_first_balance
     end
   end
 
@@ -54,9 +53,9 @@ describe User, type: :model do
     it 'doesnt reduce when subtract_from_self is false' do
       money = Money.new 1200, 'PLN'
       expect(user).to receive(:subtract_from_self).and_return(false)
-      expect(user).to_not receive(:payer_balance).with(user)
+      expect(user).not_to receive(:payer_balance).with(user)
       expect { user.subtract(money, user) }
-        .to_not change(user.user_balances, :count)
+        .not_to change(user.user_balances, :count)
     end
     it 'does reduce when subtract_from_self is true' do
       money = Money.new 1200, 'PLN'
@@ -69,7 +68,7 @@ describe User, type: :model do
   end
 
   describe '#to_s' do
-    it 'should call name' do
+    it 'calls name' do
       expect(user).to receive(:name).and_return('mock name')
       expect(user.to_s).to eq('mock name')
     end
@@ -138,7 +137,7 @@ describe User, type: :model do
       admin
     end
     it 'Only returns admin' do
-      expect(User.admin.count).to be(1)
+      expect(described_class.admin.count).to be(1)
     end
   end
 end

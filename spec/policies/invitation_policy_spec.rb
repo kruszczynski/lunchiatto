@@ -8,7 +8,7 @@ describe InvitationPolicy do
   let(:other_user) { create :other_user, company: company }
   let(:invitation) { create :invitation, company: company }
   let(:other_invitation) { create :invitation, company: other_company }
-  subject { InvitationPolicy.new user, invitation }
+  subject { described_class.new user, invitation }
 
   describe '#create?' do
     context 'with company admin' do
@@ -18,14 +18,14 @@ describe InvitationPolicy do
     end
 
     context 'with policy from a different company' do
-      let(:policy) { InvitationPolicy.new user, other_invitation }
+      let(:policy) { described_class.new user, other_invitation }
       it 'returns false' do
         expect(policy.create?).to be_falsey
       end
     end
 
     context 'with ordinary user' do
-      let(:policy) { InvitationPolicy.new other_user, invitation }
+      let(:policy) { described_class.new other_user, invitation }
       it 'returns false' do
         expect(policy.create?).to be_falsey
       end

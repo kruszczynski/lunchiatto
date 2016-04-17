@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe TransferSerializer do
   let(:transfer) { build :transfer }
-  let(:serializer) { TransferSerializer.new transfer }
+  let(:serializer) { described_class.new transfer }
 
   describe '#amount' do
     it 'delegates amount' do

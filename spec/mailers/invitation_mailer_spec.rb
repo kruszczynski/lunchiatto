@@ -6,7 +6,7 @@ describe InvitationMailer, type: :mailer do
     let(:company) { create :company }
     let(:user) { create :admin_user, company: company }
     let(:invitation) { create :invitation, company: company }
-    subject { InvitationMailer.created(invitation) }
+    subject { described_class.created(invitation) }
 
     it 'sends an email' do
       expect { subject.deliver_now }

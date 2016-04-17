@@ -58,6 +58,7 @@ group :development, :test do
   gem 'reek'
   gem 'scss_lint', require: false
   gem 'rubocop'
+  gem 'rubocop-rspec'
   gem 'rspec-rails'
   gem 'faker', require: false
   gem 'lol_dba'
