@@ -67,7 +67,7 @@ describe InvitationsController, type: :controller do
       it "doesn't enqueue an email" do
         expect do
           post_request email: ''
-        end.to_not change(enqueued_jobs, :count)
+        end.not_to change(enqueued_jobs, :count)
       end
       it 'returns unprocessable' do
         post_request email: ''
@@ -80,7 +80,7 @@ describe InvitationsController, type: :controller do
       it "doesn't enqueue an email" do
         expect do
           post_request
-        end.to_not change(enqueued_jobs, :count)
+        end.not_to change(enqueued_jobs, :count)
       end
       it 'returns unprocessable' do
         post_request
@@ -93,7 +93,7 @@ describe InvitationsController, type: :controller do
       it "doesn't enqueue an email" do
         expect do
           post_request
-        end.to_not change(enqueued_jobs, :count)
+        end.not_to change(enqueued_jobs, :count)
       end
       it 'returns unprocessable' do
         post_request

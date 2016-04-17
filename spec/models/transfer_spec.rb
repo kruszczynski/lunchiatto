@@ -18,7 +18,7 @@ describe Transfer, type: :model do
   end
 
   describe '#mark_as_accepted!' do
-    it 'should create new balance and change status' do
+    it 'creates new balance and change status' do
       expect(transfer).to receive(:accepted!)
       user_balances = double('UserBalances')
       expect(user).to receive(:user_balances).and_return(user_balances)
@@ -30,26 +30,26 @@ describe Transfer, type: :model do
   end
 
   describe 'scope newest_first' do
-    it 'should order appropriately' do
-      expect(Transfer).to receive(:order)
+    it 'orders appropriately' do
+      expect(described_class).to receive(:order)
         .with('created_at desc').and_return(:sorted_and_created_at)
-      expect(Transfer.newest_first).to eq(:sorted_and_created_at)
+      expect(described_class.newest_first).to eq(:sorted_and_created_at)
     end
   end
 
   describe 'scope from_user' do
     it 'filters' do
-      expect(Transfer).to receive(:where).with(from_id: 7)
+      expect(described_class).to receive(:where).with(from_id: 7)
         .and_return(:from_filtered)
-      expect(Transfer.from_user(7)).to eq(:from_filtered)
+      expect(described_class.from_user(7)).to eq(:from_filtered)
     end
   end
 
   describe 'scope to_user' do
     it 'filters' do
-      expect(Transfer).to receive(:where).with(to_id: 17)
+      expect(described_class).to receive(:where).with(to_id: 17)
         .and_return(:to_filtered)
-      expect(Transfer.to_user(17)).to eq(:to_filtered)
+      expect(described_class.to_user(17)).to eq(:to_filtered)
     end
   end
 end

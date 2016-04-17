@@ -5,7 +5,7 @@ describe CompanyCreator do
   let(:user) { create :user }
   let(:company_params) { {name: 'Pink Boogers LTD'} }
   let(:empty_company_params) { {name: ''} }
-  subject { CompanyCreator.new(params: company_params, user: user) }
+  subject { described_class.new(params: company_params, user: user) }
 
   describe '#intialize' do
     it 'assigns variables' do
@@ -25,7 +25,7 @@ describe CompanyCreator do
     end
 
     context 'with failure' do
-      subject { CompanyCreator.new(params: empty_company_params, user: user) }
+      subject { described_class.new(params: empty_company_params, user: user) }
       it 'returns false after a failure' do
         subject.perform
         expect_success false
@@ -66,7 +66,7 @@ describe CompanyCreator do
         create :company, name: 'Pink Boogers LTD'
       end
       it "doesn't create a company" do
-        expect { subject.perform }.to_not change(Company, :count)
+        expect { subject.perform }.not_to change(Company, :count)
       end
       it "doesn't assign user fields" do
         subject.perform
@@ -76,9 +76,9 @@ describe CompanyCreator do
     end
 
     context 'With an empty name' do
-      subject { CompanyCreator.new(params: empty_company_params, user: user) }
+      subject { described_class.new(params: empty_company_params, user: user) }
       it "doesn't create a company" do
-        expect { subject.perform }.to_not change(Company, :count)
+        expect { subject.perform }.not_to change(Company, :count)
       end
       it "doesn't assign user fields" do
         subject.perform

@@ -20,31 +20,31 @@ describe Dish, type: :model do
   let(:other_user) { create :other_user, company: company }
   let(:order) { create :order, user: user, company: company }
   let!(:dish) { create :dish, user: user, order: order, price_cents: 1200 }
+  let(:new_dish) { dish.copy(other_user) }
 
-  it 'should monetize price' do
+  it 'monetizes price' do
     expect(monetize(:price_cents)).to be_truthy
   end
 
   describe '#copy' do
-    it 'should return an instance of dish' do
-      @new_dish = dish.copy(other_user)
-      expect(@new_dish.user).to eq(other_user)
-      expect(@new_dish.name).to eq(dish.name)
-      expect(@new_dish.order).to eq(order)
+    it 'returns an instance of dish' do
+      expect(new_dish.user).to eq(other_user)
+      expect(new_dish.name).to eq(dish.name)
+      expect(new_dish.order).to eq(order)
     end
 
     describe 'with existing dish' do
       let!(:existing_dish) { create :dish, user: other_user, order: order }
-      it 'should delete existing dish first' do
+      it 'deletes existing dish first' do
         expect do
           dish.copy(other_user)
-        end.to change(Dish, :count).by(-1)
+        end.to change(described_class, :count).by(-1)
       end
     end
   end
 
   describe '#subtract' do
-    it 'should reduce users balance' do
+    it 'reduces users balance' do
       shipping = Money.new(1000, 'PLN')
       expect(user).to receive(:subtract).with(Money.new(2200, 'PLN'), :payer)
       dish.subtract shipping, :payer

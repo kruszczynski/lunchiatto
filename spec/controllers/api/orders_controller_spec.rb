@@ -37,7 +37,7 @@ describe Api::OrdersController, type: :controller do
           sign_in user
           expect do
             post :create, user_id: user.id, from: 'A restaurant', format: :json
-          end.to_not change(Order, :count)
+          end.not_to change(Order, :count)
         end
       end
       it 'returns success' do
@@ -61,7 +61,7 @@ describe Api::OrdersController, type: :controller do
           sign_in user
           expect do
             post :create, from: 'A restaurant', format: :json
-          end.to_not change(Order, :count)
+          end.not_to change(Order, :count)
         end
       end
     end

@@ -8,7 +8,7 @@ describe DishPolicy do
   let(:order) { create :order, user: user, company: company }
   let(:dish) { create :dish, order: order, user: user }
   let(:other_dish) { create :dish, user: other_user, order: order }
-  subject { DishPolicy.new(user, dish) }
+  subject { described_class.new(user, dish) }
 
   describe '#create?' do
     it 'returns true' do
@@ -28,7 +28,7 @@ describe DishPolicy do
         expect(subject.update?).to be_truthy
       end
       it "returns false when other user's" do
-        policy = DishPolicy.new other_user, dish
+        policy = described_class.new other_user, dish
         expect(policy.update?).to be_falsey
       end
     end
@@ -37,15 +37,15 @@ describe DishPolicy do
         order.ordered!
       end
       it "returns false when user's" do
-        policy = DishPolicy.new other_user, other_dish
+        policy = described_class.new other_user, other_dish
         expect(policy.update?).to be_falsey
       end
       it "returns false when other user's" do
-        policy = DishPolicy.new other_user, dish
+        policy = described_class.new other_user, dish
         expect(policy.update?).to be_falsey
       end
       it 'returns true when edited by orderer' do
-        policy = DishPolicy.new user, other_dish
+        policy = described_class.new user, other_dish
         expect(policy.update?).to be_truthy
       end
     end
@@ -57,14 +57,14 @@ describe DishPolicy do
         expect(subject.update?).to be_falsey
       end
       it "returns false when other user's" do
-        policy = DishPolicy.new other_user, dish
+        policy = described_class.new other_user, dish
         expect(policy.update?).to be_falsey
       end
     end
   end
 
   describe '#destroy?' do
-    let(:other_policy) { DishPolicy.new other_user, dish }
+    let(:other_policy) { described_class.new other_user, dish }
     describe 'order in progress' do
       it 'is true for the user' do
         expect(subject.destroy?).to be_truthy
@@ -98,7 +98,7 @@ describe DishPolicy do
   end
 
   describe '#copy?' do
-    let(:other_policy) { DishPolicy.new other_user, dish }
+    let(:other_policy) { described_class.new other_user, dish }
     describe 'order in progress' do
       it 'is true for the user' do
         expect(subject.copy?).to be_falsey

@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe UserBalanceSerializer do
   let(:user_balance) { double :user_balance }
-  let(:serializer) { UserBalanceSerializer.new user_balance }
+  let(:serializer) { described_class.new user_balance }
 
   describe '#balance' do
     it 'delegates balance' do

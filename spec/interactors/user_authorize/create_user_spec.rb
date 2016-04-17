@@ -9,15 +9,15 @@ describe UserAuthorize::CreateUser do
   let(:info) { OpenStruct.new(email: 'test@codequest.com', name: 'Test Smith') }
   let(:omniauth_params) { double('Omniauth::AuthHash', info: info) }
   subject do
-    UserAuthorize::CreateUser.new omniauth_params: omniauth_params,
-                                  invitation: invitation
+    described_class.new omniauth_params: omniauth_params,
+                        invitation: invitation
   end
 
   describe '#call' do
     context 'with existing user' do
       it 'returns when user is not nil' do
         subject.context.user = user
-        expect(User).to_not receive(:new)
+        expect(User).not_to receive(:new)
         subject.call
       end
     end
@@ -29,10 +29,10 @@ describe UserAuthorize::CreateUser do
       end
       it "fails when invitation's email is different" do
         expect(invitation).to receive(:email) { 'sth-else@codequest.com' }
-        # expect(subject).to_not receive(:user_params) { user_params }
-        # expect(user).to_not receive(:save!)
-        # expect(User).to_not receive(:new).with(user_params) { user }
-        expect(subject).to_not receive(:create_user)
+        # expect(subject).not_to receive(:user_params) { user_params }
+        # expect(user).not_to receive(:save!)
+        # expect(User).not_to receive(:new).with(user_params) { user }
+        expect(subject).not_to receive(:create_user)
         expect { subject.call }.to raise_error(Interactor::Failure)
       end
     end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable RSpec/DescribeClass
 require 'spec_helper'
 
 describe 'load_seeds' do

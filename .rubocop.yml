@@ -1,6 +1,9 @@
 # This is the default configuration file. Enabling and disabling is configured
 # in separate files. This file adds all other parameters apart from Enabled.
 
+# Rubocop rspec
+require: rubocop-rspec
+
 # Default overrides
 Style/Documentation:
   Enabled: false

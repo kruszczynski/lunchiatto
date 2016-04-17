@@ -6,7 +6,7 @@ describe ApplicationPolicy do
   let(:user) { create :user, company: company }
   let(:other_user) { create :other_user, company: company }
   let(:record) { create :order, user: user, company: company }
-  subject { ApplicationPolicy.new(user, record) }
+  subject { described_class.new(user, record) }
 
   describe '#initialize' do
     it 'assigns user' do

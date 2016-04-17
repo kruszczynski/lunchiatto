@@ -4,7 +4,7 @@ require 'spec_helper'
 describe UserAuthorize::FindByUid do
   let(:user) { double 'User' }
   let(:omniauth_params) { {} }
-  subject { UserAuthorize::FindByUid.new omniauth_params: omniauth_params }
+  subject { described_class.new omniauth_params: omniauth_params }
 
   describe '#call' do
     before do

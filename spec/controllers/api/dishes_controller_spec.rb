@@ -114,7 +114,7 @@ describe Api::DishesController, type: :controller do
       end
       it 'doesnt copy a dish if a user already has a dish in that order' do
         sign_in user
-        expect { post_copy }.to_not change(Dish, :count)
+        expect { post_copy }.not_to change(Dish, :count)
       end
       it 'rejects when not logged in' do
         post_copy

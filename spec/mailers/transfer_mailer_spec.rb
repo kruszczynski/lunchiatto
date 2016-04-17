@@ -6,7 +6,7 @@ describe TransferMailer, type: :mailer do
     let(:user) { create :user }
     let(:other_user) { create :other_user }
     let(:transfer) { create :transfer, from: user, to: other_user }
-    let(:mail) { TransferMailer.created_transfer(transfer) }
+    let(:mail) { described_class.created_transfer(transfer) }
 
     it 'sends an email' do
       expect { mail.deliver_now }
@@ -33,7 +33,7 @@ describe TransferMailer, type: :mailer do
     let(:transfer) do
       create :transfer, from: user, to: other_user, status: :accepted
     end
-    let(:mail) { TransferMailer.accepted_transfer(transfer) }
+    let(:mail) { described_class.accepted_transfer(transfer) }
 
     it 'sends an email' do
       expect { mail.deliver_now }
@@ -60,7 +60,7 @@ describe TransferMailer, type: :mailer do
     let(:transfer) do
       create :transfer, from: user, to: other_user, status: :rejected
     end
-    let(:mail) { TransferMailer.rejected_transfer(transfer) }
+    let(:mail) { described_class.rejected_transfer(transfer) }
 
     it 'sends an email' do
       expect { mail.deliver_now }
@@ -87,7 +87,7 @@ describe TransferMailer, type: :mailer do
     let(:transfer) do
       create :transfer, from: user, to: other_user, status: :rejected
     end
-    let(:mail) { TransferMailer.pending_transfers([transfer], other_user) }
+    let(:mail) { described_class.pending_transfers([transfer], other_user) }
 
     it 'sends an email' do
       expect { mail.deliver_now }

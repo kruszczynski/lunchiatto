@@ -6,12 +6,12 @@ describe UserAuthorize::FindInvitation do
   let(:invitation) { double('Invitation') }
   let(:info) { OpenStruct.new(email: 'test@codequest.com', name: 'Test Smith') }
   let(:omniauth_params) { double('Omniauth::AuthHash') }
-  subject { UserAuthorize::FindInvitation.new omniauth_params: omniauth_params }
+  subject { described_class.new omniauth_params: omniauth_params }
 
   describe '#call' do
     it 'returns when user is not nil' do
       subject.context.user = user
-      expect(Invitation).to_not receive(:find_by)
+      expect(Invitation).not_to receive(:find_by)
       subject.call
     end
     context 'when new user' do

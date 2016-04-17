@@ -6,7 +6,7 @@ describe OrderPolicy do
   let(:user) { create :user, company: company }
   let(:other_user) { create :other_user, company: company }
   let(:order) { create :order, user: user, company: company }
-  subject { OrderPolicy.new user, order }
+  subject { described_class.new user, order }
 
   describe '#index?' do
     it 'returns true' do
@@ -20,7 +20,7 @@ describe OrderPolicy do
         expect(subject.update?).to be_truthy
       end
       it 'returns true for other user' do
-        policy = OrderPolicy.new other_user, order
+        policy = described_class.new other_user, order
         expect(policy.update?).to be_truthy
       end
     end
@@ -32,7 +32,7 @@ describe OrderPolicy do
         expect(subject.update?).to be_truthy
       end
       it 'returns false otherwise' do
-        policy = OrderPolicy.new other_user, order
+        policy = described_class.new other_user, order
         expect(policy.update?).to be_falsey
       end
     end
@@ -48,7 +48,7 @@ describe OrderPolicy do
         expect(subject.change_status?).to be_truthy
       end
       it 'returns false for other user' do
-        policy = OrderPolicy.new other_user, order
+        policy = described_class.new other_user, order
         expect(policy.change_status?).to be_falsey
       end
     end
@@ -60,7 +60,7 @@ describe OrderPolicy do
         expect(subject.change_status?).to be_truthy
       end
       it 'returns false for other user' do
-        policy = OrderPolicy.new other_user, order
+        policy = described_class.new other_user, order
         expect(policy.change_status?).to be_falsey
       end
     end
@@ -72,7 +72,7 @@ describe OrderPolicy do
         expect(subject.change_status?).to be_falsey
       end
       it 'returns false for other user' do
-        policy = OrderPolicy.new other_user, order
+        policy = described_class.new other_user, order
         expect(policy.change_status?).to be_falsey
       end
     end
@@ -92,7 +92,7 @@ describe OrderPolicy do
         expect(subject.destroy?).to be_truthy
       end
       it 'returns false for other user' do
-        policy = OrderPolicy.new other_user, order
+        policy = described_class.new other_user, order
         expect(policy.destroy?).to be_falsey
       end
     end

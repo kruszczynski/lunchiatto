@@ -12,7 +12,7 @@ describe BalanceMailer, type: :mailer do
       create :user_balance, user: user, payer: other_user, balance: 40
     end
     let(:balances) { [balance_one, balance_two] }
-    let(:mail) { BalanceMailer.debt_email(user, balances) }
+    let(:mail) { described_class.debt_email(user, balances) }
 
     it 'sends an email' do
       expect { mail.deliver_now }
