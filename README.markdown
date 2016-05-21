@@ -4,5 +4,5 @@
 
 # Setting up dev environment
 - `docker-compose build`
-- `docker-compose run bundle install`
+- `docker-compose run web bundle install`
 - `docker-compose up`
