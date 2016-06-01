@@ -50,7 +50,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-humanize-plus'
   gem 'rails-assets-uri.js'
   gem 'rails-assets-moment'
-  gem 'rails-assets-select2'
+  gem 'rails-assets-chosen'
 end
 
 group :development, :test do
