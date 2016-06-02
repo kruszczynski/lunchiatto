@@ -18,9 +18,10 @@ describe Transfer, type: :model do
   end
 
   describe '#mark_as_accepted!' do
+    let(:user_balances) { class_double('UserBalance') }
+
     it 'creates new balance and change status' do
       expect(transfer).to receive(:accepted!)
-      user_balances = double('UserBalances')
       expect(user).to receive(:user_balances).and_return(user_balances)
       expect(user).to receive(:payer_balance).and_return(Money.new(500, 'PLN'))
       expect(user_balances).to receive(:create)

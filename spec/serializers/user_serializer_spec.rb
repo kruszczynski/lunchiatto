@@ -2,8 +2,8 @@
 require 'spec_helper'
 
 describe UserSerializer do
-  let(:user) { double(:user) }
-  let(:current_user) { double(:current_user) }
+  let(:user) { instance_double('User') }
+  let(:current_user) { instance_double('User') }
   let(:serializer) { described_class.new user }
   let(:extended_serializer) { described_class.new user, with_balance: true }
 

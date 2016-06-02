@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe UserBalanceSerializer do
-  let(:user_balance) { double :user_balance }
+  let(:user_balance) { instance_double('UserBalance') }
   let(:serializer) { described_class.new user_balance }
 
   describe '#balance' do
