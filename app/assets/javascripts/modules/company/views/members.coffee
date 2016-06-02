@@ -1,13 +1,13 @@
-@Lunchiatto.module "Company", (Company, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module 'Company', (Company, App, Backbone, Marionette, $, _) ->
   Company.Members = Marionette.CompositeView.extend
-    template: "companies/members"
+    template: 'companies/members'
 
     getChildView: ->
       Company.Member
 
-    childViewContainer: "@ui.membersList"
+    childViewContainer: '@ui.membersList'
 
-    className: "users-list"
+    className: 'users-list'
 
     ui:
-      membersList: ".members-list"
+      membersList: '.members-list'

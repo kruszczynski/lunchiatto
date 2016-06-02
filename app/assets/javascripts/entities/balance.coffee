@@ -1,5 +1,5 @@
-@Lunchiatto.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
-  Entities.Balance = Backbone.Model.extend {}
+@Lunchiatto.module 'Entities', (Entities, App, Backbone, Marionette, $, _) ->
+  Entities.Balance = Backbone.Model.extend({})
 
   Entities.Balances = Backbone.Collection.extend
     url: ->
@@ -10,5 +10,5 @@
 
     total: ->
       @reduce((memo, balance) ->
-        memo + parseFloat(balance.get("balance"))
-      ,0).toFixed(2)
+        memo + parseFloat(balance.get('balance'))
+      , 0).toFixed(2)

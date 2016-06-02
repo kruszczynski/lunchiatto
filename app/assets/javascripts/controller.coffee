@@ -4,7 +4,7 @@ do (App = @Lunchiatto) ->
       App.Today.Controller.today(orderId)
 
     editDish: (orderId, dishId) ->
-      dish = new App.Entities.Dish order_id: orderId, id: dishId
+      dish = new App.Entities.Dish(order_id: orderId, id: dishId)
       dish.fetch
         success: (dish) ->
           App.Dish.Controller.form(dish)
@@ -17,17 +17,17 @@ do (App = @Lunchiatto) ->
       App.Dish.Controller.form(dish)
 
     newOrder: ->
-      order = new App.Entities.Order shipping: '0.00'
+      order = new App.Entities.Order(shipping: '0.00')
       App.Order.Controller.form(order)
 
     showOrder: (orderId) ->
-      order = new App.Entities.Order id: orderId
+      order = new App.Entities.Order(id: orderId)
       order.fetch
         success: (order) ->
           App.Order.Controller.show(order)
 
     editOrder: (orderId) ->
-      order = new App.Entities.Order id: orderId
+      order = new App.Entities.Order(id: orderId)
       order.fetch
         success: (order) ->
           App.Order.Controller.form(order)

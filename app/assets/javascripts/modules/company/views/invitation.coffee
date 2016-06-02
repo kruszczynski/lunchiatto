@@ -1,18 +1,18 @@
-@Lunchiatto.module "Company", (Company, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module 'Company', (Company, App, Backbone, Marionette, $, _) ->
   Company.Invitation = Marionette.ItemView.extend
-    DELETE_MESSAGE: "Are you sure?"
+    DELETE_MESSAGE: 'Are you sure?'
 
-    template: "companies/invitation"
+    template: 'companies/invitation'
 
     behaviors:
       Animateable:
-        types: ["fadeIn"]
+        types: ['fadeIn']
 
     ui:
-      deleteButton: ".delete-invitation"
+      deleteButton: '.delete-invitation'
 
     triggers:
-      "click @ui.deleteButton": "delete:invitation"
+      'click @ui.deleteButton': 'delete:invitation'
 
     onDeleteInvitation: ->
       if confirm(@DELETE_MESSAGE)

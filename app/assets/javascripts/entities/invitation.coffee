@@ -1,6 +1,6 @@
-@Lunchiatto.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module 'Entities', (Entities, App, Backbone, Marionette, $, _) ->
   Entities.Invitation = Backbone.Model.extend
-    urlRoot: "/api/invitations"
+    urlRoot: '/api/invitations'
 
-  Entities.Invitations = Backbone.Collection.extend
-    model: Entities.Invitation
+  Entities.Invitations = Backbone.Collection.extend(
+    model: Entities.Invitation)
