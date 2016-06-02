@@ -1,9 +1,9 @@
-@Lunchiatto.module "Company", (Company, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module 'Company', (Company, App, Backbone, Marionette, $, _) ->
   Company.InvitationForm = Marionette.ItemView.extend
-    template: "companies/invitation_form"
+    template: 'companies/invitation_form'
 
     ui:
-      emailInput: ".email"
+      emailInput: '.email'
 
     behaviors:
       Errorable:
@@ -21,4 +21,4 @@
     saveSuccess: (model) ->
       @invitations.add(model.clone())
       @model.set(email: null, id: null)
-      @ui.emailInput.val("")
+      @ui.emailInput.val('')

@@ -18,7 +18,7 @@
         account_number: @ui.accountNumber.val()
       ,
         success: (model) ->
-          App.router.navigate '/orders/today', {trigger: true}
+          App.router.navigate('/orders/today', {trigger: true})
 
     _htmlTitle: ->
       'Settings'

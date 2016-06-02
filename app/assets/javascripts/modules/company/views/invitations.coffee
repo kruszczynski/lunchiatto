@@ -1,6 +1,6 @@
-@Lunchiatto.module "Company", (Company, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module 'Company', (Company, App, Backbone, Marionette, $, _) ->
   Company.Invitations = Marionette.CompositeView.extend
-    template: "companies/invitations"
+    template: 'companies/invitations'
 
     getChildView: ->
       Company.Invitation
@@ -8,9 +8,9 @@
     getEmptyView: ->
       Company.InvitationEmpty
 
-    childViewContainer: "@ui.invitationsList"
+    childViewContainer: '@ui.invitationsList'
 
-    className: "users-list"
+    className: 'users-list'
 
     ui:
-      invitationsList: ".invitations-list"
+      invitationsList: '.invitations-list'

@@ -1,10 +1,10 @@
-@Lunchiatto.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module 'Entities', (Entities, App, Backbone, Marionette, $, _) ->
   Entities.User = Backbone.Model.extend
     urlRoot: ->
-      "/api/users"
+      '/api/users'
 
   Entities.Users = Backbone.Collection.extend
     model: Entities.User
 
     url: ->
-      "/api/users"
+      '/api/users'

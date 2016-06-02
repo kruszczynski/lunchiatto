@@ -12,10 +12,10 @@
     @_focusFistInput() unless @view.model.id
 
   onFormSubmit: ->
-    @ui.submitButton.prop('disabled',true)
+    @ui.submitButton.prop('disabled', true)
 
   _focusFistInput: ->
     @ui.form.find('input:first').focus()
 
   _enableSubmit: ->
-    @ui.submitButton.prop('disabled',false)
+    @ui.submitButton.prop('disabled', false)

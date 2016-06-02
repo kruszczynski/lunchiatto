@@ -30,5 +30,5 @@
 
     _reload: ->
       @render()
-      App.vent.trigger 'reload:current:user'
-      App.vent.trigger 'reload:finances'
+      App.vent.trigger('reload:current:user')
+      App.vent.trigger('reload:finances')
