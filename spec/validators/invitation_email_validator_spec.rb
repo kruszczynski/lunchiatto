@@ -10,7 +10,7 @@ class InvitationEmailValidatorModel
 end
 
 describe InvitationEmailValidator do
-  let(:user) { double 'User' }
+  let(:user) { instance_double 'User' }
   subject { InvitationEmailValidatorModel.new }
 
   it 'adds errors when email is taken' do

@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe UserAuthorize::DeleteInvitation do
-  let(:invitation) { double('Invitation') }
+  let(:invitation) { instance_double('Invitation') }
   subject { described_class.new }
 
   describe '#call' do

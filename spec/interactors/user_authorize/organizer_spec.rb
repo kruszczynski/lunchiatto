@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe UserAuthorize::Organizer do
-  let(:user) { double('User') }
+  let(:user) { instance_double('User') }
   subject { described_class.new user: user }
 
   it 'contains FindByUid' do

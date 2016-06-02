@@ -4,7 +4,7 @@ require 'spec_helper'
 describe PendingTransfersWorker do
   let(:user) { create :user }
   let(:other_user) { create :other_user }
-  let(:mailer) { double('TransferMailer') }
+  let(:email) { instance_double('ActionMailer::Mail') }
   let!(:transfer) do
     create :transfer, from: other_user, to: user, created_at: 5.days.ago
   end
@@ -13,12 +13,15 @@ describe PendingTransfersWorker do
   end
 
   describe '#perform' do
-    it 'sends pending transfers email' do
+    before do
       expect(TransferMailer)
         .to receive(:pending_transfers)
         .with([transfer], user)
-        .and_return(mailer)
-      expect(mailer).to receive(:deliver_now)
+        .and_return(email)
+      expect(email).to receive(:deliver_now)
+    end
+
+    it 'sends pending transfers email' do
       subject.perform
     end
   end # describe '#perform'

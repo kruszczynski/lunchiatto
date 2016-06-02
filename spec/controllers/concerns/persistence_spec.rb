@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe Persistence do
   let(:test_class) { Struct.new(:name) { include Persistence } }
-  let(:model) { double('Model') }
+  let(:model) { instance_double('User') }
   let(:params) { {name: 'game'} }
   let(:errored_response) do
     {json: {errors: :model_errors}, status: :unprocessable_entity}
@@ -30,8 +30,8 @@ describe Persistence do
       expect(model).to receive(:save).and_return(true)
       expect(model).to receive(:decorate).and_return(:decorated_model)
       expect(subject).to receive(:render).with(json: :decorated_model)
-      expect(model).to receive(:block_call)
-      subject.save_record(model, &:block_call)
+      expect(model).to receive(:name)
+      subject.save_record(model, &:name)
     end
   end
 

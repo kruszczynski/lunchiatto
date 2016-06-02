@@ -6,7 +6,7 @@ describe OrderSerializer do
   let(:user) { create :user, company: company }
   let(:order) { create :order, user: user, company: company }
   let(:serializer) { described_class.new order, scope: user }
-  let(:policy) { double('OrderPolicy') }
+  let(:policy) { instance_double('OrderPolicy') }
 
   describe '#shipping' do
     it 'delegates shipping' do
