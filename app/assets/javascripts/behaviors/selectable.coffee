@@ -3,4 +3,4 @@
     select: 'select'
 
   onShow: ->
-    @ui.select.select2()
+    @ui.select.chosen(width: '100%')

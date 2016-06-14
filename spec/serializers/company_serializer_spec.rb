@@ -2,8 +2,8 @@
 require 'spec_helper'
 
 describe CompanySerializer do
-  let(:company) { double('Company') }
-  let(:users) { double('Users') }
+  let(:company) { instance_double('Company') }
+  let(:users) { class_double('User') }
   subject { described_class.new company }
 
   describe '#users' do

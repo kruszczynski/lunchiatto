@@ -13,15 +13,18 @@ describe WeeklyBalanceReminder do
   let!(:transfer) do
     create :transfer, from: user, to: user, amount_cents: 30
   end
-  let(:mailer) { double('BalanceMailer') }
+  let(:email) { instance_double('ActionMailer::Mail') }
 
   describe '#perform' do
-    it 'sends email to the user' do
+    before do
       expect(BalanceMailer)
         .to receive(:debt_email)
         .with(user, [user_balance])
-        .and_return(mailer)
-      expect(mailer).to receive(:deliver_now)
+        .and_return(email)
+      expect(email).to receive(:deliver_now)
+    end
+
+    it 'sends email to the user' do
       subject.perform
     end
   end

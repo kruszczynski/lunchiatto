@@ -5,4 +5,4 @@
       @[type]()
 
   fadeIn: ->
-    @view.className += " animate__fade-in"
+    @view.className += ' animate__fade-in'

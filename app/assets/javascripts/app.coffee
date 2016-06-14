@@ -25,7 +25,7 @@
 
     Marionette.Behaviors.behaviorsLookup = ->
       App.Behaviors
-    App.currentUser = new App.Entities.User gon.currentUser
+    App.currentUser = new App.Entities.User(gon.currentUser)
     App.vent.on 'reload:current:user', ->
       App.currentUser.fetch()
     App.vent.on 'set:html:title', (title) ->
@@ -46,7 +46,7 @@
       e.preventDefault()
       $title.text('Lunchiatto')
       href = $(e.currentTarget).attr('href')
-      App.router.navigate href, {trigger: true}
+      App.router.navigate(href, {trigger: true})
       menuIcon.click() if navigation.hasClass('expanded')
       navigation.click()
   App

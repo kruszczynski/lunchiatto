@@ -4,6 +4,8 @@ require 'spec_helper'
 describe TransferSerializer do
   let(:transfer) { build :transfer }
   let(:serializer) { described_class.new transfer }
+  let(:from) { instance_double('User') }
+  let(:to) { instance_double('User') }
 
   describe '#amount' do
     it 'delegates amount' do
@@ -11,9 +13,9 @@ describe TransferSerializer do
       expect(serializer.amount).to eq('11')
     end
   end
+
   describe '#from' do
     it 'returns name' do
-      from = double('from')
       expect(from).to receive(:name).and_return('Tom')
       expect(transfer).to receive(:from).and_return(from)
       expect(serializer.from).to eq('Tom')
@@ -22,7 +24,6 @@ describe TransferSerializer do
 
   describe '#to' do
     it 'returns name' do
-      to = double('to')
       expect(to).to receive(:name).and_return('Rich')
       expect(transfer).to receive(:to).and_return(to)
       expect(serializer.to).to eq('Rich')

@@ -59,7 +59,7 @@ describe Order, type: :model do
 
     it 'returns 15 when there is a dish' do
       order = described_class.new date: Time.zone.today
-      dish = double('Dish')
+      dish = instance_double('Dish')
       expect(dish).to receive(:price).and_return(Money.new(15, 'PLN'))
       expect(order).to receive(:dishes).and_return([dish])
       expect(order.amount).to eq(Money.new(15, 'PLN'))
@@ -117,10 +117,10 @@ describe Order, type: :model do
                      shipping: Money.new(2000, 'PLN'),
                      company: company
     end
+    let(:dish1) { instance_double('Dish') }
+    let(:dish2) { instance_double('Dish') }
     it 'iterates over dishes and call #subtract' do
-      dish1 = double('Dish')
       expect(dish1).to receive(:subtract).with(Money.new(1000, 'PLN'), user)
-      dish2 = double('Dish')
       expect(dish2).to receive(:subtract).with(Money.new(1000, 'PLN'), user)
       allow(order).to receive(:dishes_count).and_return(2)
       expect(order).to receive(:dishes).and_return([dish1, dish2])

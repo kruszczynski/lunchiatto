@@ -1,18 +1,18 @@
-@Lunchiatto.module "Order", (Order, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module 'Order', (Order, App, Backbone, Marionette, $, _) ->
   Order.Form = Marionette.ItemView.extend
-    template: "orders/form"
+    template: 'orders/form'
 
     ui:
-      userSelect: ".user-id"
-      restaurantInput: ".from"
-      shipping: ".shipping"
+      userSelect: '.user-id'
+      restaurantInput: '.from'
+      shipping: '.shipping'
 
     behaviors:
       Errorable:
-        fields: ["user", "from", "shipping"]
+        fields: ['user', 'from', 'shipping']
       Submittable: {}
       Animateable:
-        types: ["fadeIn"]
+        types: ['fadeIn']
       Titleable: {}
       Selectable: {}
 
@@ -23,8 +23,8 @@
         shipping: @ui.shipping.val()
       ,
         success: (model) ->
-          App.router.navigate model.successPath(), {trigger: true}
+          App.router.navigate(model.successPath(), {trigger: true})
 
     _htmlTitle: ->
-      return "Edit Order" if @model.get('id')
-      "Add Order"
+      return 'Edit Order' if @model.get('id')
+      'Add Order'

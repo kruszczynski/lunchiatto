@@ -2,9 +2,9 @@
 require 'spec_helper'
 
 describe DishSerializer do
-  let(:dish) { double(:dish) }
-  let(:policy) { double(:policy) }
-  let(:user) { double :user }
+  let(:dish) { instance_double('Dish') }
+  let(:policy) { instance_double('DishPolicy') }
+  let(:user) { instance_double('User') }
   let(:serializer) { described_class.new dish }
 
   describe '#price' do

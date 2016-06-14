@@ -8,7 +8,8 @@ class Order < ActiveRecord::Base
   validates :from, presence: true,
                    uniqueness: {
                      scope: [:date, :company_id],
-                     message: 'There already is an order from there today'},
+                     message: 'There already is an order from there today',
+                   },
                    length: {maximum: 255}
   validates :company, presence: true
 

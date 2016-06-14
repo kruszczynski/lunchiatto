@@ -11,17 +11,17 @@
         fields: ['name', 'price']
       Submittable: {}
       Animateable:
-        types: ["fadeIn"]
+        types: ['fadeIn']
       Titleable: {}
 
     onFormSubmit: ->
       @model.save
         name: @ui.nameInput.val()
-        price: @ui.priceInput.val().replace(',','.')
+        price: @ui.priceInput.val().replace(',', '.')
       ,
         success: (model) ->
-          App.router.navigate model.successPath(), {trigger: true}
+          App.router.navigate(model.successPath(), {trigger: true})
 
     _htmlTitle: ->
-      return "Edit Dish" if @model.get('id')
-      "Add Dish"
+      return 'Edit Dish' if @model.get('id')
+      'Add Dish'

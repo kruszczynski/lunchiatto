@@ -16,7 +16,7 @@
   onModelError: (model, data) ->
     @hideErrors()
     if data && data.responseJSON
-      message = ""
+      message = ''
       _.each data.responseJSON.errors, (errors, key)=>
         if _.contains(@fields, key)
           @_showError(errors, key)
@@ -25,7 +25,7 @@
             message += Humanize.capitalize("#{errors.join(', ')}!")
           else
             message += Humanize.capitalize("#{key} #{errors.join(', ')}!")
-          message += "<br/>"
+          message += '<br/>'
       @_showFulError(message) if message
 
   hideErrors: ->

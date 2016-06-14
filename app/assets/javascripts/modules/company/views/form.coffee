@@ -1,13 +1,13 @@
-@Lunchiatto.module "Company", (Company, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module 'Company', (Company, App, Backbone, Marionette, $, _) ->
   Company.Form = Marionette.ItemView.extend
-    template: "companies/form"
+    template: 'companies/form'
 
     ui:
-      nameInput: ".name"
+      nameInput: '.name'
 
     behaviors:
       Errorable:
-        fields: ["name"]
+        fields: ['name']
       Submittable: {}
       Titleable: {}
 
@@ -17,8 +17,8 @@
       ,
         success: (model) =>
           gon.companyName = model.get('name')
-          App.vent.trigger 'rerender:topbar'
+          App.vent.trigger('rerender:topbar')
           @render()
 
     _htmlTitle: ->
-      "Edit Company"
+      'Edit Company'

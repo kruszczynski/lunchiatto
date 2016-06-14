@@ -2,10 +2,10 @@
 require 'spec_helper'
 
 describe UserAuthorize::FindInvitation do
-  let(:user) { double('User') }
-  let(:invitation) { double('Invitation') }
+  let(:user) { instance_double('User') }
+  let(:invitation) { instance_double('Invitation') }
   let(:info) { OpenStruct.new(email: 'test@codequest.com', name: 'Test Smith') }
-  let(:omniauth_params) { double('Omniauth::AuthHash') }
+  let(:omniauth_params) { instance_double('Omniauth::AuthHash') }
   subject { described_class.new omniauth_params: omniauth_params }
 
   describe '#call' do

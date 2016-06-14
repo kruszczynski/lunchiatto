@@ -1,12 +1,12 @@
-@Lunchiatto.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module 'Entities', (Entities, App, Backbone, Marionette, $, _) ->
   Entities.Order = Backbone.Model.extend
     STATUSES: ['in_progress', 'ordered', 'delivered']
 
     urlRoot: ->
-      "/api/orders"
+      '/api/orders'
 
     parse: (data) ->
-      data.dishes = new Entities.Dishes data.dishes
+      data.dishes = new Entities.Dishes(data.dishes)
       data.dishes.order = this
       data
 
@@ -30,13 +30,13 @@
 
     _updateStatus: (newStatus) ->
       $.ajax
-        type: "PUT"
+        type: 'PUT'
         url: "#{@url()}/change_status"
         data:
           status: newStatus
         success: (data) =>
           @set(@parse(data))
-          App.vent.trigger 'reload:current:user' if data.status is 'delivered'
+          App.vent.trigger('reload:current:user' if data.status is 'delivered')
 
     _nextStatus: ->
       @STATUSES[Math.min(2, @_statusInt()+1)]
@@ -60,4 +60,4 @@
           page: @page
         remove: false
         success: (collection, data) =>
-          @trigger 'all:fetched' if data.length < App.pageSize
+          @trigger('all:fetched' if data.length < App.pageSize)
