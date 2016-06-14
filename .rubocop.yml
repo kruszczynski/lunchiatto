@@ -8,6 +8,10 @@ require: rubocop-rspec
 Style/Documentation:
   Enabled: false
 
+RSpec/ExampleLength:
+  Enabled: true
+  Max: 7
+
 # Common configuration.
 AllCops:
   # Include common Ruby source files.
@@ -435,6 +439,7 @@ Style/Encoding:
   SupportedStyles:
     - when_needed
     - always
+    - never
   AutoCorrectEncodingComment: '# encoding: utf-8'
 
 Style/ExtraSpacing:
@@ -596,6 +601,13 @@ Style/IndentHash:
   # But it can be overridden by setting this parameter
   IndentationWidth: ~
 
+Style/Lambda:
+  EnforcedStyle: line_count_dependent
+  SupportedStyles:
+    - line_count_dependent
+    - lambda
+    - literal
+
 Style/LambdaCall:
   EnforcedStyle: call
   SupportedStyles:
@@ -636,6 +648,16 @@ Style/MethodName:
     - snake_case
     - camelCase
 
+Style/MultilineArrayBraceLayout:
+  EnforcedStyle: symmetrical
+  SupportedStyles:
+    # symmetrical: closing brace is positioned in same way as opening brace
+    # new_line: closing brace is always on a new line
+    # same_line: closing brace is always on the same line as last element
+    - symmetrical
+    - new_line
+    - same_line
+
 Style/MultilineAssignmentLayout:
   # The types of assignments which are subject to this rule.
   SupportedTypes:
@@ -654,6 +676,26 @@ Style/MultilineAssignmentLayout:
     # for the set of supported types.
     - new_line
 
+Style/MultilineHashBraceLayout:
+  EnforcedStyle: symmetrical
+  SupportedStyles:
+    # symmetrical: closing brace is positioned in same way as opening brace
+    # new_line: closing brace is always on a new line
+    # same_line: closing brace is always on same line as last element
+    - symmetrical
+    - new_line
+    - same_line
+
+Style/MultilineMethodCallBraceLayout:
+  EnforcedStyle: symmetrical
+  SupportedStyles:
+    # symmetrical: closing brace is positioned in same way as opening brace
+    # new_line: closing brace is always on a new line
+    # same_line: closing brace is always on the same line as last argument
+    - symmetrical
+    - new_line
+    - same_line
+
 Style/MultilineMethodCallIndentation:
   EnforcedStyle: indented
   SupportedStyles:
@@ -662,6 +704,16 @@ Style/MultilineMethodCallIndentation:
   # By default, the indentation width from Style/IndentationWidth is used
   # But it can be overridden by setting this parameter
   IndentationWidth: ~
+
+Style/MultilineMethodDefinitionBraceLayout:
+  EnforcedStyle: symmetrical
+  SupportedStyles:
+    # symmetrical: closing brace is positioned in same way as opening brace
+    # new_line: closing brace is always on a new line
+    # same_line: closing brace is always on the same line as last parameter
+    - symmetrical
+    - new_line
+    - same_line
 
 Style/MultilineOperationIndentation:
   EnforcedStyle: aligned
@@ -721,6 +773,10 @@ Style/PredicateName:
   # should still be accepted
   NameWhitelist:
     - is_a?
+  # Exclude Rspec specs because there is a strong convetion to write spec
+  # helpers in the form of `have_something` or `be_something`.
+  Exclude:
+    - 'spec/**/*'
 
 Style/RaiseArgs:
   EnforcedStyle: exploded
@@ -751,7 +807,7 @@ Style/Semicolon:
   AllowAsExpressionSeparator: false
 
 Style/SignalException:
-  EnforcedStyle: semantic
+  EnforcedStyle: only_fail
   SupportedStyles:
     - only_raise
     - only_fail
@@ -870,6 +926,7 @@ Style/SymbolProc:
   # The names should be fairly unique, otherwise you'll end up ignoring lots of code.
   IgnoredMethods:
     - respond_to
+    - define_method
 
 Style/TrailingBlankLines:
   EnforcedStyle: final_newline
@@ -1062,6 +1119,10 @@ Lint/UnusedBlockArgument:
 Lint/UnusedMethodArgument:
   AllowUnusedKeywordArguments: false
   IgnoreEmptyMethods: true
+
+# Checks for unused block arguments.
+Lint/UnusedBlockArgument:
+  AllowUnusedKeywordArguments: false
 
 ##################### Performance ############################
 

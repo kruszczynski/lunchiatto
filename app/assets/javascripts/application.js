@@ -22,7 +22,7 @@
 //= require marionette
 //= require uri.js.js
 //= require moment
-//= require select2
+//= require chosen
 //= require app
 //= require controller
 //= require router

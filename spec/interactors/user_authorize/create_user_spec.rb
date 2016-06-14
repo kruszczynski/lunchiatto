@@ -2,12 +2,12 @@
 require 'spec_helper'
 
 describe UserAuthorize::CreateUser do
-  let(:company) { double('Company') }
-  let(:user) { double('User') }
-  let(:user_params) { double('user_params') }
-  let(:invitation) { double('Invitation') }
+  let(:company) { instance_double('Company') }
+  let(:user) { instance_double('User') }
+  let(:user_params) { instance_double('Hash') }
+  let(:invitation) { instance_double('Invitation') }
   let(:info) { OpenStruct.new(email: 'test@codequest.com', name: 'Test Smith') }
-  let(:omniauth_params) { double('Omniauth::AuthHash', info: info) }
+  let(:omniauth_params) { instance_double('Omniauth::AuthHash', info: info) }
   subject do
     described_class.new omniauth_params: omniauth_params,
                         invitation: invitation
@@ -60,18 +60,24 @@ describe UserAuthorize::CreateUser do
   end
 
   describe '#user_params' do
-    it 'parses' do
-      allow(omniauth_params).to receive(:info) { info }
-      allow(omniauth_params).to receive(:provider) { 'google_oauth2' }
-      allow(omniauth_params).to receive(:uid) { '111111111111111111111' }
-      allow(invitation).to receive(:company) { company }
-      expected = {
+    let(:expected) do
+      {
         provider: 'google_oauth2',
         uid: '111111111111111111111',
         name: 'Test Smith',
         email: 'test@codequest.com',
         company: company,
       }
+    end
+
+    before do
+      allow(omniauth_params).to receive(:info) { info }
+      allow(omniauth_params).to receive(:provider) { 'google_oauth2' }
+      allow(omniauth_params).to receive(:uid) { '111111111111111111111' }
+      allow(invitation).to receive(:company) { company }
+    end
+
+    it 'parses' do
       expect(subject.user_params).to eq(expected)
     end
   end

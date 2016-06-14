@@ -65,12 +65,14 @@ RSpec.configure do |config|
         provider: 'google_oauth2',
         uid: '123545',
         info: {email: 'test@email.com'},
-      }, nil)
+      }, nil
+    )
   OmniAuth.config.mock_auth[:google_oauth2_codequest] =
     OmniAuth::AuthHash.new(
       {
         provider: 'google_oauth2',
         uid: '123545',
         info: {email: 'test@codequest.com'},
-      }, nil)
+      }, nil
+    )
 end

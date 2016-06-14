@@ -2,7 +2,7 @@ db:
   image: postgres:9.4.1
 
 redis:
-  image: redis:3.0.5
+  image: redis:3.2.0
 
 mailcatcher:
   image: schickling/mailcatcher

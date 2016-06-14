@@ -8,10 +8,10 @@
 
     behaviors:
       Animateable:
-        types: ["fadeIn"]
+        types: ['fadeIn']
 
     initialize: ->
-      App.vent.on 'rerender:topbar', => @render()
+      App.vent.on('rerender:topbar', => @render())
 
     onShow: ->
       @_reflow()

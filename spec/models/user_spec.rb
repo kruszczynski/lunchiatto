@@ -33,7 +33,7 @@ describe User, type: :model do
 
   describe '#add_first_balance' do
     let(:user) { described_class.new }
-    let(:balances) { double('UserBalances') }
+    let(:balances) { class_double('UserBalance') }
 
     it 'creates a user_balance' do
       expect(balances).to receive(:create).with(balance: 0, payer: user)
@@ -43,22 +43,22 @@ describe User, type: :model do
   end
 
   describe '#subtract' do
+    let(:money) { Money.new 1200, 'PLN' }
     it 'add a new reduced user balance' do
-      money = Money.new 1200, 'PLN'
       expect(user).to receive(:payer_balance).with(payer)
         .and_return(Money.new(5000, 'PLN'))
       expect { user.subtract(money, payer) }
         .to change(user.user_balances, :count).by(1)
     end
+
     it 'doesnt reduce when subtract_from_self is false' do
-      money = Money.new 1200, 'PLN'
       expect(user).to receive(:subtract_from_self).and_return(false)
       expect(user).not_to receive(:payer_balance).with(user)
       expect { user.subtract(money, user) }
         .not_to change(user.user_balances, :count)
     end
+
     it 'does reduce when subtract_from_self is true' do
-      money = Money.new 1200, 'PLN'
       expect(user).to receive(:payer_balance)
         .with(user).and_return(Money.new(5000, 'PLN'))
       expect(user).to receive(:subtract_from_self).and_return(true)
@@ -75,17 +75,18 @@ describe User, type: :model do
   end
 
   describe '#payer_balance' do
+    let(:balance_payer) { instance_double('User') }
+    let(:user_balances) { class_double('UserBalance') }
+    let(:balance) { instance_double('UserBalance') }
+    let(:newest_for_payer) { instance_double('UserBalance') }
+
     it 'calls scope method' do
-      payer = double('Payer')
-      expect(payer).to receive(:id).and_return(5)
-      user_balances = double('UserBalances')
-      balance = double('UserBalance')
-      newest_for_payer = double('UserBalance')
+      expect(balance_payer).to receive(:id).and_return(5)
       expect(newest_for_payer).to receive(:balance).and_return(balance)
       expect(user_balances).to receive(:newest_for).with(5)
         .and_return(newest_for_payer)
       expect(user).to receive(:user_balances).and_return(user_balances)
-      expect(user.payer_balance(payer)).to eq(balance)
+      expect(user.payer_balance(balance_payer)).to eq(balance)
     end
   end
 

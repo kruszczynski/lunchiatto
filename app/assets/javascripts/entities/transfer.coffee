@@ -1,7 +1,7 @@
-@Lunchiatto.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module 'Entities', (Entities, App, Backbone, Marionette, $, _) ->
   Entities.Transfer = Backbone.Model.extend
     urlRoot: ->
-      "/api/transfers"
+      '/api/transfers'
 
     accept: ->
       $.ajax
@@ -21,7 +21,7 @@
   Entities.Transfers = Backbone.Collection.extend
     model: Entities.Transfer
     url: ->
-      "/api/transfers"
+      '/api/transfers'
 
     initialize: (models, options)->
       @type = options.type
@@ -35,7 +35,7 @@
         data: @_getData()
         remove: false
         success: (collection, data) =>
-          @trigger 'all:fetched' if data.length < App.pageSize
+          @trigger('all:fetched' if data.length < App.pageSize)
 
     optionedFetch: (options) ->
       extendedOptions = _.extend(data: @_getData(), options)

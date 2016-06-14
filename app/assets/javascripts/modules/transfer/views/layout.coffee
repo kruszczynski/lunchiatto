@@ -1,31 +1,31 @@
-@Lunchiatto.module "Transfer", (Transfer, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module 'Transfer', (Transfer, App, Backbone, Marionette, $, _) ->
   Transfer.Layout = Marionette.LayoutView.extend
-    template: "transfers/layout"
+    template: 'transfers/layout'
 
     ui:
-      receivedTransfers: ".received-transfers"
-      submittedTransfers: ".submitted-transfers"
+      receivedTransfers: '.received-transfers'
+      submittedTransfers: '.submitted-transfers'
 
     behaviors:
       Animateable:
-        types: ["fadeIn"]
+        types: ['fadeIn']
       Titleable: {}
 
     regions:
-      receivedTransfers: "@ui.receivedTransfers"
-      submittedTransfers: "@ui.submittedTransfers"
+      receivedTransfers: '@ui.receivedTransfers'
+      submittedTransfers: '@ui.submittedTransfers'
 
     onRender: ->
-      @_showTransfers("received")
-      @_showTransfers("submitted")
+      @_showTransfers('received')
+      @_showTransfers('submitted')
 
     _showTransfers: (type) ->
-      transfers = new App.Entities.Transfers [], type: type
+      transfers = new App.Entities.Transfers([], type: type)
       transfers.optionedFetch
         success: (transfers) =>
           view = new App.Transfer.List
             collection: transfers
-          @["#{type}Transfers"].show view
+          @["#{type}Transfers"].show(view)
 
     _htmlTitle: ->
       'Transfers'

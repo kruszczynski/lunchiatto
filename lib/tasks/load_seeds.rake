@@ -45,6 +45,7 @@ def add_dishes(order)
       attributes_for(:dish,
                      user: user,
                      name: Faker::Company.catch_phrase,
-                     price: Money.new(Random.new.rand(2000..4000), 'PLN')))
+                     price: Money.new(Random.new.rand(2000..4000), 'PLN')),
+    )
   end
 end

@@ -5,23 +5,23 @@
     ui:
       userSelect: '.user-id'
       amountInput: '.amount'
-      accountNumberInput: ".account-number-input"
-      accountNumberSection: ".account-number-section"
+      accountNumberInput: '.account-number-input'
+      accountNumberSection: '.account-number-section'
 
     triggers:
-      "change @ui.userSelect": "user:selected"
+      'change @ui.userSelect': 'user:selected'
 
     behaviors:
       Errorable:
         fields: ['amount', 'to']
       Submittable: {}
       Animateable:
-        types: ["fadeIn"]
+        types: ['fadeIn']
       Titleable: {}
       Selectable: {}
 
     onShow: ->
-      @onUserSelected() if @model.get("to_id")
+      @onUserSelected() if @model.get('to_id')
 
     onUserSelected: ->
       userId = @ui.userSelect.val()
@@ -33,11 +33,11 @@
     onFormSubmit: ->
       @model.save
         to_id: @ui.userSelect.val()
-        amount: @ui.amountInput.val().replace(',','.')
+        amount: @ui.amountInput.val().replace(',', '.')
       ,
         success: ->
-          App.vent.trigger 'reload:current:user'
-          App.router.navigate "/transfers", {trigger: true}
+          App.vent.trigger('reload:current:user')
+          App.router.navigate('/transfers', {trigger: true})
 
     _htmlTitle: ->
-      "New Transfer"
+      'New Transfer'
