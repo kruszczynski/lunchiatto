@@ -25,8 +25,7 @@ sidekiq: &sidekiq
     - redis
   volumes_from:
     - bundle
-  volumes:
-    - .:/usr/src/app
+    - unison
 
 web:
   <<: *sidekiq
@@ -34,6 +33,14 @@ web:
   ports:
     - "3000:3000"
 
+unison:
+  image: onnimonni/unison
+  environment:
+    - UNISON_DIR=/usr/src/app
+  ports:
+    - "5000:5000"
+  volumes:
+    - /usr/src/app
 # backuper:
 #   env_file: .env
 #   image: lunchiatto/backuper:latest
