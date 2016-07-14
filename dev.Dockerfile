@@ -1,4 +1,4 @@
-FROM ruby:2.3.0-slim
+FROM ruby:2.3.1-slim
 
 # deps
 RUN apt-get update -qq && apt-get install -y build-essential \
