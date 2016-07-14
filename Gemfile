@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 source 'https://rubygems.org'
 
-ruby '2.3.0'
+ruby '2.3.1'
 
 gem 'rails'
 gem 'pg'
@@ -28,7 +28,7 @@ gem 'pundit'
 gem 'interactor'
 
 gem 'puma'
-gem 'kaminari', '0.16.3'
+gem 'kaminari'
 gem 'nokogiri'
 gem 'premailer'
 gem 'premailer-rails'

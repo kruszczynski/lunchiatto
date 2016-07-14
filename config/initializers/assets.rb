@@ -12,4 +12,4 @@ Rails.application.config.assets.version = '1.0'
 # already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 Rails.application.config.assets.precompile +=
-  %w( modernizr/modernizr.js mailer.css external.js )
+  %w(modernizr/modernizr.js mailer.css external.js)
