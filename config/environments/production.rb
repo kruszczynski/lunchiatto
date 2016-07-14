@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 # rubocop:disable Metrics/LineLength
 
+require 'socket'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   config.time_zone = 'Warsaw'
@@ -52,7 +54,17 @@ Rails.application.configure do
   # config.log_tags = [ :subdomain, :uuid ]
 
   # Use a different logger for distributed setups.
-  # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
+  config.logger = MultiLogger.new(
+    [
+      ActiveSupport::Logger.new(STDOUT),
+      RemoteSyslogLogger.new(
+        ENV['PAPERTRAIL_HOST'],
+        ENV['PAPERTRAIL_PORT'].to_i,
+        program: "lunchiatto/#{ENV['APP_ROLE']}",
+        local_hostname: Socket.gethostname,
+      ),
+    ],
+  )
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store

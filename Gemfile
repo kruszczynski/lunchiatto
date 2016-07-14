@@ -44,6 +44,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
 
+# logging
+gem 'remote_syslog_logger'
+gem 'multilogger', github: 'codequest-eu/multilogger'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-foundation'
   gem 'rails-assets-marionette'
