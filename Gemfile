@@ -28,7 +28,7 @@ gem 'pundit'
 gem 'interactor'
 
 gem 'puma'
-gem 'kaminari', '0.16.3'
+gem 'kaminari'
 gem 'nokogiri'
 gem 'premailer'
 gem 'premailer-rails'
