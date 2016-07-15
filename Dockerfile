@@ -9,7 +9,7 @@ ADD . $APP_HOME
 # this is needed for precompilation to succeed
 ENV SECRET_KEY_BASE=for_precompilation
 ENV AIRBRAKE_PROJECT_KEY=DUMMYKEY
-ENV AIRBRAKE_PROJECT_ID=DUMMYID
+ENV AIRBRAKE_PROJECT_ID=12345
 
 # precompile assets
 RUN rake assets:precompile
