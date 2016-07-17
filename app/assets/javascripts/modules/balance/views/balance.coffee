@@ -23,7 +23,7 @@
 
     transferLink: ->
       return unless @model.collection.type is 'balances'
-      "/transfers/new?to_id=#{@_adequateUser()}\
+      "/transfers/new?to_id=#{@model.get('payer_id')}\
         &amount=#{-@model.get('balance')}"
 
     _adequateUser: ->
