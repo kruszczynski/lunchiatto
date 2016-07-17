@@ -4,8 +4,8 @@ class InvitationsController < ApplicationController
     redirect_to_today
     @invitation = find_invitation
     unless @invitation
-      return redirect_to root_path,
-                         notice: 'Invitation already completed please sign in'
+      notice = {notice: 'Invitation already completed please sign in'}
+      redirect_to(root_path, notice) and return
     end
   end
 
