@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe PagesController, type: :controller do
+RSpec.describe PagesController, type: :controller do
   let(:user) { create(:user) }
 
   describe 'GET #index' do

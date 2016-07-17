@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe UserAuthorize::FindByUid do
+RSpec.describe UserAuthorize::FindByUid do
   let(:user) { instance_double('User') }
   let(:omniauth_params) { {} }
   subject { described_class.new omniauth_params: omniauth_params }

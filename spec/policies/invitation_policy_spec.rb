@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe InvitationPolicy do
+RSpec.describe InvitationPolicy do
   let(:company) { create :company }
   let(:other_company) { create :other_company }
   let(:user) { create :user, company: company, company_admin: true }

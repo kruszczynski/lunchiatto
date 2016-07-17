@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe ChangeTransferStatus do
+RSpec.describe ChangeTransferStatus do
   include ActiveJob::TestHelper
   let(:user) { create :user }
   let(:other_user) { create :other_user }

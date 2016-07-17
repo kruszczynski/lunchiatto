@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe Company, type: :model do
+RSpec.describe Company, type: :model do
   it { should have_many(:users) }
   it { should have_many(:orders) }
   it { should have_many(:invitations) }

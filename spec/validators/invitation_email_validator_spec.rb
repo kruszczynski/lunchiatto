@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 require 'active_record'
 
 class InvitationEmailValidatorModel
@@ -9,7 +9,7 @@ class InvitationEmailValidatorModel
   attr_accessor :email
 end
 
-describe InvitationEmailValidator do
+RSpec.describe InvitationEmailValidator do
   let(:user) { instance_double 'User' }
   subject { InvitationEmailValidatorModel.new }
 

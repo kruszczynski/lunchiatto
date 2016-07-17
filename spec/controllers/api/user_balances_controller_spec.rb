@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe Api::UserBalancesController, type: :controller do
+RSpec.describe Api::UserBalancesController, type: :controller do
   let(:user) { create :user }
   let(:other_user) { create :other_user }
   let!(:balance_one) do

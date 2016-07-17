@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe Api::CompaniesController, type: :controller do
+RSpec.describe Api::CompaniesController, type: :controller do
   let(:company) { create :company }
   let(:user) { create :user }
 

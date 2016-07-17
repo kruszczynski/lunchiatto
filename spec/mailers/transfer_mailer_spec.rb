@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe TransferMailer, type: :mailer do
+RSpec.describe TransferMailer, type: :mailer do
   describe '#created_transfer' do
     let(:user) { create :user }
     let(:other_user) { create :other_user }

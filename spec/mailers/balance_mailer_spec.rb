@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe BalanceMailer, type: :mailer do
+RSpec.describe BalanceMailer, type: :mailer do
   describe '#debt_email' do
     let(:user) { create :user }
     let(:other_user) { create :other_user }

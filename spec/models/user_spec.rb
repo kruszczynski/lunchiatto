@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe User, type: :model do
+RSpec.describe User, type: :model do
   it { should have_many(:orders) }
   it { should have_many(:user_balances) }
   it { should have_many(:balances_as_payer) }

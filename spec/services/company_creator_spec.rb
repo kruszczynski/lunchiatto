@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe CompanyCreator do
+RSpec.describe CompanyCreator do
   let(:user) { create :user }
   let(:company_params) { {name: 'Pink Boogers LTD'} }
   let(:empty_company_params) { {name: ''} }

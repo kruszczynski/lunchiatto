@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 # rubocop:disable RSpec/DescribeClass
-require 'spec_helper'
+require 'rails_helper'
 
-describe 'load_seeds' do
+RSpec.describe 'load_seeds' do
   let(:valid_email) { 'jan@gmail.com' }
   include_context 'rake'
 

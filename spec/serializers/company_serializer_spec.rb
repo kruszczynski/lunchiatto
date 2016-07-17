@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe CompanySerializer do
+RSpec.describe CompanySerializer do
   let(:company) { instance_double('Company') }
   let(:users) { class_double('User') }
   subject { described_class.new company }

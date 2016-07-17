@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe ApplicationHelper, type: :helper do
+RSpec.describe ApplicationHelper, type: :helper do
   describe 'field_with_errors' do
     let(:object) { double }
     let(:yielded_stuff) { sanitize('<input type="text" name="name" />') }

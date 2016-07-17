@@ -15,9 +15,9 @@
       .full-order__payer #{user.name} pays
         if editable
           a.inline-block.margin-left-small(href="/orders/#{id}/edit", data-navigate) Details & Shipping
+        if status === 'in_progress'
+          a.inline-block.margin-left-small.change-status-button(href="#") Ordered!
         if ordered_by_current_user
-          if status === 'in_progress'
-            a.inline-block.margin-left-small.change-status-button(href="#") Ordered!
           if status === 'ordered'
             a.inline-block.margin-left-small.revert-status-button(href="#") Still in progress
             a.inline-block.margin-left-small.change-status-button(href="#") Delivered!

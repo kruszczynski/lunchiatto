@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe ApplicationPolicy do
+RSpec.describe ApplicationPolicy do
   let(:company) { create :company }
   let(:user) { create :user, company: company }
   let(:other_user) { create :other_user, company: company }

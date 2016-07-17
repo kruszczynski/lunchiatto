@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe Invitation, type: :model do
+RSpec.describe Invitation, type: :model do
   let(:company) { create :company }
   subject { create :invitation, company: company }
 

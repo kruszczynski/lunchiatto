@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe Transfer, type: :model do
+RSpec.describe Transfer, type: :model do
   let(:user) { create :user }
   let(:other_user) { create :other_user }
   let(:transfer) { create :transfer, from: user, to: other_user }

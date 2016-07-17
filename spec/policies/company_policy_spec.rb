@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe CompanyPolicy do
+RSpec.describe CompanyPolicy do
   let(:user) { create :user }
   let(:company) { create :company }
   subject { described_class.new user, company }
