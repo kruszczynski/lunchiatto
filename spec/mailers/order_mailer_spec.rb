@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe OrderMailer, type: :mailer do
+RSpec.describe OrderMailer, type: :mailer do
   describe '#status_email' do
     let(:company) { create :company }
     let(:user) { create :user, company: company }

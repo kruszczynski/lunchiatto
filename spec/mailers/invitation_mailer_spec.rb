@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe InvitationMailer, type: :mailer do
+RSpec.describe InvitationMailer, type: :mailer do
   describe '#created' do
     let(:company) { create :company }
     let(:user) { create :admin_user, company: company }

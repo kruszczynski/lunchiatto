@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe UserAuthorize::CreateUser do
+RSpec.describe UserAuthorize::CreateUser do
   let(:company) { instance_double('Company') }
   let(:user) { instance_double('User') }
   let(:user_params) { instance_double('Hash') }

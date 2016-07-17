@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe Order, type: :model do
+RSpec.describe Order, type: :model do
   it { should belong_to(:user) }
   it { should have_many(:dishes) }
   it { should belong_to(:company) }

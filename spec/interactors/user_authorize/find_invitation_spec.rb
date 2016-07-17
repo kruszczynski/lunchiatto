@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe UserAuthorize::FindInvitation do
+RSpec.describe UserAuthorize::FindInvitation do
   let(:user) { instance_double('User') }
   let(:invitation) { instance_double('Invitation') }
   let(:info) { OpenStruct.new(email: 'test@codequest.com', name: 'Test Smith') }

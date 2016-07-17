@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe UserBalance, type: :model do
+RSpec.describe UserBalance, type: :model do
   it { should belong_to(:user) }
   it { should belong_to(:payer) }
   it { should validate_presence_of(:user) }

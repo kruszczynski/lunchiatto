@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe PendingTransfersWorker do
+RSpec.describe PendingTransfersWorker do
   let(:user) { create :user }
   let(:other_user) { create :other_user }
   let(:email) { instance_double('ActionMailer::Mail') }

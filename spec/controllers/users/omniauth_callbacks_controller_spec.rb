@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe Users::OmniauthCallbacksController, type: :controller do
+RSpec.describe Users::OmniauthCallbacksController, type: :controller do
   describe 'GET google_oauth2' do
     context 'with success' do
       before do

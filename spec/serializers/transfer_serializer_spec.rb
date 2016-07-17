@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe TransferSerializer do
+RSpec.describe TransferSerializer do
   let(:transfer) { build :transfer }
   let(:serializer) { described_class.new transfer }
   let(:from) { instance_double('User') }

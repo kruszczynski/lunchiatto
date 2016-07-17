@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 # rubocop:disable RSpec/DescribedClass
-require 'spec_helper'
+require 'rails_helper'
 
-describe Persistence do
+RSpec.describe Persistence do
   let(:test_class) { Struct.new(:name) { include Persistence } }
   let(:model) { instance_double('User') }
   let(:params) { {name: 'game'} }

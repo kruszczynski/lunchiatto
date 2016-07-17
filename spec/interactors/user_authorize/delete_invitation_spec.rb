@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe UserAuthorize::DeleteInvitation do
+RSpec.describe UserAuthorize::DeleteInvitation do
   let(:invitation) { instance_double('Invitation') }
   subject { described_class.new }
 

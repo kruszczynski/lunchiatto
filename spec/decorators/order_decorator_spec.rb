@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe OrderDecorator, type: :decorator do
+RSpec.describe OrderDecorator, type: :decorator do
   let(:company) { create :company }
   let!(:user) { create :user, company: company }
   let(:order) { create(:order, user: user, company: company).decorate }

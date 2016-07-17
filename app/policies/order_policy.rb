@@ -13,6 +13,8 @@ class OrderPolicy < ApplicationPolicy
   end
 
   def change_status?
-    !record.delivered? && record_belongs_to_user?
+    return false if record.delivered?
+    return true if record.in_progress?
+    record_belongs_to_user?
   end
 end

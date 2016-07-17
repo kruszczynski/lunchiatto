@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe UserBalanceSerializer do
+RSpec.describe UserBalanceSerializer do
   let(:user_balance) { instance_double('UserBalance') }
   let(:serializer) { described_class.new user_balance }
 

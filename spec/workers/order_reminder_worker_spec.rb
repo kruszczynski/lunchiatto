@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe OrderReminderWorker do
+RSpec.describe OrderReminderWorker do
   let(:order) { instance_double('Order') }
   let(:orders) { class_double('Order') }
   let(:email) { instance_double('ActionMailer::Mail') }

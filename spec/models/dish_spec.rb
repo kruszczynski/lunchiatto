@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe Dish, type: :model do
+RSpec.describe Dish, type: :model do
   it { should belong_to(:user) }
   it { should belong_to(:order) }
   it { should validate_presence_of(:price_cents) }

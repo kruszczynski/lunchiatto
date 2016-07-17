@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe InvitationsController, type: :controller do
+RSpec.describe InvitationsController, type: :controller do
   include ActiveJob::TestHelper
   let(:company) { create :company }
   let(:user) { create :user, company: company, company_admin: true }

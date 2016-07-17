@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe UserBalanceDecorator do
+RSpec.describe UserBalanceDecorator do
   let(:user) { create(:user) }
   let(:user_balance) do
     create :user_balance, user: user, payer: user, balance_cents: 1241

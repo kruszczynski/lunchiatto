@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe UserAuthorize::Organizer do
+RSpec.describe UserAuthorize::Organizer do
   let(:user) { instance_double('User') }
   subject { described_class.new user: user }
 

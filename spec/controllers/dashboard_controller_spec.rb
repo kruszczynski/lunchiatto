@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe DashboardController, type: :controller do
+RSpec.describe DashboardController, type: :controller do
   describe 'GET :index' do
     describe 'html' do
       let(:user) { create(:user) }

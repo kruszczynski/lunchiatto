@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe DishSerializer do
+RSpec.describe DishSerializer do
   let(:dish) { instance_double('Dish') }
   let(:policy) { instance_double('DishPolicy') }
   let(:user) { instance_double('User') }

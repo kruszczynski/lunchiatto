@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe UserAccessMailer, type: :mailer do
+RSpec.describe UserAccessMailer, type: :mailer do
   describe '#create_email' do
     let!(:cqm_admin) { create :user, email: 'kruszczyk@gmail.com', admin: true }
     let(:mail) { described_class.create_email('guy@wants.in') }

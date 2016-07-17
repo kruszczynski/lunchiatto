@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe UserSerializer do
+RSpec.describe UserSerializer do
   let(:user) { instance_double('User') }
   let(:current_user) { instance_double('User') }
   let(:serializer) { described_class.new user }

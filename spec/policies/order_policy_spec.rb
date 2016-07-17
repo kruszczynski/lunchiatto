@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe OrderPolicy do
+RSpec.describe OrderPolicy do
   let(:company) { create :company }
   let(:user) { create :user, company: company }
   let(:other_user) { create :other_user, company: company }
@@ -47,9 +47,9 @@ describe OrderPolicy do
       it 'returns true for payer' do
         expect(subject.change_status?).to be_truthy
       end
-      it 'returns false for other user' do
+      it 'returns true for other user' do
         policy = described_class.new other_user, order
-        expect(policy.change_status?).to be_falsey
+        expect(policy.change_status?).to be_truthy
       end
     end
     describe 'ordered' do

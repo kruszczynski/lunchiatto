@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
-describe UserDecorator do
+RSpec.describe UserDecorator do
   let(:company) { instance_double('Company') }
   let(:user) { create(:user).decorate }
 
