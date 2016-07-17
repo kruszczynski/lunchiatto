@@ -5,8 +5,13 @@ module Api
 
     def index
       authorize Order
-      # rubocop:disable Metrics/LineLength
-      orders = current_user.company.orders.newest_first.page(params[:page]).includes(:dishes).decorate
+      orders = current_user
+        .company
+        .orders
+        .newest_first
+        .page(params[:page])
+        .includes(:dishes)
+        .decorate
       render json: orders, shallow: true
     end
 
