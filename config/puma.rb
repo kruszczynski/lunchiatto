@@ -4,10 +4,11 @@ max_threads_count = Integer(ENV['MAX_THREADS'] || 1)
 min_threads_count = Integer(ENV['MIN_THREADS'] || 1)
 threads min_threads_count, max_threads_count
 
-preload_app!
-
 port ENV['PORT'] || 3000
 environment ENV['RACK_ENV'] || 'development'
+log_requests
+
+preload_app!
 
 on_worker_boot do
   ActiveSupport.on_load(:active_record) do
