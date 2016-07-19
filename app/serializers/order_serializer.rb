@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 class OrderSerializer < ActiveModel::Serializer
-  attributes :id,
-             :from,
-             :user_id,
-             :dishes_count,
-             :status,
-             :shipping,
+  attributes :amount,
              :current_user_ordered?,
-             :ordered_by_current_user?,
-             :total,
              :date,
-             :amount,
-             :editable?,
              :deletable?,
-             :from_today?
+             :dishes_count,
+             :editable?,
+             :from,
+             :from_today?,
+             :id,
+             :ordered_by_current_user?,
+             :shipping,
+             :status,
+             :total,
+             :user_id
 
   has_many :dishes
   has_one :user
@@ -27,7 +27,7 @@ class OrderSerializer < ActiveModel::Serializer
   end
 
   def dishes
-    object.dishes.by_date.decorate
+    object.dishes.by_name.decorate
   end
 
   def total

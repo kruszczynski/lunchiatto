@@ -14,6 +14,7 @@ class Dish < ActiveRecord::Base
   monetize :price_cents
 
   scope :by_date, -> { order('created_at') }
+  scope :by_name, -> { order('name') }
 
   def copy(new_user)
     dish = Dish.find_by order: order, user: new_user
