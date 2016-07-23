@@ -67,6 +67,7 @@ group :development, :test do
   gem 'faker', require: false
   gem 'lol_dba'
   gem 'inch'
+  gem 'pry'
 end
 
 group :development do
