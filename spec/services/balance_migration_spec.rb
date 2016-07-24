@@ -3,9 +3,10 @@ require 'rails_helper'
 
 RSpec.describe BalanceMigration do
   let(:bartek) { create(:user) }
-  let(:miko) { create(:other_user)}
+  let(:miko) { create(:other_user) }
   let(:jan) { create(:yet_another_user) }
 
+  # rubocop:disable Lint/Eval
   shared_context 'pays_for' do |payer, user, amt|
     before do
       eval(user).subtract(Money.new(amt, 'PLN'), eval(payer))
@@ -32,7 +33,7 @@ RSpec.describe BalanceMigration do
   shared_examples_for 'new_total_balance' do |num_records, total|
     it "has #{num_records} Payments" do
       count = Payment.where(user: subject).count +
-        Payment.where(payer: subject).count
+              Payment.where(payer: subject).count
       expect(count).to eq(num_records)
     end
 
@@ -53,6 +54,7 @@ RSpec.describe BalanceMigration do
       expect(balance_for).to eq(Money.new(amt, 'PLN'))
     end
   end
+  # rubocop:enable Lint/Eval
 
   context 'with some transactions' do
     3.times { include_context 'pays_for', 'bartek', 'miko', 100 }

@@ -4,13 +4,16 @@ require 'rails_helper'
 RSpec.describe Balance do
   context 'given two users' do
     let(:user_1) { create(:user) }
-    let(:user_2) { create(:other_user)}
+    let(:user_2) { create(:other_user) }
     let(:user_3) { create(:yet_another_user) }
 
     shared_context 'pays_for' do |payer, user, amt|
       before do
+        # rubocop:disable Lint/Eval
         create(
-          :payment, user: eval(user), payer: eval(payer), balance: amt)
+          :payment, user: eval(user), payer: eval(payer), balance: amt
+        )
+        # rubocop:enable Lint/Eval
       end
     end
 
