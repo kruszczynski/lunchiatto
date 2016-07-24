@@ -10,7 +10,7 @@ RSpec.describe Balance do
     shared_context 'pays_for' do |payer, user, amt|
       before do
         create(
-          :payment, user: eval(user), payer: eval(payer), balance_cents: amt)
+          :payment, user: eval(user), payer: eval(payer), balance: amt)
       end
     end
 
@@ -33,65 +33,71 @@ RSpec.describe Balance do
     end
 
     context 'given one transaction' do
-      2.times { include_context 'pays_for', 'user_2', 'user_1', 100 }
+      2.times do
+        include_context 'pays_for', 'user_2', 'user_1', Money.new(100, 'PLN')
+      end
       subject { described_class.new(user_1) }
 
-      it { expect(subject.total).to eq(-200) }
-      it { expect(subject.balance_for(user_2)).to eq(-200) }
+      it { expect(subject.total).to eq(Money.new(-200, 'PLN')) }
+      it { expect(subject.balance_for(user_2)).to eq(Money.new(-200, 'PLN')) }
 
       context 'for other user' do
         subject { described_class.new(user_2) }
 
-        it { expect(subject.total).to eq(200) }
-        it { expect(subject.balance_for(user_1)).to eq(200) }
+        it { expect(subject.total).to eq(Money.new(200, 'PLN')) }
+        it { expect(subject.balance_for(user_1)).to eq(Money.new(200, 'PLN')) }
       end
     end
 
     context 'given two transactions with distinct payers' do
-      2.times { include_context 'pays_for', 'user_2', 'user_1', 100 }
-      include_context 'pays_for', 'user_1', 'user_2', 150
+      2.times do
+        include_context 'pays_for', 'user_2', 'user_1', Money.new(100, 'PLN')
+      end
+      include_context 'pays_for', 'user_1', 'user_2', Money.new(150, 'PLN')
 
       subject { described_class.new(user_1) }
 
-      it { expect(subject.total).to eq(-50) }
-      it { expect(subject.balance_for(user_2)).to eq(-50) }
+      it { expect(subject.total).to eq(Money.new(-50, 'PLN')) }
+      it { expect(subject.balance_for(user_2)).to eq(Money.new(-50, 'PLN')) }
 
       context 'for other user' do
         subject { described_class.new(user_2) }
 
-        it { expect(subject.total).to eq(50) }
-        it { expect(subject.balance_for(user_1)).to eq(50) }
+        it { expect(subject.total).to eq(Money.new(50, 'PLN')) }
+        it { expect(subject.balance_for(user_1)).to eq(Money.new(50, 'PLN')) }
       end
     end
 
     context 'given five transactions' do
-      2.times { include_context 'pays_for', 'user_2', 'user_1', 100 }
-      include_context 'pays_for', 'user_1', 'user_2', 150
-      include_context 'pays_for', 'user_3', 'user_1', 200
-      include_context 'pays_for', 'user_2', 'user_3', 75
+      2.times do
+        include_context 'pays_for', 'user_2', 'user_1', Money.new(100, 'PLN')
+      end
+      include_context 'pays_for', 'user_1', 'user_2', Money.new(150, 'PLN')
+      include_context 'pays_for', 'user_3', 'user_1', Money.new(200, 'PLN')
+      include_context 'pays_for', 'user_2', 'user_3', Money.new(75, 'PLN')
 
       context 'for user_1' do
         subject { described_class.new(user_1) }
 
-        it { expect(subject.total).to eq(-250) }
-        it { expect(subject.balance_for(user_2)).to eq(-50) }
-        it { expect(subject.balance_for(user_3)).to eq(-200) }
+        it { expect(subject.total).to eq(Money.new(-250, 'PLN')) }
+        it { expect(subject.balance_for(user_2)).to eq(Money.new(-50, 'PLN')) }
+        it { expect(subject.balance_for(user_3)).to eq(Money.new(-200, 'PLN')) }
       end
 
       context 'for user_2' do
         subject { described_class.new(user_2) }
 
-        it { expect(subject.total).to eq(125) }
-        it { expect(subject.balance_for(user_1)).to eq(50) }
-        it { expect(subject.balance_for(user_3)).to eq(75) }
+        it { expect(subject.total).to eq(Money.new(125, 'PLN')) }
+        it { expect(subject.balance_for(user_1)).to eq(Money.new(50, 'PLN')) }
+        it { expect(subject.balance_for(user_3)).to eq(Money.new(75, 'PLN')) }
       end
 
       context 'for user_3' do
         subject { described_class.new(user_3) }
 
-        it { expect(subject.total).to eq(125) }
-        it { expect(subject.balance_for(user_1)).to eq(200) }
-        it { expect(subject.balance_for(user_2)).to eq(-75) }
+        it { expect(subject.total).to eq(Money.new(125, 'PLN')) }
+        it { expect(subject.balance_for(user_1)).to eq(Money.new(200, 'PLN')) }
+        it { expect(subject.balance_for(user_2)).to eq(Money.new(-75, 'PLN')) }
       end
     end
   end

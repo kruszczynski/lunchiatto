@@ -8,15 +8,15 @@ class Balance
 
   # returns the total account balance for user
   def total
-    Payment.where(payer: user).sum(:balance_cents) -
-      Payment.where(user: user).sum(:balance_cents)
+    Money.new(Payment.where(payer: user).sum(:balance_cents) -
+      Payment.where(user: user).sum(:balance_cents), 'PLN')
   end
 
   # returns the current balance between user and other
   def balance_for(other_user)
     raise ArgumentError if other_user == user
-    payments_as_payer(other_user).sum(:balance_cents) -
-      payments_as_beneficiary(other_user).sum(:balance_cents)
+    Money.new(payments_as_payer(other_user).sum(:balance_cents) -
+      payments_as_beneficiary(other_user).sum(:balance_cents), 'PLN')
   end
 
   # returns a list of all debts and credits for user and other
