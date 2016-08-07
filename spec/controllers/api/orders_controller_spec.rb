@@ -2,14 +2,14 @@
 require 'rails_helper'
 
 RSpec.describe Api::OrdersController, type: :controller do
-  let(:company) { create :company }
-  let(:other_company) { create :company, name: 'Other Company' }
-  let(:user) { create :user, company: company }
-  let(:other_user) { create :other_user, company: company }
+  let(:company) { create(:company) }
+  let(:other_company) { create(:company, name: 'Other Company') }
+  let(:user) { create(:user, company: company) }
+  let(:other_user) { create(:other_user, company: company) }
   let(:other_company_user) do
-    create :user, company: other_company,
+    create(:user, company: other_company,
                   name: 'Other',
-                  email: 'other@other.com'
+                  email: 'other@other.com')
   end
 
   describe 'POST create' do

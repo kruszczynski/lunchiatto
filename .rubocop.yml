@@ -15,6 +15,9 @@ RSpec/ExampleLength:
 RSpec/NamedSubject:
   Enabled: false
 
+RSpec/AnyInstance:
+  Enabled: false
+
 # Common configuration.
 AllCops:
   # Include common Ruby source files.

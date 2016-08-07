@@ -6,7 +6,7 @@ ruby '2.3.1'
 gem 'rails'
 gem 'pg'
 gem 'slim-rails'
-gem 'active_model_serializers', '0.8.3'
+gem 'active_model_serializers'
 gem 'gon'
 
 gem 'jquery-rails'
@@ -22,7 +22,6 @@ gem 'factory_girl_rails', '~> 4.0'
 gem 'omniauth', '1.3.1'
 gem 'omniauth-google-oauth2', '0.4.1'
 
-gem 'draper'
 gem 'money-rails'
 gem 'pundit'
 gem 'interactor'
@@ -72,6 +71,7 @@ end
 group :development do
   gem 'binding_of_caller', '0.7.2'
   gem 'did-you-mean'
+  gem 'pry'
 end
 
 group :test do

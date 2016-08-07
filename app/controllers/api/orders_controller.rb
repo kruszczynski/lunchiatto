@@ -11,7 +11,6 @@ module Api
         .newest_first
         .page(params[:page])
         .includes(:dishes)
-        .decorate
       render json: orders, shallow: true
     end
 
@@ -67,11 +66,11 @@ module Api
     end
 
     def find_order
-      Order.find(params[:id]).decorate
+      Order.find(params[:id])
     end
 
     def find_todays_orders
-      current_user.company.orders.today.decorate
+      current_user.company.orders.today
     end
   end
 end
