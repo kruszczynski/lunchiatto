@@ -27,13 +27,13 @@ RSpec.describe InvitationsController, type: :controller do
         expect(assigns(:invitation)).to be_an(Invitation)
       end
       it "redirects to root if there's no such invitation" do
-        get :show, id: invitation.id + 1, format: :html
+        get :show, params: {id: invitation.id + 1}, format: :html
         expect(response).to redirect_to root_path
       end
     end
 
     def request_invitation
-      get :show, id: invitation.id, format: :html
+      get :show, params: {id: invitation.id}, format: :html
     end
   end
 
@@ -102,7 +102,7 @@ RSpec.describe InvitationsController, type: :controller do
     end
 
     def post_request(email: 'party@mate.gate')
-      post :create, invitation: {email: email}, format: :json
+      post :create, params: {invitation: {email: email}}, format: :json
     end
   end
 end
