@@ -14,8 +14,7 @@ RSpec.describe Persistence do
   describe '#save_record' do
     it 'saves' do
       expect(model).to receive(:save).and_return(true)
-      expect(model).to receive(:decorate).and_return(:decorated_model)
-      expect(subject).to receive(:render).with(json: :decorated_model)
+      expect(subject).to receive(:render).with(json: model)
       subject.save_record(model)
     end
 
@@ -28,8 +27,7 @@ RSpec.describe Persistence do
 
     it 'takes block for success' do
       expect(model).to receive(:save).and_return(true)
-      expect(model).to receive(:decorate).and_return(:decorated_model)
-      expect(subject).to receive(:render).with(json: :decorated_model)
+      expect(subject).to receive(:render).with(json: model)
       expect(model).to receive(:name)
       subject.save_record(model, &:name)
     end
@@ -38,8 +36,7 @@ RSpec.describe Persistence do
   describe '#update_record' do
     it 'updates' do
       expect(model).to receive(:update).with(params).and_return(true)
-      expect(model).to receive(:decorate).and_return(:decorated_model)
-      expect(subject).to receive(:render).with(json: :decorated_model)
+      expect(subject).to receive(:render).with(json: model)
       subject.update_record(model, params)
     end
 

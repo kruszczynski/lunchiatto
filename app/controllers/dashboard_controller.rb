@@ -23,7 +23,10 @@ class DashboardController < ApplicationController
   end
 
   def users_for_select
-    ActiveModel::ArraySerializer.new(current_user.company.users_by_name,
-                                     each_serializer: UserForSelectSerializer)
+    ActiveModel::Serializer::CollectionSerializer.new(
+      current_user.company.users_by_name,
+      each_serializer: UserForSelectSerializer,
+      scope: current_user,
+    )
   end
 end

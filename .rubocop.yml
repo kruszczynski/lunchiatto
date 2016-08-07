@@ -12,6 +12,12 @@ RSpec/ExampleLength:
   Enabled: true
   Max: 7
 
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/AnyInstance:
+  Enabled: false
+
 # Common configuration.
 AllCops:
   # Include common Ruby source files.
@@ -634,6 +640,16 @@ Style/NonNilCheck:
   # With `IncludeSemanticChanges` set to `false`, this cop does not report
   # offenses for `!x.nil?` and does no changes that might change behavior.
   IncludeSemanticChanges: false
+
+Style/NumericPredicate:
+  EnforcedStyle: comparison
+  SupportedStyles:
+    - predicate
+    - comparison
+  # Exclude RSpec specs because assertions like `expect(1).to be > 0` cause
+  # false positives.
+  Exclude:
+    - 'spec/**/*'
 
 Style/MethodDefParentheses:
   EnforcedStyle: require_parentheses

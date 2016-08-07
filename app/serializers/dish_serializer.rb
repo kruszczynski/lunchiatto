@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 class DishSerializer < ActiveModel::Serializer
-  attributes :id,
-             :user_name,
-             :price,
+  attributes :belongs_to_current_user,
+             :copyable,
+             :deletable,
+             :editable,
+             :from_today,
+             :id,
              :name,
-             :belongs_to_current_user?,
-             :editable?,
-             :deletable?,
-             :copyable?,
              :order_id,
+             :price,
              :user_id,
-             :from_today?
+             :user_name
 
   def price
     object.price.to_s
@@ -20,16 +20,24 @@ class DishSerializer < ActiveModel::Serializer
     object.user.name
   end
 
-  def editable?
+  def editable
     policy.update?
   end
 
-  def deletable?
+  def deletable
     policy.destroy?
   end
 
-  def copyable?
+  def copyable
     policy.copy?
+  end
+
+  def from_today
+    object.order.date.today?
+  end
+
+  def belongs_to_current_user
+    object.user == current_user
   end
 
   private

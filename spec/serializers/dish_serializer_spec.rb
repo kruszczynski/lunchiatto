@@ -2,45 +2,57 @@
 require 'rails_helper'
 
 RSpec.describe DishSerializer do
-  let(:dish) { instance_double('Dish') }
-  let(:policy) { instance_double('DishPolicy') }
-  let(:user) { instance_double('User') }
-  let(:serializer) { described_class.new dish }
+  let(:dish) { create(:dish, user: build(:user), order: build(:order)) }
+  let(:user) { dish.user }
+  let(:current_user) { user }
+  subject do
+    described_class.new(dish, scope: current_user, scope_name: :current_user)
+  end
 
   describe '#price' do
-    it 'delegates price' do
-      expect(dish).to receive(:price).and_return(15)
-      expect(serializer.price).to eq('15')
-    end
+    it { expect(subject.price).to eq('13.30') }
   end
 
   describe '#user_name' do
     it 'delegates to user' do
-      expect(dish).to receive(:user) { user }
-      expect(user).to receive(:name) { 'Total Beaver' }
-      expect(serializer.user_name).to eq('Total Beaver')
+      expect(subject.user_name).to eq('Bartek Szef')
     end
   end
 
   context 'with policy' do
-    before do
-      allow(DishPolicy).to receive(:new) { policy }
-      allow(serializer).to receive(:current_user) { user }
-    end
+    context 'update allowed' do
+      include_context 'allows_policy_action', DishPolicy, :update?
+      it { expect(subject.editable).to be_truthy }
+    end # context 'update allowed'
 
-    it 'is #editable?' do
-      expect(policy).to receive(:update?) { true }
-      expect(serializer.editable?).to be_truthy
-    end
+    context 'destroy allowed' do
+      include_context 'allows_policy_action', DishPolicy, :destroy?
+      it { expect(subject.deletable).to be_truthy }
+    end # context 'destroy allowed'
 
-    it 'is #deletable?' do
-      expect(policy).to receive(:destroy?) { true }
-      expect(serializer.deletable?).to be_truthy
-    end
-
-    it 'is #copyable?' do
-      expect(policy).to receive(:copy?) { true }
-      expect(serializer.copyable?).to be_truthy
-    end
+    context 'copy allowed' do
+      include_context 'allows_policy_action', DishPolicy, :copy?
+      it { expect(subject.copyable).to be_truthy }
+    end # context 'copy allowed'
   end
-end
+
+  describe '#belongs_to_current_user' do
+    it 'returns true' do
+      expect(subject.belongs_to_current_user).to be_truthy
+    end
+
+    context 'different current user' do
+      let(:current_user) { create(:other_user) }
+
+      it 'returns false' do
+        expect(subject.belongs_to_current_user).to be_falsey
+      end
+    end # context 'different current user'
+  end # describe '#belongs_to_current_user'
+
+  describe '#from_today' do
+    it 'return true' do
+      expect(subject.from_today).to be_truthy
+    end
+  end # describe '#from_today'
+end # RSpec.describe DishSerializer

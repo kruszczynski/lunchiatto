@@ -6,7 +6,7 @@ module Persistence
   def save_record(model)
     if model.save
       yield(model) if block_given?
-      render json: model.decorate
+      render json: model
     else
       render json: {errors: model.errors}, status: :unprocessable_entity
     end
@@ -15,7 +15,7 @@ module Persistence
   def update_record(model, params)
     if model.update(params)
       yield(model) if block_given?
-      render json: model.decorate
+      render json: model
     else
       render json: {errors: model.errors}, status: :unprocessable_entity
     end
