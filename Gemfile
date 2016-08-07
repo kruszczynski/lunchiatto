@@ -42,6 +42,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # queues
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
+# sidekiq currently requires sintatra stuff from master
+gem 'sinatra', github: 'sinatra/sinatra'
+gem 'rack-protection', github: 'sinatra/rack-protection'
 
 # logging
 gem 'remote_syslog_logger'
@@ -64,7 +67,6 @@ group :development, :test do
   gem 'rubocop-rspec'
   gem 'rspec-rails'
   gem 'faker', require: false
-  gem 'lol_dba'
   gem 'inch'
 end
 
@@ -79,4 +81,5 @@ group :test do
   gem 'shoulda-matchers', require: false
   gem 'shoulda-callback-matchers', require: false
   gem 'simplecov', require: false
+  gem 'rails-controller-testing' # remove someday
 end

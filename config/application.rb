@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # rubocop:disable Metrics/LineLength
 
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
@@ -32,8 +32,6 @@ module Lunchiatto
       #{config.root}/app/validators
       #{config.root}/app/workers
     )
-
-    config.active_record.raise_in_transactional_callbacks = true
 
     config.active_job.queue_adapter = :sidekiq
 
