@@ -22,37 +22,37 @@ RSpec.describe DishSerializer do
   context 'with policy' do
     context 'update allowed' do
       include_context 'allows_policy_action', DishPolicy, :update?
-      it { expect(subject.editable?).to be_truthy }
+      it { expect(subject.editable).to be_truthy }
     end # context 'update allowed'
 
     context 'destroy allowed' do
       include_context 'allows_policy_action', DishPolicy, :destroy?
-      it { expect(subject.deletable?).to be_truthy }
+      it { expect(subject.deletable).to be_truthy }
     end # context 'destroy allowed'
 
     context 'copy allowed' do
       include_context 'allows_policy_action', DishPolicy, :copy?
-      it { expect(subject.copyable?).to be_truthy }
+      it { expect(subject.copyable).to be_truthy }
     end # context 'copy allowed'
   end
 
-  describe '#belongs_to_current_user?' do
+  describe '#belongs_to_current_user' do
     it 'returns true' do
-      expect(subject.belongs_to_current_user?).to be_truthy
+      expect(subject.belongs_to_current_user).to be_truthy
     end
 
     context 'different current user' do
       let(:current_user) { create(:other_user) }
 
       it 'returns false' do
-        expect(subject.belongs_to_current_user?).to be_falsey
+        expect(subject.belongs_to_current_user).to be_falsey
       end
     end # context 'different current user'
-  end # describe '#belongs_to_current_user?'
+  end # describe '#belongs_to_current_user'
 
   describe '#from_today' do
     it 'return true' do
-      expect(subject.from_today?).to be_truthy
+      expect(subject.from_today).to be_truthy
     end
   end # describe '#from_today'
 end # RSpec.describe DishSerializer
