@@ -6,7 +6,7 @@
 # and maximum, this matches the default thread size of Active Record.
 #
 max_threads_count = ENV.fetch('MAX_THREADS') { 1 }.to_i
-min_threads_count = ENV.fetch('MIN_THREADS') { 1 }.to_id
+min_threads_count = ENV.fetch('MIN_THREADS') { 1 }.to_i
 threads min_threads_count, max_threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests, default
