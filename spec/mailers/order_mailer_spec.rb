@@ -21,7 +21,7 @@ RSpec.describe OrderMailer, type: :mailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql(['bartek@test.net'])
+      expect(mail.to[0]).to match(/bartek\d+@test.net/)
     end
 
     it 'renders the sender email' do

@@ -15,8 +15,11 @@ RSpec.describe Order, type: :model do
   end
   it { should validate_length_of(:from).is_at_most(255) }
 
-  let(:company) { create :company }
-  let(:user) { create :user, company: company }
+  let(:company) { create(:company) }
+  let(:user) { create(:user, company: company) }
+  let(:date) { Time.zone.today }
+
+  subject { create(:order, user: user, company: company, date: date) }
 
   it 'has statuses' do
     expect(described_class.statuses)
@@ -36,25 +39,24 @@ RSpec.describe Order, type: :model do
       it "shows today's orders" do
         expect(described_class.today).to eq([order, order2])
       end
-    end
+    end # describe '.today'
+
     describe '.as_created' do
       it 'shows in creation order' do
         expect(described_class.as_created).to eq([order, order2, order3])
       end
-    end
+    end # describe '.as_created'
+
     describe '.newest_first' do
       it 'shows newest first' do
         expect(described_class.newest_first).to eq([order2, order, order3])
       end
-    end
-  end
+    end # describe '.newest_first'
+  end # describe 'scopes'
 
   describe '#amount' do
     it 'returns 0 when no dishes' do
-      order = described_class.new date: Time.zone.today
-      expect(order).to receive(:dishes).and_return([])
-      expected = Money.new(0, 'PLN')
-      expect(order.amount).to eq(expected)
+      expect(subject.amount).to eq(Money.new(0, 'PLN'))
     end
 
     it 'returns 15 when there is a dish' do
@@ -64,67 +66,84 @@ RSpec.describe Order, type: :model do
       expect(order).to receive(:dishes).and_return([dish])
       expect(order.amount).to eq(Money.new(15, 'PLN'))
     end
-  end
+  end # describe '#amount'
 
   describe '#change_status' do
-    let(:order) { create :order, user: user, company: company }
     context 'when in progress' do
       it 'changes from in_progress to ordered' do
-        order.change_status(:ordered)
-        expect(order.ordered?).to be_truthy
+        subject.change_status(:ordered)
+        expect(subject.ordered?).to be_truthy
       end
+
       it 'does not substract price' do
-        expect(order).not_to receive(:subtract_price)
-        order.change_status(:ordered)
+        expect(subject).not_to receive(:subtract_price)
+        subject.change_status(:ordered)
       end
+
       it 'does not allow changing from in progress to delivered' do
-        order.change_status(:delivered)
-        expect(order.in_progress?).to be_truthy
+        subject.change_status(:delivered)
+        expect(subject.in_progress?).to be_truthy
       end
-    end
+    end # context 'when in progress'
+
     context 'when ordered' do
-      before { order.ordered! }
+      before { subject.ordered! }
+
       it 'changes to delivered' do
-        order.change_status(:delivered)
-        expect(order.delivered?).to be_truthy
+        subject.change_status(:delivered)
+        expect(subject.delivered?).to be_truthy
       end
+
       it 'substracts price' do
-        expect(order).to receive(:subtract_price)
-        order.change_status(:delivered)
+        expect(subject).to receive(:subtract_price)
+        subject.change_status(:delivered)
       end
+
       it 'changes to in_progress' do
-        order.change_status(:in_progress)
-        expect(order.in_progress?).to be_truthy
+        subject.change_status(:in_progress)
+        expect(subject.in_progress?).to be_truthy
       end
-    end
+    end # context 'when ordered'
+
     context 'when delivered' do
+      before { subject.delivered! }
+
       it 'does not change to ordered' do
-        order.delivered!
-        order.change_status(:ordered)
-        expect(order.delivered?).to be_truthy
+        subject.change_status(:ordered)
+        expect(subject.delivered?).to be_truthy
       end
+
       it 'does not change to in_progress' do
-        order.delivered!
-        order.change_status('in_progress')
-        expect(order.delivered?).to be_truthy
+        subject.change_status('in_progress')
+        expect(subject.delivered?).to be_truthy
       end
-    end
-  end
+    end # context 'when delivered'
+  end # describe '#change_status'
 
   describe '#subtract_price' do
-    let(:order) do
-      create :order, user: user,
-                     shipping: Money.new(2000, 'PLN'),
-                     company: company
+    before { subject.shipping = Money.new(2000, 'PLN') }
+    let!(:dish1) { create(:dish, order: subject, user: create(:user)) }
+    let!(:dish2) { create(:dish, order: subject, user: create(:user)) }
+
+    it 'creates 2 balances' do
+      expect { subject.subtract_price }.to change { UserBalance.count }.by(2)
     end
-    let(:dish1) { instance_double('Dish') }
-    let(:dish2) { instance_double('Dish') }
-    it 'iterates over dishes and call #subtract' do
-      expect(dish1).to receive(:subtract).with(Money.new(1000, 'PLN'), user)
-      expect(dish2).to receive(:subtract).with(Money.new(1000, 'PLN'), user)
-      allow(order).to receive(:dishes_count).and_return(2)
-      expect(order).to receive(:dishes).and_return([dish1, dish2])
-      order.subtract_price
+
+    it 'directs debt towards payer' do
+      subject.subtract_price
+      # dishes are 13.30 each
+      expect(user.total_debt).to eq(Money.new(-4660, 'PLN'))
     end
-  end
-end
+  end # describe '#subtract_price'
+
+  describe '#from_today?' do
+    context 'today' do
+      it { expect(subject.from_today?).to be_truthy }
+    end # context 'today'
+    context 'yesteday' do
+      let(:date) { Date.yesterday }
+
+      it { expect(subject.from_today?).to be_falsey }
+    end # context 'yesteday'
+  end # describe '#from_today?'
+end # RSpec.describe Order

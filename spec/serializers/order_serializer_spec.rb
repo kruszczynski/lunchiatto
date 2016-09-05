@@ -69,10 +69,4 @@ RSpec.describe OrderSerializer do
       end
     end # context 'with other user'
   end # describe '#ordered_by_current_user?'
-
-  describe '#from_today?' do
-    it 'returns true' do
-      expect(subject.from_today).to be_truthy
-    end
-  end # describe '#from_today?'
 end # RSpec.describe OrderSerializer

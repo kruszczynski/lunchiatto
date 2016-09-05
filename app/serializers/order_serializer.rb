@@ -59,7 +59,7 @@ class OrderSerializer < ActiveModel::Serializer
   end
 
   def from_today
-    object.date.today?
+    object.from_today?
   end
 
   private

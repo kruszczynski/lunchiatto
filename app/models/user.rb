@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
 
   def subtract(amount, payer)
     return if self == payer && !subtract_from_self
-    user_balances.create balance: payer_balance(payer) - amount, payer: payer
+    user_balances.create(balance: payer_balance(payer) - amount, payer: payer)
   end
 
   def to_s

@@ -33,7 +33,7 @@ class DishSerializer < ActiveModel::Serializer
   end
 
   def from_today
-    object.order.date.today?
+    object.order.from_today?
   end
 
   def belongs_to_current_user
