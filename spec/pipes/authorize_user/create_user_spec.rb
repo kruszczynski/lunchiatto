@@ -41,7 +41,7 @@ RSpec.describe AuthorizeUser::CreateUser do
         subject
         expect(user.name).to eq('Ted Smith')
         expect(user.email).to eq('test@lunchiatto.com')
-        expect(user.uid).to eq("123")
+        expect(user.uid).to eq('123')
         expect(user.provider).to eq('google_oauth2')
       end
 
