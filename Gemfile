@@ -24,7 +24,7 @@ gem 'omniauth-google-oauth2', '0.4.1'
 
 gem 'money-rails'
 gem 'pundit'
-gem 'interactor'
+gem 'codequest_pipes'
 
 gem 'puma'
 gem 'kaminari'
