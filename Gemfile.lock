@@ -84,6 +84,7 @@ GEM
     chunky_png (1.3.5)
     codeclimate-engine-rb (0.3.1)
       virtus (~> 1.0)
+    codequest_pipes (0.3.0)
     coderay (1.1.1)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -156,7 +157,6 @@ GEM
       sparkr (>= 0.2.0)
       term-ansicolor
       yard (~> 0.8.7.5)
-    interactor (3.1.0)
     jade-js-source (0.28.0)
     jquery-rails (4.1.1)
       rails-dom-testing (>= 1, < 3)
@@ -435,6 +435,7 @@ DEPENDENCIES
   active_model_serializers
   airbrake
   binding_of_caller (= 0.7.2)
+  codequest_pipes
   coffee-rails
   compass-rails
   devise
@@ -443,7 +444,6 @@ DEPENDENCIES
   faker
   gon
   inch
-  interactor
   jquery-rails
   kaminari
   money-rails

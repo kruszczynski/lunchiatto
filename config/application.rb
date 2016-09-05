@@ -25,7 +25,7 @@ module Lunchiatto
     config.middleware.use Rack::Deflater
 
     config.autoload_paths += %W(
-      #{config.root}/app/interactors
+      #{config.root}/app/pipes
       #{config.root}/app/policies
       #{config.root}/app/presenters
       #{config.root}/app/serializers
