@@ -3,10 +3,8 @@ class InvitationsController < ApplicationController
   def show
     redirect_to_today
     @invitation = find_invitation
-    unless @invitation
-      notice = {notice: 'Invitation already completed please sign in'}
-      redirect_to(root_path, notice) and return
-    end
+    return if @invitation
+    redirect_to(root_path, notice: 'Invitation confirmed please sign in')
   end
 
   def create

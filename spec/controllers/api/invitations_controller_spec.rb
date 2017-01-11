@@ -10,12 +10,12 @@ RSpec.describe Api::InvitationsController, type: :controller do
   describe 'POST :create' do
     describe 'json' do
       it 'rejects when not logged in' do
-        post :create, email: 'test@user.com', format: :json
+        post :create, params: {email: 'test@user.com'}, format: :json
         expect(response).to have_http_status(:unauthorized)
       end
       it 'rejects a non-admin user' do
         sign_in other_user
-        post :create, email: 'test@user.com', format: :json
+        post :create, params: {email: 'test@user.com'}, format: :json
         expect(response).to have_http_status(:unauthorized)
       end
       context 'with good data' do
@@ -82,39 +82,39 @@ RSpec.describe Api::InvitationsController, type: :controller do
       end
       def post_invitation(email: 'test@user.com')
         sign_in user
-        post :create, email: email, format: :json
+        post :create, params: {email: email}, format: :json
       end
     end
   end
 
   describe 'DELETE :destroy' do
-    describe 'json' do
-      it 'rejects when not logged in' do
-        delete :destroy, id: invitation.id, format: :json
-        expect(response).to have_http_status(:unauthorized)
-      end
-      it 'rejects a non-admin user' do
-        sign_in other_user
-        delete :destroy, id: invitation.id
-        expect(response).to have_http_status(:unauthorized)
-      end
-      context 'with proper data' do
-        it 'returns a success' do
-          delete_invitation
-          expect(response).to have_http_status(:no_content)
-        end
-        it 'deletes the invitation' do
-          invitation # to make sure the invitation is created
-          expect do
-            delete_invitation
-          end.to change(Invitation, :count).by(-1)
-        end
-      end
+    let(:call) { delete :destroy, params: {id: invitation.id}, format: :json }
+
+    it 'rejects when not logged in' do
+      call
+      expect(response).to have_http_status(:unauthorized)
     end
 
-    def delete_invitation
-      sign_in user
-      delete :destroy, id: invitation.id, format: :json
-    end
-  end
-end
+    context 'with other user' do
+      it 'rejects a non-admin user' do
+        sign_in other_user
+        call
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end # context 'with other user'
+
+    context 'with user' do
+      before { sign_in user }
+      it 'returns a success' do
+        call
+        expect(response).to have_http_status(:no_content)
+      end
+      it 'deletes the invitation' do
+        invitation # to make sure the invitation is created
+        expect do
+          call
+        end.to change(Invitation, :count).by(-1)
+      end
+    end # context 'with proper data'
+  end # describe 'DELETE :destroy'
+end # RSpec.describe Api::InvitationsController

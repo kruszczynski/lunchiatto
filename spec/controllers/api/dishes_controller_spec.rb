@@ -29,11 +29,14 @@ RSpec.describe Api::DishesController, type: :controller do
       end
 
       def post_create(name: 'Name')
-        post :create, order_id: order.id,
-                      user_id: user.id,
-                      price_cents: 14,
-                      name: name,
-                      format: :json
+        post :create,
+             params: {
+               order_id: order.id,
+               user_id: user.id,
+               price_cents: 14,
+               name: name,
+             },
+             format: :json
       end
     end
   end
@@ -68,12 +71,15 @@ RSpec.describe Api::DishesController, type: :controller do
         expect(response).to have_http_status(200)
       end
       def put_update(dish:, name: 'Name')
-        put :update, order_id: order.id,
-                     id: dish.id,
-                     user_id: user.id,
-                     name: name,
-                     price: 13,
-                     format: :json
+        put :update,
+            params: {
+              order_id: order.id,
+              id: dish.id,
+              user_id: user.id,
+              name: name,
+              price: 13,
+            },
+            format: :json
       end
     end
   end
@@ -82,23 +88,31 @@ RSpec.describe Api::DishesController, type: :controller do
     let!(:dish) { create :dish, user: user, order: order }
     describe 'json' do
       it 'rejects when not logged in' do
-        delete :destroy, order_id: order.id, id: dish.id, format: :json
+        delete :destroy,
+               params: {order_id: order.id, id: dish.id},
+               format: :json
         expect(response).to have_http_status(401)
       end
       it 'rejects request from a different user' do
         sign_in other_user
-        delete :destroy, order_id: order.id, id: dish.id, format: :json
+        delete :destroy,
+               params: {order_id: order.id, id: dish.id},
+               format: :json
         expect(response).to have_http_status(:unauthorized)
       end
       it 'decrements the dishes count' do
         sign_in user
         expect do
-          delete :destroy, order_id: order.id, id: dish.id, format: :json
+          delete :destroy,
+                 params: {order_id: order.id, id: dish.id},
+                 format: :json
         end.to change(Dish, :count).by(-1)
       end
       it 'is success' do
         sign_in user
-        delete :destroy, order_id: order.id, id: dish.id, format: :json
+        delete :destroy,
+               params: {order_id: order.id, id: dish.id},
+               format: :json
         expect(response).to have_http_status(:no_content)
       end
     end
@@ -122,7 +136,7 @@ RSpec.describe Api::DishesController, type: :controller do
       end
 
       def post_copy
-        post :copy, order_id: order.id, id: dish.id, format: :json
+        post :copy, params: {order_id: order.id, id: dish.id}, format: :json
       end
     end
   end
@@ -140,7 +154,7 @@ RSpec.describe Api::DishesController, type: :controller do
         expect(response).to have_http_status(:success)
       end
       def request_show
-        get :show, order_id: order.id, id: dish.id, format: :json
+        get :show, params: {order_id: order.id, id: dish.id}, format: :json
       end
     end
   end

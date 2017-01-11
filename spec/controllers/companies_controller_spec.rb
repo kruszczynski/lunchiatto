@@ -18,7 +18,7 @@ RSpec.describe CompaniesController, type: :controller do
       it "#{action}redirects to dashboard if user already has a company" do
         allow(controller).to receive(:current_user) { user }
         allow(user).to receive(:company) { instance_double('Company') }
-        send verb, action, company: {name: ''}
+        send verb, action, params: {company: {name: ''}}
         expect(response).to redirect_to(root_url)
         expect(flash[:notice])
           .to match(/couldn't overwrite an existing company/)
@@ -60,7 +60,7 @@ RSpec.describe CompaniesController, type: :controller do
       end
 
       def post_with_name(name)
-        post :create, company: {name: name}
+        post :create, params: {company: {name: name}}
       end
 
       def expect_company_error_message(msg)

@@ -21,7 +21,7 @@ class UserBalance < ActiveRecord::Base
   end
 
   def self.payers_ids(user)
-    user.user_balances.select('payer_id').uniq.map(&:payer_id)
+    user.user_balances.select('payer_id').distinct.map(&:payer_id)
   end
 
   def self.debts_to(user)
@@ -32,6 +32,6 @@ class UserBalance < ActiveRecord::Base
   end
 
   def self.debtors_ids(user)
-    user.balances_as_payer.select('user_id').uniq.map(&:user_id)
+    user.balances_as_payer.select('user_id').distinct.map(&:user_id)
   end
 end

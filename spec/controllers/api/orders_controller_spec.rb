@@ -14,7 +14,7 @@ RSpec.describe Api::OrdersController, type: :controller do
 
   describe 'POST create' do
     let(:call) do
-      post :create, user_id: user.id, from: 'A restaurant', format: :json
+      post :create, params: {user_id: user.id, from: 'A bistro'}, format: :json
     end
 
     it 'creates an order' do
@@ -23,13 +23,15 @@ RSpec.describe Api::OrdersController, type: :controller do
     end
     describe 'json' do
       it 'rejects when not logged in' do
-        post :create, user_id: user.id, from: 'A restaurant', format: :json
+        post :create,
+             params: {user_id: user.id, from: 'A bistro'},
+             format: :json
         expect(response).to have_http_status(401)
       end
 
       context 'when an order from this restaurant already exists' do
         let!(:order) do
-          create :order, from: 'A restaurant', user: user, company: company
+          create :order, from: 'A bistro', user: user, company: company
         end
 
         it 'returns unprocessable' do
@@ -58,7 +60,9 @@ RSpec.describe Api::OrdersController, type: :controller do
       end
 
       context 'incomplete data' do
-        let(:call) { post :create, from: 'A restaurant', format: :json }
+        let(:call) do
+          post :create, params: {from: 'A bistro'}, format: :json
+        end
         it 'returns errors' do
           sign_in user
           call
@@ -78,40 +82,40 @@ RSpec.describe Api::OrdersController, type: :controller do
 
     describe 'json' do
       it 'rejects when not logged in' do
-        put :update, id: order.id, format: :json
+        put :update, params: {id: order.id}, format: :json
         expect(response).to have_http_status(:unauthorized)
       end
 
       it 'returns unauthorized when delivered' do
         order.delivered!
         sign_in user
-        put :update, id: order.id, from: 'Good Food INC', format: :json
+        put :update, params: {id: order.id, from: 'Good Food'}, format: :json
         expect(response).to have_http_status(:unauthorized)
       end
 
       it 'returns unauthorized when ordered and a different user' do
         order.ordered!
         sign_in other_user
-        put :update, id: order.id, from: 'Good Food INC', format: :json
+        put :update, params: {id: order.id, from: 'Good Food'}, format: :json
         expect(response).to have_http_status(:unauthorized)
       end
 
       it 'allows when ordered and proper user' do
         order.ordered!
         sign_in user
-        put :update, id: order.id, from: 'KFC Remote', format: :json
+        put :update, params: {id: order.id, from: 'KFC Remote'}, format: :json
         expect(response).to have_http_status(:success)
       end
 
       it 'allows when in_progress' do
         sign_in user
-        put :update, id: order.id, user_id: other_user.id, format: :json
+        put :update, params: {id: order.id, user_id: other_user.id}, format: :json
         expect(response).to have_http_status(:success)
       end
 
       it 'returns errors' do
         sign_in user
-        put :update, id: order.id, from: '', format: :json
+        put :update, params: {id: order.id, from: ''}, format: :json
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -122,13 +126,13 @@ RSpec.describe Api::OrdersController, type: :controller do
 
     describe 'json' do
       it 'rejects when not logged in' do
-        get :show, id: order.id, format: :json
+        get :show, params: {id: order.id}, format: :json
         expect(response).to have_http_status(401)
       end
 
       it 'returns success' do
         sign_in user
-        get :show, id: order.id, format: :json
+        get :show, params: {id: order.id}, format: :json
         expect(response).to have_http_status(:success)
       end
     end
@@ -139,7 +143,9 @@ RSpec.describe Api::OrdersController, type: :controller do
 
     describe 'json' do
       it 'rejects when not logged in' do
-        put :change_status, id: order.id, status: 'ordered', format: :json
+        put :change_status,
+            params: {id: order.id, status: 'ordered'},
+            format: :json
         expect(response).to have_http_status(401)
       end
 
@@ -180,7 +186,9 @@ RSpec.describe Api::OrdersController, type: :controller do
 
       def put_status(status: nil)
         sign_in user
-        put :change_status, id: order.id, status: status, format: :json
+        put :change_status,
+            params: {id: order.id, status: status},
+            format: :json
       end
     end
   end
@@ -262,37 +270,37 @@ RSpec.describe Api::OrdersController, type: :controller do
     let!(:order) { create :order, user: user, company: company }
     describe 'json' do
       it 'rejects when not logged in' do
-        delete :destroy, id: order.id, format: :json
+        delete :destroy, params: {id: order.id}, format: :json
         expect(response).to have_http_status(:unauthorized)
       end
       it 'rejects when order ordered' do
         order.ordered!
         sign_in user
-        delete :destroy, id: order.id, format: :json
+        delete :destroy, params: {id: order.id}, format: :json
         expect(response).to have_http_status(:unauthorized)
       end
       it 'rejects when order delivered' do
         order.delivered!
         sign_in user
-        delete :destroy, id: order.id, format: :json
+        delete :destroy, params: {id: order.id}, format: :json
         expect(response).to have_http_status(:unauthorized)
       end
       describe 'order in progress' do
         it "doesn't allow others to delete" do
           sign_in other_user
-          delete :destroy, id: order.id, format: :json
+          delete :destroy, params: {id: order.id}, format: :json
           expect(response).to have_http_status(:unauthorized)
         end
         describe 'when payer' do
           it 'allows payer to delete' do
             sign_in user
-            delete :destroy, id: order.id, format: :json
+            delete :destroy, params: {id: order.id}, format: :json
             expect(response).to have_http_status(:no_content)
           end
           it 'deletes the order' do
             sign_in user
             expect do
-              delete :destroy, id: order.id, format: :json
+              delete :destroy, params: {id: order.id}, format: :json
             end.to change { Order.count }.by(-1)
           end
         end

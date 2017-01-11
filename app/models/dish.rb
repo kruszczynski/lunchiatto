@@ -18,7 +18,7 @@ class Dish < ActiveRecord::Base
 
   def copy(new_user)
     dish = Dish.find_by order: order, user: new_user
-    dish.delete if dish
+    dish&.delete
     new_dish = dup
     new_dish.user = new_user
     new_dish
