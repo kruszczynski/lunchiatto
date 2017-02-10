@@ -33,10 +33,12 @@ class User < ActiveRecord::Base
   end
 
   def add_first_balance
+    # TODO(janek): no need to double write here
     user_balances.create balance: 0, payer: self
   end
 
   def subtract(amount, payer)
+    # TODO(janek): double write to new model!
     return if self == payer && !subtract_from_self
     user_balances.create(balance: payer_balance(payer) - amount, payer: payer)
   end
