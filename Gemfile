@@ -6,7 +6,7 @@ ruby '2.3.1'
 gem 'rails'
 gem 'pg'
 gem 'slim-rails'
-gem 'active_model_serializers', '0.8.3'
+gem 'active_model_serializers'
 gem 'gon'
 
 gem 'jquery-rails'
@@ -22,10 +22,9 @@ gem 'factory_girl_rails', '~> 4.0'
 gem 'omniauth', '1.3.1'
 gem 'omniauth-google-oauth2', '0.4.1'
 
-gem 'draper'
 gem 'money-rails'
 gem 'pundit'
-gem 'interactor'
+gem 'codequest_pipes'
 
 gem 'puma'
 gem 'kaminari'
@@ -43,6 +42,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # queues
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
+# sidekiq currently requires sintatra stuff from master
+gem 'sinatra', github: 'sinatra/sinatra'
+gem 'rack-protection', github: 'sinatra/rack-protection'
 
 # logging
 gem 'remote_syslog_logger'
@@ -65,7 +67,6 @@ group :development, :test do
   gem 'rubocop-rspec'
   gem 'rspec-rails'
   gem 'faker', require: false
-  gem 'lol_dba'
   gem 'inch'
   gem 'pry'
 end
@@ -73,6 +74,7 @@ end
 group :development do
   gem 'binding_of_caller', '0.7.2'
   gem 'did-you-mean'
+  gem 'pry'
 end
 
 group :test do
@@ -80,4 +82,5 @@ group :test do
   gem 'shoulda-matchers', require: false
   gem 'shoulda-callback-matchers', require: false
   gem 'simplecov', require: false
+  gem 'rails-controller-testing' # remove someday
 end

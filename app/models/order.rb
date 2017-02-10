@@ -46,4 +46,8 @@ class Order < ActiveRecord::Base
       dish.subtract shipping / dishes_count, user
     end
   end
+
+  def from_today?
+    date.today?
+  end
 end

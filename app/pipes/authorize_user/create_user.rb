@@ -1,22 +1,25 @@
 # frozen_string_literal: true
-module UserAuthorize
-  # Does user creation's heavy lifting
-  class CreateUser
-    include Interactor
+module AuthorizeUser
+  class EmailMismatch < StandardError; end
 
-    delegate :omniauth_params, :invitation, to: :context
+  # Does user creation's heavy lifting
+  class CreateUser < Pipes::Pipe
+    require_context :omniauth_params, :invitation
+    provide_context :user
+
     delegate :info, to: :omniauth_params
 
     def call
-      return if context.user.present?
-      context.fail! if info.email != invitation.email
+      fail EmailMismatch if info.email != invitation.email
       create_user
     end
+
+    private
 
     def create_user
       user = User.new(user_params)
       user.save!
-      context.user = user
+      add(user: user)
     end
 
     def user_params

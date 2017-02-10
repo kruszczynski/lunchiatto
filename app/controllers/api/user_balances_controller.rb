@@ -4,14 +4,8 @@ module Api
     before_action :authenticate_user!
 
     def index
-      balances = find_user_balances
+      balances = current_user.balances
       render json: balances
-    end
-
-    private
-
-    def find_user_balances
-      UserBalanceDecorator.decorate_collection(current_user.balances)
     end
   end
 end

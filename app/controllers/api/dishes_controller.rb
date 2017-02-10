@@ -13,7 +13,7 @@ module Api
     def show
       dish = find_dish
       authorize dish
-      render json: dish.decorate
+      render json: dish
     end
 
     def update
@@ -42,7 +42,7 @@ module Api
     end
 
     def find_dish
-      find_order.dishes.find(params[:id]).decorate
+      find_order.dishes.find(params[:id])
     end
 
     def dish_params

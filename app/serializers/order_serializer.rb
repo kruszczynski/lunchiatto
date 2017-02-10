@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 class OrderSerializer < ActiveModel::Serializer
   attributes :amount,
-             :current_user_ordered?,
+             :current_user_ordered,
              :date,
-             :deletable?,
+             :deletable,
              :dishes_count,
-             :editable?,
+             :editable,
              :from,
-             :from_today?,
+             :from_today,
              :id,
-             :ordered_by_current_user?,
+             :ordered_by_current_user,
              :shipping,
              :status,
              :total,
@@ -27,7 +27,7 @@ class OrderSerializer < ActiveModel::Serializer
   end
 
   def dishes
-    object.dishes.by_name.decorate
+    object.dishes.by_name
   end
 
   def total
@@ -42,17 +42,29 @@ class OrderSerializer < ActiveModel::Serializer
     !options[:shallow]
   end
 
-  def editable?
+  def editable
     policy.update?
   end
 
-  def deletable?
+  def deletable
     policy.destroy?
+  end
+
+  def current_user_ordered
+    object.dishes.find_by(user: current_user).present?
+  end
+
+  def ordered_by_current_user
+    object.user == current_user
+  end
+
+  def from_today
+    object.from_today?
   end
 
   private
 
   def policy
-    @policy ||= OrderPolicy.new current_user, object
+    @policy ||= OrderPolicy.new(current_user, object)
   end
 end

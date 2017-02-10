@@ -2,7 +2,9 @@
 FactoryGirl.define do
   factory :user do
     name 'Bartek Szef'
-    email 'bartek@test.net'
+    sequence :email do |n|
+      "bartek#{n}@test.net"
+    end
     password 'jacekjacek'
     factory :admin_user do
       company_admin true

@@ -4,12 +4,11 @@ require 'rails_helper'
 RSpec.describe BalanceMailer, type: :mailer do
   describe '#debt_email' do
     let(:user) { create :user }
-    let(:other_user) { create :other_user }
     let(:balance_one) do
       create :user_balance, user: user, payer: user, balance: 10
     end
     let(:balance_two) do
-      create :user_balance, user: user, payer: other_user, balance: 40
+      create :user_balance, user: user, payer: create(:user), balance: 40
     end
     let(:balances) { [balance_one, balance_two] }
     let(:mail) { described_class.debt_email(user, balances) }
@@ -24,7 +23,7 @@ RSpec.describe BalanceMailer, type: :mailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql(['bartek@test.net'])
+      expect(mail.to[0]).to match(/bartek\d+@test.net/)
     end
 
     it 'renders the sender email' do
