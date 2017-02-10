@@ -2,13 +2,12 @@
 require 'rails_helper'
 
 RSpec.describe UserSerializer do
-  let(:user) { instance_double('User') }
+  let(:user) { instance_double('User', total_balance: 12) }
   let(:current_user) { instance_double('User') }
   let(:serializer) { described_class.new(user, scope: current_user) }
   let(:extended_serializer) { described_class.new(user, with_balance: true) }
 
   it '#total_balance' do
-    expect(user).to receive(:total_balance) { 12 }
     expect(serializer.total_balance).to eq('12')
   end
 

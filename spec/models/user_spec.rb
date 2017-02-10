@@ -2,13 +2,13 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it { should have_many(:orders) }
-  it { should have_many(:user_balances) }
-  it { should have_many(:balances_as_payer) }
-  it { should have_many(:submitted_transfers) }
-  it { should have_many(:received_transfers) }
-  it { should belong_to(:company) }
-  it { should callback(:add_first_balance).after(:create) }
+  it { is_expected.to have_many(:orders) }
+  it { is_expected.to have_many(:user_balances) }
+  it { is_expected.to have_many(:balances_as_payer) }
+  it { is_expected.to have_many(:submitted_transfers) }
+  it { is_expected.to have_many(:received_transfers) }
+  it { is_expected.to belong_to(:company) }
+  it { is_expected.to callback(:add_first_balance).after(:create) }
 
   let(:user) { create(:user) }
   let(:payer) { create(:other_user) }

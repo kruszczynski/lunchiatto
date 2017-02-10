@@ -2,18 +2,18 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
-  it { should belong_to(:user) }
-  it { should have_many(:dishes) }
-  it { should belong_to(:company) }
-  it { should validate_presence_of(:user) }
-  it { should validate_presence_of(:from) }
-  it { should validate_presence_of(:company) }
+  it { is_expected.to belong_to(:user) }
+  it { is_expected.to have_many(:dishes) }
+  it { is_expected.to belong_to(:company) }
+  it { is_expected.to validate_presence_of(:user) }
+  it { is_expected.to validate_presence_of(:from) }
+  it { is_expected.to validate_presence_of(:company) }
   it do
-    should validate_uniqueness_of(:from)
+    is_expected.to validate_uniqueness_of(:from)
       .with_message('There already is an order from there today')
       .scoped_to(:date, :company_id)
   end
-  it { should validate_length_of(:from).is_at_most(255) }
+  it { is_expected.to validate_length_of(:from).is_at_most(255) }
 
   let(:company) { create(:company) }
   let(:user) { create(:user, company: company) }

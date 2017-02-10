@@ -2,18 +2,18 @@
 require 'rails_helper'
 
 RSpec.describe Dish, type: :model do
-  it { should belong_to(:user) }
-  it { should belong_to(:order) }
-  it { should validate_presence_of(:price_cents) }
-  it { should validate_presence_of(:name) }
-  it { should validate_presence_of(:user) }
-  it { should validate_presence_of(:order) }
+  it { is_expected.to belong_to(:user) }
+  it { is_expected.to belong_to(:order) }
+  it { is_expected.to validate_presence_of(:price_cents) }
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_presence_of(:user) }
+  it { is_expected.to validate_presence_of(:order) }
   it do
-    should validate_uniqueness_of(:user)
+    is_expected.to validate_uniqueness_of(:user)
       .scoped_to(:order_id)
       .with_message('can only order one dish')
   end
-  it { should validate_length_of(:name).is_at_most(255) }
+  it { is_expected.to validate_length_of(:name).is_at_most(255) }
 
   let(:company) { create :company }
   let(:user) { create :user, company: company }

@@ -2,10 +2,10 @@
 require 'rails_helper'
 
 RSpec.describe UserBalance, type: :model do
-  it { should belong_to(:user) }
-  it { should belong_to(:payer) }
-  it { should validate_presence_of(:user) }
-  it { should validate_presence_of(:payer) }
+  it { is_expected.to belong_to(:user) }
+  it { is_expected.to belong_to(:payer) }
+  it { is_expected.to validate_presence_of(:user) }
+  it { is_expected.to validate_presence_of(:payer) }
   it 'monetizes balance' do
     expect(monetize(:balance_cents)).to be_truthy
   end

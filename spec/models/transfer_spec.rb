@@ -6,10 +6,10 @@ RSpec.describe Transfer, type: :model do
   let(:other_user) { create :other_user }
   let(:transfer) { create :transfer, from: user, to: other_user }
 
-  it { should belong_to(:from) }
-  it { should belong_to(:to) }
-  it { should validate_presence_of(:to) }
-  it { should validate_presence_of(:from) }
+  it { is_expected.to belong_to(:from) }
+  it { is_expected.to belong_to(:to) }
+  it { is_expected.to validate_presence_of(:to) }
+  it { is_expected.to validate_presence_of(:from) }
 
   it '#mark_as_rejected!' do
     expect { transfer.mark_as_rejected! }
