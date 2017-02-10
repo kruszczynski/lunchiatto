@@ -4,6 +4,7 @@ module Api
     before_action :authenticate_user!
 
     def index
+      # TODO(janek): make into 1 controller
       balances = current_user.balances
       render json: balances
     end

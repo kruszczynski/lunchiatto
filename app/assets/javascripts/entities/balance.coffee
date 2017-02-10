@@ -2,6 +2,9 @@
   Entities.Balance = Backbone.Model.extend({})
 
   Entities.Balances = Backbone.Collection.extend
+    # TODO(janek): no need to change anything here
+    # Backend will send same data as debts and balances for now
+    # Later - migrate to only one list
     url: ->
       "/api/user_#{@type}"
 

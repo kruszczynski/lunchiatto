@@ -25,10 +25,12 @@ class User < ActiveRecord::Base
          omniauth_providers: [:google_oauth2]
 
   def balances
+    # TODO(janek): list Balances for all unique users in payments table
     @balances ||= UserBalance.balances_for(self)
   end
 
   def debts
+    # TODO(janek): list Balances for all unique users in payments table
     @debts ||= UserBalance.debts_to(self)
   end
 
@@ -48,19 +50,25 @@ class User < ActiveRecord::Base
   end
 
   def payer_balance(payer)
+    # TODO(janek): proposed impl
+    # Balance.new(self).balance_for(payer)
     user_balances.newest_for(payer.id).try(:balance) || Money.new(0, 'PLN')
   end
 
   def total_balance
+    # TODO(janek): proposed impl
+    # Balance.new(self).total
     balances.map(&:balance).reduce :+
   end
 
   def debt_to(user)
+    # TODO(janek): get rid of this method and fix usages
     balances.find { |balance| balance.payer_id == user.id }.try(:balance)
   end
 
   def total_debt
     # rubocop:disable Style/SingleLineBlockParams
+    # TODO(janek): get rid of this method and fix usages
     debts.inject(Money.new(0, 'PLN')) { |sum, debt| sum + debt.balance }
   end
 
