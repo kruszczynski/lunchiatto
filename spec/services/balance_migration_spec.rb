@@ -66,7 +66,7 @@ RSpec.describe BalanceMigration do
     include_context 'pays_for', 'jan', 'bartek', 150
 
     context 'after migration' do
-      before { described_class.new.perform }
+      before { described_class.perform }
 
       context 'bartek' do
         subject { bartek }

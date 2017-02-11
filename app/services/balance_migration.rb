@@ -4,6 +4,11 @@ class BalanceMigrationFailed < StandardError; end
 class BalanceMigration
   # rubocop:disable Metrics/MethodLength
   # this method reeks of :reek:TooManyStatements, :reek:NestedIterators
+
+  def self.perform
+    new.perform
+  end
+
   def perform
     Payment.transaction do
       Payment.delete_all
@@ -38,7 +43,9 @@ class BalanceMigration
 
   # this method reeks of :reek:UtilityFunction
   def aggregate
-    UserBalance.all.order(:created_at).group_by { |ub| [ub.payer_id, ub.user_id] }
+    UserBalance.all.order(:created_at).group_by do |ub|
+      [ub.payer_id, ub.user_id]
+    end
   end
 
   # this method reeks of :reek:DuplicateMethodCall, :reek:TooManyStatements
