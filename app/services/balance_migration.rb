@@ -38,7 +38,7 @@ class BalanceMigration
 
   # this method reeks of :reek:UtilityFunction
   def aggregate
-    UserBalance.all.group_by { |ub| [ub.payer_id, ub.user_id] }
+    UserBalance.all.order(:created_at).group_by { |ub| [ub.payer_id, ub.user_id] }
   end
 
   # this method reeks of :reek:DuplicateMethodCall, :reek:TooManyStatements
