@@ -17,6 +17,7 @@ class UserBalanceSerializer < ActiveModel::Serializer
     object.user.id
   end
 
+  # This method reeks of :reek:UtilityFunction
   def created_at
     Time.now # LOL
   end

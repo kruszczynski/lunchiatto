@@ -9,6 +9,7 @@ class BalanceMigration
     new.perform
   end
 
+  # This methods reeks of :reek:NestedIterators and :reek:TooManyStatements
   def perform
     Payment.transaction do
       Payment.delete_all
