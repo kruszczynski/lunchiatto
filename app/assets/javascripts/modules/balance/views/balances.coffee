@@ -21,4 +21,4 @@
         @collection.fetch()
 
     _htmlTitle: ->
-      "Balances"
+      'Balances'
