@@ -40,7 +40,8 @@ class BalanceMigration
               {user: ub.payer, payer: ub.user, balance_cents: -amt}
             end
     Payment.create!(
-      attrs.merge(created_at: ub.created_at, updated_at: ub.updated_at))
+      attrs.merge(created_at: ub.created_at, updated_at: ub.updated_at),
+    )
   end
 
   # this method reeks of :reek:UtilityFunction
