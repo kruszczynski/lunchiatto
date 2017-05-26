@@ -9,7 +9,9 @@ module Api
     def index
       # TODO(janek): make into 1 controller
       balances = current_user.balances
-      render json: ActiveModel::Serializer::CollectionSerializer.new(balances, serializer: UserBalanceSerializer)
+      render json: ActiveModel::Serializer::CollectionSerializer.new(
+        balances, serializer: UserBalanceSerializer
+      )
     end
   end
 end

@@ -26,9 +26,10 @@ class User < ActiveRecord::Base
 
   def balances
     balance = Balance.new(self)
-    company.users.map do |usr|
-      Balance::Wrapper.new(usr, balance.balance_for(usr))
-    end.reject { |bal| bal.balance.zero? }
+    company
+      .users
+      .map { |usr| Balance::Wrapper.new(usr, balance.balance_for(usr)) }
+      .reject { |bal| bal.balance == 0 }
   end
 
   def add_first_balance
