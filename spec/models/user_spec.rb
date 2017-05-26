@@ -22,6 +22,13 @@ RSpec.describe User, type: :model do
     create :user_balance, user: user, payer: user, balance: 34
   end
 
+  let!(:payment_one) do
+    create :payment, user: user, payer: payer, balance: 15
+  end
+  let!(:payment_two) do
+    create :payment, user: user, payer: payer, balance: 2
+  end
+
   describe '#balances' do
     it 'returns adequate' do
       expect(UserBalance).to receive(:balances_for)
@@ -92,7 +99,7 @@ RSpec.describe User, type: :model do
 
   describe '#total_balance' do
     it 'returns proper balance' do
-      money = Money.new 5100, 'PLN'
+      money = Money.new -1700, 'PLN'
       expect(user.total_balance).to eq(money)
     end
   end
