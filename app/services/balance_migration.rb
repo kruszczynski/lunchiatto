@@ -27,6 +27,7 @@ class BalanceMigration
   private
 
   # this method reeks of :reek:DuplicateMethodCall, :reek:UtilityFunction
+  # this method reeks of :reek:FeatureEnvy
   def create_payment(memo, ub)
     amt = memo - ub.balance_cents
     attrs = if amt > 0
@@ -38,7 +39,8 @@ class BalanceMigration
               # TODO(janek): update type column when STI is ready
               {user: ub.payer, payer: ub.user, balance_cents: -amt}
             end
-    Payment.create!(attrs)
+    Payment.create!(
+      attrs.merge(created_at: ub.created_at, updated_at: ub.updated_at))
   end
 
   # this method reeks of :reek:UtilityFunction
