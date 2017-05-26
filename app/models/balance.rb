@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 class Balance
+  Wrapper = Struct.new(:user, :balance) do
+    include ActiveModel::Serialization
+  end
+
   include ActiveModel::Model
 
   def initialize(user)
@@ -14,7 +18,6 @@ class Balance
 
   # returns the current balance between user and other
   def balance_for(other_user)
-    fail ArgumentError if other_user == user
     Money.new(
       payments_as_payer.where(user: other_user).sum(:balance_cents) -
           payments_as_beneficiary.where(payer: other_user).sum(:balance_cents),

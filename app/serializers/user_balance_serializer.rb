@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 class UserBalanceSerializer < ActiveModel::Serializer
-  attributes :id,
-             :balance,
+  attributes :balance,
              :created_at,
              :user,
-             :user_id,
-             :payer,
-             :payer_id
+             :user_id
 
   def balance
     object.balance.to_s
@@ -16,9 +13,11 @@ class UserBalanceSerializer < ActiveModel::Serializer
     object.user.name
   end
 
-  def payer
-    object.payer.name
+  def user_id
+    object.user.id
   end
 
-  delegate :created_at, to: :object
+  def created_at
+    Time.now # LOL
+  end
 end

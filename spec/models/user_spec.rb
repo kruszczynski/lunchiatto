@@ -108,13 +108,6 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#debts' do
-    it 'returns adequate' do
-      expect(UserBalance).to receive(:debts_to).with(user).and_return(:debts)
-      expect(user.debts).to be(:debts)
-    end
-  end
-
   describe '#total_debt' do
     it 'returns proper balance' do
       money = Money.new 3400, 'PLN'
