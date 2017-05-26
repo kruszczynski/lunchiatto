@@ -52,7 +52,6 @@ Rails.application.routes.draw do
     edit_company
     members
     you
-    others
   ).each do |route|
     get route, to: 'dashboard#index'
   end

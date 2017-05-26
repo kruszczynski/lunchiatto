@@ -28,11 +28,12 @@ class User < ActiveRecord::Base
     balance = Balance.new(self)
     company.users.map do |usr|
       Balance::Wrapper.new(usr, balance.balance_for(usr))
-    end
+    end.reject { |bal| bal.balance.zero? }
   end
 
   def add_first_balance
-    # TODO(janek): no need to double write here
+    # TODO(janek): no need to double write here - remove when removing double
+    # write logic
     user_balances.create balance: 0, payer: self
   end
 
