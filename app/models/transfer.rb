@@ -29,6 +29,9 @@ class Transfer < ActiveRecord::Base
   private
 
   def new_balance_params
-    {balance: (from.payer_balance(to) + amount), payer: to}
+    payer_balance = from.user_balances
+      .newest_for(to.id)
+      .try(:balance) || Money.new(0, 'PLN')
+    {balance: (payer_balance + amount), payer: to}
   end
 end
