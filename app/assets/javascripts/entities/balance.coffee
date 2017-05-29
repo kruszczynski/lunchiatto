@@ -3,7 +3,10 @@
 
   Entities.Balances = Backbone.Collection.extend
     url: ->
-      '/api/balances'
+      "/api/user_#{@type}"
+
+    initialize: (models, options) ->
+      @type = options.type
 
     total: ->
       @reduce((memo, balance) ->

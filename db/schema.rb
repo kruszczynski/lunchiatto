@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160723202032) do
+ActiveRecord::Schema.define(version: 20150914215728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,9 +29,10 @@ ActiveRecord::Schema.define(version: 20160723202032) do
     t.integer  "order_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["order_id"], name: "index_dishes_on_order_id", using: :btree
-    t.index ["user_id"], name: "index_dishes_on_user_id", using: :btree
   end
+
+  add_index "dishes", ["order_id"], name: "index_dishes_on_order_id", using: :btree
+  add_index "dishes", ["user_id"], name: "index_dishes_on_user_id", using: :btree
 
   create_table "invitations", force: :cascade do |t|
     t.integer  "company_id"
@@ -38,8 +40,9 @@ ActiveRecord::Schema.define(version: 20160723202032) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "authorized", default: false
-    t.index ["company_id"], name: "index_invitations_on_company_id", using: :btree
   end
+
+  add_index "invitations", ["company_id"], name: "index_invitations_on_company_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
     t.date     "date"
@@ -51,19 +54,10 @@ ActiveRecord::Schema.define(version: 20160723202032) do
     t.integer  "status",         default: 0
     t.integer  "shipping_cents", default: 0
     t.integer  "company_id"
-    t.index ["company_id"], name: "index_orders_on_company_id", using: :btree
-    t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 
-  create_table "payments", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "payer_id"
-    t.integer  "balance_cents"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["payer_id"], name: "index_payments_on_payer_id", using: :btree
-    t.index ["user_id"], name: "index_payments_on_user_id", using: :btree
-  end
+  add_index "orders", ["company_id"], name: "index_orders_on_company_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "transfers", force: :cascade do |t|
     t.integer  "from_id"
@@ -72,9 +66,10 @@ ActiveRecord::Schema.define(version: 20160723202032) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "status",       default: 0
-    t.index ["from_id"], name: "index_transfers_on_from_id", using: :btree
-    t.index ["to_id"], name: "index_transfers_on_to_id", using: :btree
   end
+
+  add_index "transfers", ["from_id"], name: "index_transfers_on_from_id", using: :btree
+  add_index "transfers", ["to_id"], name: "index_transfers_on_to_id", using: :btree
 
   create_table "user_balances", force: :cascade do |t|
     t.integer  "balance_cents"
@@ -82,9 +77,10 @@ ActiveRecord::Schema.define(version: 20160723202032) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "payer_id"
-    t.index ["payer_id"], name: "index_user_balances_on_payer_id", using: :btree
-    t.index ["user_id"], name: "index_user_balances_on_user_id", using: :btree
   end
+
+  add_index "user_balances", ["payer_id"], name: "index_user_balances_on_payer_id", using: :btree
+  add_index "user_balances", ["user_id"], name: "index_user_balances_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",               default: "",    null: false
@@ -105,12 +101,11 @@ ActiveRecord::Schema.define(version: 20160723202032) do
     t.string   "account_number"
     t.integer  "company_id"
     t.boolean  "company_admin",       default: false
-    t.index ["company_id"], name: "index_users_on_company_id", using: :btree
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
+
+  add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   add_foreign_key "invitations", "companies"
   add_foreign_key "orders", "companies"
-  add_foreign_key "payments", "users"
-  add_foreign_key "payments", "users", column: "payer_id"
 end

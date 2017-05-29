@@ -13,7 +13,7 @@ RSpec.describe UserSerializer do
   end
 
   it '#account_balance' do
-    expect(current_user).to receive(:payer_balance).with(user) { 12 }
+    expect(current_user).to receive(:debt_to).with(user) { 12 }
     expect(serializer.account_balance).to eq('12')
   end
 
