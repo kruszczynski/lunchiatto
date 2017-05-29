@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# TODO(janek): Introduce STI: Payment::Debt, Payment::Repayment to improve
 # audit logging.
 class Payment < ActiveRecord::Base
   belongs_to :user

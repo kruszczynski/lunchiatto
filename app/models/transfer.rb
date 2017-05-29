@@ -20,7 +20,6 @@ class Transfer < ActiveRecord::Base
 
   def mark_as_accepted!
     accepted!
-    # TODO(janek): add double write! read from new Balance model
     to.received_payments.create!(payer: from, balance: amount)
     from.user_balances.create(new_balance_params)
   end
