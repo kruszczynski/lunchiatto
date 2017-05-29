@@ -17,8 +17,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :user_balances, only: [:index]
-    resources :user_debts, only: [:index]
+    resources :balances, only: [:index]
 
     resources :orders, except: [:new, :edit] do
       resources :dishes, except: [:new, :edit] do

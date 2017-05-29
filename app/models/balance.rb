@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 class Balance
-  Wrapper = Struct.new(:user, :balance) do
+  include ActiveModel::Model
+
+  Wrapper = Struct.new(:user, :balance, :created_at) do
     include ActiveModel::Serialization
   end
-
-  include ActiveModel::Model
 
   def initialize(user)
     @user = user
@@ -30,15 +30,29 @@ class Balance
     fail NotImplementedError
   end
 
+  def build_wrapper(other_user)
+    last_paid = payments_as_payer.where(user: other_user).first
+    last_received = payments_as_beneficiary.where(payer: other_user).first
+    created_at = [
+      last_paid&.created_at || Time.new(0),
+      last_received&.created_at || Time.new(0),
+    ].max
+    Wrapper.new(
+      other_user,
+      balance_for(other_user),
+      created_at,
+    )
+  end
+
   private
 
   attr_reader :user
 
   def payments_as_beneficiary
-    Payment.where(user: user)
+    @payments_as_beneficiary ||= Payment.newest_first.where(user: user)
   end
 
   def payments_as_payer
-    Payment.where(payer: user)
+    @payments_as_payer ||= Payment.newest_first.where(payer: user)
   end
 end

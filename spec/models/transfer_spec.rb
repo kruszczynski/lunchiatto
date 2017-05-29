@@ -28,6 +28,15 @@ RSpec.describe Transfer, type: :model do
         .with(balance: Money.new(2000, 'PLN'), payer: other_user)
       transfer.mark_as_accepted!
     end
+
+    it 'creates a new payment' do
+      expect { transfer.mark_as_accepted! }.to change(Payment, :count).by(1)
+    end
+
+    it 'creates a correct payment' do
+      transfer.mark_as_accepted!
+      expect(user.total_balance).to eq(Money.new(1500, 'PLN'))
+    end
   end
 
   describe 'scope newest_first' do

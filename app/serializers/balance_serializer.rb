@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class UserBalanceSerializer < ActiveModel::Serializer
+class BalanceSerializer < ActiveModel::Serializer
   attributes :balance,
              :created_at,
              :user,
@@ -17,8 +17,7 @@ class UserBalanceSerializer < ActiveModel::Serializer
     object.user.id
   end
 
-  # This method reeks of :reek:UtilityFunction
   def created_at
-    Time.now # LOL
+    object.created_at
   end
 end

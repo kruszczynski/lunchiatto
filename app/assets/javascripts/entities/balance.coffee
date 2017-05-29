@@ -3,7 +3,7 @@
 
   Entities.Balances = Backbone.Collection.extend
     url: ->
-      '/api/user_balances'
+      '/api/balances'
 
     total: ->
       @reduce((memo, balance) ->

@@ -3,14 +3,13 @@
 require 'active_model_serializers'
 
 module Api
-  class UserBalancesController < ApplicationController
+  class BalancesController < ApplicationController
     before_action :authenticate_user!
 
     def index
-      # TODO(janek): make into 1 controller
       balances = current_user.balances
       render json: ActiveModel::Serializer::CollectionSerializer.new(
-        balances, serializer: UserBalanceSerializer
+        balances, serializer: BalanceSerializer
       )
     end
   end

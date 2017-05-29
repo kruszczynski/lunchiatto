@@ -10,4 +10,6 @@ class Payment < ActiveRecord::Base
 
   register_currency :pln
   monetize :balance_cents
+
+  scope :newest_first, -> { order(created_at: :desc) }
 end
