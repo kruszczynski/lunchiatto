@@ -68,6 +68,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'faker', require: false
   gem 'inch'
+  gem 'pry'
 end
 
 group :development do
