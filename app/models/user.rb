@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 class User < ActiveRecord::Base
   has_many :orders
+
+  # TODO(anyone): remove user_balances and balances_as_payer
   has_many :user_balances, dependent: :destroy
   has_many :balances_as_payer, class_name: 'UserBalance',
                                inverse_of: :payer,
                                foreign_key: :payer_id
+  # ---
+
   has_many :submitted_transfers, inverse_of: :from,
                                  class_name: 'Transfer',
                                  foreign_key: :from_id
@@ -49,22 +53,28 @@ class User < ActiveRecord::Base
   end
 
   def payer_balance(payer)
-    Balance.new(self).balance_for(payer)
+    balance.balance_for(payer)
   end
 
   def total_balance
-    Balance.new(self).total
+    balance.total
   end
 
   def debt_to(user)
-    Balance.new(self).balance_for(user)
+    balance.balance_for(user)
   end
 
   def total_debt
-    Balance.new(self).total
+    total_balance
   end
 
   def pending_transfers_count
     received_transfers.pending.size
+  end
+
+  private
+
+  def balance
+    @balance ||= Balance.new(self)
   end
 end
