@@ -1,4 +1,4 @@
-FROM kruszczynski/lunchiatto_base:0.0
+FROM kruszczynski/lunchiatto_base:latest
 
 COPY Gemfile* ${APP_HOME}/
 RUN bundle install

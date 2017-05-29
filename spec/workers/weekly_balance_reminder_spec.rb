@@ -2,14 +2,13 @@
 require 'rails_helper'
 
 RSpec.describe WeeklyBalanceReminder do
-  let(:company) { create :company }
-  let(:user) { create :user, company: company }
-  let(:other_user) { create :other_user, company: company }
-  let!(:payment) do
-    create :payment, user: user, payer: other_user, balance_cents: 30
+  let(:user) { create :user }
+  let(:other_user) { create :other_user }
+  let!(:user_balance) do
+    create :user_balance, user: user, payer: other_user, balance_cents: -30
   end
-  let!(:payment2) do
-    create :payment, user: user, payer: user, balance_cents: 30
+  let!(:user_balance2) do
+    create :user_balance, user: user, payer: user, balance_cents: -30
   end
   let!(:transfer) do
     create :transfer, from: user, to: user, amount_cents: 30
@@ -20,7 +19,7 @@ RSpec.describe WeeklyBalanceReminder do
     before do
       expect(BalanceMailer)
         .to receive(:debt_email)
-        .with(user, [an_instance_of(Balance::Wrapper)])
+        .with(user, [user_balance])
         .and_return(email)
       expect(email).to receive(:deliver_now)
     end
