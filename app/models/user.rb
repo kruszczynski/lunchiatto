@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
                                foreign_key: :payer_id
   # ---
 
+  has_many :received_payments, inverse_of: :user,
+                               class_name: 'Payment',
+                               foreign_key: 'user_id'
   has_many :submitted_transfers, inverse_of: :from,
                                  class_name: 'Transfer',
                                  foreign_key: :from_id
@@ -43,9 +46,9 @@ class User < ActiveRecord::Base
   end
 
   def subtract(amount, payer)
-    # TODO(janek): double write to new model!
     return if self == payer && !subtract_from_self
     user_balances.create(balance: payer_balance(payer) - amount, payer: payer)
+    received_payments.create!(balance: amount, payer: payer)
   end
 
   def to_s

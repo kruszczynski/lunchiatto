@@ -17,10 +17,8 @@ RSpec.describe Balance do
       end
     end
 
-    it '#balance_for raises if users are equal' do
-      expect do
-        described_class.new(user_1).balance_for(user_1)
-      end.to raise_error(ArgumentError)
+    it '#balance_for returns 0 if users are equal' do
+      expect(described_class.new(user_1).balance_for(user_1)).to eq(0)
     end
 
     context 'it is 0 for user_1' do
