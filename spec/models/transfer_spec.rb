@@ -18,15 +18,27 @@ RSpec.describe Transfer, type: :model do
   end
 
   describe '#mark_as_accepted!' do
-    let(:user_balances) { class_double('UserBalance') }
+    let!(:user_balance) do
+      create :user_balance, user: user, payer: other_user, balance: 5
+    end
 
     it 'creates new balance and change status' do
       expect(transfer).to receive(:accepted!)
-      expect(user).to receive(:user_balances).and_return(user_balances)
-      expect(user).to receive(:payer_balance).and_return(Money.new(500, 'PLN'))
-      expect(user_balances).to receive(:create)
-        .with(balance: Money.new(2000, 'PLN'), payer: other_user)
       transfer.mark_as_accepted!
+
+      ub = UserBalance.last
+      expect(ub.balance).to eq(Money.new(2000, 'PLN'))
+      expect(ub.user).to eq(user)
+      expect(ub.payer).to eq(other_user)
+    end
+
+    it 'creates a new payment' do
+      expect { transfer.mark_as_accepted! }.to change(Payment, :count).by(1)
+    end
+
+    it 'creates a correct payment' do
+      transfer.mark_as_accepted!
+      expect(user.total_balance).to eq(Money.new(1500, 'PLN'))
     end
   end
 
