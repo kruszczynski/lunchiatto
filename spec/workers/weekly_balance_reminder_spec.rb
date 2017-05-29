@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe WeeklyBalanceReminder do
   let(:company) { create :company }
   let(:user) { create :user, company: company }
-  let(:other_user) { create :other_user, company: company  }
+  let(:other_user) { create :other_user, company: company }
   let!(:payment) do
     create :payment, user: user, payer: other_user, balance_cents: 30
   end

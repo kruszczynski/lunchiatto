@@ -33,7 +33,7 @@ RSpec.describe User, type: :model do
     it 'returns adequate non-zero balances' do
       allow(user)
         .to receive(:company)
-        .and_return(double(users: [user, payer]))
+        .and_return(instance_double('Company', users: [user, payer]))
       balances = user.balances
       expect(balances.count).to be(1)
     end
@@ -84,7 +84,7 @@ RSpec.describe User, type: :model do
 
   describe '#total_balance' do
     it 'returns proper balance' do
-      money = Money.new -1700, 'PLN'
+      money = Money.new(-1700, 'PLN')
       expect(user.total_balance).to eq(money)
     end
   end
@@ -92,7 +92,7 @@ RSpec.describe User, type: :model do
   # TODO(anyone): deprecated method - remove
   describe '#total_debt' do
     it 'returns proper balance' do
-      money = Money.new -1700, 'PLN'
+      money = Money.new(-1700, 'PLN')
       expect(user.total_debt).to eq(money)
     end
   end
