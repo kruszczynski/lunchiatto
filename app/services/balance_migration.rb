@@ -69,8 +69,9 @@ class BalanceMigration
 
   # this method reeks of :reek:UtilityFunction
   def old_total_balance(user)
-    user.total_balance - # my debts to others
-      user.total_debt # - others' debt to me, not included in previous model
+    UserBalance.balances_for(user).map(&:balance).reduce(:+) - # my debts to others
+      UserBalance.debts_to(user).inject(Money.new(0, 'PLN')) { |sum, debt| sum + debt.balance }
+    # - others' debt to me, not included in previous model
   end
 
   # this method reeks of :reek:UtilityFunction
