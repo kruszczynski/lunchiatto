@@ -1,10 +1,17 @@
 # frozen_string_literal: true
 class User < ActiveRecord::Base
   has_many :orders
+
+  # TODO(anyone): remove user_balances and balances_as_payer
   has_many :user_balances, dependent: :destroy
   has_many :balances_as_payer, class_name: 'UserBalance',
                                inverse_of: :payer,
                                foreign_key: :payer_id
+  # ---
+
+  has_many :received_payments, inverse_of: :user,
+                               class_name: 'Payment',
+                               foreign_key: 'user_id'
   has_many :submitted_transfers, inverse_of: :from,
                                  class_name: 'Transfer',
                                  foreign_key: :from_id
@@ -25,20 +32,22 @@ class User < ActiveRecord::Base
          omniauth_providers: [:google_oauth2]
 
   def balances
-    @balances ||= UserBalance.balances_for(self)
-  end
-
-  def debts
-    @debts ||= UserBalance.debts_to(self)
+    balance = Balance.new(self)
+    company
+      .users
+      .map { |usr| balance.build_wrapper(usr) }
+      .reject { |bal| bal.balance == 0 }
   end
 
   def add_first_balance
+    # TODO(janek): no need to double write here - remove with user_balances
     user_balances.create balance: 0, payer: self
   end
 
   def subtract(amount, payer)
     return if self == payer && !subtract_from_self
     user_balances.create(balance: payer_balance(payer) - amount, payer: payer)
+    received_payments.create!(balance: amount, payer: payer)
   end
 
   def to_s
@@ -46,23 +55,28 @@ class User < ActiveRecord::Base
   end
 
   def payer_balance(payer)
-    user_balances.newest_for(payer.id).try(:balance) || Money.new(0, 'PLN')
+    balance.balance_for(payer)
   end
 
   def total_balance
-    balances.map(&:balance).reduce :+
+    balance.total
   end
 
   def debt_to(user)
-    balances.find { |balance| balance.payer_id == user.id }.try(:balance)
+    balance.balance_for(user)
   end
 
   def total_debt
-    # rubocop:disable Style/SingleLineBlockParams
-    debts.inject(Money.new(0, 'PLN')) { |sum, debt| sum + debt.balance }
+    total_balance
   end
 
   def pending_transfers_count
     received_transfers.pending.size
+  end
+
+  private
+
+  def balance
+    @balance ||= Balance.new(self)
   end
 end
