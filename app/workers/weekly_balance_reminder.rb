@@ -15,8 +15,8 @@ class WeeklyBalanceReminder
   # This method smells of :reek:UtilityFunction
   def filter_balances(user)
     user.balances.select do |balance|
-      balance.balance_cents < 0 &&
-        Transfer.pending.where(to: balance.payer, from: user).blank?
+      balance.balance < 0 &&
+        Transfer.pending.where(to: balance.user, from: user).blank?
     end
   end
 end # WeeklyBalanceReminder

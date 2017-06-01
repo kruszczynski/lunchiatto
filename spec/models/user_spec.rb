@@ -22,12 +22,20 @@ RSpec.describe User, type: :model do
     create :user_balance, user: user, payer: user, balance: 34
   end
 
+  let!(:payment_one) do
+    create :payment, user: user, payer: payer, balance: 15
+  end
+  let!(:payment_two) do
+    create :payment, user: user, payer: payer, balance: 2
+  end
+
   describe '#balances' do
-    it 'returns adequate' do
-      expect(UserBalance).to receive(:balances_for)
-        .with(user).and_return([balance_two, balance_three])
+    it 'returns adequate non-zero balances' do
+      allow(user)
+        .to receive(:company)
+        .and_return(instance_double('Company', users: [user, payer]))
       balances = user.balances
-      expect(balances.count).to be(2)
+      expect(balances.count).to be(1)
     end
   end
 
@@ -74,51 +82,31 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#payer_balance' do
-    let(:balance_payer) { instance_double('User') }
-    let(:user_balances) { class_double('UserBalance') }
-    let(:balance) { instance_double('UserBalance') }
-    let(:newest_for_payer) { instance_double('UserBalance') }
-
-    it 'calls scope method' do
-      expect(balance_payer).to receive(:id).and_return(5)
-      expect(newest_for_payer).to receive(:balance).and_return(balance)
-      expect(user_balances).to receive(:newest_for).with(5)
-        .and_return(newest_for_payer)
-      expect(user).to receive(:user_balances).and_return(user_balances)
-      expect(user.payer_balance(balance_payer)).to eq(balance)
-    end
-  end
-
   describe '#total_balance' do
     it 'returns proper balance' do
-      money = Money.new 5100, 'PLN'
+      money = Money.new(-1700, 'PLN')
       expect(user.total_balance).to eq(money)
     end
   end
 
-  describe '#debt_to' do
-    let(:user_2) { create :other_user, email: 'janek@yolo.com' }
-    let!(:balance_four) do
-      create :user_balance, user: user_2, payer: payer, balance: 100
-    end
-
-    it 'returns debt of user_2' do
-      expect(user_2.debt_to(payer)).to eq(Money.new(10_000, 'PLN'))
-    end
-  end
-
-  describe '#debts' do
-    it 'returns adequate' do
-      expect(UserBalance).to receive(:debts_to).with(user).and_return(:debts)
-      expect(user.debts).to be(:debts)
-    end
-  end
-
+  # TODO(anyone): deprecated method - remove
   describe '#total_debt' do
     it 'returns proper balance' do
-      money = Money.new 3400, 'PLN'
+      money = Money.new(-1700, 'PLN')
       expect(user.total_debt).to eq(money)
+    end
+  end
+
+  describe '#debt_to and #payer_balance' do
+    let(:user_2) { create :other_user, email: 'janek@yolo.com' }
+
+    let!(:payment_three) do
+      create(:payment, user: user_2, payer: payer, balance: 100)
+    end
+
+    it 'returns debt_to of user_2 and correct payer_balance of payer' do
+      expect(user_2.debt_to(payer)).to eq(Money.new(-10_000, 'PLN'))
+      expect(payer.payer_balance(user_2)).to eq(Money.new(10_000, 'PLN'))
     end
   end
 

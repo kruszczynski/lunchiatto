@@ -20,6 +20,7 @@ class Transfer < ActiveRecord::Base
 
   def mark_as_accepted!
     accepted!
+    to.received_payments.create!(payer: from, balance: amount)
     from.user_balances.create(new_balance_params)
   end
 
@@ -28,6 +29,9 @@ class Transfer < ActiveRecord::Base
   private
 
   def new_balance_params
-    {balance: (from.payer_balance(to) + amount), payer: to}
+    payer_balance = from.user_balances
+      .newest_for(to.id)
+      .try(:balance) || Money.new(0, 'PLN')
+    {balance: (payer_balance + amount), payer: to}
   end
 end

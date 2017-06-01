@@ -122,17 +122,25 @@ RSpec.describe Order, type: :model do
 
   describe '#subtract_price' do
     before { subject.shipping = Money.new(2000, 'PLN') }
-    let!(:dish1) { create(:dish, order: subject, user: create(:user)) }
-    let!(:dish2) { create(:dish, order: subject, user: create(:user)) }
+    let(:user_1) { create(:user) }
+    let(:user_2) { create(:user) }
+    let!(:dish1) { create(:dish, order: subject, user: user_1) }
+    let!(:dish2) { create(:dish, order: subject, user: user_2) }
 
     it 'creates 2 balances' do
       expect { subject.subtract_price }.to change { UserBalance.count }.by(2)
     end
 
+    it 'creates 2 payments' do
+      expect { subject.subtract_price }.to change(Payment, :count).by(2)
+    end
+
     it 'directs debt towards payer' do
       subject.subtract_price
-      # dishes are 13.30 each
-      expect(user.total_debt).to eq(Money.new(-4660, 'PLN'))
+      # dishes are 13.30 each + 10.00 in shipping
+      expect(user.total_balance).to eq(Money.new(4660, 'PLN'))
+      expect(user_1.total_balance).to eq(Money.new(-2330, 'PLN'))
+      expect(user_2.total_balance).to eq(Money.new(-2330, 'PLN'))
     end
   end # describe '#subtract_price'
 

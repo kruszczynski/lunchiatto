@@ -69,6 +69,10 @@ group :development, :test do
   gem 'rubocop-rspec'
   gem 'scss_lint', require: false
   gem 'slim_lint'
+  gem 'rspec-rails'
+  gem 'faker', require: false
+  gem 'inch'
+  gem 'pry'
 end
 
 group :development do

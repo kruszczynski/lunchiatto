@@ -3,9 +3,6 @@
     className: 'balance-box'
     template: 'balances/balance'
 
-    balancesUserKey: 'payer'
-    debtsUserKey: 'user'
-
     templateHelpers: ->
       formattedBalance: @formattedBalance()
       amountClass: @amountClass()
@@ -22,11 +19,8 @@
       account_balance && "#{account_balance} PLN" || 'N/A'
 
     transferLink: ->
-      return unless @model.collection.type is 'balances'
       "/transfers/new?to_id=#{@model.get('payer_id')}\
         &amount=#{-@model.get('balance')}"
 
     _adequateUser: ->
-      # calls balancesUserKey, debtsUserKey
-      userKey = @["#{@model.collection.type}UserKey"]
-      @model.get(userKey)
+      @model.get('user')
