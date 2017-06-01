@@ -28,7 +28,8 @@ module Users
     end
 
     def user
-      @user ||= User.find_by(omniauth_params.slice(:provider, :uid).to_h)
+      @user ||= User.find_by(omniauth_params.slice(:provider, :uid).to_h) ||
+                User.find_by(email: omniauth_params['info']['email'])
     end
 
     def omniauth_params
