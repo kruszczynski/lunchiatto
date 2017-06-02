@@ -26,7 +26,7 @@ RSpec.describe Dish, type: :model do
     expect(monetize(:price_cents)).to be_truthy
   end
 
-  it 'should validate positive price' do
+  it 'validates price positivity' do
     dish.price_cents = 0
     expect(dish.valid?).to be_truthy
     dish.price_cents = -100
