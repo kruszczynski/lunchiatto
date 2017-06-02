@@ -27,13 +27,16 @@ RSpec.describe Users::OmniauthCallbacksController, type: :controller do
           request.env['omniauth.auth'] =
             OmniAuth.config.mock_auth[:google_oauth2_codequest]
           User.create(email: 'test@codequest.com',
-                      provider: 'google_oauth2',
+                      provider: 'different_provider',
                       uid: 'different_uid')
         end
 
-        it 'redirects to new_company_path if user has no company' do
+        it 'redirects to new_company_path and updates user' do
           get :google_oauth2
           expect(response).to redirect_to(new_company_url)
+          user = User.last
+          expect(user.uid).to eq '123545'
+          expect(user.provider).to eq 'google_oauth2'
         end
       end
     end
