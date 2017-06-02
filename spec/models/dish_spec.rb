@@ -26,6 +26,13 @@ RSpec.describe Dish, type: :model do
     expect(monetize(:price_cents)).to be_truthy
   end
 
+  it 'should validate positive price' do
+    dish.price_cents = 0
+    expect(dish.valid?).to be_truthy
+    dish.price_cents = -100
+    expect(dish.valid?).to be_falsey
+  end
+
   describe '#copy' do
     it 'returns an instance of dish' do
       expect(new_dish.user).to eq(other_user)

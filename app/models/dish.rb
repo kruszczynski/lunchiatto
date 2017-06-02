@@ -9,6 +9,7 @@ class Dish < ActiveRecord::Base
                    uniqueness: {scope: :order_id,
                                 message: 'can only order one dish'}
   validates :order, :price_cents, presence: true
+  validates :price_cents, numericality: {greater_than_or_equal_to: 0}
 
   register_currency :pln
   monetize :price_cents
