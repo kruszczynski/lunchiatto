@@ -44,7 +44,7 @@ module Users
       return unless user
       user.update(
         uid: omniauth_params['uid'],
-        provider: omniauth_params['provider']
+        provider: omniauth_params['provider'],
       )
       user
     end
