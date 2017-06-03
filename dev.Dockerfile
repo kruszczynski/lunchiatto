@@ -13,6 +13,8 @@ RUN npm install -g coffeelint
 # Environment variables
 ENV BUNDLE_PATH=/bundle
 RUN bundle config --global jobs 8
+# Newest bundler
+RUN gem install bundler
 # No bundle exec
 ENV BUNDLE_BIN=/bundle/bin
 ENV PATH $BUNDLE_BIN:$PATH

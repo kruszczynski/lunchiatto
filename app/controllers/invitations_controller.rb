@@ -2,8 +2,8 @@
 class InvitationsController < ApplicationController
   def show
     redirect_to_today
-    invitation = find_invitation
-    return if invitation
+    @invitation = find_invitation
+    return if @invitation
     redirect_to(root_path, notice: 'Invitation confirmed please sign in')
   end
 
