@@ -2,10 +2,11 @@
 require 'rails_helper'
 
 RSpec.describe CompanyCreator do
+  subject { described_class.new(params: company_params, user: user) }
+
   let(:user) { create :user }
   let(:company_params) { {name: 'Pink Boogers LTD'} }
   let(:empty_company_params) { {name: ''} }
-  subject { described_class.new(params: company_params, user: user) }
 
   describe '#intialize' do
     it 'assigns variables' do
@@ -37,6 +38,7 @@ RSpec.describe CompanyCreator do
     end
   end
 
+  # rubocop:disable RSpec/SubjectStub
   describe '#error?' do
     it 'is the opposite of success' do
       allow(subject).to receive(:success?).and_return(true, false)

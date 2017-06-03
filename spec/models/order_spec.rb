@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable RSpec/SubjectStub
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
@@ -95,8 +96,9 @@ RSpec.describe Order, type: :model do
       end
 
       it 'substracts price' do
-        expect(subject).to receive(:subtract_price)
+        allow(subject).to receive(:subtract_price)
         subject.change_status(:delivered)
+        expect(subject).to have_received(:subtract_price)
       end
 
       it 'changes to in_progress' do

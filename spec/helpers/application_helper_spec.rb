@@ -18,11 +18,12 @@ RSpec.describe ApplicationHelper, type: :helper do
       expect(result).to match(/#{yielded_stuff}/)
     end
 
+    # rubocop:disable RSpec/MultipleExpectations
     it 'renders a label with errors' do
       allow(object).to receive(:errors) { errors }
-      expect(errors).to receive(:full_messages_for)
-        .with(:name) { ['Name can not be blank'] }
+      allow(errors).to receive(:full_messages_for) { ['Name can not be blank'] }
       result = render_field
+      expect(errors).to have_received(:full_messages_for).with(:name)
       expect(result).to match(/^\s*<label class="error">/)
       expect(result).to match(/#{yielded_stuff}/)
       expect(result).to match(/<small class="error">Name can not be blank/)

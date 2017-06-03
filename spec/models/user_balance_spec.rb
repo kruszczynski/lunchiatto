@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable RSpec/MessageSpies
 require 'rails_helper'
 
 RSpec.describe UserBalance, type: :model do

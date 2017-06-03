@@ -10,8 +10,8 @@ class InvitationEmailValidatorModel
 end
 
 RSpec.describe InvitationEmailValidator do
-  let(:user) { instance_double 'User' }
   subject { InvitationEmailValidatorModel.new }
+  let(:user) { instance_double 'User' }
 
   it 'adds errors when email is taken' do
     subject.email = 'test@party.com'

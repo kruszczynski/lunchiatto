@@ -53,8 +53,11 @@ RSpec.describe Dish, type: :model do
   describe '#subtract' do
     it 'reduces users balance' do
       shipping = Money.new(1000, 'PLN')
-      expect(user).to receive(:subtract).with(Money.new(2200, 'PLN'), :payer)
-      dish.subtract shipping, :payer
+      allow(user).to receive(:subtract)
+      dish.subtract shipping, other_user
+      expect(user)
+        .to have_received(:subtract)
+        .with(Money.new(2200, 'PLN'), other_user)
     end
   end
 end

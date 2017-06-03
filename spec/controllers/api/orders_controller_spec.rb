@@ -109,7 +109,8 @@ RSpec.describe Api::OrdersController, type: :controller do
 
       it 'allows when in_progress' do
         sign_in user
-        put :update, params: {id: order.id, user_id: other_user.id}, format: :json
+        update_params = {id: order.id, user_id: other_user.id}
+        put :update, params: update_params, format: :json
         expect(response).to have_http_status(:success)
       end
 

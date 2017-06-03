@@ -2,43 +2,41 @@
 require 'rails_helper'
 
 RSpec.describe OrderSerializer do
-  let(:company) { create :company }
-  let(:user) { create :user, company: company }
-  let(:order) { create :order, user: user, company: company }
+  let(:company) { create(:company) }
+  let(:user) { create(:user, company: company) }
+  let(:shipping) { 0 }
+  let(:order) do
+    create(:order, user: user, company: company, shipping: shipping)
+  end
   let(:current_user) { user }
   subject do
-    described_class.new order, scope: current_user, scope_name: :current_user
+    described_class.new(order, scope: current_user, scope_name: :current_user)
   end
-  let(:policy) { instance_double('OrderPolicy') }
+  let(:policy) { instance_double('OrderPolicy', update?: true, destroy?: true) }
 
   describe '#shipping' do
-    it 'delegates shipping' do
-      expect(order).to receive(:shipping).and_return(11)
-      expect(subject.shipping).to eq('11')
-    end
+    let(:shipping) { 11 }
+    it { expect(subject.shipping).to eq('11.00') }
   end # describe '#shipping'
 
   describe '#total' do
+    let(:shipping) { 3 }
+    let!(:dish) { create(:dish, order: order, price: 7, user: user) }
     it 'returns adequate' do
-      expect(order).to receive(:shipping).and_return(3)
-      expect(order).to receive(:amount).and_return(7)
-      expect(subject.total).to eq('10')
+      expect(subject.total).to eq('10.00')
     end
   end # describe '#total'
 
   describe 'with policy' do
     before do
       allow(OrderPolicy).to receive(:new) { policy }
-      allow(subject).to receive(:current_user) { user }
     end
 
     it '#editable' do
-      expect(policy).to receive(:update?) { true }
       expect(subject.editable).to be_truthy
     end # it '#editable'
 
     it '#deletable' do
-      expect(policy).to receive(:destroy?) { true }
       expect(subject.deletable).to be_truthy
     end # it '#deletable'
   end # describe 'with policy'

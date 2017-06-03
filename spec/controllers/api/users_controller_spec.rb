@@ -9,12 +9,8 @@ RSpec.describe Api::UsersController, type: :controller do
     describe 'json' do
       it 'returns user object on json' do
         sign_in user
-        put :update,
-            params: {
-              id: user.id,
-              user: {subtract_from_self: true},
-            },
-            format: :json
+        update_params = {id: user.id, user: {subtract_from_self: true}}
+        put :update, params: update_params, format: :json
         expect(response).to have_http_status(:success)
       end
       it 'returns 401 for unlogged in json' do
