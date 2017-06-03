@@ -45,7 +45,7 @@ gem 'sidekiq'
 gem 'sidekiq-scheduler'
 
 # logging
-gem 'multilogger', github: 'codequest-eu/multilogger'
+gem 'multilogger', git: 'https://github.com/codequest-eu/multilogger'
 gem 'remote_syslog_logger'
 
 source 'https://rails-assets.org' do
