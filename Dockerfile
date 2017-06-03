@@ -1,6 +1,7 @@
 FROM kruszczynski/lunchiatto_base:0.3
 
 COPY Gemfile* ${APP_HOME}/
+RUN gem install bundler
 RUN bundle install
 
 # copy code

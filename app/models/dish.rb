@@ -17,8 +17,9 @@ class Dish < ActiveRecord::Base
   scope :by_date, -> { order('created_at') }
   scope :by_name, -> { order('name') }
 
+  # this method reeks of :reek:NilCheck
   def copy(new_user)
-    dish = Dish.find_by order: order, user: new_user
+    dish = Dish.find_by(order: order, user: new_user)
     dish&.delete
     new_dish = dup
     new_dish.user = new_user
