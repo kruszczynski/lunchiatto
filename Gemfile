@@ -32,8 +32,8 @@ gem 'kaminari'
 gem 'nokogiri'
 gem 'premailer'
 gem 'premailer-rails'
+gem 'pug-rails'
 gem 'puma'
-gem 'tilt-jade'
 
 # error reporting
 gem 'airbrake'
