@@ -9,10 +9,10 @@ RSpec.describe OrderSerializer do
     create(:order, user: user, company: company, shipping: shipping)
   end
   let(:current_user) { user }
+  let(:policy) { instance_double('OrderPolicy', update?: true, destroy?: true) }
   subject do
     described_class.new(order, scope: current_user, scope_name: :current_user)
   end
-  let(:policy) { instance_double('OrderPolicy', update?: true, destroy?: true) }
 
   describe '#shipping' do
     let(:shipping) { 11 }

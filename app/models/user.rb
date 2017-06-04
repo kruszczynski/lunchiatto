@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
     company
       .users
       .map { |usr| balance.build_wrapper(usr) }
-      .reject { |bal| bal.balance == 0 }
+      .reject { |bal| bal.balance.zero? }
   end
 
   def add_first_balance
@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
 
   def subtract(amount, payer)
     return if self == payer && !subtract_from_self
-    return if amount == 0
+    return if amount.zero?
     user_balances.create(balance: payer_balance(payer) - amount, payer: payer)
     received_payments.create!(balance: amount, payer: payer)
   end

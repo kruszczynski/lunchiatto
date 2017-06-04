@@ -61,11 +61,12 @@ RSpec.describe Order, type: :model do
     end
 
     it 'returns 15 when there is a dish' do
-      order = described_class.new date: Time.zone.today
-      dish = instance_double('Dish')
-      expect(dish).to receive(:price).and_return(Money.new(15, 'PLN'))
-      expect(order).to receive(:dishes).and_return([dish])
-      expect(order.amount).to eq(Money.new(15, 'PLN'))
+      order = build(
+        :order,
+        date: Time.zone.today,
+        dishes: [build(:dish, price: '15', order: order, user: build(:user))],
+      )
+      expect(order.amount).to eq(Money.new(1500, 'PLN'))
     end
   end # describe '#amount'
 
@@ -77,8 +78,9 @@ RSpec.describe Order, type: :model do
       end
 
       it 'does not substract price' do
-        expect(subject).not_to receive(:subtract_price)
+        allow(subject).to receive(:subtract_price)
         subject.change_status(:ordered)
+        expect(subject).not_to have_received(:subtract_price)
       end
 
       it 'does not allow changing from in progress to delivered' do

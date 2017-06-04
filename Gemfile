@@ -60,13 +60,13 @@ end
 group :development, :test do
   gem 'faker', require: false
   gem 'inch'
+  gem 'pry'
   gem 'reek'
   gem 'rspec-rails'
   gem 'rubocop'
   gem 'rubocop-rspec'
   gem 'scss_lint', require: false
   gem 'slim_lint'
-  gem 'pry'
 end
 
 group :development do

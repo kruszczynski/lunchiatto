@@ -6,11 +6,11 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   namespace :api do
-    resources :users, except: [:delete, :edit]
-    resources :companies, only: [:show, :update]
-    resources :invitations, only: [:create, :destroy]
+    resources :users, except: %i(delete edit)
+    resources :companies, only: %i(show update)
+    resources :invitations, only: %i(create destroy)
 
-    resources :transfers, only: [:index, :create] do
+    resources :transfers, only: %i(index create) do
       member do
         put :accept
         put :reject
@@ -19,8 +19,8 @@ Rails.application.routes.draw do
 
     resources :balances, only: [:index]
 
-    resources :orders, except: [:new, :edit] do
-      resources :dishes, except: [:new, :edit] do
+    resources :orders, except: %i(new edit) do
+      resources :dishes, except: %i(new edit) do
         post :copy, on: :member
       end
       member do
@@ -32,9 +32,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :companies, only: [:new, :create]
-  resources :invitations, only: [:show, :create]
-  resources :user_accesses, only: [:create]
+  resources :companies, only: %i(new create)
+  resources :invitations, only: %i(show create)
+  resources :user_accesses, only: %i(create)
 
   ### Single Page App ###
   %w(
