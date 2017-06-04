@@ -45,7 +45,7 @@ module Api
       order = find_order
       authorize order
       order.change_status(params[:status].to_sym)
-      if order.save
+      if success
         render json: order
       else
         render json: {errors: ['Operation not allowed']},
