@@ -14,15 +14,16 @@ RSpec.describe PendingTransfersWorker do
 
   describe '#perform' do
     before do
-      expect(TransferMailer)
-        .to receive(:pending_transfers)
-        .with([transfer], user)
-        .and_return(email)
-      expect(email).to receive(:deliver_now)
+      allow(TransferMailer).to receive(:pending_transfers).and_return(email)
+      allow(email).to receive(:deliver_now)
     end
 
     it 'sends pending transfers email' do
       subject.perform
+      expect(TransferMailer)
+        .to have_received(:pending_transfers)
+        .with([transfer], user)
+      expect(email).to have_received(:deliver_now)
     end
   end # describe '#perform'
 end # describe PendingTransfersWorker

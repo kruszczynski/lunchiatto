@@ -7,7 +7,7 @@ class Order < ActiveRecord::Base
   validates :user, presence: true
   validates :from, presence: true,
                    uniqueness: {
-                     scope: [:date, :company_id],
+                     scope: %i(date company_id),
                      message: 'There already is an order from there today',
                    },
                    length: {maximum: 255}
@@ -41,7 +41,7 @@ class Order < ActiveRecord::Base
   end
 
   def subtract_price
-    return if dishes_count == 0
+    return if dishes_count.zero?
     dishes.each do |dish|
       dish.subtract shipping / dishes_count, user
     end

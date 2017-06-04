@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# rubocop:disable RSpec/DescribedClass
+# rubocop:disable RSpec/DescribedClass, RSpec/SubjectStub
 require 'rails_helper'
 
 RSpec.describe Persistence do
@@ -13,53 +13,71 @@ RSpec.describe Persistence do
 
   describe '#save_record' do
     it 'saves' do
-      expect(model).to receive(:save).and_return(true)
-      expect(subject).to receive(:render).with(json: model)
+      allow(model).to receive(:save).and_return(true)
+      allow(subject).to receive(:render)
       subject.save_record(model)
+      expect(model).to have_received(:save)
+      expect(subject).to have_received(:render).with(json: model)
     end
 
     it 'returns errors' do
-      expect(model).to receive(:save).and_return(false)
-      expect(model).to receive(:errors).and_return(:model_errors)
-      expect(subject).to receive(:render).with(errored_response)
+      allow(model).to receive(:save).and_return(false)
+      allow(model).to receive(:errors).and_return(:model_errors)
+      allow(subject).to receive(:render)
       subject.save_record(model)
+      expect(model).to have_received(:save)
+      expect(model).to have_received(:errors)
+      expect(subject).to have_received(:render).with(errored_response)
     end
 
     it 'takes block for success' do
-      expect(model).to receive(:save).and_return(true)
-      expect(subject).to receive(:render).with(json: model)
-      expect(model).to receive(:name)
+      allow(model).to receive(:save).and_return(true)
+      allow(model).to receive(:name)
+      allow(subject).to receive(:render)
       subject.save_record(model, &:name)
+      expect(model).to have_received(:save)
+      expect(model).to have_received(:name)
+      expect(subject).to have_received(:render).with(json: model)
     end
   end
 
   describe '#update_record' do
     it 'updates' do
-      expect(model).to receive(:update).with(params).and_return(true)
-      expect(subject).to receive(:render).with(json: model)
+      allow(model).to receive(:update).and_return(true)
+      allow(subject).to receive(:render)
       subject.update_record(model, params)
+      expect(model).to have_received(:update).with(params)
+      expect(subject).to have_received(:render).with(json: model)
     end
 
     it 'returns errors' do
-      expect(model).to receive(:update).with(params).and_return(false)
-      expect(model).to receive(:errors).and_return(:model_errors)
-      expect(subject).to receive(:render).with(errored_response)
+      allow(model).to receive(:update).and_return(false)
+      allow(model).to receive(:errors).and_return(:model_errors)
+      allow(subject).to receive(:render)
       subject.update_record(model, params)
+      expect(model).to have_received(:update).with(params)
+      expect(model).to have_received(:errors)
+      expect(subject).to have_received(:render).with(errored_response)
     end
   end
 
   describe '#destroy_record' do
     it 'destroys' do
-      expect(model).to receive(:destroy).and_return(true)
-      expect(subject).to receive(:head).with(:no_content)
+      allow(model).to receive(:destroy).and_return(true)
+      allow(subject).to receive(:head)
       subject.destroy_record(model)
+      expect(model).to have_received(:destroy)
+      expect(subject).to have_received(:head).with(:no_content)
     end
 
     it 'returns errors' do
-      expect(model).to receive(:destroy).and_return(false)
-      expect(model).to receive(:errors).and_return(:model_errors)
-      expect(subject).to receive(:render).with(errored_response)
+      allow(model).to receive(:destroy).and_return(false)
+      allow(model).to receive(:errors).and_return(:model_errors)
+      allow(subject).to receive(:render)
       subject.destroy_record(model)
+      expect(model).to have_received(:destroy)
+      expect(model).to have_received(:errors)
+      expect(subject).to have_received(:render).with(errored_response)
     end
   end
 end

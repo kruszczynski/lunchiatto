@@ -1,19 +1,20 @@
 # frozen_string_literal: true
+# rubocop:disable RSpec/SubjectStub
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
-  it { should belong_to(:user) }
-  it { should have_many(:dishes) }
-  it { should belong_to(:company) }
-  it { should validate_presence_of(:user) }
-  it { should validate_presence_of(:from) }
-  it { should validate_presence_of(:company) }
+  it { is_expected.to belong_to(:user) }
+  it { is_expected.to have_many(:dishes) }
+  it { is_expected.to belong_to(:company) }
+  it { is_expected.to validate_presence_of(:user) }
+  it { is_expected.to validate_presence_of(:from) }
+  it { is_expected.to validate_presence_of(:company) }
   it do
-    should validate_uniqueness_of(:from)
+    is_expected.to validate_uniqueness_of(:from)
       .with_message('There already is an order from there today')
       .scoped_to(:date, :company_id)
   end
-  it { should validate_length_of(:from).is_at_most(255) }
+  it { is_expected.to validate_length_of(:from).is_at_most(255) }
 
   let(:company) { create(:company) }
   let(:user) { create(:user, company: company) }
@@ -60,11 +61,12 @@ RSpec.describe Order, type: :model do
     end
 
     it 'returns 15 when there is a dish' do
-      order = described_class.new date: Time.zone.today
-      dish = instance_double('Dish')
-      expect(dish).to receive(:price).and_return(Money.new(15, 'PLN'))
-      expect(order).to receive(:dishes).and_return([dish])
-      expect(order.amount).to eq(Money.new(15, 'PLN'))
+      order = build(
+        :order,
+        date: Time.zone.today,
+        dishes: [build(:dish, price: '15', order: order, user: build(:user))],
+      )
+      expect(order.amount).to eq(Money.new(1500, 'PLN'))
     end
   end # describe '#amount'
 
@@ -76,8 +78,9 @@ RSpec.describe Order, type: :model do
       end
 
       it 'does not substract price' do
-        expect(subject).not_to receive(:subtract_price)
+        allow(subject).to receive(:subtract_price)
         subject.change_status(:ordered)
+        expect(subject).not_to have_received(:subtract_price)
       end
 
       it 'does not allow changing from in progress to delivered' do
@@ -95,8 +98,9 @@ RSpec.describe Order, type: :model do
       end
 
       it 'substracts price' do
-        expect(subject).to receive(:subtract_price)
+        allow(subject).to receive(:subtract_price)
         subject.change_status(:delivered)
+        expect(subject).to have_received(:subtract_price)
       end
 
       it 'changes to in_progress' do

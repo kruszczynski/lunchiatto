@@ -9,15 +9,17 @@ RSpec.describe Api::UsersController, type: :controller do
     describe 'json' do
       it 'returns user object on json' do
         sign_in user
-        put :update, id: user.id,
-                     user: {subtract_from_self: true},
-                     format: :json
+        update_params = {id: user.id, user: {subtract_from_self: true}}
+        put :update, params: update_params, format: :json
         expect(response).to have_http_status(:success)
       end
       it 'returns 401 for unlogged in json' do
-        put :update, id: user.id,
-                     user: {subtract_from_self: true},
-                     format: :json
+        put :update,
+            params: {
+              id: user.id,
+              user: {subtract_from_self: true},
+            },
+            format: :json
         expect(response).to have_http_status(401)
       end
     end
@@ -48,12 +50,12 @@ RSpec.describe Api::UsersController, type: :controller do
   describe 'GET :show' do
     describe 'json' do
       it 'rejects when not logged in' do
-        get :show, id: user.id, format: :json
+        get :show, params: {id: user.id}, format: :json
         expect(response).to have_http_status(401)
       end
       it 'renders json' do
         sign_in user
-        get :show, id: user.id, format: :json
+        get :show, params: {id: user.id}, format: :json
         expect(response).to have_http_status(:success)
       end
     end

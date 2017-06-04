@@ -9,11 +9,11 @@ RSpec.describe Balance do
 
     shared_context 'pays_for' do |payer, user, amt|
       before do
-        # rubocop:disable Lint/Eval
+        # rubocop:disable Security/Eval
         create(
           :payment, user: eval(user), payer: eval(payer), balance: amt
         )
-        # rubocop:enable Lint/Eval
+        # rubocop:enable Security/Eval
       end
     end
 

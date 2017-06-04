@@ -8,11 +8,11 @@ table.row
           tr
             td
               h4.padding-bottom
-                | You owe #{balance.payer} #{-balance.balance} PLN!
+                | You owe #{balance.user} #{balance.balance} PLN!
               table.button.margin-bottom
                 tr
                   td
-                    = link_to "Oi! Send #{balance.payer} a transfer!",
-                      transfers_new_url(to_id: balance.payer.id,
+                    = link_to "Oi! Send #{balance.user} a transfer!",
+                      transfers_new_url(to_id: balance.user.id,
                       amount: -balance.balance)
             td.expander

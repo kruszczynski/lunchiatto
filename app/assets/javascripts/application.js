@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require tilt-jade/runtime
+//= require jade/runtime
 //= require jquery
 //= require jquery_ujs
 //= require foundation

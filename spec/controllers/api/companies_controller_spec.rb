@@ -7,7 +7,7 @@ RSpec.describe Api::CompaniesController, type: :controller do
 
   describe 'GET show' do
     it 'requires authentication' do
-      get :show, id: company.id
+      get :show, params: {id: company.id}
       expect(response).to redirect_to(root_path)
     end
 
@@ -46,13 +46,13 @@ RSpec.describe Api::CompaniesController, type: :controller do
 
     def show_company
       sign_in user
-      get :show, id: company.id
+      get :show, params: {id: company.id}
     end
   end
 
   describe 'PUT update' do
     it 'requires authentication' do
-      put :update, id: company.id, name: 'The new name'
+      put :update, params: {id: company.id, name: 'The new name'}
       expect(response).to redirect_to(root_path)
     end
 
@@ -95,7 +95,7 @@ RSpec.describe Api::CompaniesController, type: :controller do
 
     def put_company(name: 'The new name')
       sign_in user
-      put :update, id: company.id, name: name
+      put :update, params: {id: company.id, name: name}
     end
   end
-end
+end # RSpec.describe Api::CompaniesController

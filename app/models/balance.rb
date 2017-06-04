@@ -31,6 +31,7 @@ class Balance
   end
 
   # rubocop:disable Metrics/MethodLength
+  # this method reeks of :reek:NilCheck
   def build_wrapper(other_user)
     last_paid = payments_as_payer.where(user: other_user).first
     last_received = payments_as_beneficiary.where(payer: other_user).first

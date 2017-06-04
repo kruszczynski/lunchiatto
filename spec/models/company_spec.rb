@@ -2,11 +2,11 @@
 require 'rails_helper'
 
 RSpec.describe Company, type: :model do
-  it { should have_many(:users) }
-  it { should have_many(:orders) }
-  it { should have_many(:invitations) }
-  it { should validate_presence_of(:name) }
-  it { should validate_length_of(:name).is_at_most(255) }
+  it { is_expected.to have_many(:users) }
+  it { is_expected.to have_many(:orders) }
+  it { is_expected.to have_many(:invitations) }
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_length_of(:name).is_at_most(255) }
 
   let(:user) { create :user, company: subject }
   let(:other_user) { create :other_user, company: subject }

@@ -16,7 +16,7 @@ class Transfer < ActiveRecord::Base
   register_currency :pln
   monetize :amount_cents
 
-  enum status: [:pending, :accepted, :rejected]
+  enum status: %i(pending accepted rejected)
 
   def mark_as_accepted!
     accepted!

@@ -10,20 +10,21 @@ class InvitationEmailValidatorModel
 end
 
 RSpec.describe InvitationEmailValidator do
-  let(:user) { instance_double 'User' }
   subject { InvitationEmailValidatorModel.new }
 
-  it 'adds errors when email is taken' do
-    subject.email = 'test@party.com'
-    expect(User).to receive(:where).with(email: 'test@party.com') { [user] }
-    subject.valid?
-    expect(subject.errors.full_messages)
-      .to include('Email is already taken by a user')
+  context 'with existing user' do
+    let!(:user) { create(:user, email: 'test@party.com') }
+
+    it 'adds errors when email is taken' do
+      subject.email = 'test@party.com'
+      subject.valid?
+      expect(subject.errors.full_messages)
+        .to include('Email is already taken by a user')
+    end
   end
 
   it 'does not add errors when email is available' do
     subject.email = 'test@party.com'
-    expect(User).to receive(:where).with(email: 'test@party.com') { [] }
     subject.valid?
     expect(subject.errors.full_messages).to eq([])
   end

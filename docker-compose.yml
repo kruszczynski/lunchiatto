@@ -1,48 +1,51 @@
-db:
-  image: postgres:9.4.1
+version: '2'
 
-redis:
-  image: redis:3.2.0
+services:
+  db:
+    image: postgres:9.4.1
 
-mailcatcher:
-  image: schickling/mailcatcher
-  ports:
-    - "1080:1080"
+  redis:
+    image: redis:3.2.0
 
-bundle:
-  image: busybox
-  volumes:
-    - /bundle
+  mailcatcher:
+    image: schickling/mailcatcher
+    ports:
+      - "1080:1080"
 
-sidekiq: &sidekiq
-  build: .
-  dockerfile: dev.Dockerfile
-  command: bundle exec sidekiq -q mailers -q default -c 1
-  env_file: .env
-  links:
-    - db
-    - mailcatcher
-    - redis
-  volumes_from:
-    - bundle
-    - unison
+  sidekiq: &sidekiq
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    command: bundle exec sidekiq -q mailers -q default -c 1
+    env_file: .env
+    links:
+      - db
+      - mailcatcher
+      - redis
+    volumes:
+      - "bundler:/bundle"
+      - "unison:/usr/src/app"
 
-web:
-  <<: *sidekiq
-  command: bundle exec puma -C config/puma.rb
-  ports:
-    - "3000:3000"
+  web:
+    <<: *sidekiq
+    command: bundle exec puma -C config/puma.rb
+    ports:
+      - "3000:3000"
 
-unison:
-  image: onnimonni/unison
-  environment:
-    - UNISON_DIR=/usr/src/app
-  ports:
-    - "5000:5000"
-  volumes:
-    - /usr/src/app
-# backuper:
-#   env_file: .env
-#   image: lunchiatto/backuper:latest
-#   links:
-#     - db
+  unison:
+    image: onnimonni/unison
+    environment:
+      - UNISON_DIR=/usr/src/app
+    ports:
+      - "5000:5000"
+    volumes:
+      - "unison:/usr/src/app"
+  # backuper:
+  #   env_file: .env
+  #   image: lunchiatto/backuper:latest
+  #   links:
+  #     - db
+
+volumes:
+  bundler:
+  unison:

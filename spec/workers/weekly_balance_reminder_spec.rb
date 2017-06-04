@@ -18,15 +18,16 @@ RSpec.describe WeeklyBalanceReminder do
 
   describe '#perform' do
     before do
-      expect(BalanceMailer)
-        .to receive(:debt_email)
-        .with(user, [an_instance_of(Balance::Wrapper)])
-        .and_return(email)
-      expect(email).to receive(:deliver_now)
+      allow(BalanceMailer).to receive(:debt_email).and_return(email)
+      allow(email).to receive(:deliver_now)
     end
 
     it 'sends email to the user' do
       subject.perform
+      expect(BalanceMailer)
+        .to have_received(:debt_email)
+        .with(user, [an_instance_of(Balance::Wrapper)])
+      expect(email).to have_received(:deliver_now)
     end
   end
 end # describe WeeklyBalanceReminder

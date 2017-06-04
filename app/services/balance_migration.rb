@@ -31,7 +31,7 @@ class BalanceMigration
   # this method reeks of :reek:FeatureEnvy
   def create_payment(memo, ub)
     amt = memo - ub.balance_cents
-    attrs = if amt > 0
+    attrs = if amt.positive?
               # If amount is greater than zero, it was a regular debt.
               {user: ub.user, payer: ub.payer, balance_cents: amt}
             else

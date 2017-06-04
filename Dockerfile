@@ -1,6 +1,9 @@
-FROM kruszczynski/lunchiatto_base:0.0
+FROM kruszczynski/lunchiatto_base:0.3
+
+RUN npm install -g jade
 
 COPY Gemfile* ${APP_HOME}/
+RUN gem install bundler
 RUN bundle install
 
 # copy code
