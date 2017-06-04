@@ -11,8 +11,6 @@ gem 'active_model_serializers'
 gem 'gon'
 gem 'slim-rails'
 
-gem 'json', '~> 2'
-
 gem 'coffee-rails'
 gem 'compass-rails'
 gem 'jquery-rails'
@@ -76,7 +74,6 @@ end
 
 group :test do
   gem 'rails-controller-testing' # remove someday
-  gem 'rake'
   gem 'shoulda-callback-matchers', require: false
   gem 'shoulda-matchers', require: false
   gem 'simplecov', require: false
