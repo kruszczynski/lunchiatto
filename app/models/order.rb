@@ -37,7 +37,10 @@ class Order < ActiveRecord::Base
   def change_status(new_status)
     return if delivered? || (new_status == :delivered && in_progress?)
     self.status = new_status
-    subtract_price if delivered?
+    self.class.transaction do
+      subtract_price if delivered?
+      save!
+    end
   end
 
   def subtract_price

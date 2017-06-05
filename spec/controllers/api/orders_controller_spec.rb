@@ -185,6 +185,19 @@ RSpec.describe Api::OrdersController, type: :controller do
         end
       end
 
+      describe 'if save fails' do
+        before do
+          order.ordered!
+          order.update_column(:user_id, nil)
+          create(:dish, order: order, user: other_user, name: 'Ye', price: '12')
+        end
+
+        it 'rolls back Payments' do
+          expect { put_status(status: 'delivered') }
+            .not_to change(Payment, :count)
+        end
+      end
+
       def put_status(status: nil)
         sign_in user
         put :change_status,
