@@ -1,4 +1,4 @@
-FROM kruszczynski/lunchiatto_base:0.3
+FROM lunchiatto/base:0.3
 
 RUN npm install -g jade
 
