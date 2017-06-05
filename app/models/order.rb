@@ -39,7 +39,7 @@ class Order < ActiveRecord::Base
     self.status = new_status
     self.class.transaction do
       subtract_price if delivered?
-      save
+      save!
     end
   end
 
