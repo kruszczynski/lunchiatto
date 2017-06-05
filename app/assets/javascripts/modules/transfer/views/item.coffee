@@ -23,10 +23,16 @@
       @type = options.type
 
     onRejectTransfer: ->
+      @_hideButtons()
       @model.reject()
 
     onAcceptTransfer: ->
+      @_hideButtons()
       @model.accept()
+
+    _hideButtons: ->
+      @ui.rejectButton.hide()
+      @ui.acceptButton.hide()
 
     _reload: ->
       @render()
