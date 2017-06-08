@@ -19,7 +19,7 @@ RSpec.describe UserSerializer do
     it 'returns false by default' do
       expect(serializer.include_account_balance?).to be_falsey
     end
-    it 'returns true with :current_user_balance option' do
+    it 'returns true with :include_account_balance option' do
       expect(extended_serializer.include_account_balance?).to be_truthy
     end
   end
