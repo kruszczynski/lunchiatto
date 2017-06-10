@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170608221838) do
+ActiveRecord::Schema.define(version: 20170610085855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,7 +91,6 @@ ActiveRecord::Schema.define(version: 20170608221838) do
     t.string   "uid"
     t.string   "name"
     t.boolean  "admin",               default: false
-    t.boolean  "subtract_from_self",  default: false
     t.string   "account_number"
     t.integer  "company_id"
     t.boolean  "company_admin",       default: false

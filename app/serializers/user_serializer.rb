@@ -2,7 +2,6 @@
 class UserSerializer < ActiveModel::Serializer
   attributes :id,
              :name,
-             :subtract_from_self,
              :account_balance,
              :account_number,
              :total_balance,

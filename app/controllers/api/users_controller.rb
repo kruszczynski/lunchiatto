@@ -21,7 +21,7 @@ module Api
     private
 
     def user_params
-      params.permit(:subtract_from_self, :account_number)
+      params.permit(:account_number)
     end
 
     def find_user

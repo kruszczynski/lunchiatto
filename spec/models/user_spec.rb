@@ -34,18 +34,6 @@ RSpec.describe User, type: :model do
       expect { user.subtract(money, payer) }
         .to change(user.received_payments, :count).by(1)
     end
-
-    it 'does not reduce when subtract_from_self is false' do
-      user.subtract_from_self = false
-      expect { user.subtract(money, user) }
-        .not_to change(user.received_payments, :count)
-    end
-
-    it 'does reduce when subtract_from_self is true' do
-      user.subtract_from_self = true
-      expect { user.subtract(money, user) }
-        .to change(user.received_payments, :count).by(1)
-    end
   end
 
   describe '#to_s' do

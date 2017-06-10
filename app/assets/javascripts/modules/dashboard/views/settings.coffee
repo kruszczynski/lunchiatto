@@ -3,7 +3,6 @@
     template: 'dashboard/settings'
 
     ui:
-      subtract: '.subtract'
       accountNumber: '.account-number'
 
     behaviors:
@@ -14,7 +13,6 @@
 
     onFormSubmit: ->
       @model.save
-        subtract_from_self: @ui.subtract.prop('checked')
         account_number: @ui.accountNumber.val()
       ,
         success: (model) ->
