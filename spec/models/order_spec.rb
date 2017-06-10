@@ -131,10 +131,6 @@ RSpec.describe Order, type: :model do
     let!(:dish1) { create(:dish, order: subject, user: user_1) }
     let!(:dish2) { create(:dish, order: subject, user: user_2) }
 
-    it 'creates 2 balances' do
-      expect { subject.subtract_price }.to change { UserBalance.count }.by(2)
-    end
-
     it 'creates 2 payments' do
       expect { subject.subtract_price }.to change(Payment, :count).by(2)
     end

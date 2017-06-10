@@ -2,13 +2,6 @@
 class User < ActiveRecord::Base
   has_many :orders
 
-  # TODO(anyone): remove user_balances and balances_as_payer
-  has_many :user_balances, dependent: :destroy
-  has_many :balances_as_payer, class_name: 'UserBalance',
-                               inverse_of: :payer,
-                               foreign_key: :payer_id
-  # ---
-
   has_many :received_payments, inverse_of: :user,
                                class_name: 'Payment',
                                foreign_key: 'user_id'
@@ -19,8 +12,6 @@ class User < ActiveRecord::Base
                                 class_name: 'Transfer',
                                 foreign_key: :to_id
   belongs_to :company
-
-  after_create :add_first_balance
 
   scope :by_name, -> { order 'name' }
   scope :admin, -> { where admin: true }
@@ -39,15 +30,9 @@ class User < ActiveRecord::Base
       .reject { |bal| bal.balance.zero? }
   end
 
-  def add_first_balance
-    # TODO(janek): no need to double write here - remove with user_balances
-    user_balances.create balance: 0, payer: self
-  end
-
   def subtract(amount, payer)
     return if self == payer && !subtract_from_self
     return if amount.zero?
-    user_balances.create(balance: payer_balance(payer) - amount, payer: payer)
     received_payments.create!(balance: amount, payer: payer)
   end
 

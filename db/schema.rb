@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160723202032) do
+ActiveRecord::Schema.define(version: 20170608221838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,16 +74,6 @@ ActiveRecord::Schema.define(version: 20160723202032) do
     t.integer  "status",       default: 0
     t.index ["from_id"], name: "index_transfers_on_from_id", using: :btree
     t.index ["to_id"], name: "index_transfers_on_to_id", using: :btree
-  end
-
-  create_table "user_balances", force: :cascade do |t|
-    t.integer  "balance_cents"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "payer_id"
-    t.index ["payer_id"], name: "index_user_balances_on_payer_id", using: :btree
-    t.index ["user_id"], name: "index_user_balances_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|

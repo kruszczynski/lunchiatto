@@ -4,13 +4,9 @@ require 'rails_helper'
 RSpec.describe BalanceMailer, type: :mailer do
   describe '#debt_email' do
     let(:user) { create :user }
-    let(:balance_one) do
-      create :user_balance, user: user, payer: user, balance: 10
+    let(:balances) do
+      [create(:payment, user: user, balance: 30, payer: create(:user))]
     end
-    let(:balance_two) do
-      create :user_balance, user: user, payer: create(:user), balance: 40
-    end
-    let(:balances) { [balance_one, balance_two] }
     let(:mail) { described_class.debt_email(user, balances) }
 
     it 'sends an email' do

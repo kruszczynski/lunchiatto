@@ -3,24 +3,12 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   it { is_expected.to have_many(:orders) }
-  it { is_expected.to have_many(:user_balances) }
-  it { is_expected.to have_many(:balances_as_payer) }
   it { is_expected.to have_many(:submitted_transfers) }
   it { is_expected.to have_many(:received_transfers) }
   it { is_expected.to belong_to(:company) }
-  it { is_expected.to callback(:add_first_balance).after(:create) }
 
   let(:user) { create(:user) }
   let(:payer) { create(:other_user) }
-  let!(:balance_one) do
-    create :user_balance, user: user, payer: payer, balance: 15
-  end
-  let!(:balance_two) do
-    create :user_balance, user: user, payer: payer, balance: 17
-  end
-  let!(:balance_three) do
-    create :user_balance, user: user, payer: user, balance: 34
-  end
 
   let!(:payment_one) do
     create :payment, user: user, payer: payer, balance: 15
@@ -39,45 +27,24 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#add_first_balance' do
-    let(:user) { described_class.new }
-    let(:balances) { class_double('UserBalance') }
-
-    it 'creates a user_balance' do
-      allow(balances).to receive(:create)
-      allow(user).to receive(:user_balances).and_return(balances)
-      user.add_first_balance
-      expect(balances).to have_received(:create).with(balance: 0, payer: user)
-      expect(user).to have_received(:user_balances)
-    end
-  end
-
   describe '#subtract' do
     let(:money) { Money.new 1200, 'PLN' }
-    it 'add a new reduced user balance' do
-      allow(user).to receive(:payer_balance)
-        .and_return(Money.new(5000, 'PLN'))
+
+    it 'adds a new payment' do
       expect { user.subtract(money, payer) }
-        .to change(user.user_balances, :count).by(1)
-      expect(user).to have_received(:payer_balance).with(payer)
+        .to change(user.received_payments, :count).by(1)
     end
 
     it 'does not reduce when subtract_from_self is false' do
-      allow(user).to receive(:subtract_from_self).and_return(false)
-      allow(user).to receive(:payer_balance)
+      user.subtract_from_self = false
       expect { user.subtract(money, user) }
-        .not_to change(user.user_balances, :count)
-      expect(user).to have_received(:subtract_from_self)
-      expect(user).not_to have_received(:payer_balance).with(user)
+        .not_to change(user.received_payments, :count)
     end
 
     it 'does reduce when subtract_from_self is true' do
-      allow(user).to receive(:payer_balance).and_return(Money.new(5000, 'PLN'))
-      allow(user).to receive(:subtract_from_self).and_return(true)
+      user.subtract_from_self = true
       expect { user.subtract(money, user) }
-        .to change(user.user_balances, :count).by(1)
-      expect(user).to have_received(:payer_balance).with(user)
-      expect(user).to have_received(:subtract_from_self)
+        .to change(user.received_payments, :count).by(1)
     end
   end
 
@@ -91,14 +58,6 @@ RSpec.describe User, type: :model do
     it 'returns proper balance' do
       money = Money.new(-1700, 'PLN')
       expect(user.total_balance).to eq(money)
-    end
-  end
-
-  # TODO(anyone): deprecated method - remove
-  describe '#total_debt' do
-    it 'returns proper balance' do
-      money = Money.new(-1700, 'PLN')
-      expect(user.total_debt).to eq(money)
     end
   end
 
