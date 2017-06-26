@@ -7,19 +7,25 @@ RSpec.describe Api::UsersController, type: :controller do
   let!(:other_user) { create :other_user }
   describe 'PUT :update' do
     describe 'json' do
-      it 'returns user object on json' do
-        sign_in user
-        update_params = {id: user.id, user: {subtract_from_self: true}}
-        put :update, params: update_params, format: :json
-        expect(response).to have_http_status(:success)
+      let(:update_params) { {id: user.id, account_number: '13'} }
+      let(:call) { put :update, params: update_params, format: :json }
+
+      context 'when success' do
+        before { sign_in user }
+
+        it 'returns user object on json' do
+          call
+          expect(response).to have_http_status(:success)
+        end
+
+        it 'changes account number' do
+          call
+          expect(user.reload.account_number).to eq('13')
+        end
       end
+
       it 'returns 401 for unlogged in json' do
-        put :update,
-            params: {
-              id: user.id,
-              user: {subtract_from_self: true},
-            },
-            format: :json
+        call
         expect(response).to have_http_status(401)
       end
     end
