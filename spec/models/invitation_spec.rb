@@ -2,10 +2,8 @@
 require 'rails_helper'
 
 RSpec.describe Invitation, type: :model do
-  let(:company) { create :company }
-  subject { create :invitation, company: company }
+  subject { create :invitation }
 
-  it { is_expected.to belong_to(:company) }
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_uniqueness_of(:email) }
   it { is_expected.to validate_length_of(:email).is_at_most(255) }

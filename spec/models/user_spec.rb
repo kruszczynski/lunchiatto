@@ -5,7 +5,6 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:orders) }
   it { is_expected.to have_many(:submitted_transfers) }
   it { is_expected.to have_many(:received_transfers) }
-  it { is_expected.to belong_to(:company) }
 
   let(:user) { create(:user) }
   let(:payer) { create(:other_user) }
@@ -19,9 +18,6 @@ RSpec.describe User, type: :model do
 
   describe '#balances' do
     it 'returns adequate non-zero balances' do
-      allow(user)
-        .to receive(:company)
-        .and_return(instance_double('Company', users: [user, payer]))
       balances = user.balances
       expect(balances.count).to be(1)
     end

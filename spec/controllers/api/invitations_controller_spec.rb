@@ -3,10 +3,9 @@ require 'rails_helper'
 
 RSpec.describe Api::InvitationsController, type: :controller do
   include ActiveJob::TestHelper
-  let(:company) { create :company }
-  let(:user) { create :user, company: company, company_admin: true }
-  let(:other_user) { create :other_user, company: company }
-  let(:invitation) { create :invitation, company: company }
+  let(:user) { create :user }
+  let(:other_user) { create :other_user }
+  let(:invitation) { create :invitation }
   describe 'POST :create' do
     describe 'json' do
       it 'rejects when not logged in' do
@@ -48,30 +47,11 @@ RSpec.describe Api::InvitationsController, type: :controller do
       end
       context 'with email taken by an invitation within company' do
         let!(:taken_invitation) do
-          create :invitation, company: company, email: 'test@user.com'
+          create :invitation, email: 'test@user.com'
         end
         it 'returns unprocessable entity' do
           post_invitation
           expect(response).to have_http_status(:unprocessable_entity)
-        end
-      end
-      context 'with email taken by an invitation outside company' do
-        let!(:taken_invitation) do
-          create :invitation, email: 'test@user.com'
-        end
-        it 'returns success' do
-          post_invitation
-          expect(response).to have_http_status(:success)
-        end
-        it 'creates an authorized invitation' do
-          expect do
-            post_invitation
-          end.to change(Invitation.where(authorized: true), :count).by(1)
-        end
-        it 'enqueues email' do
-          expect do
-            post_invitation
-          end.to change(enqueued_jobs, :count).by(1)
         end
       end
       context 'with missing data' do
