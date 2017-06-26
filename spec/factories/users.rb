@@ -7,7 +7,7 @@ FactoryGirl.define do
     end
     password 'jacekjacek'
     factory :admin_user do
-      company_admin true
+      admin true
     end
   end
 

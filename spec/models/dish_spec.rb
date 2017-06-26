@@ -15,10 +15,9 @@ RSpec.describe Dish, type: :model do
   end
   it { is_expected.to validate_length_of(:name).is_at_most(255) }
 
-  let(:company) { create :company }
-  let(:user) { create :user, company: company }
-  let(:other_user) { create :other_user, company: company }
-  let(:order) { create :order, user: user, company: company }
+  let(:user) { create :user }
+  let(:other_user) { create :other_user }
+  let(:order) { create :order, user: user }
   let!(:dish) { create :dish, user: user, order: order, price_cents: 1200 }
   let(:new_dish) { dish.copy(other_user) }
 

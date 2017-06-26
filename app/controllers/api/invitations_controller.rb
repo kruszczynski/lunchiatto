@@ -20,9 +20,7 @@ module Api
     private
 
     def find_or_create_invitation
-      Invitation.find_or_initialize_by(email: params[:email]).tap do |invitation|
-        invitation.attributes = invitation_params
-      end
+      Invitation.new(invitation_params)
     end
 
     def invitation_params

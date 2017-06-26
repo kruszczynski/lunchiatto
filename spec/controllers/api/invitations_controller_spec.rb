@@ -3,9 +3,9 @@ require 'rails_helper'
 
 RSpec.describe Api::InvitationsController, type: :controller do
   include ActiveJob::TestHelper
-  let(:user) { create :user }
-  let(:other_user) { create :other_user }
-  let(:invitation) { create :invitation }
+  let(:user) { create(:user, admin: true) }
+  let(:other_user) { create(:other_user) }
+  let(:invitation) { create(:invitation) }
   describe 'POST :create' do
     describe 'json' do
       it 'rejects when not logged in' do
@@ -46,8 +46,8 @@ RSpec.describe Api::InvitationsController, type: :controller do
         end
       end
       context 'with email taken by an invitation within company' do
-        let!(:taken_invitation) do
-          create :invitation, email: 'test@user.com'
+        before do
+          create(:invitation, email: 'test@user.com')
         end
         it 'returns unprocessable entity' do
           post_invitation
@@ -62,7 +62,7 @@ RSpec.describe Api::InvitationsController, type: :controller do
       end
       def post_invitation(email: 'test@user.com')
         sign_in user
-        post :create, params: {email: email}, format: :json
+        post(:create, params: {email: email}, format: :json)
       end
     end
   end

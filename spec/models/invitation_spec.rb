@@ -11,7 +11,7 @@ RSpec.describe Invitation, type: :model do
 
   describe 'validate email' do
     let!(:user) { create :user, email: 'test@party.com' }
-    subject { build :invitation, company: company, email: 'test@party.com' }
+    subject { build :invitation, email: 'test@party.com' }
     it 'is not valid' do
       expect(subject.valid?).to be_falsey
     end
