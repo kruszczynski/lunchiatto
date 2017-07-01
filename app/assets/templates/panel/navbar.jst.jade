@@ -21,14 +21,9 @@ nav.top-bar(role="navigation", data-topbar='', data-options="mobile_show_parent_
             a(href="/transfers", data-navigate) Transfers (#{pending_transfers_count})
           li
             a(href='/transfers/new',data-navigate) New Transfer
-      if locals.company_admin
-        li.has-dropdown
-          a(href="#") Company
-          ul.dropdown
-            li
-              a(href="/members", data-navigate) Company Members
-            li
-              a(href="/edit_company", data-navigate) Edit Company
+      if locals.admin
+        li
+          a(href="/members", data-navigate) Members
       li
         a(href="/settings", data-navigate) Settings
       li

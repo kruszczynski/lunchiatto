@@ -1,4 +1,5 @@
 @Lunchiatto.module 'Company', (Company, App, Backbone, Marionette, $, _) ->
+
   Company.ManageMembers = Marionette.LayoutView.extend
     template: 'companies/manage_members'
 
@@ -17,25 +18,30 @@
         types: ['fadeIn']
       Titleable: {}
 
+    initialize: ->
+      @membersCollection = new App.Entities.Users()
+      @invitationsCollection = new App.Entities.Invitations()
+
     onRender: ->
       @_showMembers()
       @_showInvitations()
       @_showForm()
 
     _showMembers: ->
-      members = @model.get('users')
-      membersView = new Company.Members(collection: members)
-      @members.show(membersView)
+      @membersCollection.fetch success: =>
+        membersView = new Company.Members(collection: @membersCollection)
+        @members.show(membersView)
 
     _showInvitations: ->
-      invitations = @model.get('invitations')
-      invitationsView = new Company.Invitations(collection: invitations)
-      @invitations.show(invitationsView)
+      @invitationsCollection.fetch success: =>
+        invitationsView = new Company.Invitations(
+          collection: @invitationsCollection)
+        @invitations.show(invitationsView)
 
     _showForm: ->
-      invitationForm = new Company.InvitationForm
-        invitations: @model.get('invitations')
+      invitationForm = new Company.InvitationForm(
+        invitations: @invitationsCollection)
       @inviteNew.show(invitationForm)
 
     _htmlTitle: ->
-      "#{@model.get('name')} Members"
+      'Members'

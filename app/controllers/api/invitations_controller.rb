@@ -11,6 +11,11 @@ module Api
       end
     end
 
+    def index
+      authorize Invitation
+      render json: Invitation.all
+    end
+
     def destroy
       invitation = find_invitation
       authorize invitation
