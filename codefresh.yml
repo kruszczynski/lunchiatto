@@ -11,6 +11,6 @@ steps:
     dockerfile: Dockerfile.test
   tests:
     image: ${{build_image}}
-    fail-fast: false
+    fail_fast: false
     commands:
       - bundle exec rspec
