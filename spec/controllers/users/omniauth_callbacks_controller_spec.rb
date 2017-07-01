@@ -16,7 +16,7 @@ RSpec.describe Users::OmniauthCallbacksController, type: :controller do
                       uid: '123545')
         end
 
-        it 'redirects to new_company_path if user has no company' do
+        it 'redirects to root_url' do
           get :google_oauth2
           expect(response).to redirect_to(root_url)
         end
@@ -31,27 +31,13 @@ RSpec.describe Users::OmniauthCallbacksController, type: :controller do
                       uid: 'different_uid')
         end
 
-        it 'redirects to new_company_path and updates user' do
+        it 'redirects to root_url and updates user' do
           get :google_oauth2
           expect(response).to redirect_to(root_url)
           user = User.last
           expect(user.uid).to eq '123545'
           expect(user.provider).to eq 'google_oauth2'
         end
-      end
-    end
-    context 'works for non-codequest users' do
-      before do
-        request.env['omniauth.auth'] =
-          OmniAuth.config.mock_auth[:google_oauth2_non_codequest]
-        User.create(email: 'test@email.com',
-                    provider: 'google_oauth2',
-                    uid: '123545')
-      end
-
-      it 'redirects to new_company_path if user has no company' do
-        get :google_oauth2
-        expect(response).to redirect_to(root_url)
       end
     end
     context 'when user does not exist' do

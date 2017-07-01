@@ -1,6 +1,6 @@
-@Lunchiatto.module 'Company', (Company, App, Backbone, Marionette, $, _) ->
-  Company.InvitationForm = Marionette.ItemView.extend
-    template: 'companies/invitation_form'
+@Lunchiatto.module 'User', (User, App, Backbone, Marionette, $, _) ->
+  User.InvitationForm = Marionette.ItemView.extend
+    template: 'users/invitation_form'
 
     ui:
       emailInput: '.email'

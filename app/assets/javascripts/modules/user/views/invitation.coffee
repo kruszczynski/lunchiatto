@@ -1,8 +1,8 @@
-@Lunchiatto.module 'Company', (Company, App, Backbone, Marionette, $, _) ->
-  Company.Invitation = Marionette.ItemView.extend
+@Lunchiatto.module 'User', (User, App, Backbone, Marionette, $, _) ->
+  User.Invitation = Marionette.ItemView.extend
     DELETE_MESSAGE: 'Are you sure?'
 
-    template: 'companies/invitation'
+    template: 'users/invitation'
 
     behaviors:
       Animateable:

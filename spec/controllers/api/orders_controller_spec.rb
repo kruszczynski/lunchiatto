@@ -214,7 +214,7 @@ RSpec.describe Api::OrdersController, type: :controller do
         get :index, format: :json
         expect(response).to have_http_status(:success)
       end
-      it 'returns all orders for the company' do
+      it 'returns all orders' do
         sign_in user
         get :index, format: :json
         parsed_body = JSON.parse(response.body)
@@ -245,7 +245,7 @@ RSpec.describe Api::OrdersController, type: :controller do
           get :latest, format: :json
           expect(response).to have_http_status(:success)
         end
-        it "returns today's orders from rhis company" do
+        it "returns today's orders" do
           sign_in user
           get :latest, format: :json
           expect(JSON.parse(response.body).size).to be(3)

@@ -1,7 +1,7 @@
-@Lunchiatto.module 'Company', (Company, App, Backbone, Marionette, $, _) ->
+@Lunchiatto.module 'User', (User, App, Backbone, Marionette, $, _) ->
 
-  Company.ManageMembers = Marionette.LayoutView.extend
-    template: 'companies/manage_members'
+  User.ManageMembers = Marionette.LayoutView.extend
+    template: 'users/manage_members'
 
     ui:
       members: '.members'
@@ -29,17 +29,17 @@
 
     _showMembers: ->
       @membersCollection.fetch success: =>
-        membersView = new Company.Members(collection: @membersCollection)
+        membersView = new User.Members(collection: @membersCollection)
         @members.show(membersView)
 
     _showInvitations: ->
       @invitationsCollection.fetch success: =>
-        invitationsView = new Company.Invitations(
+        invitationsView = new User.Invitations(
           collection: @invitationsCollection)
         @invitations.show(invitationsView)
 
     _showForm: ->
-      invitationForm = new Company.InvitationForm(
+      invitationForm = new User.InvitationForm(
         invitations: @invitationsCollection)
       @inviteNew.show(invitationForm)
 

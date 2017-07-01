@@ -84,7 +84,7 @@ RSpec.describe Api::InvitationsController, type: :controller do
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
-    context 'with email taken by an invitation within company' do
+    context 'with email taken' do
       before do
         create(:invitation, email: 'test@user.com')
       end

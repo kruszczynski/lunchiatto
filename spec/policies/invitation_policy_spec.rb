@@ -6,7 +6,7 @@ RSpec.describe InvitationPolicy do
   subject { described_class.new(user, invitation) }
 
   describe '#create?' do
-    context 'with company admin' do
+    context 'with admin' do
       let(:user) { create(:user, admin: true) }
       it 'returns true' do
         expect(subject.create?).to be_truthy
