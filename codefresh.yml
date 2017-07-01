@@ -9,6 +9,11 @@ steps:
     working_directory: ${{main_clone}}
     #Dockerfile location should be relative to the working directory
     dockerfile: Dockerfile.test
+  linters:
+    image: ${{build_image}}
+    fail_fast: false
+    commands:
+      - bin/linters
   tests:
     type: composition
     fail_fast: false
@@ -21,8 +26,5 @@ steps:
           image: redis:3.2
     composition_candidates:
       test_service:
-        image: ${{build_step}}
-        commands:
-          - rake db:create
-          - rake db:migrate
-          - bundle exec rspec
+        image: ${{build_image}}
+        command: ./run-tests.sh
