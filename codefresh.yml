@@ -9,3 +9,8 @@ steps:
     working_directory: ${{main_clone}}
     #Dockerfile location should be relative to the working directory
     dockerfile: Dockerfile
+  tests:
+    image: ${{build_step}}
+    fail-fast: false
+    commands:
+      - rspec
