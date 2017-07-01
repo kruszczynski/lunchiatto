@@ -10,7 +10,7 @@ steps:
     #Dockerfile location should be relative to the working directory
     dockerfile: Dockerfile
   tests:
-    image: ${{build_step}}
+    image: ${{build_image}}
     fail-fast: false
     commands:
       - rspec
