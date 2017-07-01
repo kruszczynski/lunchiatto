@@ -2,9 +2,9 @@
 require 'rails_helper'
 
 RSpec.describe ApplicationPolicy do
-  let(:user) { create :user}
-  let(:other_user) { create :other_user}
-  let(:record) { create :order, user: user}
+  let(:user) { create :user }
+  let(:other_user) { create :other_user }
+  let(:record) { create :order, user: user }
   subject { described_class.new(user, record) }
 
   describe '#initialize' do

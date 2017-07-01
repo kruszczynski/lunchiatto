@@ -18,7 +18,7 @@ RSpec.describe Users::OmniauthCallbacksController, type: :controller do
 
         it 'redirects to new_company_path if user has no company' do
           get :google_oauth2
-          expect(response).to redirect_to(new_company_url)
+          expect(response).to redirect_to(root_url)
         end
       end
 
@@ -33,7 +33,7 @@ RSpec.describe Users::OmniauthCallbacksController, type: :controller do
 
         it 'redirects to new_company_path and updates user' do
           get :google_oauth2
-          expect(response).to redirect_to(new_company_url)
+          expect(response).to redirect_to(root_url)
           user = User.last
           expect(user.uid).to eq '123545'
           expect(user.provider).to eq 'google_oauth2'
@@ -51,7 +51,7 @@ RSpec.describe Users::OmniauthCallbacksController, type: :controller do
 
       it 'redirects to new_company_path if user has no company' do
         get :google_oauth2
-        expect(response).to redirect_to(new_company_url)
+        expect(response).to redirect_to(root_url)
       end
     end
     context 'when user does not exist' do
@@ -65,14 +65,13 @@ RSpec.describe Users::OmniauthCallbacksController, type: :controller do
       end
     end
     context 'when user is invited' do
-      let(:company) { create :company }
       before do
         request.env['omniauth.auth'] =
           OmniAuth.config.mock_auth[:google_oauth2_codequest]
       end
       context 'and not authorized' do
         let!(:invitation) do
-          create :invitation, company: company, email: 'test@codequest.com'
+          create :invitation, email: 'test@codequest.com'
         end
         it 'redirects' do
           get :google_oauth2
@@ -91,13 +90,11 @@ RSpec.describe Users::OmniauthCallbacksController, type: :controller do
       end
       context 'and authorized' do
         let!(:invitation) do
-          create :invitation, company: company,
-                              email: 'test@codequest.com',
-                              authorized: true
+          create :invitation, email: 'test@codequest.com', authorized: true
         end
         it 'redirects' do
           get :google_oauth2
-          expect(response).to redirect_to(new_company_url)
+          expect(response).to redirect_to(root_url)
         end
         it 'creates user' do
           expect do

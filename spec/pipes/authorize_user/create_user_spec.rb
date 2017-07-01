@@ -2,10 +2,9 @@
 require 'rails_helper'
 
 RSpec.describe AuthorizeUser::CreateUser do
-  let(:company) { create(:company) }
   let(:invited_email) { 'test@lunchiatto.com' }
   let(:invitation) do
-    create(:invitation, email: invited_email, company: company)
+    create(:invitation, email: invited_email)
   end
   let(:info) { OpenStruct.new(email: 'test@lunchiatto.com', name: 'Ted Smith') }
   let(:omniauth_params) do
@@ -57,11 +56,6 @@ RSpec.describe AuthorizeUser::CreateUser do
       it 'assigns oauth provider' do
         subject
         expect(user.provider).to eq('google_oauth2')
-      end
-
-      it 'assigns to company' do
-        subject
-        expect(company.users).to include(context.user)
       end
 
       it 'creates one user' do

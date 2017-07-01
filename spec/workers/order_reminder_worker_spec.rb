@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe OrderReminderWorker do
-  let!(:order) { create(:order, user: build(:user), company: build(:company)) }
+  let!(:order) { create(:order, user: build(:user)) }
   let(:email) { instance_double('ActionMailer::Mail') }
 
   describe '#perform' do

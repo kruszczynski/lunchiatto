@@ -2,15 +2,8 @@
 require 'rails_helper'
 
 RSpec.describe Api::OrdersController, type: :controller do
-  let(:company) { create(:company) }
-  let(:other_company) { create(:company, name: 'Other Company') }
-  let(:user) { create(:user, company: company) }
-  let(:other_user) { create(:other_user, company: company) }
-  let(:other_company_user) do
-    create(:user, company: other_company,
-                  name: 'Other',
-                  email: 'other@other.com')
-  end
+  let(:user) { create(:user) }
+  let(:other_user) { create(:other_user) }
 
   describe 'POST create' do
     let(:call) do
@@ -30,9 +23,7 @@ RSpec.describe Api::OrdersController, type: :controller do
       end
 
       context 'when an order from this restaurant already exists' do
-        let!(:order) do
-          create :order, from: 'A bistro', user: user, company: company
-        end
+        let!(:order) { create(:order, from: 'A bistro', user: user) }
 
         it 'returns unprocessable' do
           sign_in user
@@ -53,7 +44,7 @@ RSpec.describe Api::OrdersController, type: :controller do
       end
 
       it 'returns success with existing order' do
-        create :order, user: user, company: company
+        create(:order, user: user)
         sign_in user
         call
         expect(response).to have_http_status(:success)
@@ -63,6 +54,7 @@ RSpec.describe Api::OrdersController, type: :controller do
         let(:call) do
           post :create, params: {from: 'A bistro'}, format: :json
         end
+
         it 'returns errors' do
           sign_in user
           call
@@ -78,7 +70,7 @@ RSpec.describe Api::OrdersController, type: :controller do
   end
 
   describe 'PUT update' do
-    let(:order) { create :order, user: user, company: company }
+    let(:order) { create(:order, user: user) }
 
     describe 'json' do
       it 'rejects when not logged in' do
@@ -123,7 +115,7 @@ RSpec.describe Api::OrdersController, type: :controller do
   end
 
   describe 'GET show' do
-    let(:order) { create :order, user: user, company: company }
+    let(:order) { create(:order, user: user) }
 
     describe 'json' do
       it 'rejects when not logged in' do
@@ -140,7 +132,7 @@ RSpec.describe Api::OrdersController, type: :controller do
   end
 
   describe 'PUT change_status' do
-    let(:order) { create :order, user: user, company: company }
+    let(:order) { create(:order, user: user) }
 
     describe 'json' do
       it 'rejects when not logged in' do
@@ -208,18 +200,10 @@ RSpec.describe Api::OrdersController, type: :controller do
   end
 
   describe 'GET :index' do
-    let!(:order) do
-      create :order, user: user, date: Time.zone.today, company: company
-    end
-    let!(:order2) do
-      create :order, user: user, date: 1.day.ago, company: company
-    end
-    let!(:order3) do
-      create :order, user: user, date: 2.days.ago, company: company
-    end
-    let!(:order4) do
-      create :order, user: other_company_user, company: other_company
-    end
+    let!(:order) { create(:order, user: user, date: Time.zone.today) }
+    let!(:order2) { create(:order, user: user, date: 1.day.ago) }
+    let!(:order3) { create(:order, user: user, date: 2.days.ago) }
+
     describe 'json' do
       it 'rejects when not logged in' do
         get :index, format: :json
@@ -251,21 +235,11 @@ RSpec.describe Api::OrdersController, type: :controller do
         expect(JSON.parse(response.body).size).to be(0)
       end
       describe 'with orders' do
-        let!(:order) { create :order, user: user, company: company }
-        let!(:order2) do
-          create :order, user: user, from: 'Another Place', company: company
-        end
-        let!(:order3) do
-          create :order, user: user, from: 'Pizza Place', company: company
-        end
-        let!(:order4) do
-          create :order, user: user, date: 1.day.ago, company: company
-        end
-        let!(:order5) do
-          create :order, user: other_company_user,
-                         from: 'Pizza Place',
-                         company: other_company
-        end
+        let!(:order) { create(:order, user: user) }
+        let!(:order2) { create(:order, user: user, from: 'Another Place') }
+        let!(:order3) { create(:order, user: user, from: 'Pizza Place') }
+        let!(:order4) { create(:order, user: user, date: 1.day.ago) }
+
         it 'renders json' do
           sign_in user
           get :latest, format: :json
@@ -281,7 +255,8 @@ RSpec.describe Api::OrdersController, type: :controller do
   end
 
   describe 'DELETE :destroy' do
-    let!(:order) { create :order, user: user, company: company }
+    let!(:order) { create :order, user: user }
+
     describe 'json' do
       it 'rejects when not logged in' do
         delete :destroy, params: {id: order.id}, format: :json
