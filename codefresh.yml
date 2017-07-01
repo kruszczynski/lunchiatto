@@ -8,9 +8,9 @@ steps:
     #The directory should be relative to git repository that is used for cloning
     working_directory: ${{main_clone}}
     #Dockerfile location should be relative to the working directory
-    dockerfile: Dockerfile
+    dockerfile: Dockerfile.test
   tests:
     image: ${{build_image}}
     fail-fast: false
     commands:
-      - rspec
+      - bundle exec rspec

@@ -1,0 +1,13 @@
+FROM lunchiatto/base:0.3
+
+ENV RAILS_ENV=test
+ENV RACK_ENV=test
+
+RUN npm install -g jade
+RUN gem install bundler
+
+COPY Gemfile* ${APP_HOME}/
+RUN bundle install
+
+# copy code
+ADD . $APP_HOME
