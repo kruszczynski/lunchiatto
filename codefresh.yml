@@ -21,9 +21,9 @@ steps:
       version: '3'
       services:
         db:
-          image: postgres:9.4
+          image: postgres
         redis:
-          image: redis:3.2
+          image: redis
     composition_candidates:
       test_service:
         image: ${{build_image}}
