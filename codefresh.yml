@@ -11,12 +11,12 @@ steps:
     dockerfile: Dockerfile.test
   linters:
     image: ${{build_image}}
-    fail_fast: false
+    fail_fast: true
     commands:
       - bin/linters
   tests:
-    type: composition
-    fail_fast: false
+    type: composition_candidateson
+    fail_fast: true
     composition:
       version: '3'
       services:
