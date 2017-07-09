@@ -12,13 +12,14 @@ sidekiq:
   image: kruszczynski/lunchiatto
   command: bundle exec sidekiq -q mailers -c 2
   environment:
-    LANG: en_US.UTF-8
     AIRBRAKE_API_KEY:
+    GOOGLE_KEY:
+    GOOGLE_SECRET:
+    LANG: en_US.UTF-8
     SECRET_KEY_BASE:
     SENDGRID_PASSWORD:
     SENDGRID_USERNAME:
-    GOOGLE_KEY:
-    GOOGLE_SECRET:
+    URL_HOST:
   links:
     - db
     - redis
@@ -28,16 +29,17 @@ sidekiq:
 web:
   image: kruszczynski/lunchiatto
   environment:
-    LANG: en_US.UTF-8
     AIRBRAKE_API_KEY:
+    GOOGLE_KEY:
+    GOOGLE_SECRET:
+    LANG: en_US.UTF-8
+    MAX_THREADS: 8
+    MIN_THREADS: 3
     SECRET_KEY_BASE:
     SENDGRID_PASSWORD:
     SENDGRID_USERNAME:
+    URL_HOST:
     WEB_CONCURRENCY: 1
-    MIN_THREADS: 3
-    MAX_THREADS: 8
-    GOOGLE_KEY:
-    GOOGLE_SECRET:
   links:
     - db
     - redis
