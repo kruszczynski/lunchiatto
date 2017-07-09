@@ -15,7 +15,7 @@ steps:
     commands:
       - bin/linters
   tests:
-    type: composition_candidateson
+    type: composition
     fail_fast: true
     composition:
       version: '3'
