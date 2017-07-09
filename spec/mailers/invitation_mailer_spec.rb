@@ -3,9 +3,8 @@ require 'rails_helper'
 
 RSpec.describe InvitationMailer, type: :mailer do
   describe '#created' do
-    let(:company) { create :company }
-    let(:user) { create :admin_user, company: company }
-    let(:invitation) { create :invitation, company: company }
+    let(:user) { create :admin_user }
+    let(:invitation) { create :invitation }
     subject { described_class.created(invitation) }
 
     it 'sends an email' do
@@ -14,7 +13,7 @@ RSpec.describe InvitationMailer, type: :mailer do
     end
 
     it 'renders the subject' do
-      expect(subject.subject).to eql('Join MyString on Lunchiatto')
+      expect(subject.subject).to eql('Join Lunchiatto')
     end
 
     it 'renders the receiver email' do

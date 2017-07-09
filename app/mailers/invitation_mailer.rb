@@ -2,7 +2,6 @@
 class InvitationMailer < ApplicationMailer
   def created(invitation)
     @invitation = invitation
-    @company = invitation.company
-    mail(to: @invitation.email, subject: "Join #{@company.name} on Lunchiatto")
+    mail(to: @invitation.email, subject: 'Join Lunchiatto')
   end
 end

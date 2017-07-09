@@ -10,16 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170610085855) do
+ActiveRecord::Schema.define(version: 20170610091624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "companies", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "dishes", force: :cascade do |t|
     t.string   "name"
@@ -33,12 +27,10 @@ ActiveRecord::Schema.define(version: 20170610085855) do
   end
 
   create_table "invitations", force: :cascade do |t|
-    t.integer  "company_id"
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "authorized", default: false
-    t.index ["company_id"], name: "index_invitations_on_company_id", using: :btree
   end
 
   create_table "orders", force: :cascade do |t|
@@ -50,8 +42,6 @@ ActiveRecord::Schema.define(version: 20170610085855) do
     t.string   "from"
     t.integer  "status",         default: 0
     t.integer  "shipping_cents", default: 0
-    t.integer  "company_id"
-    t.index ["company_id"], name: "index_orders_on_company_id", using: :btree
     t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 
@@ -92,14 +82,9 @@ ActiveRecord::Schema.define(version: 20170610085855) do
     t.string   "name"
     t.boolean  "admin",               default: false
     t.string   "account_number"
-    t.integer  "company_id"
-    t.boolean  "company_admin",       default: false
-    t.index ["company_id"], name: "index_users_on_company_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 
-  add_foreign_key "invitations", "companies"
-  add_foreign_key "orders", "companies"
   add_foreign_key "payments", "users"
   add_foreign_key "payments", "users", column: "payer_id"
 end

@@ -5,22 +5,19 @@ require 'rails_helper'
 RSpec.describe Order, type: :model do
   it { is_expected.to belong_to(:user) }
   it { is_expected.to have_many(:dishes) }
-  it { is_expected.to belong_to(:company) }
   it { is_expected.to validate_presence_of(:user) }
   it { is_expected.to validate_presence_of(:from) }
-  it { is_expected.to validate_presence_of(:company) }
   it do
     is_expected.to validate_uniqueness_of(:from)
       .with_message('There already is an order from there today')
-      .scoped_to(:date, :company_id)
+      .scoped_to(:date)
   end
   it { is_expected.to validate_length_of(:from).is_at_most(255) }
 
-  let(:company) { create(:company) }
-  let(:user) { create(:user, company: company) }
+  let(:user) { create(:user) }
   let(:date) { Time.zone.today }
 
-  subject { create(:order, user: user, company: company, date: date) }
+  subject { create(:order, user: user, date: date) }
 
   it 'has statuses' do
     expect(described_class.statuses)
@@ -28,13 +25,9 @@ RSpec.describe Order, type: :model do
   end
 
   describe 'scopes' do
-    let!(:order) { create :order, user: user, company: company }
-    let!(:order2) do
-      create :order, user: user, from: 'Another Place', company: company
-    end
-    let!(:order3) do
-      create :order, user: user, date: 1.day.ago, company: company
-    end
+    let!(:order) { create :order, user: user }
+    let!(:order2) { create :order, user: user, from: 'Another Place' }
+    let!(:order3) { create :order, user: user, date: 1.day.ago }
 
     describe '.today' do
       it "shows today's orders" do

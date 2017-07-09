@@ -58,8 +58,5 @@ do (App = @Lunchiatto) ->
     newTransfer: ->
       App.Transfer.Controller.form()
 
-    companyMembers: ->
-      App.Company.Controller.members()
-
-    editCompany: ->
-      App.Company.Controller.edit()
+    members: ->
+      App.User.Controller.members()

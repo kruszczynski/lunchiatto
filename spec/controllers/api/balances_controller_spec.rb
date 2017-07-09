@@ -2,9 +2,8 @@
 require 'rails_helper'
 
 RSpec.describe Api::BalancesController, type: :controller do
-  let(:company) { create(:company) }
-  let(:user) { create :user, company: company }
-  let(:other_user) { create :other_user, company: company }
+  let(:user) { create :user }
+  let(:other_user) { create :other_user }
   let!(:payment_one) do
     create :payment, user: user, payer: user, balance: 10
   end

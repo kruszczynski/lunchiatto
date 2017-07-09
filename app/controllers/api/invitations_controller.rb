@@ -11,6 +11,11 @@ module Api
       end
     end
 
+    def index
+      authorize Invitation
+      render json: Invitation.all
+    end
+
     def destroy
       invitation = find_invitation
       authorize invitation
@@ -20,11 +25,7 @@ module Api
     private
 
     def find_or_create_invitation
-      Invitation.without_company
-        .find_or_initialize_by(email: params[:email]).tap do |invitation|
-        invitation.company = current_user.company
-        invitation.attributes = invitation_params
-      end
+      Invitation.new(invitation_params)
     end
 
     def invitation_params

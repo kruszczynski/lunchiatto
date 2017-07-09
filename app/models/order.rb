@@ -2,16 +2,14 @@
 class Order < ActiveRecord::Base
   belongs_to :user
   has_many :dishes, dependent: :destroy
-  belongs_to :company
 
   validates :user, presence: true
   validates :from, presence: true,
                    uniqueness: {
-                     scope: %i(date company_id),
+                     scope: :date,
                      message: 'There already is an order from there today',
                    },
                    length: {maximum: 255}
-  validates :company, presence: true
 
   scope :newest_first, -> { order(date: :desc, created_at: :desc) }
   scope :as_created, -> { order(created_at: :asc) }

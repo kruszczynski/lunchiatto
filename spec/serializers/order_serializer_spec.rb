@@ -2,12 +2,9 @@
 require 'rails_helper'
 
 RSpec.describe OrderSerializer do
-  let(:company) { create(:company) }
-  let(:user) { create(:user, company: company) }
+  let(:user) { create(:user) }
   let(:shipping) { 0 }
-  let(:order) do
-    create(:order, user: user, company: company, shipping: shipping)
-  end
+  let(:order) { create(:order, user: user, shipping: shipping) }
   let(:current_user) { user }
   let(:policy) { instance_double('OrderPolicy', update?: true, destroy?: true) }
   subject do

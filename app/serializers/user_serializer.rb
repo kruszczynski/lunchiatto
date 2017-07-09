@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 class UserSerializer < ActiveModel::Serializer
-  attributes :id,
-             :name,
-             :account_balance,
+  attributes :account_balance,
              :account_number,
-             :total_balance,
+             :admin,
+             :id,
+             :name,
              :pending_transfers_count,
-             :company_admin,
-             :company_id
+             :total_balance
 
   def total_balance
     object.total_balance.to_s

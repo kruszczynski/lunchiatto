@@ -5,20 +5,12 @@ module Api
 
     def index
       authorize Order
-      orders = current_user
-        .company
-        .orders
-        .newest_first
-        .page(params[:page])
-        .includes(:dishes)
+      orders = Order.newest_first.page(params[:page]).includes(:dishes)
       render json: orders, shallow: true
     end
 
     def create
-      order = Order.new order_params.merge(
-        date: Time.zone.today,
-        company: current_user.company,
-      )
+      order = Order.new order_params.merge(date: Time.zone.today)
       authorize order, :index?
       save_record order
     end
@@ -54,9 +46,8 @@ module Api
     end
 
     def latest
-      orders = find_todays_orders
       authorize Order, :index?
-      render json: orders, shallow: true
+      render json: Order.today, shallow: true
     end
 
     private
@@ -67,10 +58,6 @@ module Api
 
     def find_order
       Order.find(params[:id])
-    end
-
-    def find_todays_orders
-      current_user.company.orders.today
     end
   end
 end

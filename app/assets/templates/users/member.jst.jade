@@ -1,0 +1,6 @@
+.row
+  .column
+    .users-list__item(class=locals.admin ? "users-list__item--admin" : "")
+      = locals.name
+      if locals.admin
+        span.users-list__admin-text &nbsp;Admin
