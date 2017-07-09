@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.0.0] - 2017-06-06
 ### Added
 - All Lunchiatto's features up to this point
+- Add a `URL_HOST` environment variable to support custom urls on production
 
 ### Changed
 - Migrated to a new payment model
