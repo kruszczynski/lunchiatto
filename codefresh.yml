@@ -26,8 +26,11 @@ steps:
           image: redis
     composition_candidates:
       test_service:
-        image: ${{build_image}}
         command: ./run-tests.sh
+        environment:
+          - DB_HOSTNAME=db
+          - DB_PORT_NUMBER=5432
+        image: ${{build_image}}
     composition_variables:
       - DB_HOSTNAME=db
       - DB_PORT_NUMBER=5432
