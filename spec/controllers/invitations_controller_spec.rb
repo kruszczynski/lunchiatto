@@ -3,10 +3,9 @@ require 'rails_helper'
 
 RSpec.describe InvitationsController, type: :controller do
   include ActiveJob::TestHelper
-  let(:company) { create :company }
-  let(:user) { create :user, company: company, company_admin: true }
-  let(:other_user) { create :other_user, company: company }
-  let(:invitation) { create :invitation, company: company }
+  let(:user) { create :user }
+  let(:other_user) { create :other_user }
+  let(:invitation) { create :invitation }
   describe 'GET :show' do
     describe 'html' do
       it 'redirects logged in user to dashboard' do

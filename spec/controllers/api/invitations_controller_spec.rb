@@ -3,87 +3,105 @@ require 'rails_helper'
 
 RSpec.describe Api::InvitationsController, type: :controller do
   include ActiveJob::TestHelper
-  let(:company) { create :company }
-  let(:user) { create :user, company: company, company_admin: true }
-  let(:other_user) { create :other_user, company: company }
-  let(:invitation) { create :invitation, company: company }
-  describe 'POST :create' do
-    describe 'json' do
-      it 'rejects when not logged in' do
-        post :create, params: {email: 'test@user.com'}, format: :json
-        expect(response).to have_http_status(:unauthorized)
+  let(:user) { create(:user, admin: true) }
+  let(:other_user) { create(:other_user) }
+  let(:invitation) { create(:invitation) }
+
+  describe 'GET :index' do
+    let(:call) { get :index, format: :json }
+
+    it 'rejects when not logged in' do
+      call
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it 'rejects a non-admin user' do
+      sign_in other_user
+      call
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    context 'with admin user' do
+      let!(:invitations) do
+        (1..5).map { |n| create(:invitation, email: "test#{n}@test.com") }
       end
-      it 'rejects a non-admin user' do
-        sign_in other_user
-        post :create, params: {email: 'test@user.com'}, format: :json
-        expect(response).to have_http_status(:unauthorized)
-      end
-      context 'with good data' do
-        it 'returns a success' do
-          post_invitation
-          expect(response).to have_http_status(:success)
-        end
-        it 'creates an invitation' do
-          expect do
-            post_invitation
-          end.to change(Invitation, :count).by(1)
-        end
-        it 'creates an authorized invitation' do
-          expect do
-            post_invitation
-          end.to change(Invitation.where(authorized: true), :count).by(1)
-        end
-        it 'enqueues email' do
-          expect do
-            post_invitation
-          end.to change(enqueued_jobs, :count).by(1)
-        end
-      end
-      context 'with email taken by a user' do
-        let!(:taken_user) { create :user, email: 'test@user.com' }
-        it 'returns unprocessable entity' do
-          post_invitation
-          expect(response).to have_http_status(:unprocessable_entity)
-        end
-      end
-      context 'with email taken by an invitation within company' do
-        let!(:taken_invitation) do
-          create :invitation, company: company, email: 'test@user.com'
-        end
-        it 'returns unprocessable entity' do
-          post_invitation
-          expect(response).to have_http_status(:unprocessable_entity)
-        end
-      end
-      context 'with email taken by an invitation outside company' do
-        let!(:taken_invitation) do
-          create :invitation, email: 'test@user.com'
-        end
-        it 'returns success' do
-          post_invitation
-          expect(response).to have_http_status(:success)
-        end
-        it 'creates an authorized invitation' do
-          expect do
-            post_invitation
-          end.to change(Invitation.where(authorized: true), :count).by(1)
-        end
-        it 'enqueues email' do
-          expect do
-            post_invitation
-          end.to change(enqueued_jobs, :count).by(1)
-        end
-      end
-      context 'with missing data' do
-        it 'returns unprocessable entity' do
-          post_invitation(email: '')
-          expect(response).to have_http_status(:unprocessable_entity)
-        end
-      end
-      def post_invitation(email: 'test@user.com')
+
+      before do
         sign_in user
-        post :create, params: {email: email}, format: :json
+        call
       end
+
+      it 'returns a success' do
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'returns invitations' do
+        parsed_response = JSON.parse(response.body)
+        expected = invitations.map { |i| {'email' => i.email, 'id' => i.id} }
+        expect(parsed_response).to eq(expected)
+      end
+
+      it 'return 5 invitations' do
+        expect(JSON.parse(response.body).size).to eq(5)
+      end
+    end
+  end
+  describe 'POST :create' do
+    it 'rejects when not logged in' do
+      post :create, params: {email: 'test@user.com'}, format: :json
+      expect(response).to have_http_status(:unauthorized)
+    end
+    it 'rejects a non-admin user' do
+      sign_in other_user
+      post :create, params: {email: 'test@user.com'}, format: :json
+      expect(response).to have_http_status(:unauthorized)
+    end
+    context 'with good data' do
+      it 'returns a success' do
+        post_invitation
+        expect(response).to have_http_status(:success)
+      end
+      it 'creates an invitation' do
+        expect do
+          post_invitation
+        end.to change(Invitation, :count).by(1)
+      end
+      it 'creates an authorized invitation' do
+        expect do
+          post_invitation
+        end.to change(Invitation.where(authorized: true), :count).by(1)
+      end
+      it 'enqueues email' do
+        expect do
+          post_invitation
+        end.to change(enqueued_jobs, :count).by(1)
+      end
+    end
+    context 'with email taken by a user' do
+      let!(:taken_user) { create :user, email: 'test@user.com' }
+      it 'returns unprocessable entity' do
+        post_invitation
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+    context 'with email taken' do
+      before do
+        create(:invitation, email: 'test@user.com')
+      end
+      it 'returns unprocessable entity' do
+        post_invitation
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+    context 'with missing data' do
+      it 'returns unprocessable entity' do
+        post_invitation(email: '')
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+    def post_invitation(email: 'test@user.com')
+      sign_in user
+      post(:create, params: {email: email}, format: :json)
     end
   end
 

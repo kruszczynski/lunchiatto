@@ -2,10 +2,9 @@
 require 'rails_helper'
 
 RSpec.describe OrderPolicy do
-  let(:company) { create :company }
-  let(:user) { create :user, company: company }
-  let(:other_user) { create :other_user, company: company }
-  let(:order) { create :order, user: user, company: company }
+  let(:user) { create :user }
+  let(:other_user) { create :other_user }
+  let(:order) { create :order, user: user }
   subject { described_class.new user, order }
 
   describe '#index?' do

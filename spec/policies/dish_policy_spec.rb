@@ -2,12 +2,11 @@
 require 'rails_helper'
 
 RSpec.describe DishPolicy do
-  let(:company) { create :company }
-  let(:user) { create :user, company: company }
-  let(:other_user) { create :other_user, company: company }
-  let(:order) { create :order, user: user, company: company }
-  let(:dish) { create :dish, order: order, user: user }
-  let(:other_dish) { create :dish, user: other_user, order: order }
+  let(:user) { create(:user) }
+  let(:other_user) { create(:other_user) }
+  let(:order) { create(:order, user: user) }
+  let(:dish) { create(:dish, order: order, user: user) }
+  let(:other_dish) { create(:dish, user: other_user, order: order) }
   subject { described_class.new(user, dish) }
 
   describe '#create?' do

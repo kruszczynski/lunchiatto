@@ -7,8 +7,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :users, except: %i(delete edit)
-    resources :companies, only: %i(show update)
-    resources :invitations, only: %i(create destroy)
+    resources :invitations, only: %i(create index destroy)
 
     resources :transfers, only: %i(index create) do
       member do
@@ -32,7 +31,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :companies, only: %i(new create)
   resources :invitations, only: %i(show create)
   resources :user_accesses, only: %i(create)
 
@@ -48,7 +46,6 @@ Rails.application.routes.draw do
     settings
     transfers
     transfers/new
-    edit_company
     members
     you
   ).each do |route|

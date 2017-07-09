@@ -2,8 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::UsersController, type: :controller do
-  let(:company) { create :company }
-  let!(:user) { create :user, company: company }
+  let!(:user) { create :user }
   let!(:other_user) { create :other_user }
   describe 'PUT :update' do
     describe 'json' do
@@ -41,10 +40,10 @@ RSpec.describe Api::UsersController, type: :controller do
         users_index
         expect(response).to have_http_status(:success)
       end
-      it 'returns only current company users' do
+      it 'returns all users' do
         users_index
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response.count).to eq(1)
+        expect(parsed_response.count).to eq(2)
       end
     end
     def users_index

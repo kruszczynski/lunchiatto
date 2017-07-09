@@ -13,5 +13,4 @@
     'settings(/)': 'settings'
     'transfers(/)': 'transfersIndex'
     'transfers/new(/)': 'newTransfer'
-    'members(/)': 'companyMembers'
-    'edit_company(/)': 'editCompany'
+    'members(/)': 'members'

@@ -3,11 +3,8 @@ require 'rails_helper'
 
 RSpec.describe OrderMailer, type: :mailer do
   describe '#status_email' do
-    let(:company) { create :company }
-    let(:user) { create :user, company: company }
-    let(:order) do
-      create :order, user: user, from: 'The food place', company: company
-    end
+    let(:user) { create(:user) }
+    let(:order) { create(:order, user: user, from: 'The food place') }
     let(:mail) { described_class.status_email(order) }
 
     it 'sends an email' do

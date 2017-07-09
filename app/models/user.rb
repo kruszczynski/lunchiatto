@@ -11,8 +11,6 @@ class User < ActiveRecord::Base
   has_many :received_transfers, inverse_of: :to,
                                 class_name: 'Transfer',
                                 foreign_key: :to_id
-  belongs_to :company
-
   scope :by_name, -> { order 'name' }
   scope :admin, -> { where admin: true }
 
@@ -24,8 +22,8 @@ class User < ActiveRecord::Base
 
   def balances
     balance = Balance.new(self)
-    company
-      .users
+    User
+      .all
       .map { |usr| balance.build_wrapper(usr) }
       .reject { |bal| bal.balance.zero? }
   end

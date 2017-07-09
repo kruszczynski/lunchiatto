@@ -28,7 +28,6 @@ module AuthorizeUser
         uid: omniauth_params.uid,
         name: info.name,
         email: info.email,
-        company: invitation.company,
       }
     end
   end
