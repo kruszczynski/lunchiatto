@@ -11,6 +11,9 @@
     triggers:
       'change @ui.userSelect': 'user:selected'
 
+    templateHelpers: ->
+      usersForSelect: App.usersWithoutMe()
+
     behaviors:
       Errorable:
         fields: ['amount', 'to']
