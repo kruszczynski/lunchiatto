@@ -11,6 +11,11 @@ RSpec.describe Transfer, type: :model do
   it { is_expected.to validate_presence_of(:to) }
   it { is_expected.to validate_presence_of(:from) }
 
+  it 'does not allow transfers to self' do
+    transfer = build(:transfer, from: user, to: user)
+    expect(transfer.valid?).to be_falsey
+  end
+
   it '#mark_as_rejected!' do
     expect { transfer.mark_as_rejected! }
       .to change { transfer.rejected? }

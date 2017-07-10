@@ -5,7 +5,7 @@ RSpec.describe ChangeTransferStatus do
   include ActiveJob::TestHelper
   let(:user) { create :user }
   let(:other_user) { create :other_user }
-  let(:transfer) { create :transfer, from: user, to: user }
+  let(:transfer) { create :transfer, from: user, to: other_user }
   let(:accepted_transfer) do
     create :transfer, from: user, to: other_user, status: :accepted
   end

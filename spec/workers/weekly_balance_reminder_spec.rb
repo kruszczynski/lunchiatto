@@ -8,10 +8,10 @@ RSpec.describe WeeklyBalanceReminder do
     create :payment, user: user, payer: other_user, balance_cents: 30
   end
   let!(:payment2) do
-    create :payment, user: user, payer: user, balance_cents: 30
+    create :payment, user: user, payer: other_user, balance_cents: 30
   end
   let!(:transfer) do
-    create :transfer, from: user, to: user, amount_cents: 30
+    create :transfer, from: other_user, to: user, amount_cents: 30
   end
   let(:email) { instance_double('ActionMailer::Mail') }
 

@@ -9,10 +9,8 @@ RSpec.describe Api::TransfersController, type: :controller do
 
   describe 'GET to index' do
     let!(:other_transfer) { create(:transfer, from: user, to: other_user) }
-    let!(:third_transfer) do
-      create(:transfer, from: other_user, to: other_user)
-    end
-    let!(:forth_transfer) { create(:transfer, from: user, to: user) }
+    let!(:third_transfer) { create(:transfer, from: other_user, to: user) }
+    let!(:forth_transfer) { create(:transfer, from: user, to: other_user) }
 
     shared_examples 'transfers index' do |type, expected_count, user|
       it "returns #{user} transfers" do
@@ -28,17 +26,15 @@ RSpec.describe Api::TransfersController, type: :controller do
     end
 
     context 'received transfers' do
-      before { sign_in other_user }
-      it_behaves_like 'transfers index', 'received', 3
-      it_behaves_like 'transfers index', 'received', 2, :user
+      before { sign_in user }
+      it_behaves_like 'transfers index', 'received', 1
       it_behaves_like 'transfers index', 'received', 1, :other_user
     end # context 'received transfers'
 
     context 'submitted transfers' do
       before { sign_in user }
       it_behaves_like 'transfers index', 'submitted', 3
-      it_behaves_like 'transfers index', 'submitted', 2, :other_user
-      it_behaves_like 'transfers index', 'submitted', 1, :user
+      it_behaves_like 'transfers index', 'submitted', 3, :other_user
     end # context 'submitted transfers'
   end # describe 'GET to index'
 
@@ -55,6 +51,12 @@ RSpec.describe Api::TransfersController, type: :controller do
       expect do
         post :create, params: {to_id: user.id, amount: 14}, format: :json
       end.to change(enqueued_jobs, :count).by(1)
+    end
+
+    it 'rejects transfer to self' do
+      sign_in user
+      post :create, params: {to_id: user.id, amount: 14}, format: :json
+      expect(response).to have_http_status(:unprocessable_entity)
     end
 
     it 'rejects when not logged in' do
