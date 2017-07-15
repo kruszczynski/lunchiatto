@@ -1,4 +1,4 @@
-class ChangeUserCompanyAssociation < ActiveRecord::Migration
+class ChangeUserCompanyAssociation < ActiveRecord::Migration[4.2]
   def up
     remove_column :companies, :owner_id
     add_column :users, :company_id, :integer, index: true
