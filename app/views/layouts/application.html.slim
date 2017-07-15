@@ -3,10 +3,7 @@ html
   title Lunchiatto
   meta charset="UTF-8"
   = stylesheet_link_tag 'application', media: 'all'
-  = javascript_include_tag 'modernizr/modernizr'
-  = include_gon(init: true, camel_case: true)
 
-  = csrf_meta_tags
   meta name='viewport' content='width=device-width, initial-scale=1.0'
 body
   section.external-wrapper class="#{controller_name} #{action_name}"
@@ -16,5 +13,3 @@ body
       .row
         .columns.text-center.small-centered.small-10.alert= alert
     .wrapper= yield
-
-  = javascript_include_tag 'external'
