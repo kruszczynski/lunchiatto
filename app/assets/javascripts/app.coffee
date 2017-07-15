@@ -16,6 +16,9 @@
   App.pageSize = 10
   App.animationDurationMedium = 500
 
+  App.usersWithoutMe = ->
+    _.reject(gon.usersForSelect, (user) -> user.id == App.currentUser.id)
+
   App.on 'start', ->
     $title = $('head title')
     App.router = new App.Router

@@ -3,6 +3,7 @@
     template: 'transfers/list'
     templateHelpers: ->
       type: @collection.type
+      usersForSelect: App.usersWithoutMe()
       selectedUser: @collection.userId
     getChildView: ->
       Transfer.Item

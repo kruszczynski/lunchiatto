@@ -11,7 +11,7 @@ form
       label.to-label To
         select.user-id(name='to_id')
           option(value='') Select Destination
-          each user in gon.usersForSelect
+          each user in usersForSelect
             option(value=user.id,selected=user.id==locals.to_id)=user.name
         small.error.hide
   .row.account-number-section.hide

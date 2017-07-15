@@ -6,7 +6,7 @@
     .large-centered.columns
       select.user-id(name='user_id')
         option(value='') All Users
-        each user in gon.usersForSelect
+        each user in usersForSelect
           option(value=user.id,selected=user.id==locals.selectedUser)=user.name
   .transfers
   .row.text-center

@@ -8,6 +8,7 @@ class Transfer < ActiveRecord::Base
   belongs_to :to, class_name: 'User'
 
   validates :from, :to, presence: true
+  validate :cannot_transfer_to_self
 
   scope :newest_first, -> { order 'created_at desc' }
   scope :from_user, ->(from_id) { where from_id: from_id }
@@ -24,4 +25,11 @@ class Transfer < ActiveRecord::Base
   end
 
   alias_method :mark_as_rejected!, :rejected!
+
+  private
+
+  def cannot_transfer_to_self
+    return unless to == from
+    errors.add(:base, "Can't send transfers to yourself")
+  end
 end
