@@ -66,11 +66,6 @@ RSpec.describe Api::InvitationsController, type: :controller do
           post_invitation
         end.to change(Invitation, :count).by(1)
       end
-      it 'creates an authorized invitation' do
-        expect do
-          post_invitation
-        end.to change(Invitation.where(authorized: true), :count).by(1)
-      end
       it 'enqueues email' do
         expect do
           post_invitation

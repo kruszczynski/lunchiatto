@@ -3,9 +3,7 @@ require 'rails_helper'
 
 RSpec.describe AuthorizeUser::FindInvitation do
   let(:invitation_email) { 'test@codequest.com' }
-  let!(:invitation) do
-    create(:invitation, email: invitation_email, authorized: true)
-  end
+  let!(:invitation) { create(:invitation, email: invitation_email) }
   let(:info) { OpenStruct.new(email: 'test@codequest.com', name: 'Test Smith') }
   let(:omniauth_params) { instance_double('Omniauth::AuthHash', info: info) }
   let(:context) { Pipes::Context.new(omniauth_params: omniauth_params) }

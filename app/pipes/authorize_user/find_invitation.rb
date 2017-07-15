@@ -12,10 +12,7 @@ module AuthorizeUser
     private
 
     def find_invitation
-      Invitation.find_by!(
-        email: omniauth_params.info.email,
-        authorized: true,
-      )
+      Invitation.find_by!(email: omniauth_params.info.email)
     end
   end # class FindInvitation
 end # module AuthorizeUser

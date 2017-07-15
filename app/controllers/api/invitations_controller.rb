@@ -29,7 +29,7 @@ module Api
     end
 
     def invitation_params
-      params.permit(:email).merge(authorized: true)
+      params.permit(:email)
     end
 
     def find_invitation
