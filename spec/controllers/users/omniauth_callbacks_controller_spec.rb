@@ -55,43 +55,22 @@ RSpec.describe Users::OmniauthCallbacksController, type: :controller do
         request.env['omniauth.auth'] =
           OmniAuth.config.mock_auth[:google_oauth2_codequest]
       end
-      context 'and not authorized' do
-        let!(:invitation) do
-          create :invitation, email: 'test@codequest.com'
-        end
-        it 'redirects' do
-          get :google_oauth2
-          expect(response).to redirect_to(root_url)
-        end
-        it 'does not create a user' do
-          expect do
-            get :google_oauth2
-          end.to change(User, :count).by(0)
-        end
-        it 'does not delete the invitation' do
-          expect do
-            get :google_oauth2
-          end.to change(Invitation, :count).by(0)
-        end
+      let!(:invitation) do
+        create :invitation, email: 'test@codequest.com'
       end
-      context 'and authorized' do
-        let!(:invitation) do
-          create :invitation, email: 'test@codequest.com', authorized: true
-        end
-        it 'redirects' do
+      it 'redirects' do
+        get :google_oauth2
+        expect(response).to redirect_to(root_url)
+      end
+      it 'creates user' do
+        expect do
           get :google_oauth2
-          expect(response).to redirect_to(root_url)
-        end
-        it 'creates user' do
-          expect do
-            get :google_oauth2
-          end.to change(User, :count).by(1)
-        end
-        it 'deletes the invitation' do
-          expect do
-            get :google_oauth2
-          end.to change(Invitation, :count).by(-1)
-        end
+        end.to change(User, :count).by(1)
+      end
+      it 'deletes the invitation' do
+        expect do
+          get :google_oauth2
+        end.to change(Invitation, :count).by(-1)
       end
     end
   end
