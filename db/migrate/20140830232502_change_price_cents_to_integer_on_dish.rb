@@ -1,4 +1,4 @@
-class ChangePriceCentsToIntegerOnDish < ActiveRecord::Migration
+class ChangePriceCentsToIntegerOnDish < ActiveRecord::Migration[4.2]
   def up
     change_column :dishes, :price_cents, :integer
   end

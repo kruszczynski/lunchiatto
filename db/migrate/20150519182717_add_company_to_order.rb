@@ -1,4 +1,4 @@
-class AddCompanyToOrder < ActiveRecord::Migration
+class AddCompanyToOrder < ActiveRecord::Migration[4.2]
   def change
     add_reference :orders, :company, index: true, foreign_key: true
   end
