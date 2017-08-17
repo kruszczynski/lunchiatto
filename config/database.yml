@@ -8,13 +8,13 @@ default: &default
 
 development:
   <<: *default
-  database: codequestmanager_development
+  database: lunchiatto_development
 
 test:
   <<: *default
-  database: codequestmanager_test
+  database: lunchiatto_test
 
 production:
   <<: *default
-  database: codequestmanager_production
+  database: lunchiatto_production
   password: <%= ENV['DB_1_ENV_POSTGRES_PASSWORD'] %>
