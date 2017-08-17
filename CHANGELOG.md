@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - Migrated from Codeship to Codefresh
+- Renamed database from codequestmanager to lunchiatto
+- Updated rails to 5.0.5 and other gems
+- Used docker-compose file version 3.3
 
 ### Removed
 - Removed `Company` abstraction from the app
