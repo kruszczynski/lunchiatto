@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Migrated from Codeship to Codefresh
 - Renamed database from codequestmanager to lunchiatto
-- Updated rails to 5.0.5 and other gems
+- Updated rails to 5.1.3 and other gems too
 - Used docker-compose file version 3.3
 
 ### Removed
