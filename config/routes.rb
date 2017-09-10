@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :invitations, only: %i(show create)
+  resources :invitations, only: %i(show)
 
   ### Single Page App ###
   %w(
