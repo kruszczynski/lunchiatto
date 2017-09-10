@@ -14,6 +14,13 @@ do (App = @Lunchiatto) ->
       return if maybeRedirectToToday()
       App.Page.Controller.index()
 
+    showInvitation: (invitationId) ->
+      return if maybeRedirectToToday()
+      invitation = new App.Entities.Invitation(id: invitationId)
+      invitation.fetch
+        success: (invitation) ->
+          App.User.Controller.show(invitation)
+
     ordersToday: (orderId) ->
       return if forLoggedInOnly()
       App.Today.Controller.today(orderId)

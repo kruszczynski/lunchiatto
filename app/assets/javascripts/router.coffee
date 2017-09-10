@@ -1,6 +1,7 @@
 @Lunchiatto.Router = Marionette.AppRouter.extend
   appRoutes:
     '(/)': 'pageIndex'
+    'invitations/:invitationId(/)': 'showInvitation'
     'orders/today(/)(:orderId)(/)': 'ordersToday'
     'you(/)': 'yourBalances'
     'others(/)': 'othersBalances'
