@@ -2,10 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it { is_expected.to have_many(:orders) }
-  it { is_expected.to have_many(:submitted_transfers) }
-  it { is_expected.to have_many(:received_transfers) }
-
   let(:user) { create(:user) }
   let(:payer) { create(:other_user) }
 
@@ -15,6 +11,10 @@ RSpec.describe User, type: :model do
   let!(:payment_two) do
     create :payment, user: user, payer: payer, balance: 2
   end
+
+  it { is_expected.to have_many(:orders) }
+  it { is_expected.to have_many(:submitted_transfers) }
+  it { is_expected.to have_many(:received_transfers) }
 
   describe '#balances' do
     it 'returns adequate non-zero balances' do

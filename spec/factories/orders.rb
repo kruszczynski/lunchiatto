@@ -3,7 +3,7 @@
 
 FactoryGirl.define do
   factory :order do
-    date Time.zone.today
+    date { Time.zone.today }
     from 'The best restaurant'
     user nil
 

@@ -8,9 +8,7 @@ RSpec.describe TransferPolicy do
   subject { described_class.new user, transfer }
 
   describe '#create?' do
-    it 'returns true' do
-      expect(subject.create?)
-    end
+    it { expect(subject.create?).to be_truthy }
   end
 
   describe '#update?' do
