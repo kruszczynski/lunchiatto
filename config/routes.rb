@@ -32,7 +32,6 @@ Rails.application.routes.draw do
   end
 
   resources :invitations, only: %i(show create)
-  resources :user_accesses, only: %i(create)
 
   ### Single Page App ###
   %w(
