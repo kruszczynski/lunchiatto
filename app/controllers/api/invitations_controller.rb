@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Api
   class InvitationsController < ApplicationController
-    before_action :authenticate_user!
+    before_action :authenticate_user!, only: %i(create index destroy)
 
     def create
       invitation = find_or_create_invitation
@@ -14,6 +14,10 @@ module Api
     def index
       authorize Invitation
       render json: Invitation.all
+    end
+
+    def show
+      render json: find_invitation
     end
 
     def destroy
