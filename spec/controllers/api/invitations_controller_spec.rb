@@ -100,6 +100,26 @@ RSpec.describe Api::InvitationsController, type: :controller do
     end
   end
 
+  describe 'GET :show' do
+    before { invitation }
+    describe 'json' do
+      it 'is a success' do
+        request_invitation
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'returns a json' do
+        response = request_invitation
+        json = JSON.parse(response.body)
+        expect(json).to eq('email' => invitation.email, 'id' => invitation.id)
+      end
+    end
+
+    def request_invitation
+      get :show, params: {id: invitation.id}, format: :json
+    end
+  end
+
   describe 'DELETE :destroy' do
     let(:call) { delete :destroy, params: {id: invitation.id}, format: :json }
 
