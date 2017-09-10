@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',
   }
-  root 'pages#index'
+  root 'dashboard#index'
 
   namespace :api do
     resources :users, except: %i(delete edit)
@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   ).each do |route|
     get route, to: 'dashboard#index'
   end
+
   # separate to have named routes
   get 'orders/:order_id', to: 'dashboard#index', as: 'order'
 end
