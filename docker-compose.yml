@@ -3,9 +3,13 @@ version: '3.3'
 services:
   db:
     image: postgres:9.4.1
+    ports:
+      - "5432:5432"
 
   redis:
     image: redis:3.2.0
+    ports:
+      - "6379:6379"
 
   mailcatcher:
     image: schickling/mailcatcher
@@ -21,32 +25,14 @@ services:
       - db
       - redis
       - mailcatcher
-      - unison
     env_file: .env
-    volumes:
-      - "bundler:/bundle"
-      - "unison:/usr/src/app"
-
-  web:
-    <<: *sidekiq
-    command: bundle exec puma -C config/puma.rb
-    ports:
-      - "3000:3000"
-
-  unison:
-    image: onnimonni/unison
     environment:
-      - UNISON_DIR=/usr/src/app
-    ports:
-      - "5000:5000"
-    volumes:
-      - "unison:/usr/src/app"
+      - DB_HOSTNAME=db
+      - REDIS_URL=redis://redis:6379
+      - MAILCATCHER_HOST=mailcatcher
+
   # backuper:
   #   env_file: .env
   #   image: lunchiatto/backuper:latest
   #   links:
   #     - db
-
-volumes:
-  bundler:
-  unison:

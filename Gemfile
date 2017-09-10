@@ -56,6 +56,7 @@ source 'https://rails-assets.org' do
 end
 
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'faker', require: false
   gem 'inch'
   gem 'pry'
