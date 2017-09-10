@@ -2,6 +2,12 @@
 require 'rails_helper'
 
 RSpec.describe Dish, type: :model do
+  let(:user) { create :user }
+  let(:other_user) { create :other_user }
+  let(:order) { create :order, user: user }
+  let!(:dish) { create :dish, user: user, order: order, price_cents: 1200 }
+  let(:new_dish) { dish.copy(other_user) }
+
   it { is_expected.to belong_to(:user) }
   it { is_expected.to belong_to(:order) }
   it { is_expected.to validate_presence_of(:price_cents) }
@@ -14,12 +20,6 @@ RSpec.describe Dish, type: :model do
       .with_message('can only order one dish')
   end
   it { is_expected.to validate_length_of(:name).is_at_most(255) }
-
-  let(:user) { create :user }
-  let(:other_user) { create :other_user }
-  let(:order) { create :order, user: user }
-  let!(:dish) { create :dish, user: user, order: order, price_cents: 1200 }
-  let(:new_dish) { dish.copy(other_user) }
 
   it 'monetizes price' do
     expect(monetize(:price_cents)).to be_truthy

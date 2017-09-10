@@ -3,6 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
+  let(:user) { create(:user) }
+  let(:date) { Time.zone.today }
+
   it { is_expected.to belong_to(:user) }
   it { is_expected.to have_many(:dishes) }
   it { is_expected.to validate_presence_of(:user) }
@@ -13,9 +16,6 @@ RSpec.describe Order, type: :model do
       .scoped_to(:date)
   end
   it { is_expected.to validate_length_of(:from).is_at_most(255) }
-
-  let(:user) { create(:user) }
-  let(:date) { Time.zone.today }
 
   subject { create(:order, user: user, date: date) }
 

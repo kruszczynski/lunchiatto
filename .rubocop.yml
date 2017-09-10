@@ -39,6 +39,9 @@ RSpec/NamedSubject:
 RSpec/NestedGroups:
   Enabled: false
 
+RSpec/PredicateMatcher:
+  Enabled: false
+
 # Common configuration.
 AllCops:
   # Include common Ruby source files.

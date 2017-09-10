@@ -32,7 +32,7 @@ RSpec.describe ChangeTransferStatus do
         expect(transfer.status).to eq('accepted')
       end
       it 'returns true' do
-        expect(service.perform(:accepted))
+        expect(service.perform(:accepted)).to be_truthy
       end
     end
     describe 'rejects' do
@@ -45,7 +45,7 @@ RSpec.describe ChangeTransferStatus do
         expect(transfer.status).to eq('rejected')
       end
       it 'returns true' do
-        expect(service.perform(:rejected))
+        expect(service.perform(:rejected)).to be_truthy
       end
     end
   end
