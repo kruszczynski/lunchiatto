@@ -38,7 +38,7 @@ window.Lunchiatto.module('Entities', function(Entities, App, Backbone, Marionett
     model: Entities.Dish,
 
     total() {
-      this.reduce((memo, debt) => memo + parseFloat(debt.get('price')), 0);
+      return this.reduce((memo, debt) => memo + parseFloat(debt.get('price')), 0);
     }
   });
 });
