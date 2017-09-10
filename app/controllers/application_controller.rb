@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def after_sign_in_path_for(_resource)
-    root_path
+    orders_today_path
   end
 
   def gon_user

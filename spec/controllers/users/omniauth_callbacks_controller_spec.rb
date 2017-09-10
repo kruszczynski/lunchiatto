@@ -18,7 +18,7 @@ RSpec.describe Users::OmniauthCallbacksController, type: :controller do
 
         it 'redirects to root_url' do
           get :google_oauth2
-          expect(response).to redirect_to(root_url)
+          expect(response).to redirect_to(orders_today_url)
         end
       end
 
@@ -33,7 +33,7 @@ RSpec.describe Users::OmniauthCallbacksController, type: :controller do
 
         it 'redirects to root_url and updates user' do
           get :google_oauth2
-          expect(response).to redirect_to(root_url)
+          expect(response).to redirect_to(orders_today_url)
           user = User.last
           expect(user.uid).to eq '123545'
           expect(user.provider).to eq 'google_oauth2'
@@ -60,7 +60,7 @@ RSpec.describe Users::OmniauthCallbacksController, type: :controller do
       end
       it 'redirects' do
         get :google_oauth2
-        expect(response).to redirect_to(root_url)
+        expect(response).to redirect_to(orders_today_url)
       end
       it 'creates user' do
         expect do
