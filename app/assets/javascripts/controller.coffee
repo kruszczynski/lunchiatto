@@ -1,12 +1,12 @@
 do (App = @Lunchiatto) ->
   forLoggedInOnly = ->
     return false if App.currentUser.loggedIn()
-    App.router.navigate("/", {trigger: true})
+    App.router.navigate('/', {trigger: true})
     true
 
   maybeRedirectToToday = ->
     return false unless App.currentUser.loggedIn()
-    App.router.navigate("/orders/today", {trigger: true})
+    App.router.navigate('/orders/today', {trigger: true})
     true
 
   App.Controller =
