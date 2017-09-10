@@ -11,7 +11,6 @@ gem 'active_model_serializers'
 gem 'gon'
 gem 'slim-rails'
 
-gem 'coffee-rails'
 gem 'compass-rails'
 gem 'jquery-rails'
 gem 'sass-rails'
