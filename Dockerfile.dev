@@ -7,8 +7,8 @@ RUN apt-get update -qq && \
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
 
-# install coffeelint
-RUN npm install -g coffeelint jade
+# install jade
+RUN npm install -g jade
 
 # Environment variables
 ENV BUNDLE_PATH=/bundle
