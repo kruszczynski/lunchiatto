@@ -33,7 +33,6 @@ Rails.application.routes.draw do
 
   ### Single Page App ###
   %w(
-    invitations/:id
     orders
     orders/today
     orders/today/:order_id
@@ -53,4 +52,5 @@ Rails.application.routes.draw do
 
   # separate to have named routes
   get 'orders/:order_id', to: 'dashboard#index', as: 'order'
+  get 'invitations/:id', to: 'dashboard#index', as: 'invitation'
 end
