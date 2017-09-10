@@ -1,5 +1,8 @@
 do (App = @Lunchiatto) ->
   App.Controller =
+    pageIndex: ->
+      App.Page.Controller.index()
+
     ordersToday: (orderId) ->
       App.Today.Controller.today(orderId)
 
