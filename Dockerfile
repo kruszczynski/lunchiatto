@@ -12,6 +12,8 @@ ADD . $APP_HOME
 ENV SECRET_KEY_BASE=for_precompilation
 ENV AIRBRAKE_PROJECT_KEY=DUMMYKEY
 ENV AIRBRAKE_PROJECT_ID=12345
+ENV REDIS_URL=redis://testhost:6934/1
+ENV MAILCATCHER_HOST=hostr
 
 # precompile assets
 RUN rake assets:precompile
