@@ -10,8 +10,8 @@ RUN apt-get install -y nodejs
 COPY Gemfile* ${APP_HOME}/
 RUN bundle install
 
-# install coffeelint
-RUN npm install -g coffeelint jade
+# install jade
+RUN npm install -g jade
 RUN gem install bundler
 
 ENV RAILS_ENV=test
