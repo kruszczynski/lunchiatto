@@ -26,8 +26,4 @@ class ApplicationController < ActionController::Base
   def user_not_authorized(exception)
     render json: exception.message, status: :unauthorized
   end
-
-  def redirect_to_today
-    redirect_to orders_today_path if current_user
-  end
 end
