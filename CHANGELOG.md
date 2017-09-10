@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Renamed database from codequestmanager to lunchiatto
 - Updated rails to 5.1.4 and other gems too
 - Used docker-compose file version 3.3
+- Don't default to docker-based development setup
 
 ### Removed
 - Removed `Company` abstraction from the app

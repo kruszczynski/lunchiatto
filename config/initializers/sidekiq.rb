@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-redis_opts = {url: 'redis://redis:6379'}
+redis_opts = {url: ENV.fetch('REDIS_URL')}
 
 Sidekiq.configure_server do |config|
   config.redis = redis_opts
