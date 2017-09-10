@@ -30,4 +30,6 @@ steps:
         environment:
           - DB_HOSTNAME=db
           - DB_PORT_NUMBER=5432
+          - REDIS_URL=redis://redis:6397/0
+          - MAILCATCHER_HOST=
         image: ${{build_image}}
