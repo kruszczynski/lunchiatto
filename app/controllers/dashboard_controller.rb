@@ -2,9 +2,8 @@
 class DashboardController < ApplicationController
   layout 'single_page_app'
 
-  before_action :authenticate_user!
-
   def index
+    return unless current_user
     gon_user
     gon.push(users_for_select: users_for_select,
              notice: flash[:notice],

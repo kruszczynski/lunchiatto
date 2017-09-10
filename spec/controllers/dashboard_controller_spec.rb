@@ -6,9 +6,9 @@ RSpec.describe DashboardController, type: :controller do
     describe 'html' do
       let(:user) { create(:user) }
 
-      it 'redirects not signed in user to root' do
+      it 'renders SPA scaffold to not signed in user' do
         get :index
-        expect(response).to redirect_to root_path
+        expect(response).to render_template :index
       end
 
       it 'renders SPA scaffold to signed in user' do
