@@ -6,10 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Changed
-- Migrated from Codeship to Codefresh
 - Renamed database from codequestmanager to lunchiatto
 - Updated rails to 5.1.4 and other gems too
+- Move root page and InvitationsController#show to JS therefore removing backend views
 - Used docker-compose file version 3.3
+- Migrated from Codeship to Codefresh
 - Don't default to docker-based development setup
 
 ### Removed
