@@ -38,7 +38,8 @@ Rails.application.routes.draw do
     orders
     orders/today
     orders/today/:order_id
-    orders/new orders/:order_id/edit
+    orders/new
+    orders/:order_id/edit
     orders/:order_id/dishes/:dish_id/edit
     orders/:order_id/dishes/new
     account_numbers
