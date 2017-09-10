@@ -3,6 +3,9 @@
     urlRoot: ->
       '/api/users'
 
+    loggedIn: ->
+      !isNaN(@get('id'))
+
   Entities.Users = Backbone.Collection.extend
     model: Entities.User
 

@@ -35,8 +35,8 @@
       $title.text(title)
 
     $(document).foundation()
-
-    App.Panel.Controller.showNavbar()
+    if App.currentUser.loggedIn()
+      App.Panel.Controller.showNavbar()
 
     Backbone.history.start
       pushState: true
