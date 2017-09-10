@@ -51,12 +51,6 @@ Rails.application.routes.draw do
   ).each do |route|
     get route, to: 'dashboard#index'
   end
+  # separate to have named routes
   get 'orders/:order_id', to: 'dashboard#index', as: 'order'
-
-  # redirect from the dashboard for existing users
-  get 'dashboard', to: redirect('orders/today')
-  get 'balances', to: redirect('you')
-
-  # redirect old /app urls to root
-  get 'app/*a', to: redirect { |_path, req| req.original_url.gsub('app/', '') }
 end
