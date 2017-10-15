@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <title>Lunchiatto</title>
+  <meta charset="UTF-8" />
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag 'modernizr/modernizr' %>
+  <%= include_gon(init: true, camel_case: true) %>
+  <%= csrf_meta_tags %>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+</html><body>
+  <div id="user-panel">
+  </div>
+  <section class="main-wrapper users dashboard">
+    <div id="content"><%= yield %>
+    </div>
+  </section>
+  <%= javascript_include_tag 'application' %>
+</body>

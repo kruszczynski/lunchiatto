@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta content="width=device-width" name="viewport" />
+    <%= stylesheet_link_tag 'mailer' %>
+  </head></html><body>
+  <table class="body">
+    <tr>
+      <td align="center" class="center" valign="top">
+        <center>
+          <table class="row header">
+            <tr>
+              <td align="center" class="center">
+                <center>
+                  <table class="container">
+                    <tr>
+                      <td class="wrapper last">
+                        <table class="twelve columns">
+                          <tr>
+                            <td class="six sub-columns">
+                              <span class="logo">Lunchiatto</span>
+                            </td>
+                            <td align="right" class="six sub-columns last" style="text-align:right; vertical-align:middle;">
+                            </td>
+                            <td class="expander">
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </center></td>
+            </tr>
+          </table>
+          <br />
+          <table class="container">
+            <tr>
+              <td>
+                <%= yield %>
+              </td>
+            </tr>
+          </table>
+        </center></td>
+    </tr>
+  </table>
+</body>
