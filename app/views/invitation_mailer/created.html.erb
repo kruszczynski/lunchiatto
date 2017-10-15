@@ -1,0 +1,39 @@
+<table class="row">
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tr>
+          <td>
+            <h1>Hi <%= @invitation.email %>!</h1>
+          </td>
+          <td class="expander">
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table class="row">
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tr>
+          <td>
+            <p>
+              Join Lunchiatto and order your lunch in no time!
+            </p>
+            <table class="button margin-bottom">
+              <tr>
+                <td>
+                  <%= link_to "Join now", invitation_url(@invitation) %>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td class="expander">
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
