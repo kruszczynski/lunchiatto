@@ -9,7 +9,6 @@ gem 'pg'
 
 gem 'active_model_serializers'
 gem 'gon'
-gem 'slim-rails'
 
 gem 'compass-rails'
 gem 'jquery-rails'
@@ -64,7 +63,6 @@ group :development, :test do
   gem 'rubocop'
   gem 'rubocop-rspec'
   gem 'scss_lint', require: false
-  gem 'slim_lint'
 end
 
 group :development do
