@@ -1,0 +1,26 @@
+<%= render partial: 'shared/mailer_header', locals: {name: @user.name} %>
+<table class="row">
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <% @balances.each do |balance| %>
+          <tr>
+            <td>
+              <h4 class="padding-bottom">
+                You owe <%= balance.user %> <%= balance.balance %> PLN!
+              </h4>
+              <table class="button margin-bottom">
+                <tr>
+                  <td>
+                    <%= link_to "Oi! Send #{balance.user} a transfer!", transfers_new_url(to_id: balance.user.id, amount: -balance.balance) %>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td class="expander"></td>
+          </tr>
+        <% end %>
+      </table>
+    </td>
+  </tr>
+</table>
