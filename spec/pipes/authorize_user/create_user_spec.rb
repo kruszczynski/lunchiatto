@@ -28,12 +28,16 @@ RSpec.describe AuthorizeUser::CreateUser do
         expect { subject }.to raise_error(AuthorizeUser::EmailMismatch)
       end
 
-      # rubocop:disable Style/RescueModifier, Lint/AmbiguousBlockAssociation
+      # rubocop:disable Style/RescueModifier
+      # rubocop:disable Style/RescueWithoutErrorClass
+      # rubocop:disable Lint/AmbiguousBlockAssociation
       it 'does not create a user' do
         expect { subject rescue nil }
           .not_to change { User.count }
       end
-      # rubocop:enable Style/RescueModifier, Lint/AmbiguousBlockAssociation
+      # rubocop:enable Style/RescueModifier
+      # rubocop:enable Style/RescueWithoutErrorClass
+      # rubocop:enable Lint/AmbiguousBlockAssociation
     end # context 'when email are different'
 
     context 'when emails match' do

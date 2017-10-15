@@ -12,7 +12,8 @@ RSpec.describe ApplicationHelper, type: :helper do
     it 'renders a label without errors' do
       allow(object).to receive(:errors) { empty_errors }
       allow(empty_errors).to receive(:full_messages_for)
-        .with(:name) { [] }
+        .with(:name)
+        .and_return([])
       result = render_field
       expect(result).to match(/^\s*<label>/)
       expect(result).to match(/#{yielded_stuff}/)
