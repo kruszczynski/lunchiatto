@@ -20,7 +20,7 @@ gem 'devise'
 
 gem 'factory_girl_rails', '~> 4.0'
 
-gem 'omniauth', '1.6.1'
+gem 'omniauth', '1.7.1'
 gem 'omniauth-google-oauth2', '0.5.2'
 
 gem 'codequest_pipes'
