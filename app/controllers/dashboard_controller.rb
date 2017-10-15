@@ -3,9 +3,7 @@ class DashboardController < ApplicationController
   def index
     return unless current_user
     gon_user
-    gon.push(users_for_select: users_for_select,
-             notice: flash[:notice],
-             alert: flash[:alert])
+    gon.push(users_for_select: users_for_select)
   end
 
   private
