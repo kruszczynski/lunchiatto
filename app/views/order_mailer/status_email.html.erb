@@ -1,0 +1,22 @@
+<%= render partial: 'shared/mailer_header', locals: {name: @payer.name} %>
+<table class="row">
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tr>
+          <td>
+            <h4 class="padding-bottom">Mark today's order as delivered, it's time!</h4>
+            <table class="button margin-bottom">
+              <tr>
+                <td>
+                  <%= link_to 'Go do it', order_url(@order) %>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td class="expander"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
