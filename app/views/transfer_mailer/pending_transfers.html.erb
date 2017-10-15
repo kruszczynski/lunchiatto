@@ -1,0 +1,37 @@
+<%= render partial: 'shared/mailer_header', locals: {name: @user.name} %>
+<table class="row">
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tr>
+          <td>
+            <h4 class="padding-bottom">You have pending transfers!</h4>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<% @transfers.each do |transfer| %>
+  <%= render partial: 'pending_transfer', locals: {transfer: transfer} %>
+<% end %>
+<table class="row">
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tr>
+          <td>
+            <table class="button margin-bottom">
+              <tr>
+                <td>
+                  <%= link_to 'See your transfers to accept or reject', transfers_url %>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td class="expander"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

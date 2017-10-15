@@ -1,0 +1,24 @@
+<%= render partial: 'shared/mailer_header', locals: {name: @transfer.from.name} %>
+<table class="row">
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tr>
+          <td>
+            <h4 class="padding-bottom">
+              <%= @transfer.to %> has accepted your transfer of <%= @transfer.amount %> PLN.
+            </h4>
+            <table class="button margin-bottom">
+              <tr>
+                <td>
+                  <%= link_to 'See your finances', you_url %>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td class="expander"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

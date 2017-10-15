@@ -1,0 +1,15 @@
+<table class="row callout">
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tr>
+          <td class="panel">
+            <h6><%= transfer.amount %> PLN transfer from <%= transfer.from %></h6>
+            <p>Submitted on <%= transfer.created_at.to_formatted_s(:short) %></p>
+          </td>
+          <td class="expander"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
