@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Removed
 - Removed `Company` abstraction from the app
 - Removed `subtract_from_self` feature from Users
+- Removed `slim` templating engine
+- Removed `gon` as a dependency
 
 ### Fixed
 - Hide transfer action buttons when request is mid-air to prevent double clicks
