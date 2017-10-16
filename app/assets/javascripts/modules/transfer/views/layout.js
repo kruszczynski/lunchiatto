@@ -28,9 +28,11 @@ window.Lunchiatto.module('Transfer', function(Transfer, App, Backbone, Marionett
       const transfers = new App.Entities.Transfers([], {type});
       transfers.optionedFetch({
         success: transfers => {
-          const view = new App.Transfer.List({
-            collection: transfers});
-          this[`${type}Transfers`].show(view);
+          App.getUsers().then(() => {
+            const view = new App.Transfer.List({
+              collection: transfers});
+            this[`${type}Transfers`].show(view);
+          });
         }
       });
     },

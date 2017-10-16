@@ -18,7 +18,32 @@ window.Lunchiatto = (function(Backbone, Marionette) {
   App.pageSize = 10;
   App.animationDurationMedium = 500;
 
-  App.usersWithoutMe = () => _.reject(gon.usersForSelect, user => user.id === App.currentUser.id);
+  App.getUsers = () => {
+    if(App.allUsers) {
+      return new Promise((resolve, reject) => { resolve(App.allUsers) });
+    }
+
+    return new Promise((resolve, reject) => {
+      new App.Entities.Users([]).fetch({
+        success: (users) => {
+          App.allUsers = users;
+          resolve(users);
+        },
+        error: () => { reject("Something went wrong") }
+      });
+    });
+  };
+
+  App.usersWithoutMe = () => {
+    if(App.allUsers) {
+      return App.allUsers.reject((user) => {
+        console.log(user);
+        return user.get("id") === App.currentUser.id;
+      });
+    } else {
+      throw new Error("Users not preloaded");
+    }
+  };
 
   App.on('start', function() {
     const $title = $('head title');

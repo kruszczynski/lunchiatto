@@ -8,6 +8,14 @@ window.Lunchiatto.module('Order', function(Order, App, Backbone, Marionette, $, 
       shipping: '.shipping',
     },
 
+    templateHelpers: () => {
+      return {allUsers: this.allUsers.models};
+    },
+
+    initialize: (options) => {
+      this.allUsers = options.users;
+    },
+
     behaviors: {
       Errorable: {
         fields: ['user', 'from', 'shipping']

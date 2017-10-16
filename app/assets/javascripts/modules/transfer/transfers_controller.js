@@ -3,8 +3,10 @@ window.Lunchiatto.module('Transfer', (Transfer, App, Backbone, Marionette, $, _)
     form() {
       const transfer = new App.Entities.Transfer(
         new URI(window.location.href).search(true));
-      const form = new Transfer.Form({model: transfer});
-      App.root.content.show(form);
+      App.getUsers().then(() => {
+        const form = new Transfer.Form({model: transfer});
+        App.root.content.show(form);
+      });
     },
 
     index() {

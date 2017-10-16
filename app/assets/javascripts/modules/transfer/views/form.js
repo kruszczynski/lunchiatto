@@ -36,8 +36,10 @@ window.Lunchiatto.module('Transfer', function(Transfer, App, Backbone, Marionett
     onUserSelected() {
       const userId = this.ui.userSelect.val();
       if (userId) {
-        const user = _.find(gon.usersForSelect, user => +user.id === +userId);
-        this.ui.accountNumber.text(user.account_number);
+        users = App.getUsers().then((users) => {
+          const user = users.find((user) => +user.id === +userId);
+          this.ui.accountNumber.text(user.get("account_number"));
+        });
       }
       this.ui.accountNumberSection.toggleClass('hide', !userId);
     },

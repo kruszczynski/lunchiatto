@@ -12,7 +12,7 @@ form
         select.user-id(name='to_id')
           option(value='') Select Destination
           each user in usersForSelect
-            option(value=user.id,selected=user.id==locals.to_id)=user.name
+            option(value=user.id,selected=user.id==locals.to_id)=user.get("name")
         small.error.hide
   .row.account-number-section.hide
     .columns
