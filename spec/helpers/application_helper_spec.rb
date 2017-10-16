@@ -20,7 +20,6 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
 
     # rubocop:disable RSpec/MultipleExpectations
-    # rubocop:disable RSpec/ExampleLength
     it 'renders a label with errors' do
       allow(object).to receive(:errors) { errors }
       allow(errors)
