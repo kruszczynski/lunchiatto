@@ -52,17 +52,19 @@ window.Lunchiatto = (function(Backbone, Marionette) {
     App.root = new App.Root.Layout;
 
     Marionette.Behaviors.behaviorsLookup = () => App.Behaviors;
-    App.currentUser = new App.Entities.User(gon.currentUser);
+    App.currentUser = new App.Entities.Me()
+    App.currentUser.fetch({complete: () => {
+      if (App.currentUser.loggedIn()) {
+        App.Panel.Controller.showNavbar();
+      }
+
+      Backbone.history.start({pushState: true});
+    }});
+
     App.vent.on('reload:current:user', () => App.currentUser.fetch());
     App.vent.on('set:html:title', title => $title.text(title));
 
     $(document).foundation();
-    if (App.currentUser.loggedIn()) {
-      App.Panel.Controller.showNavbar();
-    }
-
-    Backbone.history.start({
-      pushState: true});
 
     const menuIcon = $('.menu-icon');
     const navigation = $('.top-bar');
