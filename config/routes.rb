@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   root 'dashboard#index'
 
   namespace :api do
-    resources :users, except: %i(delete edit)
+    resources :users, except: %i(delete edit) do
+      get :me, on: :collection
+    end
     resources :invitations, only: %i(create index show destroy)
 
     resources :transfers, only: %i(index create) do
