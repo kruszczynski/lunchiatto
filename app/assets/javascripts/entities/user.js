@@ -9,6 +9,12 @@ window.Lunchiatto.module('Entities', function(Entities, App, Backbone, Marionett
     }
   });
 
+  Entities.Me = Entities.User.extend({
+    urlRoot() {
+      return '/api/users/me'
+    }
+  });
+
   return Entities.Users = Backbone.Collection.extend({
     model: Entities.User,
 
