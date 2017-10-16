@@ -8,7 +8,6 @@ gem 'rails'
 gem 'pg'
 
 gem 'active_model_serializers'
-gem 'gon'
 
 gem 'compass-rails'
 gem 'jquery-rails'
