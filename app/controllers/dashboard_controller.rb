@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 class DashboardController < ApplicationController
   def index
-    return unless current_user
-    gon_user
   end
 
   private
