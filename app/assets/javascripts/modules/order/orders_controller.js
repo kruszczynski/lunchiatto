@@ -1,8 +1,10 @@
 window.Lunchiatto.module('Order', (Order, App, Backbone, Marionette, $, _) =>
   Order.Controller = {
     form(order) {
-      const orderForm = new Order.Form({model: order});
-      App.root.content.show(orderForm);
+      App.getUsers().then((users) => {
+        const orderForm = new Order.Form({model: order, users: users});
+        App.root.content.show(orderForm);
+      });
     },
 
     list(orders) {

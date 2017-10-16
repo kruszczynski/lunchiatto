@@ -7,7 +7,7 @@
       select.user-id(name='user_id')
         option(value='') All Users
         each user in usersForSelect
-          option(value=user.id,selected=user.id==locals.selectedUser)=user.name
+          option(value=user.id,selected=user.id==locals.selectedUser)=user.get("name")
   .transfers
   .row.text-center
     .columns
