@@ -16,26 +16,10 @@ services:
     ports:
       - "1080:1080"
 
-  sidekiq: &sidekiq
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    command: bundle exec sidekiq -q mailers -q default -c 1
-    depends_on:
-      - db
-      - redis
-      - mailcatcher
-    env_file: .env
-    environment:
-      - DB_HOSTNAME=db
-      - REDIS_URL=redis://redis:6379
-      - MAILCATCHER_HOST=mailcatcher
-
   web:
     build:
       context: .
-      dockerfile: Dockerfile.dev
-    command: bundle exec sidekiq -q mailers -q default -c 1
+      dockerfile: Dockerfile.test
     depends_on:
       - db
       - redis
