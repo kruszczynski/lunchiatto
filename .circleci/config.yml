@@ -40,7 +40,7 @@ jobs:
       - run: docker-compose build
 
       # Database setup
-      - run: docker-compose run --rm web RAILS_ENV=test bundle exec rake db:migrate:reset
+      - run: docker-compose run --rm web bundle exec rake db:migrate:reset
 
       # run tests!
       - run:
