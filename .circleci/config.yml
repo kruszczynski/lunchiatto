@@ -36,10 +36,10 @@ jobs:
       #     paths:
       #       - ./vendor/bundle
       #     key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-      - run: docker build -t company/app:$CIRCLE_BRANCH .
+      - run: docker-compose build
 
       # Database setup
-      - run: docker run company/app:$CIRCLE_BRANCH bundle exec rake db:migrate:reset
+      - run: docker run web RAILS_ENV=test bundle exec rake db:migrate:reset
 
       # run tests!
       - run:
@@ -47,7 +47,7 @@ jobs:
           command: |
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
 
-            docker run company/app:$CIRCLE_BRANCH bundle exec rspec --format progress \
+            docker-compose run web RAILS_ENV=test bundle exec rspec --format progress \
                             --format RspecJunitFormatter \
                             --out /tmp/test-results/rspec.xml \
                             --format progress \
