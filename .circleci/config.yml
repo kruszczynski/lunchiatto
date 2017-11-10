@@ -36,7 +36,7 @@ jobs:
       #     paths:
       #       - ./vendor/bundle
       #     key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-      - run: cp .env.example .env
+      - run: cp .env-example .env
       - run: docker-compose build
 
       # Database setup
