@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jade/runtime
+//= require jade-runtime-1.11.0
 //= require jquery
 //= require jquery_ujs
 //= require foundation
