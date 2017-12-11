@@ -47,6 +47,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-chosen', '1.4.2'
   gem 'rails-assets-foundation', '5.5.3'
   gem 'rails-assets-humanize-plus', '1.5.0'
+  gem 'rails-assets-jquery', '2.2.3'
   gem 'rails-assets-marionette', '2.4.5'
   gem 'rails-assets-moment', '2.10.6'
   gem 'rails-assets-uri.js', '1.17.1'
