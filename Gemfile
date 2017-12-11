@@ -44,12 +44,12 @@ gem 'multilogger', git: 'https://github.com/codequest-eu/multilogger'
 gem 'remote_syslog_logger'
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-chosen'
-  gem 'rails-assets-foundation'
-  gem 'rails-assets-humanize-plus'
-  gem 'rails-assets-marionette'
-  gem 'rails-assets-moment'
-  gem 'rails-assets-uri.js'
+  gem 'rails-assets-chosen', '1.4.2'
+  gem 'rails-assets-foundation', '5.5.3'
+  gem 'rails-assets-humanize-plus', '1.5.0'
+  gem 'rails-assets-marionette', '2.4.5'
+  gem 'rails-assets-moment', '2.10.6'
+  gem 'rails-assets-uri.js', '1.17.1'
 end
 
 group :development, :test do

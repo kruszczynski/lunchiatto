@@ -424,12 +424,12 @@ DEPENDENCIES
   puma
   pundit
   rails
-  rails-assets-chosen!
-  rails-assets-foundation!
-  rails-assets-humanize-plus!
-  rails-assets-marionette!
-  rails-assets-moment!
-  rails-assets-uri.js!
+  rails-assets-chosen (= 1.4.2)!
+  rails-assets-foundation (= 5.5.3)!
+  rails-assets-humanize-plus (= 1.5.0)!
+  rails-assets-marionette (= 2.4.5)!
+  rails-assets-moment (= 2.10.6)!
+  rails-assets-uri.js (= 1.17.1)!
   rails-controller-testing
   reek
   remote_syslog_logger
